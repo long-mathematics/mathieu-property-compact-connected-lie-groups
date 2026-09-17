@@ -107,3 +107,11 @@ run_cmd do
 #print axioms MathieuProperty.center_descent
 
 #print axioms MathieuProperty.center_quotient_tower
+
+#print axioms MathieuProperty.beta_moment_ratio
+#print axioms MathieuProperty.beta_moment_integrable
+#print axioms MathieuProperty.beta_moment_product
+#print axioms MathieuProperty.beta_moment_nat
+#print axioms MathieuProperty.beta_two_moment
+#print axioms MathieuProperty.classical_small_values
+#print axioms MathieuProperty.su2_small_values
