@@ -43,7 +43,9 @@ jobs:
       - name: Audit all project axiom dependencies
         run: lake env lean scripts/AxiomAudit.lean
       - name: Check outstanding obligation statements
-        run: lake env lean scripts/CheckObligations.lean
+        run: |
+          lake env lean scripts/CheckObligations.lean
+          lake env lean scripts/CheckAdjointRoute.lean
       - name: Verify exact symbolic output
         run: |
           python3 -m pip install sympy==1.12

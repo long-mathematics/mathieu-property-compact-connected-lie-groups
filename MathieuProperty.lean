@@ -113,6 +113,14 @@ import MathieuProperty.CompactRootSetup
 
 import MathieuProperty.AbelianReductions
 
+import MathieuProperty.AdjointRootString
+import MathieuProperty.InvariantHaarTransfer
+import MathieuProperty.SU2Generators
+import MathieuProperty.AdjointOneParameter
+import MathieuProperty.RealRepresentative
+import MathieuProperty.AdjointCoordinates
+import MathieuProperty.SU2CentralQuotient
+
 /-! Formalization of The Mathieu Property for Compact Connected Lie Groups.
 See FORMALIZATION_STATUS.md for the exact scope currently checked.
 -/

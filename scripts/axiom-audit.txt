@@ -1,4 +1,4 @@
-Axiom audit passed: 3875 project declarations, 3173 theorems.
+Axiom audit passed: 4015 project declarations, 3278 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -535,3 +535,17 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.Zwart.soEulerSourceMoment_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Zwart.so_conjecture_2023_euler_false' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.abelian_reductions' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AdjointRootString.exists_simple_pair_neg_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.AdjointRootString.simple_root_string' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AdjointRootString.adjoint_doublet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AdjointRootString.exists_adjoint_primitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AdjointOneParameter.coordinate_curve_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.su2_euler_factorization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AdjointCoordinates.pushforward_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AdjointCoordinates.marker_tower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AdjointCoordinates.not_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.su2_mem_center_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.su2_central_quotient_tower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.not_mathieu_of_center_quotient_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]

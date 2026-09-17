@@ -548,3 +548,16 @@ run_cmd do
 #print axioms MathieuProperty.Zwart.soEulerSourceMoment_eq
 #print axioms MathieuProperty.Zwart.so_conjecture_2023_euler_false
 #print axioms MathieuProperty.abelian_reductions
+
+#print axioms MathieuProperty.AdjointRootString.exists_simple_pair_neg_one
+#print axioms MathieuProperty.AdjointRootString.simple_root_string
+#print axioms MathieuProperty.AdjointRootString.adjoint_doublet
+#print axioms MathieuProperty.AdjointRootString.exists_adjoint_primitive
+#print axioms MathieuProperty.AdjointOneParameter.coordinate_curve_eq
+#print axioms MathieuProperty.Hopf.su2_euler_factorization
+#print axioms MathieuProperty.AdjointCoordinates.pushforward_invariant
+#print axioms MathieuProperty.AdjointCoordinates.marker_tower
+#print axioms MathieuProperty.AdjointCoordinates.not_mathieu
+#print axioms MathieuProperty.Hopf.su2_mem_center_iff
+#print axioms MathieuProperty.Hopf.su2_central_quotient_tower
+#print axioms MathieuProperty.Hopf.not_mathieu_of_center_quotient_equiv
