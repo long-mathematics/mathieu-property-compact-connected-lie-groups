@@ -7,6 +7,7 @@ import MathieuProperty.HopfCoefficient
 import MathieuProperty.MomentConstant
 import MathieuProperty.HopfIntegralKernel
 import MathieuProperty.PhaseAverage
+import MathieuProperty.SphereMeasure
 import MathieuProperty.AbelianAlgebra
 import MathieuProperty.LaurentSupport
 import MathieuProperty.LaurentExamples
