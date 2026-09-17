@@ -1,7 +1,7 @@
 import MathieuProperty
 
-/-! Exact missing targets for the adjoint alternative. These are type checks,
-not declarations or assumptions used to complete any project theorem. -/
+/-! Checked existence results and the remaining target for the adjoint alternative.
+The AR01/AR02/AR02a examples are proofs; AR03 remains only a type-checked target. -/
 open MathieuProperty
 open scoped Manifold ContDiff TensorProduct
 noncomputable section
@@ -14,22 +14,21 @@ local instance rootFinite : FiniteDimensional ℝ (GroupLieAlgebra 𝓘(ℝ,E) G
   inferInstanceAs (FiniteDimensional ℝ E)
 variable [LieAlgebra.IsSimple ℝ (GroupLieAlgebra 𝓘(ℝ,E) G)]
 
-/- AR01: real compact simplicity must give complex simplicity (Killing alone
-is insufficient for the irreducibility hypothesis of exists_simple_pair_neg_one). -/
-#check (LieAlgebra.IsSimple ℂ (ℂ ⊗[ℝ] GroupLieAlgebra 𝓘(ℝ,E) G) : Prop)
+/- AR01: proved for the actual compact real simple Lie algebra. -/
+example : LieAlgebra.IsSimple ℂ (ℂ ⊗[ℝ] GroupLieAlgebra 𝓘(ℝ,E) G) :=
+  CompactCartanRootData.complexification_isSimple
 
 /- AR02: this is the exact sufficient algebraic certificate at rank at least two.
 The fields specify nonzero coordinates and the two standard infinitesimal
 intertwining identities on the WHOLE real algebra. AdjointCoordinates constructs
 actual group actions, representative functions, Haar invariance and all moments
 from these data; no general root integration theorem remains in that implication. -/
-#check (1 < Module.finrank ℝ (CompactCartanRootData.realCartan (E := E) (G := G)) →
-  Nonempty (AdjointCoordinates.Certificate (E := E) (G := G)) : Prop)
+example : 1 < Module.finrank ℝ (CompactCartanRootData.realCartan (E := E) (G := G)) →
+  Nonempty (AdjointCoordinates.Certificate (E := E) (G := G)) :=
+  AdjointRankTwo.exists_certificate
 
-/- AR02a: compact-real normalization of a root triple, a narrower intermediate
-missing theorem in the intended proof of AR02. Algebraic root triples already
-exist, but their reality under conjugation is not established by that result. -/
-#check (∀ α : (CompactCartanRootData.simpleBase (E := E) (G := G)).support,
+/- AR02a: proved compact-real normalization of every simple-root triple. -/
+example : ∀ α : (CompactCartanRootData.simpleBase (E := E) (G := G)).support,
   ∃ (h e f : ℂ ⊗[ℝ] GroupLieAlgebra 𝓘(ℝ,E) G),
     IsSl2Triple h e f ∧
     h = (LieAlgebra.IsKilling.coroot α.val.val : ℂ ⊗[ℝ] GroupLieAlgebra 𝓘(ℝ,E) G) ∧
@@ -38,7 +37,8 @@ exist, but their reality under conjugation is not established by that result. -/
     ∃ X Y Z : GroupLieAlgebra 𝓘(ℝ,E) G,
       (1 : ℂ) ⊗ₜ[ℝ] X = e-f ∧
       (1 : ℂ) ⊗ₜ[ℝ] Y = Complex.I • (e+f) ∧
-      (1 : ℂ) ⊗ₜ[ℝ] Z = Complex.I • h : Prop)
+      (1 : ℂ) ⊗ₜ[ℝ] Z = Complex.I • h :=
+  CompactCartanRootData.exists_compact_root_triple
 
 /- AR03: exact remaining rank-one identification. The SU(2)/{±1} witness,
 center calculation, and pullback implication are already proved. This target

@@ -1,4 +1,4 @@
-Axiom audit passed: 4015 project declarations, 3278 theorems.
+Axiom audit passed: 4103 project declarations, 3356 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -549,3 +549,18 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.Hopf.su2_mem_center_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Hopf.su2_central_quotient_tower' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Hopf.not_mathieu_of_center_quotient_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactCartanRootData.complexification_isSimple' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.CompactCartanRootData.exists_compact_root_triple' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.CompactDoubletProjection.real_coordinate_actions' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.AdjointRankTwo.exists_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AdjointRankTwo.marker_tower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AdjointRankTwo.not_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.not_mathieu_of_adjoint_rank_two' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
