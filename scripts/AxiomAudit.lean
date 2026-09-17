@@ -136,3 +136,16 @@ run_cmd do
 #print axioms MathieuProperty.gammaRatioSum_map
 #print axioms MathieuProperty.gamma_ratio_beta
 #print axioms MathieuProperty.gamma_sum_gamma
+
+#print axioms MathieuProperty.gaussian_square_gamma
+#print axioms MathieuProperty.gaussian_pair_squares_gamma
+
+#print axioms MathieuProperty.finite_gamma_sum
+#print axioms MathieuProperty.finite_gamma_ratio_beta
+#print axioms MathieuProperty.complexGaussian_normSq_map
+#print axioms MathieuProperty.gamma_one_scale_rate
+#print axioms MathieuProperty.sphere_dirichletOne
+#print axioms MathieuProperty.sphere_two_coordinates_beta
+#print axioms MathieuProperty.specialUnitaryRadialA_map
+#print axioms MathieuProperty.specialUnitaryRadialA_moment
+#print axioms MathieuProperty.specialUnitaryRadialA_integrable

@@ -1,3 +1,5 @@
+import MathieuProperty.SphereBeta
+import MathieuProperty.GaussianSquare
 import MathieuProperty.GammaBeta
 import MathieuProperty.GaussianSphere
 import MathieuProperty.ClassicalOrbit

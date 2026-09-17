@@ -1,4 +1,4 @@
-Axiom audit passed: 1046 project declarations, 857 theorems.
+Axiom audit passed: 1122 project declarations, 926 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -102,3 +102,14 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.gammaRatioSum_map' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.gamma_ratio_beta' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.gamma_sum_gamma' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.gaussian_square_gamma' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.gaussian_pair_squares_gamma' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.finite_gamma_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.finite_gamma_ratio_beta' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.complexGaussian_normSq_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.gamma_one_scale_rate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.sphere_dirichletOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.sphere_two_coordinates_beta' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.specialUnitaryRadialA_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.specialUnitaryRadialA_moment' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.specialUnitaryRadialA_integrable' depends on axioms: [propext, Classical.choice, Quot.sound]

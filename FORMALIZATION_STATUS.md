@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/gamma-beta`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/gaussian-gamma`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 50 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- M0 and M1 complete; the library covers 55 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
 - Milestones through beta moments are merged and CI-checked ([PR #15](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/15)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -112,10 +112,10 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | L11 | Nonempty open sets have positive Haar; continuity gives nonconcentration | haar_pushforward_nonconcentration | ProjectedHaar | L09; D-haar | PROVED | Manuscript | Continuous preimage of the complement of zero is open and contains the identity; actual Haar positivity applies. |
 | C01 | First column Haar on SU(n) is uniform complex unit sphere | specialUnitaryFirstColumn_map; specialUnitaryFirstColumn_apply | ClassicalOrbit / ClassicalTopology / ClassicalSphereGeometry / NormalizedSphere |  | PROVED | Manuscript | For n≥2, actual compact SU(n) acts continuously and transitively on the Euclidean unit sphere; normalized cone surface measure is invariant. Haar orbit pushforward equals this probability measure. |
 | C02 | Complex Gaussian normalization produces sphere measure | gaussian_sphere; normalized_independent_complex_gaussian | GaussianSphere | C01 | PROVED | Manuscript, invariance proof | Normalization of independent real/imaginary Gaussian coordinates gives the actual normalized Euclidean sphere measure for n≥2, covering every use in the manuscript. The origin is a proved null set. |
-| C03 | Squared coordinate norms are Dirichlet(1,…,1), first two sum Beta(2,n-2) | sphere_two_coordinates_beta (planned); gammaRatioSum_map; gamma_ratio_beta; gamma_sum_gamma | GammaBeta / ClassicalGroups (planned) | C02 | IN PROGRESS | Manuscript | Actual gamma sum and independent beta ratio laws proved by Jacobian substitution for all positive real shape/rate parameters. Gaussian-square and finite-product correspondences to the sphere remain open. |
+| C03 | Squared coordinate norms are Dirichlet(1,…,1), first two sum Beta(2,n-2) | sphere_dirichletOne; sphere_two_coordinates_beta; specialUnitaryRadialA_map; specialUnitaryRadialA_moment | SphereBeta / GaussianRadii / GaussianSquare / GammaScale / FiniteGamma / GammaBeta | C02 | PROVED | Manuscript | Actual normalized sphere coordinate law identified with normalized independent unit-rate gamma construction of Dirichlet(1,…,1); positive-rate scaling is proved. First-two marginal is actual betaMeasure. Actual SU(n) radial Haar moments established for all n≥2. |
 | C04 | Beta moments equal rising factorial ratios | beta_moment_ratio; beta_moment_integrable; beta_moment_product; beta_moment_nat; beta_two_moment | BetaMoments | C03 | PROVED | Manuscript | Actual mathlib betaMeasure: density shift, normalization, integrability, Gamma recurrence, and rising-factorial ratios for all positive integer parameters. |
 | C05 | Sp(n) defining action transitive on complex 2n sphere with same invariant measure | Sp_sphere_transitive | ClassicalGroups |  | TODO | Manuscript |  |
-| C06 | Endpoint n=2 for SU and n=1 for Sp: A=1 and ratio=1 | classical_endpoints | ClassicalGroups | C01; C05 | TODO | Manuscript |  |
+| C06 | Endpoint n=2 for SU and n=1 for Sp: A=1 and ratio=1 | firstTwoSphereMass_two; specialUnitaryRadialA_two; specialUnitaryRadialA_moment | SphereBeta / ClassicalGroups (planned) | C01; C05 | IN PROGRESS | Manuscript | SU(2) defining first-column endpoint A=1 and rising-factorial ratio are checked; Sp(1)=SU(2) identification remains open. |
 | C07 | Nine rational examples for m=1,2,3 | classical_small_values; su2_small_values | ClassicalConstants | C04; H12 | IN PROGRESS | Manuscript | All nine displayed rational expressions checked; the first three are actual SU(2) representative Haar moments. Higher-dimensional Haar correspondences remain open. |
 | Z01 | Schur lemma: center acts by scalar of modulus one | center_scalar; unitary_center_scalar | CenterDescent | L02; L03 | PROVED | Manuscript | mathlib algebraically closed Schur lemma; norm preservation gives scalar modulus one. |
 | Z02 | Balanced coefficients invariant; tensor representation has trivial central action | doublet_center_invariant; MatrixRepresentation.balanced_tensor_trivial | CenterDescent | Z01; H04 | PROVED | Manuscript | All six phase-balanced quantities are invariant; the actual tensor/conjugate matrix representation is identity on every unit scalar action. |
@@ -302,7 +302,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=74, TODO=20, IN PROGRESS=10, BLOCKED=6 (110 rows).
+Current inventory counts: PROVED=75, TODO=19, IN PROGRESS=10, BLOCKED=6 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -967,3 +967,47 @@ for 53 Lean files. Namespace axiom audit passed for 1046 declarations and
 857 theorem constants, with only the three approved foundations. The verifier
 output matches exactly, outstanding statements type-check, and the manuscript
 is unchanged. There are 50 mathematical modules.
+
+## Sphere Dirichlet/beta laws and SU(n) radial moments
+
+Gamma/beta infrastructure was merged as
+[PR #18](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/18)
+at `a60399f6c73cf0af0574d07b97794cbf9280dc90`, after CI run `35184845276` passed.
+The current branch is `formalization/gaussian-gamma`.
+
+`GaussianSquare.lean` proves the actual squared N(0,1) law is
+Gamma(1/2,1/2), using evenness, positive-half-line substitution y=x², and
+Gamma(1/2)=sqrt(pi). A pair of independent squares has Gamma(1,1/2) law.
+`GaussianRadii.lean` uses the product-measure curry theorem to group real and
+imaginary coordinates and proves that squared moduli of the actual complex
+Euclidean standard Gaussian have independent Gamma(1,1/2) laws.
+
+`FiniteGamma.lean` proves arbitrary finite sums and block ratios of independent
+gamma coordinates. `GammaScale.lean` proves positive scaling of shape-one
+gamma variables to unit rate. `SphereBeta.lean` then identifies the actual
+normalized sphere coordinate masses with Dirichlet(1,…,1), defined by its
+standard normalized independent unit-rate gamma construction. The common-rate
+conversion is proved; it is not an implicit convention change. Coordinate
+masses are nonnegative and sum to one. Every nonempty proper block has the
+corresponding beta law, in particular Beta(2,n−2) for the first two coordinates
+when n≥3. This completes C03.
+
+The manuscript-facing SU(n) radial quantity is explicitly
+A(g)=normSq(g[0,0])+normSq(g[1,0]). Its actual normalized Haar pushforward is
+Beta(2,n−2), and every natural moment is (2)ₖ/(n)ₖ. The n=2 endpoint A=1 is
+checked directly, so the moment theorem holds for all n≥2. Integrability of
+all radial moments is explicit. C06 is IN PROGRESS because the separate
+Sp(1) identification is not yet formalized.
+
+Next: connect the SU(n) defining first-two-coordinate pair to the existing
+radial marker theorem (construct the block SU(2) action and representative
+functions), yielding the classical marked-moment formulas and the SU(3)/SU(4)
+printed examples as actual Haar moments. Sp(n) transitivity and the major
+root-existence/DvK/general Lie structure gaps remain open. Current inventory:
+75 PROVED, 19 TODO, 10 IN PROGRESS, 6 BLOCKED (110 total); 55 mathematical modules.
+
+Sphere-beta milestone validation: `lake build` passed (3923 jobs); source
+audit passed for 58 Lean files. Namespace axiom audit passed for 1122 project
+declarations and 926 theorem constants. All dependencies are limited to
+propext, Classical.choice, and Quot.sound. Exact verifier output matches,
+outstanding target statements type-check, and the manuscript remains unchanged.
