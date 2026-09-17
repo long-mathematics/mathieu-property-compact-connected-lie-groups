@@ -239,3 +239,12 @@ run_cmd do
 #print axioms MathieuProperty.torus_mathieu_iff_constantTerm
 #print axioms MathieuProperty.zero_laurent_eventual
 #print axioms MathieuProperty.zero_laurent_multiplier
+
+#print axioms MathieuProperty.DvK.extendedDiscreteValuation_hasExtension
+#print axioms MathieuProperty.DvK.AnnulusSeries.fixedPoint_coeff_zero
+#print axioms MathieuProperty.DvK.dvkCoefficientExtraction
+#print axioms MathieuProperty.one_variable_nonzero_constant_power
+#print axioms MathieuProperty.duistermaat_van_der_kallen_one_variable
+#print axioms MathieuProperty.one_variable_constantTerm_mathieu
+#print axioms MathieuProperty.torus_one_mathieu
+#print axioms MathieuProperty.circle_mathieu

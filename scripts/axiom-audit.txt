@@ -1,4 +1,4 @@
-Axiom audit passed: 1659 project declarations, 1385 theorems.
+Axiom audit passed: 1928 project declarations, 1614 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -206,3 +206,11 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.torus_mathieu_iff_constantTerm' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.zero_laurent_eventual' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.zero_laurent_multiplier' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.DvK.extendedDiscreteValuation_hasExtension' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.DvK.AnnulusSeries.fixedPoint_coeff_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.DvK.dvkCoefficientExtraction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.one_variable_nonzero_constant_power' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.duistermaat_van_der_kallen_one_variable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.one_variable_constantTerm_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.torus_one_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.circle_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
