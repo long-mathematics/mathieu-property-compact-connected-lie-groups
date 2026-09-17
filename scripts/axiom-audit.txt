@@ -1,4 +1,4 @@
-Axiom audit passed: 3536 project declarations, 2894 theorems.
+Axiom audit passed: 3615 project declarations, 2960 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -468,3 +468,19 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.LocalCommutativity.identity_component_commute' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'MathieuProperty.FullAdjoint.toAutomorphisms_mfderiv_surjective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.FullAdjoint.toAutomorphisms_range_eq_component' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.FullAdjoint.component_compact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.BilinearStabilizer.inclusion_closedEmbedding' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.BilinearStabilizer.component_compact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanStabilizer.fromCartan_bijective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanStabilizer.tangent_finrank' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanStabilizer.component_lieGroup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanStabilizer.component_torus_rank' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactCartanTorus.component_torus' depends on axioms: [propext, Classical.choice, Quot.sound]

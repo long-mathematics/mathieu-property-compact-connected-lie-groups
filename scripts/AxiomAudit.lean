@@ -488,3 +488,14 @@ run_cmd do
 #print axioms MathieuProperty.CartanStabilizer.tangent_commute
 #print axioms MathieuProperty.CartanStabilizer.identity_component_commute
 #print axioms MathieuProperty.LocalCommutativity.identity_component_commute
+
+#print axioms MathieuProperty.FullAdjoint.toAutomorphisms_mfderiv_surjective
+#print axioms MathieuProperty.FullAdjoint.toAutomorphisms_range_eq_component
+#print axioms MathieuProperty.FullAdjoint.component_compact
+#print axioms MathieuProperty.BilinearStabilizer.inclusion_closedEmbedding
+#print axioms MathieuProperty.BilinearStabilizer.component_compact
+#print axioms MathieuProperty.CartanStabilizer.fromCartan_bijective
+#print axioms MathieuProperty.CartanStabilizer.tangent_finrank
+#print axioms MathieuProperty.CartanStabilizer.component_lieGroup
+#print axioms MathieuProperty.CartanStabilizer.component_torus_rank
+#print axioms MathieuProperty.CompactCartanTorus.component_torus
