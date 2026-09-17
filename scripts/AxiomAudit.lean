@@ -62,3 +62,7 @@ run_cmd do
 #print axioms MathieuProperty.Hopf.hopf_coefficient
 #print axioms MathieuProperty.Hopf.sphere_marker_tower
 #print axioms MathieuProperty.Hopf.radial_transfer
+
+#print axioms MathieuProperty.Abelian.matrix_entry_representatives
+#print axioms MathieuProperty.Hopf.su2_representative_marked
+#print axioms MathieuProperty.Hopf.SU2_not_mathieu

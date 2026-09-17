@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/sphere-polynomial-moments`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/su2-representative-witness`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 28 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- M0 and M1 complete; the library covers 29 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
 - Completion is prevented by the documented library exception below, independently of the many remaining ordinary obligations. The checked foundations are preserved through PR #1; remote validation and merge state are available there. No weakening or conditional main theorem is authorized.
 - No false manuscript statement identified. Library exception under attached prompt §16: the rank-two Duistermaat–van der Kallen noncancellation step remains unproved after the searches and proof attempts below. The known general proof would require major new toric/analytic infrastructure, which is not realistically achievable as a routine continuation of this paper formalization. The foundation milestone is incomplete coverage, not a completed formalization.
 
@@ -141,7 +141,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | E03 | Printed Laurent expansion exactly equal to P_ab | Abelian.expansion; Abelian.formal_expansion | AbelianAlgebra / AbelianLaurent | D-explicit | PROVED | Manuscript | Also equality in the actual Laurent polynomial algebra. |
 | E04 | Four nonzero coefficient polynomials give exact formal spectrum {-1,0,1,2} | Abelian.formal_spectrum | AbelianLaurent | E03 | PROVED | Manuscript | All four coefficient polynomials proved nonzero by evaluation; no claim of fixed-x endpoint spectrum. |
 | E05 | t=1-2x² gives normalized weighted CT integral and moment laws | Abelian.change_variables | AbelianWitness | E02; H08 | TODO | Manuscript |  |
-| E06 | On SU(2), conjugate entry identities give polynomial Hopf representatives | Abelian.matrix_entry_representatives | AbelianWitness | D-hopf | TODO | Manuscript |  |
+| E06 | On SU(2), conjugate entry identities give polynomial Hopf representatives | Abelian.matrix_entry_representatives; Abelian.matrix_entry_pair | SU2Witness | D-hopf; R01 | PROVED | Manuscript | Exact four-entry polynomial formulas; the pair is also constructed in the actual representative algebra. |
 | E07 | All entry representatives invariant under maximal torus factor | Abelian.torus_invariance; Abelian.entryP_torus_invariance | AbelianAlgebra | E06 | PROVED | Manuscript | U₀ is also the Q entry representative. |
 | E08 | Square-root-free substitution sends A₀,U₀,V₀,T₀ to 1,U,V,T | Abelian.square_root_free; Abelian.square_root_free_pair | AbelianAlgebra | E06 | PROVED | Manuscript | All complex x and nonzero w, including manuscript domain. |
 | E09 | Representative independence and equality to actual Mueger–Tuset group-coordinate transform | Abelian.transform_correspondence | AbelianWitness | E07; E08; E14 | TODO | Manuscript |  |
@@ -173,7 +173,7 @@ Historical claims in the introduction about the Jacobian conjecture, announcemen
 
 ## Validation and correspondence audit
 
-Current full library build passed (3624 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
+Current full library build passed (3625 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
 
 ## Resume notes
 
@@ -302,7 +302,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=53, TODO=47, IN PROGRESS=4, BLOCKED=6 (110 rows).
+Current inventory counts: PROVED=54, TODO=46, IN PROGRESS=4, BLOCKED=6 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -559,3 +559,34 @@ for `hopf_coefficient`, `sphere_marker_tower`, and `radial_transfer`. There are
 verifier reproduces its checked-in output exactly; precise outstanding-obligation
 statements still type-check. The manuscript is unchanged from its initial commit.
 This is a milestone correspondence check, not the final full-paper audit.
+
+
+## Actual SU(2) representative-function witness
+
+The full Hopf/radial milestone was merged as
+[PR #7](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/7)
+at `d2249e11129fa3f2798bf3502f5a5c1507c3935d`, after CI run `35176531343`
+succeeded, including the complete build, source and axiom audits, and verifier.
+
+`SU2Witness.lean` proves all four matrix-entry representatives A₀,U₀,V₀,T₀ and
+identifies their polynomial pair with the Hopf pair on the first column. The
+actual defining matrix representation supplies four elements of the finite
+representative algebra. Evaluating the entry polynomials there constructs
+`su2P` and `su2Q`, with no assumed representative-function membership.
+The Haar/sphere correspondence proves every positive pure moment is zero and
+all marked moments have the Pascal formula for these actual algebra elements.
+`Hopf.SU2_not_mathieu` refutes the manuscript's Mathieu property for SU(2), with
+fixed witness `su2P` and multiplier `su2Q`. This is the SU(2) special case only;
+the general nonabelian classification and uniform theorem remain unproved.
+
+This completes E06. The remaining explicit transformed-witness work includes
+E05 (the weighted x-integral/constant-term formula), and E09/E14 (the external
+transform correspondence). All original and replacement-proof obligations
+remain tracked. Auxiliary tools and outputs remain under `scripts/`.
+
+SU(2) witness validation: `lake build` passed (3625 jobs); source audit passed for
+32 Lean files. Whole-namespace audit passed for 612 declarations (502 theorem
+constants), with only the three approved foundations, including `SU2_not_mathieu`.
+There are 231 explicit theorem/lemma declarations in 29 mathematical modules.
+The ledger has 54/110 obligations proved. The verifier output matches exactly,
+and the precise outstanding statements still type-check.
