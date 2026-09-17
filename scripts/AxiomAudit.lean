@@ -33,3 +33,8 @@ run_cmd do
 #print axioms MathieuProperty.eventual_constantTerm_zero_of_newton
 #print axioms MathieuProperty.highest_weight_one_lowering
 #print axioms MathieuProperty.Abelian.square_root_free_pair
+#print axioms MathieuProperty.representative_algebra
+#print axioms MathieuProperty.MatrixRepresentation.tensor_toMatrix
+#print axioms MathieuProperty.representation_coefficient_mem
+#print axioms MathieuProperty.representative_counterexample_pullback
+#print axioms MathieuProperty.HasMathieuProperty.of_surjective
