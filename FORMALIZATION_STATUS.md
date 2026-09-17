@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/representative-functions`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/hopf-integral-kernel`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 11 mathematical modules plus the import umbrella. The representative-algebra and Haar-pullback lemmas are proved; no principal classification or moment theorem is proved. The main classification, uniform nonabelian tower, sphere integral, radial transfer, root subgroup existence, and torus direction remain outstanding.
+- M0 and M1 complete; the library covers 13 mathematical modules plus the import umbrella. The representative-algebra and Haar-pullback lemmas are proved; no principal classification or moment theorem is proved. The main classification, uniform nonabelian tower, sphere integral, radial transfer, root subgroup existence, and torus direction remain outstanding.
 - Completion is prevented by the documented library exception below, independently of the many remaining ordinary obligations. The checked foundations are preserved through PR #1; remote validation and merge state are available there. No weakening or conditional main theorem is authorized.
 - No false manuscript statement identified. Library exception under attached prompt §16: the rank-two Duistermaat–van der Kallen noncancellation step remains unproved after the searches and proof attempts below. The known general proof would require major new toric/analytic infrastructure, which is not realistically achievable as a routine continuation of this paper formalization. The foundation milestone is incomplete coverage, not a completed formalization.
 
@@ -63,7 +63,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | D-haar | Normalized Haar integration on representative functions | normalizedHaar; representativeIntegral; representativeIntegral_one | Haar | D-representative | PROVED | Manuscript | Linear restriction to the representative algebra; integrability and normalization proved. |
 | D-property | Mathieu property is Mathieu condition on the kernel of Haar integral | HasMathieuProperty | Haar | D-haar; def:mathieu-subspace | PROVED | Manuscript | Mathieu condition on the kernel of representativeIntegral. |
 | D-hopf | a, τ, u, v, universal P,Q, sphere restrictions p,q | Hopf.a; Hopf.tau; Hopf.u; Hopf.v; Hopf.P; Hopf.Q; Hopf.Sphere; Hopf.p; Hopf.q | HopfAlgebra |  | PROVED | Manuscript |  |
-| D-cm | Integral c_m and factorial/beta/double-factorial alternatives | momentConstant | MomentConstant |  | IN PROGRESS | Substitute: polynomial primitive / integration recurrence | Integral definition, recurrence, factorial ratio and positivity checked. |
+| D-cm | Integral c_m and factorial/beta/double-factorial alternatives | momentConstant; momentConstant_factorial; momentConstant_beta; momentConstant_doubleFactorial | MomentConstant |  | PROVED | Substitute: integration recurrence and mathlib beta integral | All printed forms and positivity checked; beta equality uses the complex-valued Euler integral at positive real arguments. |
 | D-CT | Coefficient and Laurent constant term conventions; negative coefficients zero | MultiLaurent; constantTerm; newtonPolytope | LaurentSupport |  | PROVED | Manuscript | AddMonoidAlgebra on Fin d → ℤ; coefficients include cancellation. |
 | D-Phi | Orthogonal projection coordinates and group A,P,Q | projectionCoordinates | SimpleGroups | L08 | TODO | Manuscript |  |
 | D-explicit | U,V,T, transformed P_ab,Q_ab and matrix-entry representatives | Abelian.U; Abelian.V; Abelian.T; Abelian.P; Abelian.Q; Abelian.A₀; Abelian.U₀; Abelian.V₀; Abelian.T₀; Abelian.entryP; Abelian.formalP; Abelian.formalQ | AbelianAlgebra / AbelianLaurent |  | PROVED | Manuscript | The formal algebra is ℂ[x][w,w⁻¹]. |
@@ -77,13 +77,13 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | H03 | Real homogeneity P(rz)=r⁸P(z), Q(rz)=r²Q(z) | Hopf.homogeneity | HopfAlgebra | D-hopf | PROVED | Manuscript |  |
 | H04 | Common unit phase invariance of a,τ,u,v,P,Q | Hopf.phase_balance | HopfAlgebra | D-hopf | PROVED | Manuscript |  |
 | H05 | Hopf-coordinate normalized surface measure, endpoints null | hopf_coordinates_measure | HopfIntegral | D-hopf | TODO | Manuscript |  |
-| H06 | Normalized phase integral extracts every Laurent constant term at nonzero radius | phase_integral_constantTerm | HopfIntegral | D-CT | TODO | Manuscript |  |
+| H06 | Normalized phase integral extracts every Laurent constant term at nonzero radius | phase_integral_constantTerm; laurentPhase_eq_smeval | PhaseAverage | D-CT | PROVED | Manuscript | All integer exponents, exact 1/(2π) normalization, agreement with Laurent evaluation at every nonzero radius. |
 | H07 | Sphere polynomial integrability and justified localization away from u=0 | hopf_integrable | HopfIntegral | H05 | TODO | Manuscript |  |
-| H08 | Evenness in t and Fubini give CT-step with correct normalization | hopf_ct_step | HopfIntegral | H05–H07; H02 | TODO | Manuscript |  |
-| H09 | Polynomial primitive J_m; substitution identity | primitive; derivative_primitive; hopfPrimitive_eval_one | HopfCoefficient / MomentConstant |  | IN PROGRESS | Substitute: polynomial primitive / integration recurrence | Actual primitive and value at 1 proved; parameter substitution correspondence pending. |
+| H08 | Evenness in t and Fubini give CT-step with correct normalization | hopf_integrated_coefficient | HopfIntegralKernel / HopfIntegral (planned) | H05–H07; H02; H09–H12 | IN PROGRESS | Manuscript | Real coefficient integral and its closed form proved. Sphere/Hopf-coordinate measure, Fubini, and evenness correspondence still pending. |
+| H09 | Polynomial primitive J_m; substitution identity | hopfPrimitive_eval_integral; hopfPrimitive_complex_substitution | HopfCoefficient / HopfIntegralKernel |  | PROVED | Substitute: complex FTC and finite binomial sums | Primitive evaluated at every real endpoint; complex substitution including zero parameter proved. |
 | H10 | J_m(1+X)-J_m(1) divisible by X^(m+1) | primitive_congruence | HopfCoefficient | H09 | PROVED | Manuscript |  |
 | H11 | Multiplication by polynomials cannot change coefficient m of X^(m+1) multiple | coefficient_congruence | HopfCoefficient | H10 | PROVED | Manuscript |  |
-| H12 | Integral c_m equals factorial ratio, beta and double factorial expressions; positive | momentConstant_factorial; momentConstant_pos | MomentConstant | D-cm | IN PROGRESS | Substitute: polynomial primitive / integration recurrence | Integral equals factorial ratio and is strictly positive for every natural m; beta/double-factorial presentations pending. |
+| H12 | Integral c_m equals factorial ratio, beta and double factorial expressions; positive | momentConstant_factorial; momentConstant_beta; momentConstant_doubleFactorial; momentConstant_pos | MomentConstant | D-cm | PROVED | Substitute: integration recurrence and mathlib beta integral | Integral, factorial, double-factorial, and beta forms all proved. |
 | H13 | Coefficient m of X^s(1+X)^(m-1) is choose(m-1,s-1), including s>m | pascal_coefficient | HopfCoefficient |  | PROVED | Manuscript |  |
 | H14 | Unmarked coefficient zero; binomial positive iff 1≤s≤m | pure_pascal_coefficient; pascal_marker_pos; pascal_marker_zero | HopfCoefficient / MomentConstant | H13 | PROVED | Manuscript | Includes every positive/vanishing index range. |
 | R01 | Explicit SU(2) matrix proves transitivity on each nonzero sphere | SU2_transitive_sphere | RadialTransfer |  | TODO | Manuscript |  |
@@ -168,7 +168,7 @@ Historical claims in the introduction about the Jacobian conjecture, announcemen
 
 ## Validation and correspondence audit
 
-Current full library build passed (3539 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 currently has the polynomial primitive and derivative proved, but its integral/substitution correspondence is pending; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
+Current full library build passed (3605 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
 
 ## Resume notes
 
@@ -296,7 +296,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=31, TODO=61, IN PROGRESS=7, BLOCKED=6.
+Current inventory counts: PROVED=35, TODO=59, IN PROGRESS=5, BLOCKED=6.
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -348,3 +348,35 @@ The manuscript is unchanged. The remaining library obstructions are unchanged,
 but they do not prevent completing these independent obligations.
 
 M1 validation: `lake build` passed (3539 jobs); source audit passed for 14 Lean files; transitive axiom audit passed for 246 project declarations (177 theorem constants, including generated declarations). The whitelist remains `propext`, `Classical.choice`, `Quot.sound`. Outstanding statement checks pass.
+
+## Hopf integral-kernel milestone (partial M3)
+
+M1 was merged as [PR #2](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/2)
+at main commit `bc7912192c8dc8a12671bd9ea2e0dafafee0d8a8` after successful CI.
+
+`HopfIntegralKernel.lean` now proves the analytic coefficient kernel on `[0,1]`:
+the integral of coefficient m of
+`H(X)(1+X)^m(1-(1+X)^2 t^2)^m` equals
+`c_m * coeff m (H(X)(1+X)^(m-1))` for all positive m and all complex polynomials H.
+Finite binomial sums justify integrability and interchange; complex FTC proves
+substitution without dividing by `1+X`. This covers the zero-parameter case too.
+
+`PhaseAverage.lean` proves normalized phase extraction for arbitrary Laurent
+polynomials with all integer exponents, and identifies its finite-sum expression
+with mathlib's actual Laurent evaluation at every nonzero complex radius.
+`MomentConstant.lean` now includes the beta and double-factorial forms as well as
+the already-proved factorial form and positivity.
+
+These proofs do NOT identify the coordinate integral with normalized surface
+measure on S³. H05 and the corresponding part of H08 remain open; consequently
+`thm:hopf-coefficient` and `cor:sphere-marker-tower` remain unproved.
+
+Further library search found `Measure.toSphere` and
+`measurePreserving_homeomorphUnitSphereProd` in `HaarToSphere.lean`, plus
+`WithLp 2 (ℂ × ℂ)` with the Euclidean product norm and compatible volume in
+`Haar/InnerProductSpace.lean`. These are potential starting points for the
+remaining measure correspondence, not already-proved Hopf-coordinate formulas.
+
+Integral-kernel validation: `lake build` passed (3605 jobs); source audit passed for 16 Lean files; transitive axiom audit passed for 281 project declarations (210 theorem constants, including generated declarations). There are 103 explicit theorem/lemma declarations. Only `propext`, `Classical.choice`, and `Quot.sound` occur. Outstanding target statements still type-check.
+
+Additional library dependencies: `TensorProduct.toMatrix_map`, `LinearMap.toMatrixAlgEquiv`, `Module.finBasis`, and `Submodule.span_induction` establish the representative-coordinate correspondence; `Complex.betaIntegral_eval_nat_add_one_right` and `Nat.doubleFactorial_add_two` establish the remaining moment-constant forms; `HasDerivAt.comp_ofReal`, complex FTC, `intervalIntegral.integral_finsetSum`, and `integral_exp_mul_complex` establish the new analytic steps.
