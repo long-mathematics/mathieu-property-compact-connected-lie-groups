@@ -15,10 +15,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/so-euler-source-correction`; milestones through [PR #55](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/55) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/adjoint-root-string-route`; milestones through [PR #56](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/56) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 168 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 175 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -3270,3 +3270,148 @@ passes. The symbolic verifier reproduces its checked-in output byte for byte.
 The manuscript remains identical to its initial source commit; the original SO
 discrepancy is preserved. The ledger count was independently recomputed as
 99 / 1 / 5 / 5 = 110. No placeholders or project-added axioms are present.
+
+## Adjoint root-string alternative (2026-09-17)
+
+**Outcome: substantial checked components, but not yet an unconditional
+rank-at-least-two simple-group theorem.** This is an alternative proof
+investigation requested by the user, not a change to a manuscript statement.
+The TeX source and all prior formalization results are preserved. L02, L06,
+and Z05 remain unformalized manuscript ingredients; none is marked proved or
+removed from the currently unfinished main theorem on the strength of a
+conditional transfer result. The 110-row manuscript inventory remains
+**99 PROVED / 1 TODO / 5 IN PROGRESS / 5 BLOCKED**.
+
+### Checked results in this alternative
+
+- `AdjointRootString.exists_simple_pair_neg_one`: every irreducible finite
+  reduced crystallographic root system of rank at least two has distinct
+  simple roots with an orientation giving pairing −1. The proof uses
+  connectedness of the Cartan graph and the finite crystallographic pairing
+  possibilities, with no Dynkin classification.
+- `AdjointRootString.simple_root_string`: the complete integer string through
+  β in direction α is exactly β and β+α. The simple-base chain-bottom
+  coefficient is zero and the top coefficient is one.
+- `AdjointRootString.adjoint_primitive`, `adjoint_doublet_space`, and
+  `adjoint_doublet`: actual root vectors form an adjoint sl₂ doublet equal to
+  g_β ⊕ g_(β+α), of complex dimension two, with matrices [[C,A],[B,−C]].
+  The root triple is constructed. The reversed triple (−h,f,e) makes a
+  nonzero vector of g_β a weight-one primitive vector. Existing
+  `RootDoubletModule` calculations supply the basis, dimension, and matrix
+  identities. `exists_adjoint_primitive` supplies the roots and vector for
+  a finite-dimensional **complex simple** Killing algebra with Cartan
+  dimension greater than one. No fundamental highest-weight representation
+  is assumed or constructed.
+- `AdjointOneParameter.complexAdjoint` is scalar extension of the actual
+  adjoint representation. `adjoint_curve_hasDerivAt_zero` and
+  `adjoint_curve_hasDerivAt` identify the derivative of the existing
+  `LieOneParameter.curve` action with ad(X). `coordinate_curve_eq` proves
+  that an infinitesimal coordinate intertwiner gives the corresponding
+  action along the actual group curve, by uniqueness of a linear ODE.
+  This avoids requiring a previously integrated root group homomorphism.
+  `LieHomCalculus.hom_eq_of_mfderiv_eq_one` additionally establishes
+  differential uniqueness at C¹ regularity, preserving the previous smooth
+  wrapper. The final coordinate comparison uses ODE uniqueness because the
+  coordinate projection itself is not an invertible group action.
+- `SU2Generators` proves the actual phase and real-rotation action formulas,
+  their one-parameter laws and derivatives, and an exact Euler factorization
+  D(u)R(t)D(v) for every SU(2) element. `phase_rotation_generate` proves
+  generation by these two subgroups; a third generator is unnecessary.
+- `haar_pushforward_invariant_of_generators` and
+  `haar_pushforward_invariant_of_phase_rotation` prove full SU(2)-invariance
+  from individual coordinate lifts by left translations. No compatible
+  choices or homomorphism SU(2) → G are required.
+- `projected_haar_moments_of_invariant` and
+  `projected_haar_positive_of_invariant` accept invariant pushforward measure
+  directly and reuse `RadialTransfer`. Existing homomorphism-based APIs
+  remain available as wrappers. `InvariantHaarTransfer` supplies the pure
+  and Pascal-row moments, strict positivity, and representative-function
+  counterexample from any invariant representative coordinate pair.
+- `real_representation_coefficient_mem` in `RealRepresentative` proves that
+  complex-valued real-linear coefficients of a continuous real
+  finite-dimensional representation lie in the actual representative
+  algebra. It uses scalar extension of coordinate matrices.
+- `AdjointCoordinates` constructs the actual adjoint coordinate functions
+  and representative coefficients from its explicitly supplied
+  `Certificate`. `phase_lift`, `rotation_lift`, `pushforward_invariant`,
+  `marker_tower`, `marked_positive`, `marked_zero`, `radial_nonnegative`,
+  `radial_nonzero`, and `not_mathieu` prove the full transfer implication.
+  The certificate asks for two real Lie-algebra generators, a continuous
+  real-linear map to C², and a vector with nonzero projection. Its two
+  infinitesimal intertwining identities must hold on the **whole** real
+  algebra, not merely on the two-dimensional root space. No simple-group
+  existence theorem is asserted by this construction.
+- `Hopf.su2_mem_center_iff` in `SU2CentralQuotient` identifies
+  the center exactly as the scalar matrices ±1. The scalar calculation
+  uses two explicit SU(2) matrices, without Schur or an irreducibility
+  assumption. `su2_central_quotient_tower` proves the pure and exact marked
+  moments and Mathieu failure for every central quotient of SU(2).
+  `su2_adjoint_not_mathieu` specializes to SU(2)/{±1};
+  `not_mathieu_of_center_quotient_equiv` pulls the failure back to any group
+  whose center quotient is topologically isomorphic to that adjoint form.
+
+### Exact unresolved bridge; what the investigation does not prove
+
+`scripts/CheckAdjointRoute.lean` type-checks the following targets. `#check`
+is not a proof, and these propositions are not supplied as project axioms.
+
+| Target | Exact mathematical content | Why it remains separate |
+|---|---|---|
+| AR01 | Complexification of the actual compact real simple group Lie algebra is complex simple. | Existing `KillingBaseChange` proves the Killing property, not simplicity; the root-edge theorem needs irreducibility. Compactness is essential to this inference. |
+| AR02 | If the actual compatible real Cartan has dimension >1, `Nonempty (AdjointCoordinates.Certificate ...)`. | This is the exact sufficient existence theorem still missing after the analytic and measure bridges are closed. It has no highest-weight, root-group, or covering data. |
+| AR02a | For every simple root, choose a root triple h,e,f with real X,Y,Z whose complexifications are e−f, i(e+f), ih. | Existing algebraic root triples do not establish compatibility with the compact real form or the required normalization. This is a narrower intermediate target in the intended proof of AR02. |
+| AR03 | At Cartan dimension one, `(G / center G)` is topologically group-isomorphic to `SU2Adjoint`. | Existing adjoint infrastructure identifies the quotient with the identity component of the automorphism group of its real Lie algebra; identifying the rank-one algebra and that component with the concrete A₁ adjoint form is still missing. |
+
+After AR02a, AR02 still needs a normalized defining-doublet coordinate
+projection with an invariant complement, so that the two row identities hold
+on every element of the real algebra. A basis for the algebraic root doublet
+alone does not provide such a projection. The natural proof can use the
+already constructed invariant positive form and its complex Hermitian
+extension, or an equivariant root-string decomposition. Neither bridge is
+silently inferred from the matrix calculation. The real Cartan rank must
+also be transported to its complexification to instantiate the algebraic
+rank hypothesis. These are compact-real algebra/projection obligations,
+not a failure of root-string length, SU(2) generation, Haar transfer, or the
+need to assume the general integration theorem that this route avoids.
+
+Library investigation used the pinned mathlib root-system Cartan matrix,
+root-chain, simple Lie-algebra weight-space, scalar-extension, calculus,
+and ODE APIs, together with the repository's compatible Cartan, invariant
+form, adjoint, and one-parameter infrastructure. No usable theorem for the
+compact-real normalization or rank-one adjoint identification was located.
+The investigation stops at these explicit existence targets rather than
+relabeling an algebraic doublet as a compact group doublet.
+
+### Dependency consequence
+
+The new checked implication is:
+
+    AR02 certificate
+      → actual adjoint one-parameter coordinate lifts
+      → phase/rotation generation → invariant Haar pushforward
+      → representative radial marker tower and Mathieu failure.
+
+Its proof uses none of L02, L06, or Z05. For rank one the checked implication
+is AR03 → SU(2)/{±1} witness pullback; it also uses none of them. Completing
+AR02 (with its compact-real intermediate work) and AR03 would allow the
+simple-group theorem to apply directly to the already constructed adjoint
+compact simple quotient in `AdjointQuotient`. Haar pullback would then give
+the uniform nonabelian theorem without any simply connected covering group.
+A full uniform-tower wrapper and the rank split must still be assembled
+once those existence inputs are proved.
+
+**No unconditional main-proof dependency is removed in this milestone.**
+L02, L06, and Z05 are avoidable in the proposed alternative, but the alternative
+has not yet supplied every required simple group. The exact remaining rank-one
+obligation is AR03, not a general compact simply connected cover. General
+multivariate DvK remains independently deferred as previously directed.
+
+Validation of this investigation: `lake build` passes (4300 jobs); all 175
+mathematical modules are imported by the umbrella. The source audit passes
+for 179 Lean files, with no proof placeholders or project-added axioms. The
+exhaustive axiom audit checks 4015 project declarations / 3278 theorem
+constants, permitting only `propext`, `Classical.choice`, and `Quot.sound`.
+Both outstanding-target checkers pass, including all four adjoint-route
+statements. CI now runs the new checker. The symbolic verifier output is
+byte-identical to the checked-in output, and the manuscript is identical to
+its original source commit. The manuscript ledger count remains 99/1/5/5=110.

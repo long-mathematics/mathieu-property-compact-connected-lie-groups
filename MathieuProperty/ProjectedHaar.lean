@@ -66,16 +66,15 @@ theorem doublet_radial_pushforward {E : Type*} [NormedAddCommGroup E] [InnerProd
   simp
 
 /-- The original group integrals equal the radial-transfer formulas for any
-continuous equivariant coordinate map. -/
-theorem projected_haar_moments (Φ : G → Space) (hΦ : Continuous Φ) (φ : SU2 →* G)
-    (heq : ∀ k g, Φ (φ k * g) = k • Φ g) :
+continuous coordinate map with invariant pushforward. No subgroup map is needed. -/
+theorem projected_haar_moments_of_invariant (Φ : G → Space) (hΦ : Continuous Φ)
+    [SMulInvariantMeasure SU2 Space (Measure.map Φ (normalizedHaar G))] :
     (∀ m : ℕ, 1 ≤ m → (∫ g, P (Φ g)^m ∂normalizedHaar G) = 0) ∧
     (∀ m s : ℕ, 1 ≤ m → 1 ≤ s →
       (∫ g, Q (Φ g)^s * P (Φ g)^m ∂normalizedHaar G) =
         (momentConstant m : ℂ) * ((m-1).choose (s-1) : ℂ) *
           ((∫ g, a (Φ g)^(4*m+s) ∂normalizedHaar G : ℝ) : ℂ)) := by
   let μ := Measure.map Φ (normalizedHaar G)
-  have : SMulInvariantMeasure SU2 Space μ := haar_pushforward_smul_invariant Φ hΦ φ heq
   have hc := haar_pushforward_compact_support Φ hΦ
   constructor
   · intro m hm
@@ -93,17 +92,35 @@ theorem projected_haar_moments (Φ : G → Space) (hΦ : Continuous Φ) (φ : SU
         (continuous_a.pow (4*m+s)).aestronglyMeasurable] at h
     exact h
 
-theorem projected_haar_positive (Φ : G → Space) (hΦ : Continuous Φ) (φ : SU2 →* G)
-    (heq : ∀ k g, Φ (φ k * g) = k • Φ g) (h1 : Φ 1 ≠ 0)
+/-- The original group integrals equal the radial-transfer formulas for any
+continuous equivariant coordinate map. -/
+theorem projected_haar_moments (Φ : G → Space) (hΦ : Continuous Φ) (φ : SU2 →* G)
+    (heq : ∀ k g, Φ (φ k * g) = k • Φ g) :
+    (∀ m : ℕ, 1 ≤ m → (∫ g, P (Φ g)^m ∂normalizedHaar G) = 0) ∧
+    (∀ m s : ℕ, 1 ≤ m → 1 ≤ s →
+      (∫ g, Q (Φ g)^s * P (Φ g)^m ∂normalizedHaar G) =
+        (momentConstant m : ℂ) * ((m-1).choose (s-1) : ℂ) *
+          ((∫ g, a (Φ g)^(4*m+s) ∂normalizedHaar G : ℝ) : ℂ)) := by
+  let := haar_pushforward_smul_invariant Φ hΦ φ heq
+  exact projected_haar_moments_of_invariant Φ hΦ
+
+theorem projected_haar_positive_of_invariant (Φ : G → Space) (hΦ : Continuous Φ)
+    [SMulInvariantMeasure SU2 Space (Measure.map Φ (normalizedHaar G))] (h1 : Φ 1 ≠ 0)
     (m s : ℕ) (hm : 1 ≤ m) (hs : 1 ≤ s) (hsm : s ≤ m) :
     ∃ c : ℝ, 0 < c ∧ (∫ g, Q (Φ g)^s * P (Φ g)^m ∂normalizedHaar G) = (c : ℂ) := by
   let μ := Measure.map Φ (normalizedHaar G)
-  have : SMulInvariantMeasure SU2 Space μ := haar_pushforward_smul_invariant Φ hΦ φ heq
   have h := radial_marked_positive μ (haar_pushforward_compact_support Φ hΦ)
     (haar_pushforward_nonconcentration Φ hΦ h1) m s hm hs hsm
   dsimp [μ] at h
   rw [integral_map (f := fun z => Q z ^ s * P z ^ m) hΦ.measurable.aemeasurable
     ((continuous_Q.pow s).mul (continuous_P.pow m)).aestronglyMeasurable] at h
   exact h
+
+theorem projected_haar_positive (Φ : G → Space) (hΦ : Continuous Φ) (φ : SU2 →* G)
+    (heq : ∀ k g, Φ (φ k * g) = k • Φ g) (h1 : Φ 1 ≠ 0)
+    (m s : ℕ) (hm : 1 ≤ m) (hs : 1 ≤ s) (hsm : s ≤ m) :
+    ∃ c : ℝ, 0 < c ∧ (∫ g, Q (Φ g)^s * P (Φ g)^m ∂normalizedHaar G) = (c : ℂ) := by
+  let := haar_pushforward_smul_invariant Φ hΦ φ heq
+  exact projected_haar_positive_of_invariant Φ hΦ h1 m s hm hs hsm
 
 end MathieuProperty

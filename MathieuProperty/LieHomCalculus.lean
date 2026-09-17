@@ -77,12 +77,14 @@ theorem mfderiv_mul_at_one {f h : G → N}
   rw [hf₁, hh₁]
   exact mfderiv_mul_one_apply (F := F) (N := N) _ _
 set_option backward.isDefEq.respectTransparency false in
-/-- Smooth homomorphisms from a connected group agree if their differentials agree. -/
-theorem hom_eq_of_mfderiv_eq [PreconnectedSpace G] (f h : G →* N)
-    (hf : ContMDiff 𝓘(ℝ,E) 𝓘(ℝ,F) ∞ f) (hh : ContMDiff 𝓘(ℝ,E) 𝓘(ℝ,F) ∞ h)
+/-- Continuously differentiable homomorphisms from a connected group agree if
+their differentials agree. This applies to LieOneParameter curves at their
+proved C¹ regularity. -/
+theorem hom_eq_of_mfderiv_eq_one [PreconnectedSpace G] (f h : G →* N)
+    (hf : ContMDiff 𝓘(ℝ,E) 𝓘(ℝ,F) 1 f) (hh : ContMDiff 𝓘(ℝ,E) 𝓘(ℝ,F) 1 h)
     (he : mfderiv 𝓘(ℝ,E) 𝓘(ℝ,F) f 1 = mfderiv 𝓘(ℝ,E) 𝓘(ℝ,F) h 1) : f = h := by
   let δ : G → N := fun x => f x*(h x)⁻¹
-  have hδ : ContMDiff 𝓘(ℝ,E) 𝓘(ℝ,F) ∞ δ := hf.mul hh.inv
+  have hδ : ContMDiff 𝓘(ℝ,E) 𝓘(ℝ,F) 1 δ := hf.mul hh.inv
   have hδ₁ : δ 1 = 1 := by simp [δ]
   have hprod : (fun x => δ x*h x) = f := by funext x; simp [δ, mul_assoc]
   have hzero : mfderiv 𝓘(ℝ,E) 𝓘(ℝ,F) δ 1 = 0 := by
@@ -103,6 +105,13 @@ theorem hom_eq_of_mfderiv_eq [PreconnectedSpace G] (f h : G →* N)
   have hx := hc x 1
   rw [hδ₁] at hx
   exact mul_inv_eq_one.mp hx
+
+/-- Smooth homomorphisms from a connected group agree if their differentials agree. -/
+theorem hom_eq_of_mfderiv_eq [PreconnectedSpace G] (f h : G →* N)
+    (hf : ContMDiff 𝓘(ℝ,E) 𝓘(ℝ,F) ∞ f) (hh : ContMDiff 𝓘(ℝ,E) 𝓘(ℝ,F) ∞ h)
+    (he : mfderiv 𝓘(ℝ,E) 𝓘(ℝ,F) f 1 = mfderiv 𝓘(ℝ,E) 𝓘(ℝ,F) h 1) : f = h :=
+  hom_eq_of_mfderiv_eq_one f h (hf.of_le (by simp)) (hh.of_le (by simp)) he
+
 end TargetGroup
 end LieHomCalculus
 end MathieuProperty
