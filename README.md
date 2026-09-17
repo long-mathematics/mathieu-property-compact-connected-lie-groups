@@ -25,7 +25,7 @@ where $c_m=4^m(m!)^2/(2m+1)!$; the same moments vanish for $s>m$.
 This repository is the canonical development location for the paper and its Lean formalization.
 
 The Lean formalization is in progress; the main classification is **not yet formalized**.
-The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are kernel-checked, along with the representative-algebra and Haar-pullback lemmas. The explicit SU(2) representative-function counterexample and the transformed Laurent witness’s weighted moment formulas are also checked.
+The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are kernel-checked, along with the representative-algebra and Haar-pullback lemmas. The explicit SU(2) counterexample, the closed-form SU(n)/Sp(n) witnesses, and the transformed Laurent witness’s full integral correspondence are also checked. The representative-function/Laurent algebra equivalence for finite-dimensional tori and its Haar constant-term identity are proved; the Duistermaat–van der Kallen step remains open.
 See [the obligation ledger](FORMALIZATION_STATUS.md) for exact coverage and outstanding dependencies.
 The toolchain and mathlib revision are pinned. Build and audit the current proofs with:
 

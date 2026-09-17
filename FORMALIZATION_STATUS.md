@@ -129,13 +129,13 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | G05 | Restricted adjoint differential image equals ad(simple ideal) | restricted_adjoint_differential | AdjointQuotient | G01; G03 | TODO | Manuscript |  |
 | G06 | Closed connected subgroup with full Lie algebra equals connected target | full_lie_algebra_surjective | AdjointQuotient | G04; G05 | TODO | Manuscript |  |
 | T01 | Compact connected abelian Lie group iff finite-dimensional torus, including dimension zero | abelian_iff_torus | Torus |  | TODO | Manuscript |  |
-| T02 | Character lattice of torus is Z^d and representatives are finite character sums | torus_representative_laurent | Torus | T01; D-representative | TODO | Manuscript |  |
-| T03 | Normalized Haar integral corresponds to Laurent coefficient at zero | torus_integral_constantTerm | Torus | T02; D-haar | TODO | Manuscript |  |
+| T02 | Character lattice of torus is Z^d and representatives are finite character sums | representative_eq_characterSpan; torusCharacterEquiv; torus_representative_laurent | AbelianCharacters / TorusCharacters / TorusLaurent | D-representative; Haar unitarization | PROVED | Joint eigenspaces and Stone–Weierstrass/Haar orthogonality | Exact algebra equivalence for the d-fold unit circle, including d=0. General compact abelian representatives are finite character sums. T01 remains the separate Lie-group classification. |
+| T03 | Normalized Haar integral corresponds to Laurent coefficient at zero | torusCoefficientIntegral_laurent; torus_integral_constantTerm | HaarCharacters / TorusLaurent | T02; D-haar | PROVED | Character orthogonality | All coefficients are recovered by integration against inverse characters; the representative Haar functional is exactly the constant term. |
 | T04 | Duistermaat–van der Kallen external result must be proved, not postulated | dvdk_external_proof | Torus |  | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | T05 | Strict linear separation from convex hull of finite support | support_strict_separation | LaurentSupport | thm:dvdk | PROVED | Manuscript | Mathlib geometric Hahn–Banach and compactness of finite convex hull. |
 | T06 | Support of hf^m has separating-functional value≥C+mδ | support_mul_lower_bound; support_pow_lower_bound | LaurentSupport | T05 | PROVED | Manuscript | Support containment, not an incorrect equality of supports. |
 | T07 | Archimedean bound yields eventual absence of zero exponent | eventual_constantTerm_zero_of_lower_bound; eventual_constantTerm_zero_of_newton | LaurentSupport | T06 | PROVED | Manuscript | Zero polynomials allowed; all natural m above N. |
-| T08 | Zero f/h cases and equivalence with Mathieu subspace on torus | torus_zero_cases | Torus | T02; T03; T07 | TODO | Manuscript |  |
+| T08 | Zero f/h cases and equivalence with Mathieu subspace on torus | torus_mathieu_iff_constantTerm; zero_laurent_eventual; zero_laurent_multiplier | TorusLaurent | T02; T03 | PROVED | Algebra equivalence and zero identities | Unconditional equivalence of the two Mathieu predicates, without asserting either predicate or assuming DvK. |
 | E01 | U V + T² = 1 | Abelian.relation | AbelianAlgebra | D-explicit | PROVED | Manuscript | General commutative ring proof with w*wi=1; applies to unit-circle w. |
 | E02 | Defect-one transformed identity | Abelian.defect_one | AbelianAlgebra | E01 | PROVED | Manuscript | Global polynomial identity; no division used. |
 | E03 | Printed Laurent expansion exactly equal to P_ab | Abelian.expansion; Abelian.formal_expansion | AbelianAlgebra / AbelianLaurent | D-explicit | PROVED | Manuscript | Also equality in the actual Laurent polynomial algebra. |
@@ -302,7 +302,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=81, TODO=17, IN PROGRESS=6, BLOCKED=6 (110 rows).
+Current inventory counts: PROVED=86, TODO=13, IN PROGRESS=5, BLOCKED=6 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -1300,3 +1300,64 @@ checked-in output exactly, and the manuscript remains unchanged. Self-review
 checked the formal (not merely pointwise) representative equality, endpoint
 continuity, both phase balances, Haar/sphere identification, radial beta
 normalization, and the final representative-function wrapper for all m,s.
+
+
+## Compact abelian characters and exact torus/Laurent correspondence
+
+The SU(2) transform milestone merged in
+[PR #25](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/25)
+at `f8f07c6a8ede0e2c18dfc28889b91838b6a17c21`, after CI run `35192154028` passed.
+The current branch is `formalization/abelian-character-decomposition`.
+
+`AbelianCharacters.lean` proves that representative functions on any compact
+abelian group are exactly finite complex linear combinations of continuous
+characters. Haar unitarization supplies an actual invariant inner product.
+For each group operator U, the operators U+U⁻¹ and i(U-U⁻¹) are symmetric;
+all of these operators commute. Mathlib's joint-eigenspace theorem says their
+joint eigenspaces span the finite-dimensional space. Reconstructing U gives
+a scalar action on each joint space. A nonzero vector proves that scalar is
+a continuous character. Submodule induction yields the finite character
+expansion for every coefficient; conversely, each character is an actual
+one-dimensional continuous representation. No semisimplicity or character
+classification is assumed.
+
+`HaarCharacters.lean` proves continuity of Haar integration and orthogonality
+of continuous characters using group translation. The inverse character is
+formed with group inversion; no unit-circle classification is needed.
+
+`TorusCharacters.lean` defines the actual d-fold product of unit circles,
+constructs all integer Laurent characters, and proves these form a dense
+star algebra by Stone–Weierstrass. Haar orthogonality then forces any
+continuous complex character to be one of these integer monomials. Laurent
+interpolation on one coordinate proves uniqueness. The dimension-zero case
+is included. The existing two circle-interpolation lemmas were extracted
+unchanged from `EntryTransform.lean` into `LaurentInterpolation.lean` for
+reuse; the SU(2) proof still imports and uses them.
+
+`TorusLaurent.lean` constructs an algebra map from the complex multivariate
+Laurent algebra to actual continuous torus functions. Character orthogonality
+recovers every coefficient, proving injectivity. The character-span theorem
+proves that the image is exactly the repository's representative-function
+algebra. This gives `torus_representative_laurent`, an actual algebra
+equivalence, and `torus_integral_constantTerm`, equality of the actual Haar
+functional with the Laurent constant term. The exact Mathieu predicates are
+proved equivalent, and both zero cases are checked.
+
+T02, T03, and T08 are PROVED. Current inventory: 86 PROVED, 13 TODO,
+5 IN PROGRESS, 6 BLOCKED (110 total), with 71 mathematical modules.
+The torus Mathieu predicate itself remains unproved: DvK is still needed to
+turn vanishing positive moments into Newton-hull avoidance. T01 (every compact
+connected abelian Lie group is a finite-dimensional torus) and all general
+root/cover/decomposition obligations also remain open. The manuscript has
+not changed. Next: complete audits and merge, then continue the minimal DvK
+and general Lie/external-reduction obligations.
+
+Abelian/torus validation: `lake build` passed (3964 jobs); source audit passed
+for 74 Lean files; namespace axiom audit passed for 1659 declarations and
+1385 theorem constants, using only propext, Classical.choice, and Quot.sound.
+Outstanding targets type-check, exact verifier output matches, manuscript diff
+is empty, and `git diff --check` passes. Self-review checked unitarization and
+joint-space reconstruction, continuity and multiplicativity of the resulting
+characters, Haar normalization, uniqueness of integer exponents, coefficient
+recovery, actual representative-algebra surjectivity, and the two directions
+of the Mathieu-predicate equivalence without assuming DvK.

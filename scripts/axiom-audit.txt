@@ -1,4 +1,4 @@
-Axiom audit passed: 1531 project declarations, 1279 theorems.
+Axiom audit passed: 1659 project declarations, 1385 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -190,3 +190,19 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
  Quot.sound]
 'MathieuProperty.Abelian.entryTransform_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Abelian.transform_correspondence' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.hermitianPart_symmetric' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.hermitianPart_commute' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.jointEigenspaces_span' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.jointEigenspace_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.coefficient_mem_characterSpan' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.representative_eq_characterSpan' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.haar_character_orthogonality' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.torusPolynomialAlgebra_dense' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.torus_character_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.torusCharacter_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.torus_representative_laurent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.torusCoefficientIntegral_laurent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.torus_integral_constantTerm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.torus_mathieu_iff_constantTerm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.zero_laurent_eventual' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.zero_laurent_multiplier' depends on axioms: [propext, Classical.choice, Quot.sound]
