@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/projected-haar-geometry`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/sl2-cyclic-doublet`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 37 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- M0 and M1 complete; the library covers 39 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
 - Completion is prevented by the documented library exception below, independently of the many remaining ordinary obligations. The checked foundations are preserved through PR #1; remote validation and merge state are available there. No weakening or conditional main theorem is authorized.
 - No false manuscript statement identified. Library exception under attached prompt §16: the rank-two Duistermaat–van der Kallen noncancellation step remains unproved after the searches and proof attempts below. The known general proof would require major new toric/analytic infrastructure, which is not realistically achievable as a routine continuation of this paper formalization. The foundation milestone is incomplete coverage, not a completed formalization.
 
@@ -46,7 +46,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | thm:hopf-coefficient | Sphere integral H(q)p^m = c_m times coefficient m of H(X)(1+X)^(m-1), m≥1 | Hopf.hopf_coefficient | HopfIntegral | H01–H04; H06–H12; H15–H19 | PROVED | Substitute for coordinate density: invariant mixed moments, then manuscript phase/primitive calculation | Actual normalized Euclidean surface measure; all complex H and positive m; no extra mathematical assumptions. |
 | cor:sphere-marker-tower | Pure moments zero; all marked moments, vanishing/strict positivity ranges | Hopf.sphere_marker_tower | HopfIntegral | thm:hopf-coefficient; H13; H14 | PROVED | Manuscript | Complex positivity is stated as equality to a strictly positive real number. |
 | thm:radial-transfer | All finite compactly supported positive SU(2)-invariant measures: pure and marked formulas with radial power and positivity | Hopf.radial_transfer | RadialTransfer | R01–R08; cor:sphere-marker-tower | PROVED | Manuscript | Actual defining SU(2) action, every finite Borel measure with compact support and action invariance, including zero measure and origin mass. |
-| lem:root-doublet | Fundamental highest-weight representation contains a faithful defining SU(2) root doublet | highest_weight_one_lowering | RootDoubletAlgebra / RootSU2 (planned) | L01–L07 | IN PROGRESS | Manuscript | Only its algebraic lowering step is checked. Fundamental representation and root integration are absent. |
+| lem:root-doublet | Fundamental highest-weight representation contains a faithful defining SU(2) root doublet | sl2Doublet_cyclic; sl2Doublet_matrix; root_hom_injective | RootDoubletModule / RootDoubletFaithfulness / RootSU2 (planned) | L01–L07 | IN PROGRESS | Manuscript | The cyclic irreducible algebraic doublet, defining matrices, and faithfulness of a supplied defining action are checked. Fundamental representation and root integration are absent. |
 | lem:radial-pushforward | Projected Haar is compactly supported invariant probability, not concentrated at zero | doublet_radial_pushforward | ProjectedHaar | lem:root-doublet; L08–L11 | PROVED | Manuscript | Given the manuscript’s standing unitary doublet data: actual projected Haar probability, compact ball support, SU(2) invariance, and positive mass off zero. Root-doublet existence remains open. |
 | thm:simply-connected-simple | Representative A,P,Q, nonnegative nonzero A, exact tower on all compact simply connected simple groups | doublet_pure; doublet_marked; doublet_marked_positive; unitary_doublet_not_mathieu (transfer only) | DoubletWitness / RootSU2 (planned) | lem:radial-pushforward; thm:radial-transfer; lem:representative-algebra | IN PROGRESS | Manuscript | Complete representative-function transfer proved for explicitly supplied unitary defining-doublet data. Existence of those data for all simply connected simple groups is unproved; no general simple-group theorem claimed. |
 | prop:classical-closed-forms | Defining SU(n), n≥2, and Sp(n), n≥1: rising factorial formulas and printed examples | classical_closed_forms | ClassicalGroups | C01–C07; thm:simply-connected-simple | TODO | Manuscript |  |
@@ -103,9 +103,9 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | L02 | Simply connected compact simple group admits irreducible representation of fundamental highest weight | fundamental_representation_exists | RootSU2 | L01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | L03 | Average inner product to obtain invariant Hermitian metric | invariant_inner_product | RootSU2 | D-haar | TODO | Manuscript |  |
 | L04 | Root sl₂ action on highest vector has weight one | root_highest_weight_one | RootSU2 | L01; L02 | TODO | Manuscript |  |
-| L05 | Highest-weight-one cyclic module: Fv≠0, F²v=0 and two-dimensional defining action | highest_weight_one_lowering | RootDoubletAlgebra | L04 | IN PROGRESS | Manuscript | Both lowering identities proved from a primitive weight-one vector; invariant module equivalence still pending. |
+| L05 | Highest-weight-one cyclic module: Fv≠0, F²v=0 and two-dimensional defining action | highest_weight_one_lowering; sl2Doublet_cyclic; sl2Doublet_finrank; sl2Doublet_irreducible; sl2Doublet_matrix | RootDoubletAlgebra / RootDoubletModule | L04 | PROVED | Manuscript | Actual cyclic Lie submodule, basis, dimension two, irreducibility, and exact defining matrices from a primitive weight-one vector. |
 | L06 | Integrate compact root Lie algebra to SU(2) homomorphism and identify restricted representation | integrate_root_SU2 | RootSU2 | L04; L05 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
-| L07 | Faithfulness implies injective root map; orthonormal identification gives defining SU(2) action | root_map_injective | RootSU2 | L06 | TODO | Manuscript |  |
+| L07 | Faithfulness implies injective root map; orthonormal identification gives defining SU(2) action | root_hom_injective; specialUnitary_change_basis | RootDoubletFaithfulness | L06 | PROVED | Manuscript | Given the defining action supplied by L06: the root homomorphism is injective, and every unitary basis change preserves the full SU(2) matrix subgroup. Existence and integration remain unproved. |
 | L08 | Invariant orthogonal complement and equivariant projection | invariant_orthogonal_complement; projection_commutes | Projection | L03; lem:root-doublet | PROVED | Manuscript | Standard unitary invariant-subspace lemma; no root existence assertion. |
 | L09 | Phi continuous, equivariant, norm≤1, Phi(1)=e₀ | doubletCoordinates_continuous; doubletCoordinates_a_le; doubletCoordinates_one; doubletCoordinates_equivariant | Projection | L08 | PROVED | Manuscript | Coordinates constructed from an isometric defining doublet; a(Φg)≤1 is the squared Euclidean norm bound. Standing doublet data remain explicit. |
 | L10 | Haar pushforward invariant probability supported in compact ball | doublet_radial_pushforward; haar_pushforward_ball_support | ProjectedHaar | L09; U-haar-map | PROVED | Manuscript | Pushforward of actual normalized Haar; support compact by continuous compact image and contained in the Euclidean unit ball. |
@@ -173,7 +173,7 @@ Historical claims in the introduction about the Jacobian conjecture, announcemen
 
 ## Validation and correspondence audit
 
-Current full library build passed (3635 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
+Current full library build passed (3637 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 now has the full cyclic submodule, irreducibility, and exact defining matrices. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
 
 ## Resume notes
 
@@ -302,7 +302,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=54, TODO=46, IN PROGRESS=4, BLOCKED=6 (110 rows).
+Current inventory counts: PROVED=65, TODO=33, IN PROGRESS=6, BLOCKED=6 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -698,3 +698,34 @@ passed for 40 Lean files. Whole-namespace audit passed for 781 declarations
 309 explicit theorem/lemma declarations in 37 mathematical modules. The ledger
 has 63/110 obligations proved. The verifier output matches exactly, the remaining
 targets type-check, and the manuscript remains unchanged.
+
+
+## Cyclic sl₂ module and root-map faithfulness
+
+The projected-Haar and representative-transfer milestone was merged as
+[PR #11](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/11)
+at `8a5daa618057255f17694cf84ea4095fd64348de`, after CI run `35179342273` passed.
+
+`RootDoubletModule.lean` constructs the actual Lie submodule generated by a
+primitive highest-weight-one vector in an existing finite-dimensional module.
+Its basis is (v,Fv), its dimension is two, and every Lie submodule of it is
+either zero or the whole doublet. The matrix of αE+βF+γH in this basis is
+[[γ,α],[β,−γ]], proving the defining two-dimensional algebraic action. This
+completes L05; it does not supply the ambient fundamental representation.
+
+`RootDoubletFaithfulness.lean` proves that a supplied group homomorphism acting
+by the defining SU(2) action on an identified doublet is injective. It also
+proves that conjugation by any unitary 2×2 matrix preserves the entire SU(2)
+subgroup, with both image inclusions. This completes the faithfulness and
+coordinate-change step L07 with its standing L06 inputs. The root homomorphism
+and its integrated defining action have not been constructed.
+
+Cyclic-doublet validation: `lake build` passed (3637 jobs); source audit passed
+for 42 Lean files. Axiom audit passed: 804 project declarations, 658 theorems.
+Only propext, Classical.choice, and Quot.sound occur in dependencies. There
+are 321 explicit theorem/lemma declarations in 39 mathematical modules. The
+ledger now has 65/110 obligations proved (33 TODO, 6 IN PROGRESS, 6 BLOCKED).
+The verifier output matches exactly, the remaining targets type-check, and
+the manuscript remains unchanged. Next: Haar averaging for L03, then center
+descent; fundamental representation/root integration and Duistermaat–van der
+Kallen remain major unproved dependencies.

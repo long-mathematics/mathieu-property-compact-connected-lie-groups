@@ -1,3 +1,5 @@
+import MathieuProperty.RootDoubletModule
+import MathieuProperty.RootDoubletFaithfulness
 import MathieuProperty.DoubletWitness
 import MathieuProperty.MixedPhase
 import MathieuProperty.AbelianWitness

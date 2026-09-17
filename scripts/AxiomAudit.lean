@@ -85,3 +85,9 @@ run_cmd do
 #print axioms MathieuProperty.doublet_marked
 #print axioms MathieuProperty.doublet_marked_positive
 #print axioms MathieuProperty.unitary_doublet_not_mathieu
+
+#print axioms MathieuProperty.sl2Doublet_cyclic
+#print axioms MathieuProperty.sl2Doublet_irreducible
+#print axioms MathieuProperty.sl2Doublet_matrix
+#print axioms MathieuProperty.root_hom_injective
+#print axioms MathieuProperty.specialUnitary_change_basis

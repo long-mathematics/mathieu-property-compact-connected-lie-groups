@@ -1,4 +1,4 @@
-Axiom audit passed: 781 project declarations, 640 theorems.
+Axiom audit passed: 804 project declarations, 658 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -54,3 +54,8 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.doublet_marked' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.doublet_marked_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.unitary_doublet_not_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.sl2Doublet_cyclic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.sl2Doublet_irreducible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.sl2Doublet_matrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.root_hom_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.specialUnitary_change_basis' depends on axioms: [propext, Classical.choice, Quot.sound]
