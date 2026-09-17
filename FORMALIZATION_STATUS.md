@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/abelian-weighted-moments`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/abelian-conjecture-counterexamples`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 31 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- M0 and M1 complete; the library covers 33 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
 - Completion is prevented by the documented library exception below, independently of the many remaining ordinary obligations. The checked foundations are preserved through PR #1; remote validation and merge state are available there. No weakening or conditional main theorem is authorized.
 - No false manuscript statement identified. Library exception under attached prompt §16: the rank-two Duistermaat–van der Kallen noncancellation step remains unproved after the searches and proof attempts below. The known general proof would require major new toric/analytic infrastructure, which is not realistically achievable as a routine continuation of this paper formalization. The foundation milestone is incomplete coverage, not a completed formalization.
 
@@ -58,7 +58,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | cor:torus | Every torus has the Mathieu property | torus_mathieu | Torus | T01–T08; thm:dvdk | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | thm:classification | For every compact connected Lie group: Mathieu property iff abelian iff torus | classification | MainTheorem | thm:uniform-nonabelian; cor:torus; T01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | prop:explicit-abelian-SU2 | Transformed Laurent pair: exact moments, printed expansion, exact spectrum | Abelian.formal_expansion; Abelian.formal_spectrum | AbelianAlgebra / AbelianLaurent | E01–E09; thm:hopf-coefficient | IN PROGRESS | Manuscript | Algebra, spectrum, and exact weighted moment formulas checked; external transform correspondence pending. |
-| cor:abelian-reductions | Failure of both universal abelian conjectures, growth claim and specified Zwart reductions | abelian_reductions | AbelianWitness | E10–E14; prop:explicit-abelian-SU2; thm:classification | TODO | Manuscript |  |
+| cor:abelian-reductions | Failure of both universal abelian conjectures, growth claim and specified Zwart reductions | Abelian.universal_moment_conjecture_false; Abelian.universal_convex_support_conjecture_false; Abelian.universal_growth_conjecture_false | AbelianConjectures | E10–E14; prop:explicit-abelian-SU2; thm:classification | IN PROGRESS | Direct witness | Both universal conjectures and the stronger growth assertion are refuted. Specified Zwart reductions remain open. |
 | D-representative | Finite linear combinations of coefficients of finite-dimensional continuous complex representations | representativeFunctions; representative_eq_span_coefficients; representation_coefficient_mem | RepresentativeFunctions |  | PROVED | Coordinate model, with formal basis correspondence | Finite linear span, without topological closure; arbitrary finite-dimensional normed complex representation spaces and joint continuity checked. |
 | D-haar | Normalized Haar integration on representative functions | normalizedHaar; representativeIntegral; representativeIntegral_one | Haar | D-representative | PROVED | Manuscript | Linear restriction to the representative algebra; integrability and normalization proved. |
 | D-property | Mathieu property is Mathieu condition on the kernel of Haar integral | HasMathieuProperty | Haar | D-haar; def:mathieu-subspace | PROVED | Manuscript | Mathieu condition on the kernel of representativeIntegral. |
@@ -146,10 +146,10 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | E08 | Square-root-free substitution sends A₀,U₀,V₀,T₀ to 1,U,V,T | Abelian.square_root_free; Abelian.square_root_free_pair | AbelianAlgebra | E06 | PROVED | Manuscript | All complex x and nonzero w, including manuscript domain. |
 | E09 | Representative independence and equality to actual Mueger–Tuset group-coordinate transform | Abelian.transform_correspondence | AbelianWitness | E07; E08; E14 | TODO | Manuscript |  |
 | E10 | Earlier weighted xz witness has zero pure moments and (-1)^(m-1)/(2(m+1)) marker; spectrum {-1,0,1} | weighted_xz_witness | AbelianWitness |  | TODO | Manuscript |  |
-| E11 | Definitions and admissibility of universal moment and convex-support conjectures | universal_abelian_conjectures | AbelianWitness | E14 | TODO | Manuscript |  |
-| E12 | Zero pure moment sequence has zero limsup growth, contradicting asserted positive growth | growth_counterexample | AbelianWitness | E11; prop:explicit-abelian-SU2 | TODO | Manuscript |  |
+| E11 | Definitions and admissibility of universal moment and convex-support conjectures | Abelian.UniversalMomentConjecture; Abelian.UniversalConvexSupportConjecture; Abelian.coordinate_weight_admissible; Abelian.mixedIntegral_eq_circle_integral | AbelianConjectures / MixedPhase | E05; E14 (definitions only) | PROVED | Direct witness at N=M=1, δ=x | Arbitrary dimensions, polynomial coefficient ring, actual cube integral and normalized product-circle correspondence; both conjectures refuted. |
+| E12 | Zero pure moment sequence has zero limsup growth, contradicting asserted positive growth | Abelian.weightedCT_growth_zero; Abelian.universal_growth_conjecture_false | AbelianConjectures | E05; E11 | PROVED | Manuscript | Actual real limsup of the complex moment norm raised to 1/m; m=0 handled by eventual equality. |
 | E13 | Each specified Zwart abelian implication formally stated and proved, then contraposition | zwart_reductions_false | AbelianWitness | E14; thm:classification | TODO | Manuscript |  |
-| E14 | External Mueger–Tuset Lemma 5.2, Prop 5.3, Conjectures 6.3/6.6, Remark 6.7; Zwart implications: exact definitions and needed results | external_reduction_correspondence | AbelianWitness |  | TODO | Manuscript |  |
+| E14 | External Mueger–Tuset Lemma 5.2, Prop 5.3, Conjectures 6.3/6.6, Remark 6.7; Zwart implications: exact definitions and needed results | external_reduction_correspondence | AbelianWitness |  | IN PROGRESS | Source definitions and direct circle-integral proof | Conjectures 6.3/6.6 and growth assertion defined and refuted. Lemma 5.2, full Prop. 5.3 correspondence, and Zwart implication theorems remain open. |
 
 ## Expository exclusions
 
@@ -173,7 +173,7 @@ Historical claims in the introduction about the Jacobian conjecture, announcemen
 
 ## Validation and correspondence audit
 
-Current full library build passed (3625 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
+Current full library build passed (3631 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
 
 ## Resume notes
 
@@ -622,3 +622,40 @@ constants), with only `propext`, `Classical.choice`, and `Quot.sound`.
 There are 247 explicit theorem/lemma declarations in 31 mathematical modules.
 The ledger has 55/110 obligations proved. The verifier output matches exactly,
 the outstanding statements still type-check, and the manuscript remains unchanged.
+
+
+## Universal abelian conjectures and growth counterexample
+
+The weighted-moment milestone was merged as [PR #9](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/9)
+at `f804ef131e9c609c1dee389191a0bfe1d9cc5d5a`, after CI run `35177673659` passed.
+
+The definitions were checked against [Müger–Tuset, arXiv:2410.11622v2, §6](https://arxiv.org/html/2410.11622v2#S6).
+`MixedLaurent N M` has multivariate polynomial coefficients and integer-vector
+Laurent exponents. `AdmissibleWeight` requires a nonzero monomial with odd exponent
+in each polynomial variable. The functional is the actual Lebesgue integral on
+the unit cube after normalized circle integration. `MixedPhase.lean` proves this
+product-circle/constant-term correspondence for every N and M, including zero.
+It also identifies the phase monomials with actual integer powers on unit circles;
+finite-product Fubini and finite sums justify all integrations. Cube integrability
+is proved for every coefficient polynomial and admissible weight.
+
+A ring equivalence embeds the checked Laurent witness at N=M=1. The exact integral
+correspondence is `mixedIntegral x (singleMixed f) = weightedCT f / 2`.
+The exponent-one weight is proved admissible. The nonzero constant coefficient
+puts zero in the actual Newton convex hull. These facts refute both universal
+conjectures. The real limsup of the 1/m-th powers of the moment norms is zero,
+refuting the stronger growth assertion as well. The m=0 term is irrelevant by
+proved eventual equality, not by changing the sequence's definition.
+
+This completes E11 and E12. The named abelian-reductions corollary remains
+IN PROGRESS: its additional assertions about the specified Zwart implications
+are not proved. E14 likewise retains the unproved square-root-free transform
+correspondence and Zwart results. No missing external theorem is assumed.
+
+Abelian-conjecture validation: `lake build` passed (3631 jobs); source audit passed
+for 36 Lean files. Whole-namespace audit passed for 683 declarations (559 theorem
+constants), with only the three approved foundations. There are 263 explicit
+theorem/lemma declarations in 33 mathematical modules. The ledger has 57/110
+obligations proved. The verifier output matches exactly, the remaining target
+statements type-check, and the manuscript is unchanged. The final whole-paper
+correspondence audit is still outstanding.

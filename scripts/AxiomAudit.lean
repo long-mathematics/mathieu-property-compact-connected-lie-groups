@@ -70,3 +70,9 @@ run_cmd do
 #print axioms MathieuProperty.Abelian.formal_moment_coeff
 #print axioms MathieuProperty.Abelian.weighted_quadratic_substitution
 #print axioms MathieuProperty.Abelian.explicit_laurent_witness
+
+#print axioms MathieuProperty.Abelian.mixedIntegral_eq_circle_integral
+#print axioms MathieuProperty.Abelian.universal_moment_conjecture_false
+#print axioms MathieuProperty.Abelian.universal_convex_support_conjecture_false
+#print axioms MathieuProperty.Abelian.weightedCT_growth_zero
+#print axioms MathieuProperty.Abelian.universal_growth_conjecture_false
