@@ -5,8 +5,8 @@ import MathieuProperty.DiscreteKernel
 
 /-! The connected preimage of the constructed adjoint Cartan torus.
 Its identity component is compact, connected, and abelian and embeds
-continuously in the original group. The manifold structure and torus
-identification of this preimage are separate remaining steps. -/
+continuously in the original group. CartanCovering and CartanLiftMaximal
+provide its Lie-group structure, torus identification, and maximality. -/
 
 noncomputable section
 set_option backward.isDefEq.respectTransparency false
