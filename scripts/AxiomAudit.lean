@@ -418,3 +418,15 @@ run_cmd do
 #print axioms MathieuProperty.CompactAdjoint.restrictedAdjoint_smooth
 #print axioms MathieuProperty.CompactAdjoint.restrictedAdjoint_mfderiv
 #print axioms MathieuProperty.CompactAdjoint.restricted_adjoint_differential_range
+
+#print axioms MathieuProperty.RepresentationImage.ontoImage_surjective
+#print axioms MathieuProperty.RepresentationImage.image_compact
+#print axioms MathieuProperty.RepresentationImage.image_connected
+#print axioms MathieuProperty.AdjointCentralizer.commutes_mfderiv
+#print axioms MathieuProperty.AdjointCentralizer.equiv_eq_refl
+#print axioms MathieuProperty.CompactAdjoint.simpleAdjointImage_compact
+#print axioms MathieuProperty.CompactAdjoint.simpleAdjointImage_connected
+#print axioms MathieuProperty.CompactAdjoint.simpleAdjointOnto_surjective
+#print axioms MathieuProperty.CompactAdjoint.simpleAdjointOnto_continuous
+#print axioms MathieuProperty.CompactAdjoint.simpleAdjointImage_center_eq_bot
+#print axioms MathieuProperty.CompactAdjoint.simpleAdjointImage_nontrivial
