@@ -1,3 +1,5 @@
+import MathieuProperty.QuotientWitness
+import MathieuProperty.CenterDescent
 import MathieuProperty.HaarUnitarization
 import MathieuProperty.RootDoubletModule
 import MathieuProperty.RootDoubletFaithfulness

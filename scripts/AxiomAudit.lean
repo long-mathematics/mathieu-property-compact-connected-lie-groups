@@ -97,3 +97,13 @@ run_cmd do
 #print axioms MathieuProperty.unitaryModel_continuous
 #print axioms MathieuProperty.invariantInnerProduct_invariant
 #print axioms MathieuProperty.invariantInnerProduct_continuous
+
+#print axioms MathieuProperty.center_scalar
+#print axioms MathieuProperty.unitary_center_scalar
+#print axioms MathieuProperty.doublet_center_invariant
+#print axioms MathieuProperty.MatrixRepresentation.balanced_tensor_trivial
+#print axioms MathieuProperty.MatrixRepresentation.descendedBalancedCoefficient_apply
+#print axioms MathieuProperty.MatrixRepresentation.descended_hopf_functions
+#print axioms MathieuProperty.center_descent
+
+#print axioms MathieuProperty.center_quotient_tower

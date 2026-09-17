@@ -1,4 +1,4 @@
-Axiom audit passed: 892 project declarations, 722 theorems.
+Axiom audit passed: 918 project declarations, 744 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -64,3 +64,17 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.unitaryModel_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.invariantInnerProduct_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.invariantInnerProduct_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.center_scalar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.unitary_center_scalar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.doublet_center_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.MatrixRepresentation.balanced_tensor_trivial' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.MatrixRepresentation.descendedBalancedCoefficient_apply' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.MatrixRepresentation.descended_hopf_functions' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.center_descent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.center_quotient_tower' depends on axioms: [propext, Classical.choice, Quot.sound]
