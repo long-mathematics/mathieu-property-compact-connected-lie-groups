@@ -1,3 +1,4 @@
+import MathieuProperty.InvariantLieDecomposition
 import MathieuProperty.ZwartUniqueness
 import MathieuProperty.ZwartSOEuler
 import MathieuProperty.ZwartOldSp
