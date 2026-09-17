@@ -1,4 +1,4 @@
-Axiom audit passed: 2004 project declarations, 1664 theorems.
+Axiom audit passed: 2035 project declarations, 1689 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -229,3 +229,12 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.Zwart.sunDensity_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Zwart.sun_conjecture_2025_false' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Zwart.sun_reduction_2025' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.continuous_circleEvaluation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.weightedMoment_circles_outer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.weightedMoment_restrict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.cube_restricted_convexSupport_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.cube_integral_last_restrict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.g2Boundary_sin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.g2_conjecture_2025_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.g2_weightedMoment_nested' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.g2_conjecture_2025_nested_false' depends on axioms: [propext, Classical.choice, Quot.sound]

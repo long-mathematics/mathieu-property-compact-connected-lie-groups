@@ -264,3 +264,14 @@ run_cmd do
 #print axioms MathieuProperty.Zwart.sunDensity_eq
 #print axioms MathieuProperty.Zwart.sun_conjecture_2025_false
 #print axioms MathieuProperty.Zwart.sun_reduction_2025
+
+-- Restricted radial domains and the exact G2 nested integral.
+#print axioms MathieuProperty.Zwart.continuous_circleEvaluation
+#print axioms MathieuProperty.Zwart.weightedMoment_circles_outer
+#print axioms MathieuProperty.Zwart.weightedMoment_restrict
+#print axioms MathieuProperty.Zwart.cube_restricted_convexSupport_false
+#print axioms MathieuProperty.Zwart.cube_integral_last_restrict
+#print axioms MathieuProperty.Zwart.g2Boundary_sin
+#print axioms MathieuProperty.Zwart.g2_conjecture_2025_false
+#print axioms MathieuProperty.Zwart.g2_weightedMoment_nested
+#print axioms MathieuProperty.Zwart.g2_conjecture_2025_nested_false

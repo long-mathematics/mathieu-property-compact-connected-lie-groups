@@ -175,4 +175,40 @@ theorem product_convexSupport_false {Y : Type*} [TopologicalSpace Y]
     (embed_admissible A _ hx i _)
     (product_weight_pure ν W i) (product_witness_zero_mem i)
 
+
+theorem circleEvaluation_single {X : Type*} [TopologicalSpace X] {M : ℕ}
+    (n : Fin M → ℤ) (c : C(X,ℂ)) (x : X) :
+    circleEvaluation (AddMonoidAlgebra.single n c) x = (c x) • torusMonomial n := by
+  simp [circleEvaluation, coefficientEval, torusLaurentMap_single]
+
+theorem continuous_circleEvaluation {X : Type*} [TopologicalSpace X] {M : ℕ}
+    (f : FunctionLaurent X M) : Continuous (fun p : X × Torus M => circleEvaluation f p.1 p.2) := by
+  classical
+  have he : f = ∑ n ∈ f.coeff.support, AddMonoidAlgebra.single n (f.coeff n) :=
+    (AddMonoidAlgebra.sum_coeff_single f).symm
+  rw [he]
+  simp only [circleEvaluation, map_sum, coefficientEval,
+    AddMonoidAlgebra.mapRingHom_single, torusLaurentMap_single, ContinuousMap.sum_apply,
+    ContinuousMap.smul_apply, smul_eq_mul]
+  apply continuous_finsetSum
+  intro n hn
+  exact ((f.coeff n).continuous.comp continuous_fst).mul
+    ((torusMonomial n).continuous.comp continuous_snd)
+
+theorem weightedMoment_circles_outer {X : Type*} [TopologicalSpace X]
+    [MeasurableSpace X] [BorelSpace X] [CompactSpace X] {M : ℕ}
+    (μ : Measure X) [IsFiniteMeasure μ] (δ : X → ℂ) (hδ : Continuous δ)
+    (f : FunctionLaurent X M) :
+    weightedMoment μ δ f = ∫ z : Torus M, ∫ x,
+      circleEvaluation f x z * δ x ∂μ ∂normalizedHaar (Torus M) := by
+  rw [weightedMoment_circles]
+  have hc := (continuous_circleEvaluation f).mul (hδ.comp continuous_fst)
+  have hi := hc.integrable_of_hasCompactSupport
+    (μ := μ.prod (normalizedHaar (Torus M))) (HasCompactSupport.of_compactSpace _)
+  rw [← integral_integral_swap hi]
+  apply integral_congr_ae
+  filter_upwards [] with x
+  rw [integral_mul_const]
+  rfl
+
 end MathieuProperty.Zwart
