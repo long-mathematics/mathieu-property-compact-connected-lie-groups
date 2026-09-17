@@ -211,4 +211,21 @@ theorem weightedMoment_circles_outer {X : Type*} [TopologicalSpace X]
   rw [integral_mul_const]
   rfl
 
+
+theorem coefficientIntegral_circles_outer {X Y : Type*} [TopologicalSpace X]
+    [TopologicalSpace Y] [MeasurableSpace Y] [BorelSpace Y] [CompactSpace Y] {M : ℕ}
+    (μ : Measure Y) [IsFiniteMeasure μ] (φ : Y → X) (hφ : Continuous φ)
+    (δ : Y → ℂ) (hδ : Continuous δ) (f : FunctionLaurent X M) :
+    (∫ y, f.coeff 0 (φ y) * δ y ∂μ) =
+      ∫ z : Torus M, ∫ y, circleEvaluation f (φ y) z * δ y ∂μ ∂normalizedHaar (Torus M) := by
+  have hc := ((continuous_circleEvaluation f).comp
+    ((hφ.comp continuous_fst).prodMk continuous_snd)).mul (hδ.comp continuous_fst)
+  have hi := hc.integrable_of_hasCompactSupport
+    (μ := μ.prod (normalizedHaar (Torus M))) (HasCompactSupport.of_compactSpace _)
+  rw [← integral_integral_swap hi]
+  apply integral_congr_ae
+  filter_upwards [] with y
+  rw [integral_mul_const]
+  rw [show (∫ z : Torus M, circleEvaluation f (φ y) z ∂normalizedHaar (Torus M)) =
+    f.coeff 0 (φ y) from circleEvaluation_integral f _]
 end MathieuProperty.Zwart

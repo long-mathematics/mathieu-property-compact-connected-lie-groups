@@ -1,3 +1,4 @@
+import MathieuProperty.ZwartSp
 import MathieuProperty.ZwartG2
 import MathieuProperty.ZwartSU
 import MathieuProperty.OneVariableTorus
