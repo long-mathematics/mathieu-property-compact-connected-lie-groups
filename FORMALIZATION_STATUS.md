@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/adjoint-simple-ideals`; milestones through [PR #38](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/38) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/restricted-adjoint-differential`; milestones through [PR #39](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/39) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 106 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 110 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -126,8 +126,8 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | G02 | Connected nonabelian group has at least one simple ideal | CompactAdjoint.nonabelian_simple_ideal | ManifoldZeroDerivative / LieHomCalculus / ConnectedLie / NonabelianCompactLie | G01 | PROVED | Connectedness via zero differentials | Zero differential implies constancy; smooth homomorphisms are determined by their differential; abelian Lie algebra forces connected group abelian. Nonabelianity forces a simple factor, lifted to an actual ambient ideal. |
 | G03 | Connected adjoint action preserves each simple ideal | CompactAdjoint.adjoint_preserves_simple_ideal; simpleAdjointRepresentation_continuous | LieIdealOrbit / AdjointIdeals | G01 | PROVED | Manuscript finite-permutation argument | Ad preserves the semisimple complement; its action on the finite atomic-ideal family is constant by connectedness and closed fibers. Each factor is an actual ambient ideal with continuous restricted representation. |
 | G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | inner_aut_structure | AdjointQuotient | G01 | TODO | Manuscript |  |
-| G05 | Restricted adjoint differential image equals ad(simple ideal) | restricted_adjoint_differential | AdjointQuotient | G01; G03 | TODO | Manuscript |  |
-| G06 | Closed connected subgroup with full Lie algebra equals connected target | full_lie_algebra_surjective | AdjointQuotient | G04; G05 | TODO | Manuscript |  |
+| G05 | Restricted adjoint differential image equals ad(simple ideal) | CompactAdjoint.restrictedAdjoint_eq_simple; restrictedAdjoint_mfderiv; restricted_adjoint_differential_range | RestrictedAdjointAlgebra / ProjectedAdjoint / RestrictedAdjoint | G01; G03 | PROVED | Manuscript, expressed in the ambient endomorphism space | The canonical projection constructs a smooth map equal to the actual restricted representation. Its manifold differential is the restricted bracket, whose image is exactly ad of the ideal. The inner-automorphism Lie-group target itself remains G04. |
+| G06 | Closed connected subgroup with full Lie algebra equals connected target | LieSurjective.surjective_of_surjective_mfderiv | LieSurjective | G04; G05 | PROVED | Substitute: local openness from surjective differential | A C¹ homomorphism with surjective differential at 1 is onto a connected target. Uses the Banach inverse-function/open-mapping theorem in charts and the open-subgroup argument; applies directly to the manuscript homomorphism once G04–G05 construct its target and differential. No closed-subgroup theorem is assumed. |
 | T01 | Compact connected abelian Lie group iff finite-dimensional torus, including dimension zero | abelian_iff_torus | Torus |  | TODO | Manuscript |  |
 | T02 | Character lattice of torus is Z^d and representatives are finite character sums | representative_eq_characterSpan; torusCharacterEquiv; torus_representative_laurent | AbelianCharacters / TorusCharacters / TorusLaurent | D-representative; Haar unitarization | PROVED | Joint eigenspaces and Stone–Weierstrass/Haar orthogonality | Exact algebra equivalence for the d-fold unit circle, including d=0. General compact abelian representatives are finite character sums. T01 remains the separate Lie-group classification. |
 | T03 | Normalized Haar integral corresponds to Laurent coefficient at zero | torusCoefficientIntegral_laurent; torus_integral_constantTerm | HaarCharacters / TorusLaurent | T02; D-haar | PROVED | Character orthogonality | All coefficients are recovered by integration against inverse characters; the representative Haar functional is exactly the constant term. |
@@ -2101,3 +2101,76 @@ needed. Correspondence review checked the actual Ad action, center-complement
 invariance, finite atomic factors, ambient ideal lifting, and continuity of the
 restricted representation. G04–G06 and the quotient proposition remain open.
 The manuscript, verifier mathematics, and existing proofs remain unchanged.
+
+
+## G05–G06: restricted differential and surjectivity
+
+PR #39 merged at `a61f02b` after CI `35213398864` passed (5m54s).
+Current branch: `formalization/restricted-adjoint-differential`.
+G05 and G06 now compile in full. Inventory: 91 PROVED / 7 TODO /
+7 IN PROGRESS / 5 BLOCKED = 110.
+
+`LieSurjective` proves `range_mem_nhds_of_surjective_mfderiv` for real Banach
+manifold charts. It uses `contMDiffAt_iff` to work in the preferred charts and
+mathlib's strict derivative/open-mapping theorem. The image contains a
+neighborhood of the image point. For a homomorphism, the image subgroup is
+then open and closed, hence all of a connected target.
+`surjective_of_surjective_mfderiv` needs only C¹ regularity at the identity
+and a surjective differential. This substitutes for the manuscript's
+closed-connected-subgroup argument at G06. It applies to the actual map once
+G04 supplies its target Lie group; it does not construct or assume that target.
+
+`RestrictedAdjointAlgebra` proves `exists_restricted_adjoint` and
+`restricted_adjoint_range`: an ideal's invariant orthogonal complement is an
+ideal and commutes with it, so every restricted ambient adjoint operator is
+ad(z) for some z in the ideal. The converse inclusion is immediate.
+
+`ProjectedAdjoint` expresses restriction as a continuous linear map on
+endomorphisms, using a projection p onto a subspace. Composition proves
+smoothness. The actual manifold chain rule and the already-proved
+infinitesimal Ad theorem give D(projected Ad)(1)(x)(v)=p([x,v]).
+
+`RestrictedAdjoint` constructs p from the invariant orthogonal ideal complement.
+`restrictedAdjoint_mfderiv` identifies the derivative with the actual restricted
+bracket. `restricted_adjoint_differential_range` identifies its image with
+{ad(z) | z lies in the ideal}; `restrictedBracket_self` records the exact
+identification with mathlib's `LieAlgebra.ad`. For every simple factor,
+`restrictedAdjoint_eq_simple` identifies the constructed map with G03's actual
+`simpleAdjointRepresentation`, using the proved Ad-invariance. Thus neither
+a projection nor the differential formula is assumed. The derivative is
+computed in the ambient finite-dimensional endomorphism space, as in the
+manuscript's matrix realization of the automorphism group.
+
+G04 is now the remaining structural obligation in this portion of the quotient
+proof. It requires constructing the inner-automorphism group as an actual
+compact connected adjoint simple Lie group and identifying its Lie algebra
+with ad of the simple ideal. No such Lie-group target has been assumed.
+A search found manifold immersion/submersion and implicit-function modules,
+but no ready-made closed-subgroup or constant-rank image theorem. Possible
+next routes are a specialized Lie structure on the compact restricted-Ad
+image (constant rank), or a local construction of the automorphism group
+using its derivation algebra and matrix exponential. The root-subgroup and
+general DvK gaps are still separate outstanding obligations.
+
+Milestone validation: full `lake build` passed (4099 jobs), source audit
+passed for 113 Lean files, and exhaustive axiom audit passed for 2751 project
+declarations / 2246 theorem constants. Only propext, Classical.choice, and
+Quot.sound occur. Outstanding-obligation checks compile; the exact verifier
+matches byte for byte; manuscript preservation and whitespace checks pass.
+Correspondence review checked the actual restricted representation identity,
+the derivative sign and base point, the precise ad-image equality, and the
+surjectivity theorem's C¹ and connected-target hypotheses. The quotient Lie
+group itself is not claimed. The manuscript and exact verifier remain
+unchanged; auxiliary tooling remains under `scripts/`.
+
+Further G04 search: the pinned `Submersion.lean` explicitly lists the implication
+from surjective differential to submersion as future work, and there is no
+constant-rank image construction ready to use. Mathlib does prove all
+derivations of a finite-dimensional Killing Lie algebra are inner in
+`Algebra/Lie/Derivation/Killing.lean`. Its exponential-of-derivation API only
+covers nilpotent derivations, so a general analytic exponential/automorphism
+bridge would need development. Another useful intermediate target is the
+actual compact connected image of the restricted representation inside units
+of continuous endomorphisms, with a proof that its center is trivial; that
+would isolate the remaining manifold/Lie-algebra identification problem.
+

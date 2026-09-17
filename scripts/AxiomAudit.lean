@@ -409,3 +409,12 @@ run_cmd do
 #print axioms MathieuProperty.CompactAdjoint.adjoint_preserves_simple_ideal
 #print axioms MathieuProperty.CompactAdjoint.simpleAdjointRepresentation
 #print axioms MathieuProperty.CompactAdjoint.simpleAdjointRepresentation_continuous
+
+#print axioms MathieuProperty.LieSurjective.range_mem_nhds_of_surjective_mfderiv
+#print axioms MathieuProperty.LieSurjective.surjective_of_surjective_mfderiv
+#print axioms MathieuProperty.CompactLieForm.restricted_adjoint_range
+#print axioms MathieuProperty.RestrictedAdjoint.projectedAdjoint_mfderiv
+#print axioms MathieuProperty.CompactAdjoint.restrictedAdjoint_eq_simple
+#print axioms MathieuProperty.CompactAdjoint.restrictedAdjoint_smooth
+#print axioms MathieuProperty.CompactAdjoint.restrictedAdjoint_mfderiv
+#print axioms MathieuProperty.CompactAdjoint.restricted_adjoint_differential_range
