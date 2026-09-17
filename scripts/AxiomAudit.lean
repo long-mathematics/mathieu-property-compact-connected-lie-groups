@@ -222,3 +222,20 @@ run_cmd do
 #print axioms MathieuProperty.Abelian.haar_invariant_entryIntegral_eq_weightedCT
 #print axioms MathieuProperty.Abelian.entryTransform_pair
 #print axioms MathieuProperty.Abelian.transform_correspondence
+
+#print axioms MathieuProperty.hermitianPart_symmetric
+#print axioms MathieuProperty.hermitianPart_commute
+#print axioms MathieuProperty.jointEigenspaces_span
+#print axioms MathieuProperty.jointEigenspace_apply
+#print axioms MathieuProperty.coefficient_mem_characterSpan
+#print axioms MathieuProperty.representative_eq_characterSpan
+#print axioms MathieuProperty.haar_character_orthogonality
+#print axioms MathieuProperty.torusPolynomialAlgebra_dense
+#print axioms MathieuProperty.torus_character_exists
+#print axioms MathieuProperty.torusCharacter_injective
+#print axioms MathieuProperty.torus_representative_laurent
+#print axioms MathieuProperty.torusCoefficientIntegral_laurent
+#print axioms MathieuProperty.torus_integral_constantTerm
+#print axioms MathieuProperty.torus_mathieu_iff_constantTerm
+#print axioms MathieuProperty.zero_laurent_eventual
+#print axioms MathieuProperty.zero_laurent_multiplier
