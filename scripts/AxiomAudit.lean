@@ -345,3 +345,13 @@ run_cmd do
 #print axioms MathieuProperty.Zwart.soEulerDensity_rpow
 #print axioms MathieuProperty.Zwart.soEuler_convexSupport_false
 #print axioms MathieuProperty.Zwart.soEuler_convexSupport_circles_false
+
+-- Intrinsic rational-frequency spectra.
+#print axioms MathieuProperty.Zwart.entireMonomialHom_injective
+#print axioms MathieuProperty.Zwart.entireMonomial_analytic
+#print axioms MathieuProperty.Zwart.entireAngleMap_eq_zero_of_open
+#print axioms MathieuProperty.Zwart.angleMap_eq_zero_of_open
+#print axioms MathieuProperty.Zwart.angleMap_injective
+#print axioms MathieuProperty.Zwart.puncturedEvaluation_injective
+#print axioms MathieuProperty.Zwart.puncturedFunctionHom_injective
+#print axioms MathieuProperty.Zwart.puncturedFunctionEquiv

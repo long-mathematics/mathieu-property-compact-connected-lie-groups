@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/flat-radial-counterexamples`; milestones through [PR #32](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/32) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/rational-spectrum-uniqueness`; milestones through [PR #33](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/33) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 93 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 94 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -58,7 +58,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | cor:torus | Every torus has the Mathieu property | torus_mathieu | Torus | T01–T08; thm:dvdk | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | thm:classification | For every compact connected Lie group: Mathieu property iff abelian iff torus | classification | MainTheorem | thm:uniform-nonabelian; cor:torus; T01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | prop:explicit-abelian-SU2 | Transformed Laurent pair: exact moments, printed expansion, exact spectrum | Abelian.formal_expansion; Abelian.formal_spectrum; Abelian.transform_correspondence | AbelianAlgebra / AbelianLaurent / TransformPair | E01–E09; thm:hopf-coefficient | PROVED | Manuscript; specialized moment comparison and polynomial interpolation for the external correspondence | Algebra, spectrum, weighted moments, formal representative independence, and actual Haar correspondence checked. |
-| cor:abelian-reductions | Failure of both universal abelian conjectures, growth claim and specified Zwart reductions | Abelian.universal_moment_conjecture_false; Abelian.universal_convex_support_conjecture_false; Abelian.universal_growth_conjecture_false | AbelianConjectures | E10–E14; prop:explicit-abelian-SU2; thm:classification | IN PROGRESS | Direct witness | Both universal conjectures and the stronger growth assertion are refuted. Specified Zwart reductions remain open. |
+| cor:abelian-reductions | Failure of both universal abelian conjectures, growth claim and specified Zwart reductions | Abelian.universal_moment_conjecture_false; Abelian.universal_convex_support_conjecture_false; Abelian.universal_growth_conjecture_false | AbelianConjectures | E10–E14; prop:explicit-abelian-SU2; thm:classification | IN PROGRESS | Direct witness | Both universal conjectures, the growth assertion, and all specified SU/Sp/G2 conjectures are refuted. Exact SO source correspondence remains open. |
 | D-representative | Finite linear combinations of coefficients of finite-dimensional continuous complex representations | representativeFunctions; representative_eq_span_coefficients; representation_coefficient_mem | RepresentativeFunctions |  | PROVED | Coordinate model, with formal basis correspondence | Finite linear span, without topological closure; arbitrary finite-dimensional normed complex representation spaces and joint continuity checked. |
 | D-haar | Normalized Haar integration on representative functions | normalizedHaar; representativeIntegral; representativeIntegral_one | Haar | D-representative | PROVED | Manuscript | Linear restriction to the representative algebra; integrability and normalization proved. |
 | D-property | Mathieu property is Mathieu condition on the kernel of Haar integral | HasMathieuProperty | Haar | D-haar; def:mathieu-subspace | PROVED | Manuscript | Mathieu condition on the kernel of representativeIntegral. |
@@ -149,7 +149,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | E11 | Definitions and admissibility of universal moment and convex-support conjectures | Abelian.UniversalMomentConjecture; Abelian.UniversalConvexSupportConjecture; Abelian.coordinate_weight_admissible; Abelian.mixedIntegral_eq_circle_integral | AbelianConjectures / MixedPhase | E05; E14 (definitions only) | PROVED | Direct witness at N=M=1, δ=x | Arbitrary dimensions, polynomial coefficient ring, actual cube integral and normalized product-circle correspondence; both conjectures refuted. |
 | E12 | Zero pure moment sequence has zero limsup growth, contradicting asserted positive growth | Abelian.weightedCT_growth_zero; Abelian.universal_growth_conjecture_false | AbelianConjectures | E05; E11 | PROVED | Manuscript | Actual real limsup of the complex moment norm raised to 1/m; m=0 handled by eventual equality. |
 | E13 | Each specified Zwart failure, via implication and contraposition or direct refutation | Zwart.sun_conjecture_2023_contour_false; Zwart.sp_conjecture_2024_contour_false; Zwart.g2_conjecture_2024_contour_false | ZwartSU / ZwartSp / ZwartG2 / ZwartOldSU / ZwartOldSp / ZwartOldG2 | E14 | IN PROGRESS | Direct counterexamples | All three 2025 conjectures and the fractional 2023 SU / 2024 Sp / 2024 G2 conjectures are refuted, with source domains and integrals. The 2023 SO density has the external indexing discrepancy recorded below; its source correspondence remains open. |
-| E14 | External Mueger–Tuset Lemma 5.2, Prop 5.3, Conjectures 6.3/6.6, Remark 6.7; Zwart implications: exact definitions and needed results | external_reduction_correspondence | AbelianWitness |  | IN PROGRESS | Source definitions and direct circle-integral proof | Conjectures 6.3/6.6 and growth assertion defined and refuted; Lemma 5.2 and the needed SU(2) polynomial specialization of Prop. 5.3 proved in CircleTransform/TransformIntegral/TransformPair. General Lie-group and Zwart implication obligations remain open. |
+| E14 | External Mueger–Tuset Lemma 5.2, Prop 5.3, Conjectures 6.3/6.6, Remark 6.7; Zwart implications: exact definitions and needed results | external_reduction_correspondence | AbelianWitness |  | IN PROGRESS | Source definitions and direct circle-integral proof | Conjectures 6.3/6.6 and growth assertion defined and refuted; Lemma 5.2 and the needed SU(2) polynomial specialization of Prop. 5.3 proved in CircleTransform/TransformIntegral/TransformPair. Direct SU/Sp/G2 counterexamples replace the cited implication proofs; those unused implications are not assumed. Rational-frequency expansion uniqueness is proved in ZwartUniqueness. Exact SO source correspondence remains open. |
 
 ## Expository exclusions
 
@@ -1773,3 +1773,54 @@ sum to R^M, propagate its zero values from the cube interior, then use
 character independence. Character-frequency injectivity can be proved by
 differentiating a coordinate path at zero. Scratch investigation is in
 `/tmp/ZwartUniqueness.lean`; it is not part of the completed milestone.
+
+## Intrinsic rational-frequency spectra
+
+PR #33 merged at `9a2574f77c1379d1ef773c0293f12778cf68ea95` after
+CI `35204270261` passed (5m54s). Current branch:
+`formalization/rational-spectrum-uniqueness`.
+
+`ZwartUniqueness.lean` proves injectivity of evaluation for every finite
+rational-frequency expression on the actual punctured-circle product.
+It extends the finite exponential sum to R^M and uses mathlib's multivariate
+real-analytic identity theorem to propagate vanishing from the open angular
+cube. Dedekind's linear independence of characters then recovers every
+coefficient. Distinct frequencies give distinct characters, proved by
+differentiating a coordinate path at zero. Equality on the punctured circles
+therefore determines the expression, including its continuous coefficient
+functions and their support. The proof covers dimension zero and empty
+radial domains as well, with no extra hypotheses on them.
+
+`puncturedFunctionHom` gives evaluation as a ring homomorphism;
+`puncturedFunctionHom_injective` proves injectivity, and
+`puncturedFunctionEquiv` supplies the bijection with its represented-function
+range. Thus the spectrum and Newton polytope in the older conjectures are
+intrinsic to the function, not an artifact of a chosen finite expansion.
+The proof applies to arbitrary rational frequencies, so in particular it
+covers every bounded-denominator class and all positive powers.
+
+This is an additional correspondence audit of the existing old SU/Sp/G2
+refutations. Their direct proofs replace the external conjecture-to-group
+implications; those implications are not assumed by the Lean development.
+The exact printed SO density remains unresolved, and E13/E14 retain that
+exception. No mathematical manuscript statement has been changed.
+
+Validation: `lake build` passed (4032 jobs); source audit passed for 97 Lean
+files; exhaustive axiom audit passed for 2334 declarations, including 1905
+theorem constants. Only propext, Classical.choice, and Quot.sound occur.
+Outstanding targets type-check, exact verifier output matches, manuscript
+content is unchanged, and whitespace checks pass. Self-review checked
+analytic continuation from a genuine open set, all finite dimensions,
+character injectivity, coefficient recovery, and equality on the punctured
+rather than only closed angular domain. Inventory stays 86 PROVED, 12 TODO,
+7 IN PROGRESS, 5 BLOCKED / 110, with 94 mathematical modules.
+
+Remaining work requires the substantive unresolved foundations described in
+"Detailed obstruction investigation": multivariate DvK (already rank two),
+compact-group fundamental representation and root integration, compact Lie
+structure and adjoint quotient bridges, and compact abelian Lie group/torus
+classification. The algebraic and measure-theoretic downstream transfer
+proofs do not supply these existence theorems. No remaining main theorem is
+claimed proved, and a successful audit of the current library does not
+certify the missing declarations. The independent external SO indexing
+exception remains precisely documented above.
