@@ -187,3 +187,14 @@ run_cmd do
 #print axioms MathieuProperty.compactSymplectic_small_values
 #print axioms MathieuProperty.compactSymplectic_not_mathieu
 #print axioms MathieuProperty.compactSymplectic_closed_forms
+
+#print axioms MathieuProperty.Abelian.bernstein_integral
+#print axioms MathieuProperty.Abelian.xzFamily_integrated_coeff
+#print axioms MathieuProperty.Abelian.xzFamily_integral_pure
+#print axioms MathieuProperty.Abelian.xzFamily_integral_marked
+#print axioms MathieuProperty.Abelian.weighted_square_substitution
+#print axioms MathieuProperty.Abelian.earlierXZ_specialize
+#print axioms MathieuProperty.Abelian.earlierXZ_pure
+#print axioms MathieuProperty.Abelian.earlierXZ_marked
+#print axioms MathieuProperty.Abelian.earlierXZ_spectrum
+#print axioms MathieuProperty.Abelian.weighted_xz_witness

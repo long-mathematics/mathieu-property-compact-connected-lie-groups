@@ -1,4 +1,4 @@
-Axiom audit passed: 1319 project declarations, 1094 theorems.
+Axiom audit passed: 1365 project declarations, 1136 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -148,3 +148,13 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.compactSymplectic_small_values' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.compactSymplectic_not_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.compactSymplectic_closed_forms' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.bernstein_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.xzFamily_integrated_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.xzFamily_integral_pure' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.xzFamily_integral_marked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.weighted_square_substitution' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.earlierXZ_specialize' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.earlierXZ_pure' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.earlierXZ_marked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.earlierXZ_spectrum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.weighted_xz_witness' depends on axioms: [propext, Classical.choice, Quot.sound]

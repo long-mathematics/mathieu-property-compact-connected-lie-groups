@@ -12,11 +12,11 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/sp-classical-markers`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/earlier-weighted-xz`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 59 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
-- Milestones through Sp(n) sphere geometry are merged and CI-checked ([PR #21](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/21)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
+- M0 and M1 complete; the library covers 60 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- Milestones through all classical marker formulas are merged and CI-checked ([PR #22](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/22)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
 ## Dependency order
@@ -145,7 +145,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | E07 | All entry representatives invariant under maximal torus factor | Abelian.torus_invariance; Abelian.entryP_torus_invariance | AbelianAlgebra | E06 | PROVED | Manuscript | U₀ is also the Q entry representative. |
 | E08 | Square-root-free substitution sends A₀,U₀,V₀,T₀ to 1,U,V,T | Abelian.square_root_free; Abelian.square_root_free_pair | AbelianAlgebra | E06 | PROVED | Manuscript | All complex x and nonzero w, including manuscript domain. |
 | E09 | Representative independence and equality to actual Mueger–Tuset group-coordinate transform | Abelian.transform_correspondence | AbelianWitness | E07; E08; E14 | TODO | Manuscript |  |
-| E10 | Earlier weighted xz witness has zero pure moments and (-1)^(m-1)/(2(m+1)) marker; spectrum {-1,0,1} | weighted_xz_witness | AbelianWitness |  | TODO | Manuscript |  |
+| E10 | Earlier weighted xz witness has zero pure moments and (-1)^(m-1)/(2(m+1)) marker; spectrum {-1,0,1} | Abelian.weighted_xz_witness; Abelian.earlierXZ_specialize; Abelian.earlierXZ_spectrum | EarlierXZ | beta integral; phase coefficient interpretation | PROVED | Direct binomial/beta proof | Exact formal Laurent polynomial f₀(x²,w), pure and marked weighted integrals, nonzero marker for every m≥1, and exact formal spectrum. No external moment theorem is assumed. |
 | E11 | Definitions and admissibility of universal moment and convex-support conjectures | Abelian.UniversalMomentConjecture; Abelian.UniversalConvexSupportConjecture; Abelian.coordinate_weight_admissible; Abelian.mixedIntegral_eq_circle_integral | AbelianConjectures / MixedPhase | E05; E14 (definitions only) | PROVED | Direct witness at N=M=1, δ=x | Arbitrary dimensions, polynomial coefficient ring, actual cube integral and normalized product-circle correspondence; both conjectures refuted. |
 | E12 | Zero pure moment sequence has zero limsup growth, contradicting asserted positive growth | Abelian.weightedCT_growth_zero; Abelian.universal_growth_conjecture_false | AbelianConjectures | E05; E11 | PROVED | Manuscript | Actual real limsup of the complex moment norm raised to 1/m; m=0 handled by eventual equality. |
 | E13 | Each specified Zwart abelian implication formally stated and proved, then contraposition | zwart_reductions_false | AbelianWitness | E14; thm:classification | TODO | Manuscript |  |
@@ -302,7 +302,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=79, TODO=18, IN PROGRESS=7, BLOCKED=6 (110 rows).
+Current inventory counts: PROVED=80, TODO=17, IN PROGRESS=7, BLOCKED=6 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -1148,3 +1148,43 @@ The next independent tractable obligation is E10, the earlier weighted xz
 witness f₀(t,w)=(1-w⁻¹)((1-t)+tw), with t=x². A specialized binomial/beta
 calculation should prove its two moments and three-element spectrum without
 using any external result as an assumption.
+
+
+## Earlier weighted xz witness
+
+The full classical marker milestone merged in
+[PR #22](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/22)
+at `db690d5beb6fda0ae1d2f36f5644d3aae7c353f3`, after CI run `35188571769` passed.
+
+`EarlierXZ.lean` proves the earlier witness quoted before the explicit Hopf
+transform proposition. Its formal Laurent polynomial is exactly
+(1-w⁻¹)((1-x²)+x²w), with exact coefficient polynomials x²-1, 1-2x², x²
+and spectrum {-1,0,1}. Specialization agrees with f₀(x²,w).
+
+The proof expands the affine factor in the Bernstein basis and uses the
+actual complex beta integral and gamma factorial identities to integrate
+each term. A Laurent geometric sum telescopes. Elementary support bounds and
+the lowest coefficient of (1-w⁻¹)^m give zero pure moments and coefficient-one
+moment (-1)^(m-1)/(m+1). The checked substitution t=x² introduces the actual
+weight x and factor 1/2, producing exactly the printed marked integral
+(-1)^(m-1)/(2(m+1)), proved nonzero for every m≥1. This is a direct specialized
+proof of the cited earlier moment theorem, with no external assumption.
+
+E10 is PROVED. Current inventory: 80 PROVED, 17 TODO, 7 IN PROGRESS, 6 BLOCKED
+(110 total), with 60 mathematical modules. Next tractable correspondence:
+H05, the full Hopf-coordinate surface-measure formula. Existing ingredients
+include phase invariance, the complete sphere moments, and the new sphere
+Dirichlet/beta law. A route is two independent phase averages followed by the
+first-coordinate mass distribution, or a compact Stone–Weierstrass argument
+identifying the coordinate pushforward from all mixed moments. The exact
+full coordinate density is not yet claimed; the general DvK/root/compact Lie
+structure obligations remain unresolved.
+
+Earlier xz validation: `lake build` passed (3929 jobs); source audit passed
+for 63 Lean files; namespace axiom audit passed for 1365 declarations and
+1136 theorem constants. Only propext, Classical.choice, and Quot.sound occur.
+Outstanding targets type-check, exact verifier output matches, and the
+manuscript is unchanged. Review checked the Bernstein normalization, the
+coefficient-one shift for the fixed w⁻¹ multiplier, the factor 1/2 from
+substitution, nonvanishing, and formal (rather than pointwise-specialized)
+spectrum.
