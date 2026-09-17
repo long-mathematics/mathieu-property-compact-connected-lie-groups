@@ -1,3 +1,5 @@
+import MathieuProperty.AdjointIdeals
+import MathieuProperty.LieIdealOrbit
 import MathieuProperty.NonabelianCompactLie
 import MathieuProperty.ConnectedLie
 import MathieuProperty.LieHomCalculus
