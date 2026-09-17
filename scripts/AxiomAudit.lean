@@ -198,3 +198,16 @@ run_cmd do
 #print axioms MathieuProperty.Abelian.earlierXZ_marked
 #print axioms MathieuProperty.Abelian.earlierXZ_spectrum
 #print axioms MathieuProperty.Abelian.weighted_xz_witness
+
+#print axioms MathieuProperty.Hopf.sphereMonomial_integral_zero_of_unbalanced
+#print axioms MathieuProperty.Hopf.spherePolynomialAlgebra_dense
+#print axioms MathieuProperty.Hopf.sphere_integral_eq_of_monomials
+#print axioms MathieuProperty.Hopf.sphere_measure_eq_of_monomials
+#print axioms MathieuProperty.Hopf.integral_unit_phase
+#print axioms MathieuProperty.Hopf.integral_unit_beta
+#print axioms MathieuProperty.Hopf.hopfCoordinateMeasure_monomial_eq_surface
+#print axioms MathieuProperty.Hopf.hopfCoordinateMeasure_eq_surface
+#print axioms MathieuProperty.Hopf.unitHopfCoordinates_eq
+#print axioms MathieuProperty.Hopf.hopf_coordinates_integral_unitCube
+#print axioms MathieuProperty.Hopf.hopf_cube_change_of_variables
+#print axioms MathieuProperty.Hopf.hopf_coordinates_integral

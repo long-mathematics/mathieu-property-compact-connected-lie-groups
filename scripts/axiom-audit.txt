@@ -1,4 +1,4 @@
-Axiom audit passed: 1365 project declarations, 1136 theorems.
+Axiom audit passed: 1428 project declarations, 1190 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -158,3 +158,19 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.Abelian.earlierXZ_marked' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Abelian.earlierXZ_spectrum' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Abelian.weighted_xz_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.sphereMonomial_integral_zero_of_unbalanced' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.Hopf.spherePolynomialAlgebra_dense' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.sphere_integral_eq_of_monomials' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.sphere_measure_eq_of_monomials' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.integral_unit_phase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.integral_unit_beta' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.hopfCoordinateMeasure_monomial_eq_surface' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.Hopf.hopfCoordinateMeasure_eq_surface' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.unitHopfCoordinates_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.hopf_coordinates_integral_unitCube' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.hopf_cube_change_of_variables' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.hopf_coordinates_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
