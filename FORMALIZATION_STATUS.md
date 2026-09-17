@@ -148,7 +148,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | E10 | Earlier weighted xz witness has zero pure moments and (-1)^(m-1)/(2(m+1)) marker; spectrum {-1,0,1} | Abelian.weighted_xz_witness; Abelian.earlierXZ_specialize; Abelian.earlierXZ_spectrum | EarlierXZ | beta integral; phase coefficient interpretation | PROVED | Direct binomial/beta proof | Exact formal Laurent polynomial f₀(x²,w), pure and marked weighted integrals, nonzero marker for every m≥1, and exact formal spectrum. No external moment theorem is assumed. |
 | E11 | Definitions and admissibility of universal moment and convex-support conjectures | Abelian.UniversalMomentConjecture; Abelian.UniversalConvexSupportConjecture; Abelian.coordinate_weight_admissible; Abelian.mixedIntegral_eq_circle_integral | AbelianConjectures / MixedPhase | E05; E14 (definitions only) | PROVED | Direct witness at N=M=1, δ=x | Arbitrary dimensions, polynomial coefficient ring, actual cube integral and normalized product-circle correspondence; both conjectures refuted. |
 | E12 | Zero pure moment sequence has zero limsup growth, contradicting asserted positive growth | Abelian.weightedCT_growth_zero; Abelian.universal_growth_conjecture_false | AbelianConjectures | E05; E11 | PROVED | Manuscript | Actual real limsup of the complex moment norm raised to 1/m; m=0 handled by eventual equality. |
-| E13 | Each specified Zwart failure, via implication and contraposition or direct refutation | Zwart.sun_conjecture_2025_false; Zwart.g2_conjecture_2025_nested_false | ZwartSU / ZwartG2 / ZwartRestricted | E14 | IN PROGRESS | Direct counterexamples | Exact 2025 SU(N) conjecture refuted for every N ≥ 2; 2025 G2 conjecture refuted in its nested-integral form. Older fractional and Sp/SO variants remain open. |
+| E13 | Each specified Zwart failure, via implication and contraposition or direct refutation | Zwart.sun_conjecture_2025_false; Zwart.g2_conjecture_2025_nested_false | ZwartSU / ZwartSp / ZwartG2 / ZwartOrdered | E14 | IN PROGRESS | Direct counterexamples | All three 2025 SU(N), Sp(N), and G2 conjectures are directly refuted, with exact domains and integral correspondences; Sp rank one included. Older fractional and SO variants remain open. |
 | E14 | External Mueger–Tuset Lemma 5.2, Prop 5.3, Conjectures 6.3/6.6, Remark 6.7; Zwart implications: exact definitions and needed results | external_reduction_correspondence | AbelianWitness |  | IN PROGRESS | Source definitions and direct circle-integral proof | Conjectures 6.3/6.6 and growth assertion defined and refuted; Lemma 5.2 and the needed SU(2) polynomial specialization of Prop. 5.3 proved in CircleTransform/TransformIntegral/TransformPair. General Lie-group and Zwart implication obligations remain open. |
 
 ## Expository exclusions
@@ -1548,3 +1548,52 @@ its exponent list concatenates two SU(N) blocks and N linear xi factors;
 its region orders xi_1 ≤ ... ≤ xi_N. The explicit block-product correspondence,
 rank-one case, and source nested-integral correspondence remain before claiming
 that case as covered. Scratch file: `/tmp/ZwartSp.lean`.
+
+
+## Ordered symplectic domains and the 2025 Sp(N) conjecture
+
+The G2 milestone merged as
+[PR #29](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/29)
+at `cc4cccc89594629a66c4b03c6f29d42397a8aa87`, after CI `35198695713`
+passed (4m5s). Current branch: `formalization/zwart-symplectic-domains`.
+
+`ZwartOrdered.lean` proves that monotone coordinates bounded above form a
+measurable set and that integration over this set equals repeated bounded
+integrals, including the zero-coordinate base case. It also proves the
+measure-preserving block-coordinate equivalence and restricted-cube Fubini
+identity. `ZwartSp.lean` applies these to the exact 2025 symplectic conjecture.
+
+The source dimensions N², N(N-1), and N(N+1) are verified. The Jacobian exponent
+list is proved to concatenate the two SU(N) blocks with N linear xi factors;
+`listWeight_append` gives their product factorization. The pair factor uses the
+printed expression in Conjecture 3.1, including its final xi_k exponent. The
+refutation does not require modifying that expression. The xi-domain is exactly
+0 ≤ xi_1 ≤ ... ≤ xi_N ≤ 1, and `sp_weightedMoment_source` proves the source's
+order of x, circle, and nested xi integration. Its positive-power wrapper is
+`sp_conjecture_2025_source_false` for N ≥ 2. The separate rank-one theorem
+`sp_one_conjecture_2025_false` covers Sp(1), with one linear radial coordinate
+and two circle variables. Overall normalization constants are arbitrary.
+
+This completes the three 2025 source conjecture failures by direct proof. The
+older 2023/2024 fractional-exponent conjectures and the 2023 SO(N) case remain
+open, so E13 and the abelian-reductions corollary remain IN PROGRESS. No general
+classification theorem or unproved Lie-group construction is assumed.
+
+Validation: full `lake build` passed (4023 jobs), source audit passed (88 Lean
+files), exhaustive namespace audit passed (2101 declarations, 1736 theorem
+constants; only propext, Classical.choice, Quot.sound), outstanding target
+checks passed, exact verifier output matched, manuscript unchanged, whitespace
+checks passed. Self-review checked every index, all three dimensions, both
+Jacobian blocks, rank one, repeated bounds, all positive powers, and functional
+rather than formal coefficient support. Current inventory: 86 PROVED, 12 TODO,
+7 IN PROGRESS, 5 BLOCKED (110 obligations), with 85 mathematical modules.
+
+Next route: extend continuous-coefficient Laurent functions to rational angular
+frequencies. Define the actual exponential integral on an angular cube, prove
+that embedding integer frequencies reproduces the constant term, and show the
+existing witness meets every older bounded-denominator admissibility condition.
+The older SU density again has a linear coordinate. Sp/G2 can reuse the ordered
+and bounded-domain helpers. For SO use the affine uniform-weight earlier xz
+witness; inspect the original PDF's recursive radial indexing carefully before
+claiming its source correspondence. General higher-rank DvK and root integration
+remain the precise independent blockers recorded above.

@@ -1,4 +1,4 @@
-Axiom audit passed: 2035 project declarations, 1689 theorems.
+Axiom audit passed: 2101 project declarations, 1736 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -238,3 +238,19 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.Zwart.g2_conjecture_2025_false' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Zwart.g2_weightedMoment_nested' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Zwart.g2_conjecture_2025_nested_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.coefficientIntegral_circles_outer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.monotone_snoc_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.integral_orderedCube_succ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.integral_orderedCube' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.cubeAppendEquiv_preserving' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.cube_integral_append_restrict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.cube_integral_restrict_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.spRadialCount_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.spXCount_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.spRadialPoint_xi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.spDensity_blocks' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.sp_integral_nested' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.sp_weightedMoment_source' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.sp_one_conjecture_2025_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.sp_conjecture_2025_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.sp_conjecture_2025_source_false' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -275,3 +275,21 @@ run_cmd do
 #print axioms MathieuProperty.Zwart.g2_conjecture_2025_false
 #print axioms MathieuProperty.Zwart.g2_weightedMoment_nested
 #print axioms MathieuProperty.Zwart.g2_conjecture_2025_nested_false
+
+-- Ordered symplectic radial domains and the 2025 source conjecture.
+#print axioms MathieuProperty.Zwart.coefficientIntegral_circles_outer
+#print axioms MathieuProperty.Zwart.monotone_snoc_iff
+#print axioms MathieuProperty.Zwart.integral_orderedCube_succ
+#print axioms MathieuProperty.Zwart.integral_orderedCube
+#print axioms MathieuProperty.Zwart.cubeAppendEquiv_preserving
+#print axioms MathieuProperty.Zwart.cube_integral_append_restrict
+#print axioms MathieuProperty.Zwart.cube_integral_restrict_cast
+#print axioms MathieuProperty.Zwart.spRadialCount_eq
+#print axioms MathieuProperty.Zwart.spXCount_eq
+#print axioms MathieuProperty.Zwart.spRadialPoint_xi
+#print axioms MathieuProperty.Zwart.spDensity_blocks
+#print axioms MathieuProperty.Zwart.sp_integral_nested
+#print axioms MathieuProperty.Zwart.sp_weightedMoment_source
+#print axioms MathieuProperty.Zwart.sp_one_conjecture_2025_false
+#print axioms MathieuProperty.Zwart.sp_conjecture_2025_false
+#print axioms MathieuProperty.Zwart.sp_conjecture_2025_source_false
