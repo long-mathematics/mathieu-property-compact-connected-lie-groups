@@ -148,7 +148,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | E10 | Earlier weighted xz witness has zero pure moments and (-1)^(m-1)/(2(m+1)) marker; spectrum {-1,0,1} | Abelian.weighted_xz_witness; Abelian.earlierXZ_specialize; Abelian.earlierXZ_spectrum | EarlierXZ | beta integral; phase coefficient interpretation | PROVED | Direct binomial/beta proof | Exact formal Laurent polynomial f₀(x²,w), pure and marked weighted integrals, nonzero marker for every m≥1, and exact formal spectrum. No external moment theorem is assumed. |
 | E11 | Definitions and admissibility of universal moment and convex-support conjectures | Abelian.UniversalMomentConjecture; Abelian.UniversalConvexSupportConjecture; Abelian.coordinate_weight_admissible; Abelian.mixedIntegral_eq_circle_integral | AbelianConjectures / MixedPhase | E05; E14 (definitions only) | PROVED | Direct witness at N=M=1, δ=x | Arbitrary dimensions, polynomial coefficient ring, actual cube integral and normalized product-circle correspondence; both conjectures refuted. |
 | E12 | Zero pure moment sequence has zero limsup growth, contradicting asserted positive growth | Abelian.weightedCT_growth_zero; Abelian.universal_growth_conjecture_false | AbelianConjectures | E05; E11 | PROVED | Manuscript | Actual real limsup of the complex moment norm raised to 1/m; m=0 handled by eventual equality. |
-| E13 | Each specified Zwart abelian implication formally stated and proved, then contraposition | Zwart.sun_conjecture_2025_false; Zwart.sun_reduction_2025 | ZwartSU / ZwartCube / ZwartLaurent | E14 | IN PROGRESS | Direct counterexample, then implication by refuted premise | Exact 2025 SU(N) conjecture refuted for every N ≥ 2. Older fractional and Sp/G2/SO variants remain open. |
+| E13 | Each specified Zwart failure, via implication and contraposition or direct refutation | Zwart.sun_conjecture_2025_false; Zwart.g2_conjecture_2025_nested_false | ZwartSU / ZwartG2 / ZwartRestricted | E14 | IN PROGRESS | Direct counterexamples | Exact 2025 SU(N) conjecture refuted for every N ≥ 2; 2025 G2 conjecture refuted in its nested-integral form. Older fractional and Sp/SO variants remain open. |
 | E14 | External Mueger–Tuset Lemma 5.2, Prop 5.3, Conjectures 6.3/6.6, Remark 6.7; Zwart implications: exact definitions and needed results | external_reduction_correspondence | AbelianWitness |  | IN PROGRESS | Source definitions and direct circle-integral proof | Conjectures 6.3/6.6 and growth assertion defined and refuted; Lemma 5.2 and the needed SU(2) polynomial specialization of Prop. 5.3 proved in CircleTransform/TransformIntegral/TransformPair. General Lie-group and Zwart implication obligations remain open. |
 
 ## Expository exclusions
@@ -1503,3 +1503,48 @@ unchanged. Self-review checked the recursive exponents, both dimensions,
 nonzero functional coefficient, coefficient algebra, all positive powers, and
 arbitrary normalization constant. Current inventory: 86 PROVED, 12 TODO,
 7 IN PROGRESS, 5 BLOCKED (110 obligations), with 81 mathematical modules.
+
+
+## Restricted domains and the 2025 G2 conjecture
+
+The SU(N) milestone merged as
+[PR #28](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/28)
+at `30139441b418b1cff55d2af2204d1e22f95b5a32`, after CI `35197823645`
+passed (4m1s). The next branch is `formalization/zwart-restricted-domains`.
+
+`ZwartRestricted.lean` proves that any measurable restriction on the remaining
+cube coordinates preserves the linear-coordinate counterexample. It also
+proves the Fubini identity converting a cube with a variable final-coordinate
+bound into its nested integral. Joint continuity of Laurent evaluation and the
+circle/radial Fubini interchange are proved in `ZwartLaurent.lean`.
+
+`ZwartG2.lean` defines the full printed 2025 G2 density, six radial coordinates,
+eight circle coordinates, and the bounded last coordinate. Its boundary uses
+`sin(arcsin(t)/3)`. The theorem `g2Boundary_sin` verifies the source's preceding
+substitution identity on 0 ≤ y ≤ pi/2; the source's complex cube-root expression
+is unnecessary for this real boundary. `g2_weightedMoment_nested` proves the
+exact order of integration, and `g2_conjecture_2025_nested_false` refutes the
+source's assertion with positive powers of the actual Laurent function.
+An arbitrary overall constant covers circle/Haar normalizations.
+
+This is a documented direct-proof substitution for contraposition through the
+classification. The G2 Lie group and an Euler decomposition are not assumed:
+the later corollary asserts failure of this explicitly defined abelian
+conjecture, and that failure is proved directly. The unused external implication
+to the group's Mathieu conjecture is consequently not load-bearing in this
+substitute proof. The full compact Lie classification remains open.
+
+Validation passed: full `lake build` (4021 jobs); source audit (86 Lean files);
+exhaustive axiom audit (2035 declarations, 1689 theorem constants; only propext,
+Classical.choice, Quot.sound); outstanding target checks; exact Python verifier
+comparison; unchanged manuscript; whitespace checks. Self-review compared all
+G2 density factors, coordinate indices, coefficient algebra, real boundary,
+positive-power range, and nested integration against Zwart 2025 Conjecture 3.3
+and the preceding substitution in Zwart 2024. Inventory remains 86 PROVED,
+12 TODO, 7 IN PROGRESS, 5 BLOCKED (110 rows), with 83 mathematical modules.
+
+The next Sp(N) route has a locally compiling scratch counterexample for N ≥ 2:
+its exponent list concatenates two SU(N) blocks and N linear xi factors;
+its region orders xi_1 ≤ ... ≤ xi_N. The explicit block-product correspondence,
+rank-one case, and source nested-integral correspondence remain before claiming
+that case as covered. Scratch file: `/tmp/ZwartSp.lean`.
