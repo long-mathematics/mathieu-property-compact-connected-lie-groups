@@ -1,3 +1,5 @@
+import MathieuProperty.CompactSymplectic
+import MathieuProperty.SymplecticOrbit
 import MathieuProperty.ClassicalSU
 import MathieuProperty.SphereBeta
 import MathieuProperty.GaussianSquare

@@ -1,4 +1,4 @@
-Axiom audit passed: 1180 project declarations, 976 theorems.
+Axiom audit passed: 1265 project declarations, 1047 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -123,3 +123,17 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.specialUnitary_not_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.specialUnitary_small_values' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.specialUnitary_closed_forms' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.symplecticReindex_symm_mem_specialUnitary' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.compactSymplecticCompactSpace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.pairedMatrix_symplectic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.unitaryDoubleMatrix_symplectic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.exists_unitary_symplectic_firstColumn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.exists_compactSymplectic_firstColumn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.compactSymplectic_rank_one_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.su2CompactSymplecticOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.compactSymplecticSphere_transitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.compactSymplecticFirstColumn_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.compactSymplecticRadialA_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.compactSymplecticRadialA_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.compactSymplecticRadialA_moment' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.compactSymplecticRadialA_integrable' depends on axioms: [propext, Classical.choice, Quot.sound]

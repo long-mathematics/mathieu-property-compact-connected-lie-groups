@@ -160,3 +160,18 @@ run_cmd do
 #print axioms MathieuProperty.specialUnitary_not_mathieu
 #print axioms MathieuProperty.specialUnitary_small_values
 #print axioms MathieuProperty.specialUnitary_closed_forms
+
+#print axioms MathieuProperty.symplecticReindex_symm_mem_specialUnitary
+#print axioms MathieuProperty.compactSymplecticCompactSpace
+#print axioms MathieuProperty.pairedMatrix_symplectic
+#print axioms MathieuProperty.unitaryDoubleMatrix_symplectic
+#print axioms MathieuProperty.exists_unitary_symplectic_firstColumn
+#print axioms MathieuProperty.exists_compactSymplectic_firstColumn
+#print axioms MathieuProperty.compactSymplectic_rank_one_top
+#print axioms MathieuProperty.su2CompactSymplecticOne
+#print axioms MathieuProperty.compactSymplecticSphere_transitive
+#print axioms MathieuProperty.compactSymplecticFirstColumn_map
+#print axioms MathieuProperty.compactSymplecticRadialA_map
+#print axioms MathieuProperty.compactSymplecticRadialA_one
+#print axioms MathieuProperty.compactSymplecticRadialA_moment
+#print axioms MathieuProperty.compactSymplecticRadialA_integrable

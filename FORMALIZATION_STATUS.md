@@ -12,11 +12,11 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/su-classical-markers`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/compact-symplectic`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 56 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
-- Milestones through beta moments are merged and CI-checked ([PR #15](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/15)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
+- M0 and M1 complete; the library covers 58 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- Milestones through SU(n) marker formulas are merged and CI-checked ([PR #20](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/20)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
 ## Dependency order
@@ -114,8 +114,8 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | C02 | Complex Gaussian normalization produces sphere measure | gaussian_sphere; normalized_independent_complex_gaussian | GaussianSphere | C01 | PROVED | Manuscript, invariance proof | Normalization of independent real/imaginary Gaussian coordinates gives the actual normalized Euclidean sphere measure for n≥2, covering every use in the manuscript. The origin is a proved null set. |
 | C03 | Squared coordinate norms are Dirichlet(1,…,1), first two sum Beta(2,n-2) | sphere_dirichletOne; sphere_two_coordinates_beta; specialUnitaryRadialA_map; specialUnitaryRadialA_moment | SphereBeta / GaussianRadii / GaussianSquare / GammaScale / FiniteGamma / GammaBeta | C02 | PROVED | Manuscript | Actual normalized sphere coordinate law identified with normalized independent unit-rate gamma construction of Dirichlet(1,…,1); positive-rate scaling is proved. First-two marginal is actual betaMeasure. Actual SU(n) radial Haar moments established for all n≥2. |
 | C04 | Beta moments equal rising factorial ratios | beta_moment_ratio; beta_moment_integrable; beta_moment_product; beta_moment_nat; beta_two_moment | BetaMoments | C03 | PROVED | Manuscript | Actual mathlib betaMeasure: density shift, normalization, integrability, Gamma recurrence, and rising-factorial ratios for all positive integer parameters. |
-| C05 | Sp(n) defining action transitive on complex 2n sphere with same invariant measure | Sp_sphere_transitive | ClassicalGroups |  | TODO | Manuscript |  |
-| C06 | Endpoint n=2 for SU and n=1 for Sp: A=1 and ratio=1 | firstTwoSphereMass_two; specialUnitaryRadialA_two; specialUnitaryRadialA_moment | SphereBeta / ClassicalGroups (planned) | C01; C05 | IN PROGRESS | Manuscript | SU(2) defining first-column endpoint A=1 and rising-factorial ratio are checked; Sp(1)=SU(2) identification remains open. |
+| C05 | Sp(n) defining action transitive on complex 2n sphere with same invariant measure | exists_compactSymplectic_firstColumn; compactSymplecticSphere_transitive; compactSymplecticFirstColumn_map; compactSymplecticRadialA_moment | CompactSymplectic / SymplecticOrbit | C01; C03; C04 | PROVED | Specialized constructive proof | Closed unitary symplectic subgroup, exact determinant correspondence, paired SU(2) rotations and real orthogonal first-column construction. Actual normalized Haar maps to normalized Euclidean sphere measure; radial beta law and moments follow. |
+| C06 | Endpoint n=2 for SU and n=1 for Sp: A=1 and ratio=1 | specialUnitaryRadialA_two; compactSymplecticRadialA_one; compactSymplecticRadialA_moment; su2CompactSymplecticOne | SphereBeta / CompactSymplectic / SymplecticOrbit | C01; C05 | PROVED | Manuscript | Both endpoint functions are identically one and all moments have the stated ratio; the actual Sp(1) subgroup is all SU(2), with a continuous multiplicative equivalence and continuous inverse. |
 | C07 | Nine rational examples for m=1,2,3 | specialUnitary_small_values; classical_small_values | ClassicalSU / ClassicalConstants | C04; H12 | IN PROGRESS | Manuscript | All nine entries are checked as actual Haar moments for SU(2), SU(3), SU(4). The additional Sp(2) equality attached to the SU(4) row remains open. |
 | Z01 | Schur lemma: center acts by scalar of modulus one | center_scalar; unitary_center_scalar | CenterDescent | L02; L03 | PROVED | Manuscript | mathlib algebraically closed Schur lemma; norm preservation gives scalar modulus one. |
 | Z02 | Balanced coefficients invariant; tensor representation has trivial central action | doublet_center_invariant; MatrixRepresentation.balanced_tensor_trivial | CenterDescent | Z01; H04 | PROVED | Manuscript | All six phase-balanced quantities are invariant; the actual tensor/conjugate matrix representation is identity on every unit scalar action. |
@@ -302,7 +302,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=75, TODO=19, IN PROGRESS=10, BLOCKED=6 (110 rows).
+Current inventory counts: PROVED=77, TODO=18, IN PROGRESS=9, BLOCKED=6 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -1057,3 +1057,48 @@ and 976 theorem constants, using only propext, Classical.choice, and Quot.sound.
 The exact verifier matches, outstanding targets type-check, and the manuscript
 is unchanged. This milestone adds no fully closed ledger row because the
 classical proposition and numerical row also require Sp(n).
+
+
+## Compact symplectic geometry and radial moments
+
+The SU(n) representative-marker milestone merged in
+[PR #20](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/20)
+at `95dc24f93050a7b122107621b2235151aebf8b61`, after CI run `35187036184` passed.
+
+`CompactSymplectic.lean` defines the actual compact unitary symplectic matrix
+group as a closed subgroup of SU(n+n). Mathlib's `SymplecticGroup.det_eq_one`
+proves that the determinant-one ambient group imposes no extra condition:
+every unitary symplectic matrix lifts, and its underlying matrix is unchanged.
+The subgroup is compact and inherits its topological group structure.
+
+A constructive substitute for quaternionic orthonormal basis extension proves
+sphere transitivity. For a unit vector, take the nonnegative length of each
+complex coordinate pair. Extend this real unit vector to a real orthonormal
+basis. The resulting orthogonal matrix, doubled and complexified, supplies
+the pair lengths; independent SU(2) matrices supply the actual pairs. The
+previous equal-radius SU(2) orbit theorem handles zero pairs, so no division
+by a potentially zero radius occurs. Both matrix components are proved
+unitary and symplectic, and their product has exactly the prescribed first
+column. No transitivity or representation existence assumption is introduced.
+
+`SymplecticOrbit.lean` identifies actual normalized Haar first-column measure
+with the normalized Euclidean sphere measure. The already-proved sphere beta
+law yields Beta(2,2n-2) for n≥2 and all radial moments (2)ₖ/(2n)ₖ. For n=1,
+A is identically one. The rank-one compact symplectic subgroup is proved to
+be all SU(2), with an explicit continuous multiplicative equivalence and
+continuous inverse. This closes C05 and C06.
+
+Current inventory: 77 PROVED, 18 TODO, 9 IN PROGRESS, 6 BLOCKED (110 total),
+with 58 mathematical modules. The classical marker proposition and C07 remain
+open for Sp(n): next construct the first-simple-root SU(2) block inside the
+unitary-to-symplectic embedding for n≥2, use the rank-one equivalence for n=1,
+and connect the actual representative P,Q functions to the radial formulas.
+The general root-existence, DvK, and compact Lie structure gaps remain open.
+
+Compact symplectic validation: `lake build` passed (3927 jobs), source audit
+passed for 61 Lean files, and namespace axiom audit passed for 1265 declarations
+and 1047 theorem constants. Only propext, Classical.choice, and Quot.sound
+occur. Outstanding targets type-check, exact verifier output matches, and
+the manuscript remains unchanged. Review checked the unitary/symplectic
+correspondence, zero-radius pairs, both positive-rank ranges, first-column
+indices, the rank-one equivalence, and the probability normalizations.
