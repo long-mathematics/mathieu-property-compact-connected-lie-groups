@@ -437,3 +437,15 @@ run_cmd do
 #print axioms MathieuProperty.OpenLieSubgroup.lieEquiv
 #print axioms MathieuProperty.CompactAdjoint.adjointSimpleGroup_algebraEquiv
 #print axioms MathieuProperty.CompactAdjoint.adjoint_simple_quotient
+
+#print axioms MathieuProperty.LieOneParameter.exists_global_curve
+#print axioms MathieuProperty.LieOneParameter.curve_add
+#print axioms MathieuProperty.LieOneParameter.curve_contMDiff_one
+#print axioms MathieuProperty.LieOneParameter.curve_mfderiv_zero
+#print axioms MathieuProperty.AbelianParameters.parameterMap_surjective
+#print axioms MathieuProperty.AbelianParameters.kernel_discrete
+#print axioms MathieuProperty.AbelianParameters.kernel_span
+#print axioms MathieuProperty.LatticeTorus.mem_map_ker
+#print axioms MathieuProperty.AbelianParameters.torusEquiv
+#print axioms MathieuProperty.CompactLieTorus.exists_torus_equiv
+#print axioms MathieuProperty.CompactLieTorus.abelian_iff_torus

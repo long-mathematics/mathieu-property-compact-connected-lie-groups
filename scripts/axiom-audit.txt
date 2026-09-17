@@ -1,4 +1,4 @@
-Axiom audit passed: 3233 project declarations, 2639 theorems.
+Axiom audit passed: 3301 project declarations, 2694 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -411,3 +411,14 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
  Classical.choice,
  Quot.sound]
 'MathieuProperty.CompactAdjoint.adjoint_simple_quotient' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.LieOneParameter.exists_global_curve' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.LieOneParameter.curve_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.LieOneParameter.curve_contMDiff_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.LieOneParameter.curve_mfderiv_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AbelianParameters.parameterMap_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AbelianParameters.kernel_discrete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AbelianParameters.kernel_span' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.LatticeTorus.mem_map_ker' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AbelianParameters.torusEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactLieTorus.exists_torus_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactLieTorus.abelian_iff_torus' depends on axioms: [propext, Classical.choice, Quot.sound]

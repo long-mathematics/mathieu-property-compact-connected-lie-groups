@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/adjoint-open-image`; milestones through [PR #44](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/44) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/abelian-one-parameter`; milestones through [PR #45](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/45) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 129 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 134 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -51,7 +51,8 @@ existence inputs are blocked.
 | L02 fundamental highest-weight representation; L06 root integration | Foundational gaps already documented; no existence assumptions added. |
 | Root-doublet lemma, L04, general simply-connected-simple theorem | Depend on the highest-weight/root-integration gaps; existing conditional transfer and algebraic doublet proofs do not close these rows. |
 | Simple central forms and uniform nonabelian theorem | Depend on the general simple-group result and Z05; the uniform theorem also needs the active adjoint quotient. |
-| L01 root/weight setup, Z05 simple cover, T01 abelian iff torus | Substantial independent infrastructure still requiring feasibility assessment; not promised merely because marked TODO. |
+| L01 root/weight setup, Z05 simple cover | Substantial independent infrastructure still requiring feasibility assessment; not promised merely because marked TODO. |
+| T01 abelian iff torus | Now proved via actual one-parameter subgroups and a full kernel lattice; independent of DvK. |
 | E13, E14 and remaining external abelian reductions | Exact SO source correspondence is unresolved because of the documented external indexing discrepancy; other specified counterexamples are already checked. |
 
 ## Dependency order
@@ -163,7 +164,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | CompactAdjoint.toSimpleAutomorphisms_range_eq_component; adjointSimpleGroup_algebraEquiv; adjointSimpleGroup_center_eq_bot | AdjointAutomorphism / OpenLieSubgroup / AdjointQuotient | G01 | PROVED | Concrete open adjoint image | The actual smooth restricted adjoint image is open and equals the automorphism identity component. Its inherited Lie-group structure has Lie algebra equivalent to the simple ideal; compactness, connectedness, and trivial group center are proved. |
 | G05 | Restricted adjoint differential image equals ad(simple ideal) | CompactAdjoint.restrictedAdjoint_eq_simple; restrictedAdjoint_mfderiv; restricted_adjoint_differential_range | RestrictedAdjointAlgebra / ProjectedAdjoint / RestrictedAdjoint | G01; G03 | PROVED | Manuscript, expressed in the ambient endomorphism space | The canonical projection constructs a smooth map equal to the actual restricted representation. Its manifold differential is the restricted bracket, whose image is exactly ad of the ideal. The inner-automorphism Lie-group target itself remains G04. |
 | G06 | Closed connected subgroup with full Lie algebra equals connected target | LieSurjective.surjective_of_surjective_mfderiv | LieSurjective | G04; G05 | PROVED | Substitute: local openness from surjective differential | A C¹ homomorphism with surjective differential at 1 is onto a connected target. Uses the Banach inverse-function/open-mapping theorem in charts and the open-subgroup argument; applies directly to the manuscript homomorphism once G04–G05 construct its target and differential. No closed-subgroup theorem is assumed. |
-| T01 | Compact connected abelian Lie group iff finite-dimensional torus, including dimension zero | abelian_iff_torus | Torus |  | TODO | Manuscript |  |
+| T01 | Compact connected abelian Lie group iff finite-dimensional torus, including dimension zero | CompactLieTorus.exists_torus_equiv; CompactLieTorus.abelian_iff_torus | LieOneParameter / AbelianParameters / AbelianLattice / LatticeTorus / AbelianTorus |  | PROVED | One-parameter subgroups and lattice quotient | Actual continuous group isomorphism with `Torus (finrank ℝ E)` from the abelian hypothesis; converse by commutativity transport. Includes zero-dimensional model, with no assumed exponential or group-cover existence theorem. |
 | T02 | Character lattice of torus is Z^d and representatives are finite character sums | representative_eq_characterSpan; torusCharacterEquiv; torus_representative_laurent | AbelianCharacters / TorusCharacters / TorusLaurent | D-representative; Haar unitarization | PROVED | Joint eigenspaces and Stone–Weierstrass/Haar orthogonality | Exact algebra equivalence for the d-fold unit circle, including d=0. General compact abelian representatives are finite character sums. T01 remains the separate Lie-group classification. |
 | T03 | Normalized Haar integral corresponds to Laurent coefficient at zero | torusCoefficientIntegral_laurent; torus_integral_constantTerm | HaarCharacters / TorusLaurent | T02; D-haar | PROVED | Character orthogonality | All coefficients are recovered by integration against inverse characters; the representative Haar functional is exactly the constant term. |
 | T04 | Duistermaat–van der Kallen external result must be proved, not postulated | duistermaat_van_der_kallen_one_variable; multivariate target open | OneVariableTorus; OneVariableDvK/* |  | IN PROGRESS | One-variable valuation/partial-fraction substitute | Full one-variable theorem and actual circle Mathieu property proved without additional axioms. Arbitrary rank, already rank two, remains open. See source adaptation and obstruction investigation. |
@@ -339,7 +340,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=93, TODO=5, IN PROGRESS=7, BLOCKED=5 (110 rows).
+Current inventory counts: PROVED=94, TODO=4, IN PROGRESS=7, BLOCKED=5 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -2502,3 +2503,89 @@ checked-in output byte for byte, the manuscript is unchanged from its initial
 commit, and whitespace checks pass. Correspondence review checked the actual
 quotient map, open image topology, inherited group bracket, simple-factor
 identification, identity-component equality, and center transport.
+
+## Abelian-group route: one-parameter subgroups
+
+PR #45 merged at `7537bd4` after CI `35224127353` passed (7m27s).
+The next branch is `formalization/abelian-one-parameter`. A targeted search found
+usable manifold integral-curve existence, uniqueness, and uniform-time extension
+theorems in pinned Mathlib. This supports a direct route toward T01 without
+assuming a general Lie exponential or faithful representation theorem.
+
+The standalone `LieOneParameter` draft compiles: translation of a local integral
+curve of the actual left-invariant field gives a uniform interval at every point;
+Mathlib extends it globally. Uniqueness supplies the homomorphism law. The curve
+is continuous, is C¹ in manifold charts, and has the prescribed tangent vector
+at zero. This works for Hausdorff real Lie groups with complete model space.
+The module is now being integrated; full milestone validation remains pending.
+
+Next: for an abelian group, multiply the finitely many one-parameter subgroups
+associated with a tangent-space basis. The derivative should be an isomorphism,
+giving an open surjection from a real vector group. The kernel must then be
+proved discrete and, using compactness, a full lattice. Mathlib's `ZLattice`
+basis machinery is available for the final lattice step. None of this yet
+proves T01; its coverage status is retained until the bridge is verified.
+General DvK remains deferred; root integration and highest-weight existence
+are not being assumed by this construction.
+
+The basis-product construction now compiles as well: `parameterMap` is a C¹
+homomorphism from the real coordinate vector group. Its differential at zero
+is exactly the inverse basis-coordinate equivalence, hence bijective. For a
+connected abelian target, the proved local-openness theorem makes the map
+surjective. T01 is now IN PROGRESS: 93 PROVED / 4 TODO / 8 IN PROGRESS /
+5 BLOCKED, total 110. The kernel and lattice steps remain unproved.
+
+`AbelianLattice` now compiles as a standalone draft. The inverse function theorem
+in the actual chart isolates zero in the kernel, proving its discreteness.
+The continuous vector-group surjection is open by Mathlib's sigma-compact
+group open mapping theorem. If the kernel had proper real span, a nonzero
+linear functional annihilating it would descend continuously to the compact
+target and surject onto ℝ, a contradiction. Thus the actual kernel is a full
+`IsZLattice`. The finite product-of-circles equivalence remains to be constructed;
+T01 is not yet marked PROVED.
+
+## Compact abelian Lie groups are tori — current milestone
+
+Five new mathematical modules close T01. The inventory is now 94 PROVED /
+4 TODO / 7 IN PROGRESS / 5 BLOCKED = 110; there are 134 mathematical modules.
+This proves the group-theoretic identification with a torus, not the torus
+Mathieu theorem or the main classification. The latter still require general
+DvK, which remains deferred as instructed.
+
+`LieOneParameter` constructs global C¹ one-parameter subgroups for every tangent
+vector using Mathlib's manifold ODE existence, uniqueness, and uniform-time
+extension. Left translation gives the same local existence interval at every
+point; no global Lie exponential or integration theorem is postulated.
+`AbelianParameters` multiplies the subgroups for a finite tangent basis. Its
+differential is the inverse basis-coordinate map, so the homomorphism is onto
+a connected abelian group by the already proved local-openness argument.
+
+`AbelianLattice` uses the inverse function theorem to isolate zero in the
+kernel. The kernel is discrete. The open mapping theorem lets a real linear
+functional annihilating the kernel descend continuously to the compact group.
+A nonzero such functional would surject onto ℝ, which is not compact. Hence
+the kernel spans the real vector space and is a full integer lattice.
+
+`LatticeTorus` sends coordinates in a lattice basis through `AddCircle 1` to
+the complex unit circle. Its kernel is exactly the given lattice and the map
+is continuous and surjective. `AbelianTorus` compares the two actual quotient
+maps with equal kernels. The induced multiplicative equivalence is continuous
+by the quotient-map criterion, and its inverse is continuous by compactness
+and Hausdorffness. `CompactLieTorus.exists_torus_equiv` gives the torus of
+dimension `finrank ℝ E`. `CompactLieTorus.abelian_iff_torus` is the manuscript-facing
+iff, with the actual group operations and topology. The proof covers an empty
+basis, so dimension zero is included.
+
+This substitutes an explicit one-parameter/lattice construction for a packaged
+compact abelian Lie-group classification theorem absent from pinned Mathlib.
+All existence steps are proved. No manuscript text or statement was changed.
+Full validation passed: `lake build` completed 4161 jobs; the source audit
+checked 137 Lean files; the exhaustive axiom audit checked 3301 project
+declarations / 2694 theorem constants, with only the three permitted standard
+foundations. Both manuscript-facing torus-identification results are explicitly
+printed in the axiom report. Outstanding target checks compile; verifier output
+is byte-identical; manuscript preservation and whitespace checks pass.
+Self-review checked the real vector-group source, actual tangent field and
+initial derivative, basis-product differential, open quotient topology,
+discrete/full kernel lattice, circle period one, matching quotient kernels,
+continuous inverse, and dimension-zero case.
