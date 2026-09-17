@@ -175,3 +175,15 @@ run_cmd do
 #print axioms MathieuProperty.compactSymplecticRadialA_one
 #print axioms MathieuProperty.compactSymplecticRadialA_moment
 #print axioms MathieuProperty.compactSymplecticRadialA_integrable
+
+#print axioms MathieuProperty.su2Symplectic_continuous
+#print axioms MathieuProperty.su2Symplectic_injective
+#print axioms MathieuProperty.symplecticProjection_equivariant
+#print axioms MathieuProperty.symplectic_representative_pure
+#print axioms MathieuProperty.symplectic_representative_marked
+#print axioms MathieuProperty.symplectic_marker_tower
+#print axioms MathieuProperty.symplectic_marked_positive
+#print axioms MathieuProperty.symplectic_marked_zero
+#print axioms MathieuProperty.compactSymplectic_small_values
+#print axioms MathieuProperty.compactSymplectic_not_mathieu
+#print axioms MathieuProperty.compactSymplectic_closed_forms

@@ -1,3 +1,4 @@
+import MathieuProperty.ClassicalSp
 import MathieuProperty.CompactSymplectic
 import MathieuProperty.SymplecticOrbit
 import MathieuProperty.ClassicalSU

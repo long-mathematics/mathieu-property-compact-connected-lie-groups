@@ -12,11 +12,11 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/compact-symplectic`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/sp-classical-markers`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 58 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
-- Milestones through SU(n) marker formulas are merged and CI-checked ([PR #20](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/20)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
+- M0 and M1 complete; the library covers 59 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- Milestones through Sp(n) sphere geometry are merged and CI-checked ([PR #21](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/21)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
 ## Dependency order
@@ -49,7 +49,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | lem:root-doublet | Fundamental highest-weight representation contains a faithful defining SU(2) root doublet | sl2Doublet_cyclic; sl2Doublet_matrix; root_hom_injective | RootDoubletModule / RootDoubletFaithfulness / RootSU2 (planned) | L01–L07 | IN PROGRESS | Manuscript | The cyclic irreducible algebraic doublet, defining matrices, and faithfulness of a supplied defining action are checked. Fundamental representation and root integration are absent. |
 | lem:radial-pushforward | Projected Haar is compactly supported invariant probability, not concentrated at zero | doublet_radial_pushforward | ProjectedHaar | lem:root-doublet; L08–L11 | PROVED | Manuscript | Given the manuscript’s standing unitary doublet data: actual projected Haar probability, compact ball support, SU(2) invariance, and positive mass off zero. Root-doublet existence remains open. |
 | thm:simply-connected-simple | Representative A,P,Q, nonnegative nonzero A, exact tower on all compact simply connected simple groups | doublet_pure; doublet_marked; doublet_marked_positive; unitary_doublet_not_mathieu (transfer only) | DoubletWitness / RootSU2 (planned) | lem:radial-pushforward; thm:radial-transfer; lem:representative-algebra | IN PROGRESS | Manuscript | Complete representative-function transfer proved for explicitly supplied unitary defining-doublet data. Existence of those data for all simply connected simple groups is unproved; no general simple-group theorem claimed. |
-| prop:classical-closed-forms | Defining SU(n), n≥2, and Sp(n), n≥1: rising factorial formulas and printed examples | specialUnitary_closed_forms; specialUnitary_small_values; specialUnitaryRadialA_moment | ClassicalSU / SphereBeta / ClassicalGroups (Sp planned) | C01–C07; thm:simply-connected-simple | IN PROGRESS | Manuscript | Entire SU(n) part proved with actual representative functions, Haar moments, endpoint, and examples. Sp(n) part remains open. |
+| prop:classical-closed-forms | Defining SU(n), n≥2, and Sp(n), n≥1: rising factorial formulas and printed examples | specialUnitary_closed_forms; compactSymplectic_closed_forms; specialUnitary_small_values; compactSymplectic_small_values | ClassicalSU / ClassicalSp / SphereBeta / SymplecticOrbit | C01–C07; projected_haar_moments | PROVED | Explicit matrix-root action and radial transfer | Both families are proved for all stated ranks with actual representative functions, pointwise first-column Hopf identities, normalized Haar moments, endpoints, and printed examples. Uses explicit SU(2) blocks, so no general root-existence theorem is assumed. |
 | lem:center-descent | Six functions descend as representative functions through full center and intermediate quotients | doublet_center_invariant; center_descent | CenterDescent | Z01–Z04; H04 | PROVED | Manuscript | For the standing irreducible unitary representation and projected coordinates: all six functions are invariant under the full center and descend as actual representative functions through every central subgroup. No universal representation-existence claim. |
 | cor:simple-central-forms | Exact marker tower and Mathieu failure for every compact connected simple central form | center_quotient_tower (transfer only) | QuotientWitness / SimpleGroups (planned) | Z05; lem:center-descent; lem:haar-pullback; thm:simply-connected-simple | IN PROGRESS | Manuscript | All moments, nonnegative nonzero A, strict positivity, and Mathieu failure descend through every central quotient of a supplied irreducible defining doublet. Universal source representation and simple-cover existence remain unproved. |
 | prop:adjoint-simple-quotient | Every nonabelian compact connected Lie group surjects continuously onto adjoint compact simple group | adjoint_simple_quotient | AdjointQuotient | G01–G06 | TODO | Manuscript |  |
@@ -116,7 +116,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | C04 | Beta moments equal rising factorial ratios | beta_moment_ratio; beta_moment_integrable; beta_moment_product; beta_moment_nat; beta_two_moment | BetaMoments | C03 | PROVED | Manuscript | Actual mathlib betaMeasure: density shift, normalization, integrability, Gamma recurrence, and rising-factorial ratios for all positive integer parameters. |
 | C05 | Sp(n) defining action transitive on complex 2n sphere with same invariant measure | exists_compactSymplectic_firstColumn; compactSymplecticSphere_transitive; compactSymplecticFirstColumn_map; compactSymplecticRadialA_moment | CompactSymplectic / SymplecticOrbit | C01; C03; C04 | PROVED | Specialized constructive proof | Closed unitary symplectic subgroup, exact determinant correspondence, paired SU(2) rotations and real orthogonal first-column construction. Actual normalized Haar maps to normalized Euclidean sphere measure; radial beta law and moments follow. |
 | C06 | Endpoint n=2 for SU and n=1 for Sp: A=1 and ratio=1 | specialUnitaryRadialA_two; compactSymplecticRadialA_one; compactSymplecticRadialA_moment; su2CompactSymplecticOne | SphereBeta / CompactSymplectic / SymplecticOrbit | C01; C05 | PROVED | Manuscript | Both endpoint functions are identically one and all moments have the stated ratio; the actual Sp(1) subgroup is all SU(2), with a continuous multiplicative equivalence and continuous inverse. |
-| C07 | Nine rational examples for m=1,2,3 | specialUnitary_small_values; classical_small_values | ClassicalSU / ClassicalConstants | C04; H12 | IN PROGRESS | Manuscript | All nine entries are checked as actual Haar moments for SU(2), SU(3), SU(4). The additional Sp(2) equality attached to the SU(4) row remains open. |
+| C07 | Nine rational examples for m=1,2,3 | specialUnitary_small_values; compactSymplectic_small_values; classical_small_values | ClassicalSU / ClassicalSp / ClassicalConstants | C04; H12 | PROVED | Manuscript | Every displayed entry is an actual representative Haar moment for SU(2), SU(3), SU(4), and Sp(2). |
 | Z01 | Schur lemma: center acts by scalar of modulus one | center_scalar; unitary_center_scalar | CenterDescent | L02; L03 | PROVED | Manuscript | mathlib algebraically closed Schur lemma; norm preservation gives scalar modulus one. |
 | Z02 | Balanced coefficients invariant; tensor representation has trivial central action | doublet_center_invariant; MatrixRepresentation.balanced_tensor_trivial | CenterDescent | Z01; H04 | PROVED | Manuscript | All six phase-balanced quantities are invariant; the actual tensor/conjugate matrix representation is identity on every unit scalar action. |
 | Z03 | Tensor conjugate representation factors continuously through central quotient | MatrixRepresentation.descend; MatrixRepresentation.balancedDescend; MatrixRepresentation.descend_coefficient | CenterDescent | Z02 | PROVED | Manuscript | Actual quotient homomorphism; quotient topology proves entry continuity and exact coefficient pullback. |
@@ -302,7 +302,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=77, TODO=18, IN PROGRESS=9, BLOCKED=6 (110 rows).
+Current inventory counts: PROVED=79, TODO=18, IN PROGRESS=7, BLOCKED=6 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -1102,3 +1102,49 @@ occur. Outstanding targets type-check, exact verifier output matches, and
 the manuscript remains unchanged. Review checked the unitary/symplectic
 correspondence, zero-radius pairs, both positive-rank ranges, first-column
 indices, the rank-one equivalence, and the probability normalizations.
+
+
+## All classical defining-representation marker formulas
+
+The compact symplectic sphere milestone merged in
+[PR #21](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/21)
+at `21325a71e08946d8bbb309b51d8a71762da2ee7a`, after CI run `35188095557` passed.
+
+`ClassicalSp.lean` constructs the continuous injective SU(2) subgroup acting
+on the first two defining complex coordinates for Sp(n), n≥2. It doubles
+the SU(n) block as diag(A, conjugate A); membership in the compact symplectic
+group is proved by the earlier matrix construction. Direct multiplication
+proves first-two-coordinate projection equivariance. These are the standard
+first-simple-root coordinates in the manuscript's defining representation;
+the proof uses the explicit matrices and requires no general root integration
+theorem. The projection entries are actual finite-dimensional continuous
+matrix coefficients, and the Hopf polynomials give actual representatives.
+
+Radial transfer gives the pure vanishing and entire fixed-marker tower.
+The sphere-derived radial moments give the exact c_m binomial times
+(2)_(4m+s)/(2n)_(4m+s) formula, positivity for 1≤s≤m, and zero for s>m.
+The rank-one formula is pulled back from SU(2) through the proved continuous
+Sp(1)=SU(2) equivalence using the normalized Haar/representative pullback
+identity. The manuscript wrapper quantifies over every n≥1 and identifies
+A, P, and Q pointwise with the first-column Hopf formulas. The three Sp(2)
+printed values are actual Haar integrals. Failure of the Mathieu property is
+also proved for every positive-rank compact Sp(n).
+
+Together with `ClassicalSU.lean`, this completes the named classical
+closed-forms proposition and C07. Current inventory is 79 PROVED, 18 TODO,
+7 IN PROGRESS, 6 BLOCKED (110 total), with 59 mathematical modules. The general
+classification and arbitrary nonabelian uniform theorem are still unproved.
+Next: return to the remaining manuscript correspondence and structural
+obligations; explicit classical groups do not discharge the general
+root-existence or compact Lie decomposition steps, nor the DvK torus direction.
+
+Sp(n) marker validation: `lake build` passed (3928 jobs); source audit passed
+for 62 Lean files; namespace axiom audit passed for 1319 declarations and
+1094 theorem constants, using only the three approved foundations. The exact
+verifier matches, outstanding targets type-check, and the manuscript is
+unchanged. Review checked matrix coefficients, first-simple-root coordinate
+blocks, all m/s/rank ranges, the rank-one pullback, and the printed constants.
+The next independent tractable obligation is E10, the earlier weighted xz
+witness f₀(t,w)=(1-w⁻¹)((1-t)+tw), with t=x². A specialized binomial/beta
+calculation should prove its two moments and three-element spectrum without
+using any external result as an assumption.
