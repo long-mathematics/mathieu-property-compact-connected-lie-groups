@@ -1,4 +1,4 @@
-Axiom audit passed: 1023 project declarations, 837 theorems.
+Axiom audit passed: 1046 project declarations, 857 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -98,3 +98,7 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.gaussian_sphere' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.complexGaussianCoordinates_map' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.normalized_independent_complex_gaussian' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.gammaSplit_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.gammaRatioSum_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.gamma_ratio_beta' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.gamma_sum_gamma' depends on axioms: [propext, Classical.choice, Quot.sound]

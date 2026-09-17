@@ -131,3 +131,8 @@ run_cmd do
 #print axioms MathieuProperty.gaussian_sphere
 #print axioms MathieuProperty.complexGaussianCoordinates_map
 #print axioms MathieuProperty.normalized_independent_complex_gaussian
+
+#print axioms MathieuProperty.gammaSplit_map
+#print axioms MathieuProperty.gammaRatioSum_map
+#print axioms MathieuProperty.gamma_ratio_beta
+#print axioms MathieuProperty.gamma_sum_gamma
