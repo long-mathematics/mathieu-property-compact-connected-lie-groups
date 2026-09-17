@@ -499,3 +499,18 @@ run_cmd do
 #print axioms MathieuProperty.CartanStabilizer.component_lieGroup
 #print axioms MathieuProperty.CartanStabilizer.component_torus_rank
 #print axioms MathieuProperty.CompactCartanTorus.component_torus
+
+#print axioms MathieuProperty.CartanStabilizer.exponential_mem_component
+#print axioms MathieuProperty.CartanStabilizer.commute_tangent_of_centralizes_component
+#print axioms MathieuProperty.CartanStabilizer.fixes_cartan_of_centralizes_component
+#print axioms MathieuProperty.CartanStabilizer.maximal_connected_abelian
+#print axioms MathieuProperty.CartanStabilizer.componentImage_mul_comm
+#print axioms MathieuProperty.FullAdjoint.ker_eq_center
+#print axioms MathieuProperty.FullAdjoint.quotientRangeEquiv
+#print axioms MathieuProperty.FullAdjoint.ontoImage_covering
+#print axioms MathieuProperty.DiscreteKernel.commute_image
+#print axioms MathieuProperty.CartanLift.image_compact
+#print axioms MathieuProperty.CartanLift.lift_compact
+#print axioms MathieuProperty.CartanLift.lift_connected
+#print axioms MathieuProperty.CartanLift.inclusion_injective
+#print axioms MathieuProperty.CartanLift.mul_comm
