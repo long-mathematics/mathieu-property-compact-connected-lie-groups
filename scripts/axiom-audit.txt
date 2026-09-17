@@ -1,4 +1,4 @@
-Axiom audit passed: 2310 project declarations, 1886 theorems.
+Axiom audit passed: 2334 project declarations, 1905 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -302,3 +302,11 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.Zwart.soEulerDensity_rpow' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Zwart.soEuler_convexSupport_false' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Zwart.soEuler_convexSupport_circles_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.entireMonomialHom_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.entireMonomial_analytic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.entireAngleMap_eq_zero_of_open' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.angleMap_eq_zero_of_open' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.angleMap_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.puncturedEvaluation_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.puncturedFunctionHom_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.puncturedFunctionEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
