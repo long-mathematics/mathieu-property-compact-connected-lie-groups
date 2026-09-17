@@ -1,4 +1,4 @@
-Axiom audit passed: 645 project declarations, 532 theorems.
+Axiom audit passed: 683 project declarations, 559 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -39,3 +39,10 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.Abelian.formal_moment_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Abelian.weighted_quadratic_substitution' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Abelian.explicit_laurent_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.mixedIntegral_eq_circle_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.universal_moment_conjecture_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.universal_convex_support_conjecture_false' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.Abelian.weightedCT_growth_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.universal_growth_conjecture_false' depends on axioms: [propext, Classical.choice, Quot.sound]
