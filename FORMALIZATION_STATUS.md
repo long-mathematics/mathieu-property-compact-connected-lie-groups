@@ -131,7 +131,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | T01 | Compact connected abelian Lie group iff finite-dimensional torus, including dimension zero | abelian_iff_torus | Torus |  | TODO | Manuscript |  |
 | T02 | Character lattice of torus is Z^d and representatives are finite character sums | representative_eq_characterSpan; torusCharacterEquiv; torus_representative_laurent | AbelianCharacters / TorusCharacters / TorusLaurent | D-representative; Haar unitarization | PROVED | Joint eigenspaces and Stone–Weierstrass/Haar orthogonality | Exact algebra equivalence for the d-fold unit circle, including d=0. General compact abelian representatives are finite character sums. T01 remains the separate Lie-group classification. |
 | T03 | Normalized Haar integral corresponds to Laurent coefficient at zero | torusCoefficientIntegral_laurent; torus_integral_constantTerm | HaarCharacters / TorusLaurent | T02; D-haar | PROVED | Character orthogonality | All coefficients are recovered by integration against inverse characters; the representative Haar functional is exactly the constant term. |
-| T04 | Duistermaat–van der Kallen external result must be proved, not postulated | dvdk_external_proof | Torus |  | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
+| T04 | Duistermaat–van der Kallen external result must be proved, not postulated | duistermaat_van_der_kallen_one_variable; multivariate target open | OneVariableTorus; OneVariableDvK/* |  | IN PROGRESS | One-variable valuation/partial-fraction substitute | Full one-variable theorem and actual circle Mathieu property proved without additional axioms. Arbitrary rank, already rank two, remains open. See source adaptation and obstruction investigation. |
 | T05 | Strict linear separation from convex hull of finite support | support_strict_separation | LaurentSupport | thm:dvdk | PROVED | Manuscript | Mathlib geometric Hahn–Banach and compactness of finite convex hull. |
 | T06 | Support of hf^m has separating-functional value≥C+mδ | support_mul_lower_bound; support_pow_lower_bound | LaurentSupport | T05 | PROVED | Manuscript | Support containment, not an incorrect equality of supports. |
 | T07 | Archimedean bound yields eventual absence of zero exponent | eventual_constantTerm_zero_of_lower_bound; eventual_constantTerm_zero_of_newton | LaurentSupport | T06 | PROVED | Manuscript | Zero polynomials allowed; all natural m above N. |
@@ -197,9 +197,11 @@ The minimal current target is already the two-variable case:
 syntax/types of this target and the full manuscript target; it supplies NO proof.
 The full target is manuscript `thm:dvdk`; `cor:torus` and `thm:classification`
 depend on it. No version of that implication is used as a hypothesis in the current
-library. The strongest currently proved downstream statement is
+library. For arbitrary rank, the strongest currently proved downstream statement is
 `eventual_constantTerm_zero_of_newton`: once zero is outside the actual Newton
-convex hull, every fixed multiplier has eventually zero constant term.
+convex hull, every fixed multiplier has eventually zero constant term. The full
+one-variable noncancellation theorem and actual circle Mathieu property are now
+proved in `OneVariableTorus.lean`; see the adaptation milestone below.
 
 Attempts and their exact limits:
 
@@ -302,7 +304,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=86, TODO=13, IN PROGRESS=5, BLOCKED=6 (110 rows).
+Current inventory counts: PROVED=86, TODO=13, IN PROGRESS=6, BLOCKED=5 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -1361,3 +1363,70 @@ joint-space reconstruction, continuity and multiplicativity of the resulting
 characters, Haar normalization, uniqueness of integer exponents, coefficient
 recovery, actual representative-algebra surjectivity, and the two directions
 of the Mathieu-predicate equivalence without assuming DvK.
+
+
+## One-variable DvK source adaptation in progress
+
+The compact abelian/torus correspondence merged in [PR #26](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/26)
+at `268eac8b2b4752aae8bc4a2a955739932cdbbedd`, after CI `35194416138` passed.
+Current branch: `formalization/one-variable-dvk`.
+
+A fresh external-source search found the MIT-licensed
+[MurrellGroup/GMC-2-lean](https://github.com/MurrellGroup/GMC-2-lean/tree/1782de7ff6c97eb1d98e63e7ff34df18b9cd322e)
+proof of one-variable DvK. Its source supplies the coefficient extraction
+theorem, rather than leaving it as an assumption. The relevant six modules
+are being adapted under `MathieuProperty/OneVariableDvK/`, with the original
+MIT notice and immutable commit provenance preserved in each file. Gaussian
+classification and supporting-face machinery are omitted as unrelated.
+
+The proof extends the zero-adic and infinity valuations to the splitting
+field of X^s-zp(X). Partial fractions are expanded in a bilateral summable
+series over the zero-adic completion. Vanishing power constant terms forces
+the selected root sum to equal z, whereas the infinity valuation proves its
+valuation strictly smaller than that of z. This gives a contradiction for
+a Laurent polynomial with both negative and positive exponents.
+
+Upstream uses Lean/mathlib 4.29.1; this repository remains pinned to 4.34.0.
+The adaptation requires the new bundled monoid-algebra coefficient API,
+explicit valuation homomorphisms, and updated topology/typeclass details.
+No upstream olean or audit claim is accepted as a substitute for rebuilding
+and auditing every adapted declaration locally. The one-variable result
+will cover the actual circle Mathieu property; it will not discharge
+multivariate DvK or the full torus corollary. All ledger counts remain
+unchanged until the relevant proofs build. No manuscript changes.
+
+
+The six adapted DvK modules and `OneVariableTorus.lean` now build. The
+unconditional `one_variable_nonzero_constant_power` applies the proved
+coefficient-extraction theorem; no extraction hypothesis survives its signature.
+`duistermaat_van_der_kallen_one_variable` proves exclusion of zero from the
+literal real convex hull of the integer support. `one_variable_constantTerm_mathieu`
+uses strict one-sidedness and the existing support bound to prove eventual
+vanishing for every Laurent multiplier. Reindexing the sole exponent and the
+actual torus/representative-algebra equivalence yields `torus_one_mathieu`.
+A continuous surjective coordinate map yields `circle_mathieu` for the actual
+unit-circle group with its Borel structure and normalized Haar integral.
+
+Validation: full `lake build` passed (4016 jobs). Source audit passed for
+81 Lean files. The exhaustive namespace audit passed for 1928 declarations
+and 1614 theorem constants, with only propext, Classical.choice, and Quot.sound.
+The checked-in `scripts/axiom-audit.txt` includes the new core and wrapper
+theorems. Outstanding target checks passed, the exact Python verifier output
+matched, the manuscript is unchanged from its initial commit, and whitespace
+checks passed.
+
+Self-review checked both discrete valuation extensions, the completed field
+embedding's injectivity, the annulus fixed-point coefficient argument, the
+strict inequality at infinity, and the final unconditional theorem signature.
+The wrapper includes the zero-polynomial case, all positive moment exponents,
+arbitrary fixed Laurent multipliers, and actual representative Haar integration.
+Upstream mathematical content is preserved; changes concern names, targeted
+imports, bundled coefficient APIs, explicit valuation homomorphisms, and
+topology/typeclass elaboration. Each adapted source retains the MIT license.
+
+Current inventory: 86 PROVED, 13 TODO, 6 IN PROGRESS, 5 BLOCKED (110 total),
+with 78 mathematical modules. T04 is now IN PROGRESS because its full
+one-variable specialization is proved. The full `thm:dvdk`, `cor:torus`, and
+classification remain unproved. A fresh search found no arbitrary-rank Lean
+DvK proof; the upstream GMC(2) theorem is explicitly one-variable in its
+angular Laurent algebra. The rank-two blocker above is unchanged.

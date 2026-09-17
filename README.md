@@ -25,7 +25,7 @@ where $c_m=4^m(m!)^2/(2m+1)!$; the same moments vanish for $s>m$.
 This repository is the canonical development location for the paper and its Lean formalization.
 
 The Lean formalization is in progress; the main classification is **not yet formalized**.
-The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are kernel-checked, along with the representative-algebra and Haar-pullback lemmas. The explicit SU(2) counterexample, the closed-form SU(n)/Sp(n) witnesses, and the transformed Laurent witness’s full integral correspondence are also checked. The representative-function/Laurent algebra equivalence for finite-dimensional tori and its Haar constant-term identity are proved; the Duistermaat–van der Kallen step remains open.
+The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are kernel-checked, along with the representative-algebra and Haar-pullback lemmas. The explicit SU(2) counterexample, the closed-form SU(n)/Sp(n) witnesses, and the transformed Laurent witness’s full integral correspondence are also checked. The representative-function/Laurent algebra equivalence for finite-dimensional tori and its Haar constant-term identity are proved; the higher-rank Duistermaat–van der Kallen step remains open.
 See [the obligation ledger](FORMALIZATION_STATUS.md) for exact coverage and outstanding dependencies.
 The toolchain and mathlib revision are pinned. Build and audit the current proofs with:
 
@@ -41,3 +41,10 @@ Auxiliary tooling and its checked-in outputs live under `scripts/`.
 ## Provenance
 
 The project was migrated from [`octonion/mathematics/mc`](https://github.com/octonion/mathematics/tree/main/mc). The original subtree was introduced in commit [`7573e57a16fe85177d8a4dab9d98a681923af918`](https://github.com/octonion/mathematics/commit/7573e57a16fe85177d8a4dab9d98a681923af918). The repository history there remains the archival record of the former location.
+
+The one-variable Duistermaat–van der Kallen theorem and the actual circle
+Mathieu property are now proved in `MathieuProperty/OneVariableTorus.lean`.
+The valuation and partial-fraction proof is adapted from the MIT-licensed
+[MurrellGroup/GMC-2-lean](https://github.com/MurrellGroup/GMC-2-lean/tree/1782de7ff6c97eb1d98e63e7ff34df18b9cd322e),
+rebuilt and axiom-audited on this project's pinned toolchain. Higher-rank DvK
+and the full torus corollary remain open.
