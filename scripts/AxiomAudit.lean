@@ -377,3 +377,19 @@ run_cmd do
 #print axioms MathieuProperty.HaarRealForm.positive
 #print axioms MathieuProperty.HaarRealForm.invariant
 #print axioms MathieuProperty.CompactAdjoint.exists_positive_adjoint_form
+
+-- Infinitesimal adjoint identity and actual compact Lie algebra decomposition.
+#print axioms MathieuProperty.LieMixed.mixed_commute
+#print axioms MathieuProperty.LieMixed.adjoint_derivative
+#print axioms MathieuProperty.LieLocalChart.leftPartial_eq_pullback
+#print axioms MathieuProperty.LieLocalChart.coordinate_adjoint_identity
+#print axioms MathieuProperty.LieLocalChart.bracket_coordinates
+#print axioms MathieuProperty.LieLocalChart.adjointCoordinates_fderiv
+#print axioms MathieuProperty.CompactAdjoint.invariantForm_lieInvariant
+#print axioms MathieuProperty.CompactAdjoint.semisimpleIdeal_isSemisimple
+#print axioms MathieuProperty.CompactAdjoint.compactLieDecomposition
+#print axioms MathieuProperty.CompactAdjoint.semisimpleIdeal_finite_simple_factors
+#print axioms MathieuProperty.CompactAdjoint.compact_lie_decomposition
+#print axioms MathieuProperty.CompactLieForm.liftCentralIdealEquiv
+#print axioms MathieuProperty.CompactAdjoint.simple_factor_positive_form
+#print axioms MathieuProperty.CompactAdjoint.simpleFactorAmbientEquiv

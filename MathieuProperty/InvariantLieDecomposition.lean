@@ -5,9 +5,9 @@ import Mathlib.Algebra.Lie.Prod
 import Mathlib.LinearAlgebra.Projection
 /-! The algebraic center/semisimple decomposition for a symmetric anisotropic
 invariant real bilinear form. Positive definiteness implies the anisotropy
-hypothesis. Constructing such a form on the actual Lie algebra of a compact
-Lie group remains a separate, unproved obligation; this module does not assume
-or declare the compact-group decomposition theorem.
+hypothesis. The form on the actual Lie algebra of a compact Lie group is constructed
+and proved invariant in `CompactLieStructure`, which applies this algebraic
+result to prove the compact-group decomposition.
 -/
 
 noncomputable section

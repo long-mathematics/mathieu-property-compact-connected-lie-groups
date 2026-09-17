@@ -10,7 +10,7 @@ The chain rule gives a representation, smooth parameter differentiation gives
 continuity, and naturality of vector-field brackets gives Lie automorphisms.
 For compact finite-dimensional groups, Haar averaging supplies a positive
 symmetric form invariant under this group action. Infinitesimal invariance
-under the Lie bracket is a separate outstanding step.
+under the Lie bracket is proved separately in `CompactLieStructure`.
 
 The local norm on the tangent space is the fixed chart-model norm, used for
 calculus and finite-dimensional averaging. It is not asserted to be invariant.

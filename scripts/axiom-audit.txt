@@ -1,4 +1,4 @@
-Axiom audit passed: 2437 project declarations, 1993 theorems.
+Axiom audit passed: 2534 project declarations, 2066 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -334,3 +334,19 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.HaarRealForm.positive' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.HaarRealForm.invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CompactAdjoint.exists_positive_adjoint_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.LieMixed.mixed_commute' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.LieMixed.adjoint_derivative' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.LieLocalChart.leftPartial_eq_pullback' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.LieLocalChart.coordinate_adjoint_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.LieLocalChart.bracket_coordinates' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.LieLocalChart.adjointCoordinates_fderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.invariantForm_lieInvariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.semisimpleIdeal_isSemisimple' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.compactLieDecomposition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.semisimpleIdeal_finite_simple_factors' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.CompactAdjoint.compact_lie_decomposition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactLieForm.liftCentralIdealEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.simple_factor_positive_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.simpleFactorAmbientEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
