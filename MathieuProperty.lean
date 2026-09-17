@@ -1,3 +1,4 @@
+import MathieuProperty.SU2Witness
 import MathieuProperty.RadialTransfer
 import MathieuProperty.HopfIntegral
 import MathieuProperty.SpherePhaseAverage
