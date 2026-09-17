@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/adjoint-image-topology`; milestones through [PR #40](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/40) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/automorphism-local-charts`; milestones through [PR #41](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/41) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 113 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 120 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -125,7 +125,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | G01 | Compact Lie algebra decomposes as center plus simple ideals | CompactAdjoint.compact_lie_decomposition | CompactLieStructure / LieLocalCoordinates / LieMixedDerivatives / InvariantLieDecomposition | Actual adjoint action; HaarRealForm; mathlib invariant forms and semisimple ideals | PROVED | Haar averaging and local mixed-derivative proof | Constructs the positive form, proves infinitesimal invariance, center complement, finite independent simple factors, ambient ideal embeddings, and inherited positive invariant forms. No structural hypothesis is assumed. |
 | G02 | Connected nonabelian group has at least one simple ideal | CompactAdjoint.nonabelian_simple_ideal | ManifoldZeroDerivative / LieHomCalculus / ConnectedLie / NonabelianCompactLie | G01 | PROVED | Connectedness via zero differentials | Zero differential implies constancy; smooth homomorphisms are determined by their differential; abelian Lie algebra forces connected group abelian. Nonabelianity forces a simple factor, lifted to an actual ambient ideal. |
 | G03 | Connected adjoint action preserves each simple ideal | CompactAdjoint.adjoint_preserves_simple_ideal; simpleAdjointRepresentation_continuous | LieIdealOrbit / AdjointIdeals | G01 | PROVED | Manuscript finite-permutation argument | Ad preserves the semisimple complement; its action on the finite atomic-ideal family is constant by connectedness and closed fibers. Each factor is an actual ambient ideal with continuous restricted representation. |
-| G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | inner_aut_structure (planned); simpleAdjointImage_compact; simpleAdjointImage_connected; simpleAdjointImage_center_eq_bot | RepresentationImage / AdjointCentralizer / AdjointImage | G01 | IN PROGRESS | Concrete compact adjoint image | The actual image is proved nontrivial, compact, connected, and centerless, with a continuous surjection from G and an action by Lie automorphisms. Manifold charts, Lie algebra identification, and inner-automorphism identity-component correspondence remain open. |
+| G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | inner_aut_structure (planned); simpleAdjointImage_compact; simpleAdjointImage_connected; simpleAdjointImage_center_eq_bot | RepresentationImage / AdjointCentralizer / AdjointImage | G01 | IN PROGRESS | Concrete compact adjoint image | The actual image is proved nontrivial, compact, connected, and centerless, with a continuous surjection from G and an action by Lie automorphisms. A local chart on the full bilinear automorphism group is now proved in AutomorphismChart. The smooth atlas, Lie algebra identification, and inner-automorphism identity-component correspondence remain open. |
 | G05 | Restricted adjoint differential image equals ad(simple ideal) | CompactAdjoint.restrictedAdjoint_eq_simple; restrictedAdjoint_mfderiv; restricted_adjoint_differential_range | RestrictedAdjointAlgebra / ProjectedAdjoint / RestrictedAdjoint | G01; G03 | PROVED | Manuscript, expressed in the ambient endomorphism space | The canonical projection constructs a smooth map equal to the actual restricted representation. Its manifold differential is the restricted bracket, whose image is exactly ad of the ideal. The inner-automorphism Lie-group target itself remains G04. |
 | G06 | Closed connected subgroup with full Lie algebra equals connected target | LieSurjective.surjective_of_surjective_mfderiv | LieSurjective | G04; G05 | PROVED | Substitute: local openness from surjective differential | A C¹ homomorphism with surjective differential at 1 is onto a connected target. Uses the Banach inverse-function/open-mapping theorem in charts and the open-subgroup argument; applies directly to the manuscript homomorphism once G04–G05 construct its target and differential. No closed-subgroup theorem is assumed. |
 | T01 | Compact connected abelian Lie group iff finite-dimensional torus, including dimension zero | abelian_iff_torus | Torus |  | TODO | Manuscript |  |
@@ -2239,3 +2239,59 @@ chart without a general closed-subgroup theorem. An alternative is a
 constant-rank construction for the compact representation image; the pinned
 library has no ready-made constant-rank image theorem. Neither route has been
 assumed. All manuscript and exact-verifier content remains unchanged.
+
+
+## G04 automorphism local charts — current milestone
+
+The next analytic bridge is now formalized, independently of Lie-bracket
+normed-space instances. For every continuous bilinear operation B on a real
+Banach space, `DerivationExponential.exp_preserves_bilinear` proves that the
+exponential of a bounded derivation preserves B. The proof differentiates
+exp(-tD)(B(exp(tD)x, exp(tD)y)) and uses the zero-derivative constancy theorem.
+`BilinearAutomorphism.group` is the actual closed subgroup of units in the
+continuous endomorphism algebra preserving B; `exp_mem_group` puts derivation
+exponentials in that subgroup.
+
+`BilinearDefect` defines the smooth equations F(T)(x,y)=T(B(x,y))-B(Tx,Ty).
+`linearDefect_apply` computes their derivative at identity, and
+`mem_derivations_iff` identifies its kernel exactly with the derivation rule.
+`FiniteDimensionalSlice` projects the equations to the derivative image and
+uses Mathlib's implicit function theorem to produce ambient local coordinates
+with derivative-image and derivative-kernel components.
+
+For finite-dimensional V, `AutomorphismParametrization` applies a second inverse
+function theorem to the projection of exp(D)-1 along the derivation subspace.
+`exponential_logarithm_eventually` proves that every sufficiently small solution
+of the projected equations equals the exponential of the constructed logarithm.
+Consequently `defect_zero_iff_projected_eventually` proves that projected and
+full bracket-preservation equations have identical local zero sets. This is a
+proved local equivalence, not an assumption of constant rank.
+
+`AutomorphismChart.exists_identity_chart` now gives an actual
+`OpenPartialHomeomorph (group B) (derivations B)` whose source contains identity,
+whose forward map is the ambient local logarithm, and whose inverse is the
+actual unit-group exponential. `logarithm_smoothAt_one` proves ambient smoothness
+at identity; `exponential_smooth` is global. `LocalInverseChart` packages the
+continuous local-inverse argument. Full validation passed: `lake build` completed
+4114 jobs; source audit checked 123 Lean files; exhaustive axiom audit checked
+2972 project declarations / 2434 theorem constants, with only propext,
+Classical.choice, and Quot.sound. Both minimal-obligation checks compile, the
+verifier matches byte for byte, and manuscript preservation and whitespace checks
+pass. Correspondence review confirmed the actual unit-group topology, local
+chart source at identity, exact exponential inverse, and absence of assumed
+constant-rank or closed-subgroup results.
+
+G04 remains IN PROGRESS. The next steps are to shrink to a smooth chart domain,
+translate this chart to a smooth atlas, prove the actual automorphism group is
+a Lie group, identify its Lie algebra with the derivation algebra, and apply
+innerness of derivations of the simple factor. No Lie-group instance, actual
+simple Lie quotient, or final classification has been claimed yet. The
+manuscript and exact-verifier mathematical content remain unchanged.
+
+
+Resume note: for a uniformly smooth chart domain, use the analyticity of the
+polynomial defect and operator exponential. Strengthen the helper smoothness
+proofs to `ContDiff ℝ ω` (or add analytic variants), then apply
+`ContDiffAt.contDiffOn` with target order infinity; a mere `ContDiffAt ℝ ∞`
+statement does not by itself supply one common smooth neighborhood in this API.
+Shrink the identity chart to that neighborhood before translating it.
