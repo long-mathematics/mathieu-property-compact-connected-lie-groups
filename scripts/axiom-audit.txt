@@ -1,4 +1,4 @@
-Axiom audit passed: 2101 project declarations, 1736 theorems.
+Axiom audit passed: 2173 project declarations, 1787 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -254,3 +254,21 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.Zwart.sp_one_conjecture_2025_false' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Zwart.sp_conjecture_2025_false' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Zwart.sp_conjecture_2025_source_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.angleMap_rationalize_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.fractionalMoment_rationalize' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.rationalNewtonPolytope_rationalize' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.rationalize_admissible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.fractional_conjecture_implies_integer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.restrict_openAngleCube' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.unitCircleAngle_bijOn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.puncturedEvaluation_expansion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.fractionalMoment_punctured' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.g2_conjecture_2024_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.g2_fractionalMoment_nested' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.g2_conjecture_2024_nested_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.circleCurve_hasDerivAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.circleCurve_logDerivative' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.circleCurve_unitCircleAngle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.fractionalContourMoment_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.fractionalContourMoment_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.g2_conjecture_2024_contour_false' depends on axioms: [propext, Classical.choice, Quot.sound]
