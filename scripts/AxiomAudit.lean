@@ -91,3 +91,9 @@ run_cmd do
 #print axioms MathieuProperty.sl2Doublet_matrix
 #print axioms MathieuProperty.root_hom_injective
 #print axioms MathieuProperty.specialUnitary_change_basis
+
+#print axioms MathieuProperty.averagedInner_re_pos
+#print axioms MathieuProperty.unitaryModel_intertwines
+#print axioms MathieuProperty.unitaryModel_continuous
+#print axioms MathieuProperty.invariantInnerProduct_invariant
+#print axioms MathieuProperty.invariantInnerProduct_continuous
