@@ -1,3 +1,4 @@
+import MathieuProperty.DoubletWitness
 import MathieuProperty.MixedPhase
 import MathieuProperty.AbelianWitness
 import MathieuProperty.SU2Witness
