@@ -1,0 +1,8 @@
+Axiom audit passed: 146 project declarations, 107 theorems.
+All dependencies lie in {propext, Classical.choice, Quot.sound}.
+'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.haar_pullback' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.eventual_constantTerm_zero_of_newton' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.highest_weight_one_lowering' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.square_root_free_pair' depends on axioms: [propext, Classical.choice, Quot.sound]

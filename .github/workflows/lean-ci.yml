@@ -1,0 +1,51 @@
+name: Build and audit Lean
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lean-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      LEAN_NUM_THREADS: "2"
+      MATHLIB_NO_CACHE_ON_UPDATE: "1"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Audit project sources
+        run: python3 scripts/audit_sources.py
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1
+        with:
+          auto-config: "false"
+          build: "false"
+          test: "false"
+          lint: "false"
+          use-github-cache: "false"
+          use-mathlib-cache: "false"
+      - name: Fetch pinned mathlib cache
+        run: |
+          python3 scripts/fetch_mathlib_cache.py
+          git diff --exit-code -- lean-toolchain lakefile.toml lake-manifest.json
+      - name: Build the current proof library
+        run: lake build
+      - name: Audit all project axiom dependencies
+        run: lake env lean scripts/AxiomAudit.lean
+      - name: Check outstanding obligation statements
+        run: lake env lean scripts/CheckObligations.lean
+      - name: Verify exact symbolic output
+        run: |
+          python3 -m pip install sympy==1.12
+          python3 scripts/verify_mathieu_classification.py > /tmp/mathieu-verification.txt
+          diff -u scripts/verify_mathieu_classification.txt /tmp/mathieu-verification.txt

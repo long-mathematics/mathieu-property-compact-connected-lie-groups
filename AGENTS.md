@@ -38,7 +38,7 @@ The published preprint is arXiv:2609.16178.
 
 ## Verification script
 
-`verify_mathieu_classification.py` contains exact symbolic checks supporting displayed identities in the manuscript. Changes to those identities should be checked against this script where applicable.
+`scripts/verify_mathieu_classification.py` contains exact symbolic checks supporting displayed identities in the manuscript. Changes to those identities should be checked against this script where applicable.
 
 ## Git workflow
 
@@ -50,3 +50,9 @@ The published preprint is arXiv:2609.16178.
 ## Generated files
 
 Do not commit LaTeX auxiliary files, Lean/Lake build products, Python caches, or other generated caches.
+
+## Auxiliary tooling
+
+- Keep verification, certificate-generation, and source/axiom audit tooling under `scripts/`.
+- Keep associated checked-in verification and certificate outputs under `scripts/` as well.
+- Normal mathematical Lean modules remain in the Lean library, not in `scripts/`.
