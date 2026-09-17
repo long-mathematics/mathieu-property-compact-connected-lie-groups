@@ -12,11 +12,11 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Branch: `formalization/lean-foundations`.
+- Development branch: `formalization/lean-foundations`; foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
 - M0 complete; coherent foundation milestone covers 10 mathematical modules plus the import umbrella. No principal theorem is proved. The main classification, uniform nonabelian tower, sphere integral, radial transfer, root subgroup existence, and torus direction remain outstanding.
-- Next: finish the foundation milestone PR/build audit. Completion is prevented by the documented library exception below, independently of the many remaining ordinary obligations. No further weakening or conditional main theorem is authorized.
+- Completion is prevented by the documented library exception below, independently of the many remaining ordinary obligations. The checked foundations are preserved through PR #1; remote validation and merge state are available there. No weakening or conditional main theorem is authorized.
 - No false manuscript statement identified. Library exception under attached prompt §16: the rank-two Duistermaat–van der Kallen noncancellation step remains unproved after the searches and proof attempts below. The known general proof would require major new toric/analytic infrastructure, which is not realistically achievable as a routine continuation of this paper formalization. The foundation milestone is incomplete coverage, not a completed formalization.
 
 ## Dependency order
@@ -310,3 +310,12 @@ Current inventory counts: PROVED=24, TODO=66, IN PROGRESS=9, BLOCKED=6.
 - Manuscript diff is empty.
 - Proof substitutions: formal coefficient divisibility replaces the prose polynomial congruence calculation; an elementary derivative/integration recurrence proves c_m's factorial formula without relying on the beta function. Neither substitutes for the sphere-measure theorem.
 - No classification theorem, uniform marker-tower theorem, or conditional surrogate thereof was added. The final adversarial whole-paper audit cannot pass while outstanding obligations remain.
+
+## Repository review record
+
+Foundation proof commit: `6bec9eee6121ba45890baa3328dd9128fcecf974`.
+[PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1)
+contains the foundation milestone and the verifier relocation. It is explicitly
+labelled partial coverage; its build result must not be read as full-paper certification.
+The PR description records the source, transitive-axiom, correspondence and
+symbolic-verifier self-review. Merge only after the PR checks succeed.
