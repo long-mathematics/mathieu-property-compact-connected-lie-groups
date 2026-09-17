@@ -148,7 +148,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | E10 | Earlier weighted xz witness has zero pure moments and (-1)^(m-1)/(2(m+1)) marker; spectrum {-1,0,1} | Abelian.weighted_xz_witness; Abelian.earlierXZ_specialize; Abelian.earlierXZ_spectrum | EarlierXZ | beta integral; phase coefficient interpretation | PROVED | Direct binomial/beta proof | Exact formal Laurent polynomial f₀(x²,w), pure and marked weighted integrals, nonzero marker for every m≥1, and exact formal spectrum. No external moment theorem is assumed. |
 | E11 | Definitions and admissibility of universal moment and convex-support conjectures | Abelian.UniversalMomentConjecture; Abelian.UniversalConvexSupportConjecture; Abelian.coordinate_weight_admissible; Abelian.mixedIntegral_eq_circle_integral | AbelianConjectures / MixedPhase | E05; E14 (definitions only) | PROVED | Direct witness at N=M=1, δ=x | Arbitrary dimensions, polynomial coefficient ring, actual cube integral and normalized product-circle correspondence; both conjectures refuted. |
 | E12 | Zero pure moment sequence has zero limsup growth, contradicting asserted positive growth | Abelian.weightedCT_growth_zero; Abelian.universal_growth_conjecture_false | AbelianConjectures | E05; E11 | PROVED | Manuscript | Actual real limsup of the complex moment norm raised to 1/m; m=0 handled by eventual equality. |
-| E13 | Each specified Zwart failure, via implication and contraposition or direct refutation | Zwart.sun_conjecture_2025_false; Zwart.g2_conjecture_2025_nested_false | ZwartSU / ZwartSp / ZwartG2 / ZwartOrdered | E14 | IN PROGRESS | Direct counterexamples | All three 2025 SU(N), Sp(N), and G2 conjectures are directly refuted, with exact domains and integral correspondences; Sp rank one included. Older fractional and SO variants remain open. |
+| E13 | Each specified Zwart failure, via implication and contraposition or direct refutation | Zwart.sun_conjecture_2025_false; Zwart.g2_conjecture_2025_nested_false | ZwartSU / ZwartSp / ZwartG2 / ZwartOrdered | E14 | IN PROGRESS | Direct counterexamples | All three 2025 conjectures and the fractional 2024 G2 conjecture are refuted, with exact domains and integrals. The 2023 SU/SO and 2024 Sp variants remain open. |
 | E14 | External Mueger–Tuset Lemma 5.2, Prop 5.3, Conjectures 6.3/6.6, Remark 6.7; Zwart implications: exact definitions and needed results | external_reduction_correspondence | AbelianWitness |  | IN PROGRESS | Source definitions and direct circle-integral proof | Conjectures 6.3/6.6 and growth assertion defined and refuted; Lemma 5.2 and the needed SU(2) polynomial specialization of Prop. 5.3 proved in CircleTransform/TransformIntegral/TransformPair. General Lie-group and Zwart implication obligations remain open. |
 
 ## Expository exclusions
@@ -1597,3 +1597,56 @@ and bounded-domain helpers. For SO use the affine uniform-weight earlier xz
 witness; inspect the original PDF's recursive radial indexing carefully before
 claiming its source correspondence. General higher-rank DvK and root integration
 remain the precise independent blockers recorded above.
+
+
+## Fractional angular frequencies and the 2024 G2 conjecture
+
+The symplectic milestone merged as
+[PR #30](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/30)
+at `df8cb0b5646c1dc66bd028b1f4df6c20b2514946`, after CI `35199961725`
+passed (5m2s). Current branch: `formalization/zwart-fractional-angles`.
+
+`ZwartFractional.lean` defines continuous-coefficient rational-frequency
+Laurent expressions and an actual exponential evaluation on the angular cube.
+It proves that integer-frequency embedding preserves moments, coefficient
+admissibility, and the Newton polytope. The bounded-denominator condition is
+exactly the union of (1/j)Z for 1 ≤ j ≤ D, as in Zwart 2023 Definition 2.9 and
+Zwart 2024 Definition 2.10. Positive powers use the proved ring homomorphism;
+no constant-term functional is substituted for general fractional integrals.
+
+`ZwartPunctured.lean` proves the unique parametrization of the punctured circle
+by angles strictly between zero and 2*pi, constructs the actual functions on
+products of punctured circles, and proves their finite rational-power expansion.
+The open angular cube has full measure; endpoint removal preserves the actual
+integral. The circle-curve derivative and logarithmic Jacobian are proved, so
+the parametrized product dz/z integral is exactly (2*pi*i)^M times the angular
+moment. The factor is nonzero, and a theorem proves equivalence of zero moments.
+Thus the actual fractional integral, coefficient algebra, branch, spectrum of
+the specified finite expansion, and normalization are explicit.
+
+`ZwartOldG2.lean` refutes Zwart 2024 Conjecture 3.5 with denominator bound four,
+six radial coordinates, eight punctured-circle coordinates, and the source's
+bounded radial region and density. The arbitrary constant includes the old
+density's factor four. Both nested-angular and parametrized-contour failure
+wrappers are proved. This uses the integer witness via the proved embedding;
+no G2 Lie-group representation or classification result is assumed.
+
+Validation: `lake build` passed (4026 jobs); source audit passed for 91 Lean
+files; exhaustive axiom audit checked 2173 declarations, including 1787 theorem
+constants, with only propext, Classical.choice, and Quot.sound; outstanding
+target checks passed; Python verifier output matched exactly; manuscript
+unchanged; whitespace checks passed. Self-review checked the denominator union,
+actual finite expansion, punctured-circle bijection, endpoint null sets,
+logarithmic Jacobian, positive powers, and the older G2 source density/domain.
+Inventory remains 86 PROVED, 12 TODO, 7 IN PROGRESS, 5 BLOCKED (110 rows), with
+88 mathematical modules. E13 remains IN PROGRESS for the 2023 SU/SO and 2024
+Sp conjectures.
+
+Next: encode the old SU density using pairs of exponents (a,b) for
+x^a*(1-x^2)^b. Its N-th block consists of (1,j-1), j=1,...,N-2, followed by
+(2N-3,0), then the SU(N-1) block; the leading pair is (1,0) for every N ≥ 2.
+The same linear-coordinate witness and fractional-conjecture implication apply.
+The 2024 Sp density uses two of these old SU blocks and the already formalized
+ordered xi domain. For SO, verify the original PDF's indexing before encoding;
+the intended first coordinate is flat on [-1,1], so use the affine earlier xz
+witness. Original PDF text remains `/tmp/mathieu-zwart2023.txt`.

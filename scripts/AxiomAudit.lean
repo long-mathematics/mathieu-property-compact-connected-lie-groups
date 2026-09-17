@@ -293,3 +293,23 @@ run_cmd do
 #print axioms MathieuProperty.Zwart.sp_one_conjecture_2025_false
 #print axioms MathieuProperty.Zwart.sp_conjecture_2025_false
 #print axioms MathieuProperty.Zwart.sp_conjecture_2025_source_false
+
+-- Fractional frequencies and the older G2 source conjecture.
+#print axioms MathieuProperty.Zwart.angleMap_rationalize_integral
+#print axioms MathieuProperty.Zwart.fractionalMoment_rationalize
+#print axioms MathieuProperty.Zwart.rationalNewtonPolytope_rationalize
+#print axioms MathieuProperty.Zwart.rationalize_admissible
+#print axioms MathieuProperty.Zwart.fractional_conjecture_implies_integer
+#print axioms MathieuProperty.Zwart.restrict_openAngleCube
+#print axioms MathieuProperty.Zwart.unitCircleAngle_bijOn
+#print axioms MathieuProperty.Zwart.puncturedEvaluation_expansion
+#print axioms MathieuProperty.Zwart.fractionalMoment_punctured
+#print axioms MathieuProperty.Zwart.g2_conjecture_2024_false
+#print axioms MathieuProperty.Zwart.g2_fractionalMoment_nested
+#print axioms MathieuProperty.Zwart.g2_conjecture_2024_nested_false
+#print axioms MathieuProperty.Zwart.circleCurve_hasDerivAt
+#print axioms MathieuProperty.Zwart.circleCurve_logDerivative
+#print axioms MathieuProperty.Zwart.circleCurve_unitCircleAngle
+#print axioms MathieuProperty.Zwart.fractionalContourMoment_eq
+#print axioms MathieuProperty.Zwart.fractionalContourMoment_eq_zero_iff
+#print axioms MathieuProperty.Zwart.g2_conjecture_2024_contour_false
