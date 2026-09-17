@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/abelian-one-parameter`; milestones through [PR #45](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/45) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/fundamental-root-weight`; milestones through [PR #46](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/46) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 134 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 135 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -33,8 +33,8 @@ The checked one-variable theorem and circle Mathieu property remain complete.
 T04 retains IN PROGRESS to record that partial coverage; its arbitrary-rank
 portion is deferred. The general torus theorem and classification remain
 BLOCKED and must not be asserted conditionally as completed results. Continue
-independent attainable obligations, currently the actual adjoint simple
-quotient. Record additional foundational blockers explicitly rather than
+independent attainable obligations. The adjoint simple quotient and the
+compact abelian torus identification are now proved. Record additional foundational blockers explicitly rather than
 repeatedly pursuing unavailable proof routes.
 
 ## Remaining work: dependency-aware assessment
@@ -49,8 +49,9 @@ existence inputs are blocked.
 | G04 and adjoint simple quotient | Now proved: actual open image, inherited Lie algebra, identity component, and continuous quotient map. |
 | General DvK (unproved part of T04), general torus theorem, classification | Deferred pending the external resolution-free DvK route. Classification also depends on the nonabelian direction. |
 | L02 fundamental highest-weight representation; L06 root integration | Foundational gaps already documented; no existence assumptions added. |
-| Root-doublet lemma, L04, general simply-connected-simple theorem | Depend on the highest-weight/root-integration gaps; existing conditional transfer and algebraic doublet proofs do not close these rows. |
-| Simple central forms and uniform nonabelian theorem | Depend on the general simple-group result and Z05; the uniform theorem also needs the active adjoint quotient. |
+| L04 weight-one root restriction | Now proved from the standing algebraic Cartan, root-base, and highest-weight-vector data; the root triple is constructed, not assumed. |
+| Root-doublet lemma and general simply-connected-simple theorem | Depend on the highest-weight/root-integration gaps; checked algebraic restriction and transfer proofs do not construct the required group representation. |
+| Simple central forms and uniform nonabelian theorem | Depend on the general simple-group result and Z05; the adjoint quotient needed by the uniform theorem is now proved. |
 | L01 root/weight setup, Z05 simple cover | Substantial independent infrastructure still requiring feasibility assessment; not promised merely because marked TODO. |
 | T01 abelian iff torus | Now proved via actual one-parameter subgroups and a full kernel lattice; independent of DvK. |
 | E13, E14 and remaining external abelian reductions | Exact SO source correspondence is unresolved because of the documented external indexing discrepancy; other specified counterexamples are already checked. |
@@ -138,7 +139,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | L01 | Maximal torus, simple roots and fundamental weight with coroot pairing one | fundamental_weight_pairing | RootSU2 |  | TODO | Manuscript |  |
 | L02 | Simply connected compact simple group admits irreducible representation of fundamental highest weight | fundamental_representation_exists | RootSU2 | L01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | L03 | Average inner product to obtain invariant Hermitian metric | averagedInnerCore; unitaryModel_intertwines; unitaryModel_continuous; invariantInnerProduct_invariant; invariantInnerProduct_continuous | HaarUnitarization | D-haar | PROVED | Manuscript | Haar average is positive definite and invariant; arbitrary finite-dimensional complex normed representations have a continuous unitary model, continuously linearly equivalent to the original representation. |
-| L04 | Root sl₂ action on highest vector has weight one | root_highest_weight_one | RootSU2 | L01; L02 | TODO | Manuscript |  |
+| L04 | Root sl₂ action on highest vector has weight one | FundamentalRootWeight.root_highest_weight_one; FundamentalRootWeight.fundamental_lowering | FundamentalRootWeight | L01; L02 | PROVED | Manuscript | Fundamental weight is the dual simple-coroot coordinate. For the standing Cartan/root base and highest-weight vector, constructs the actual root triple and proves primitive weight one. Group representation existence and root integration remain L02/L06. |
 | L05 | Highest-weight-one cyclic module: Fv≠0, F²v=0 and two-dimensional defining action | highest_weight_one_lowering; sl2Doublet_cyclic; sl2Doublet_finrank; sl2Doublet_irreducible; sl2Doublet_matrix | RootDoubletAlgebra / RootDoubletModule | L04 | PROVED | Manuscript | Actual cyclic Lie submodule, basis, dimension two, irreducibility, and exact defining matrices from a primitive weight-one vector. |
 | L06 | Integrate compact root Lie algebra to SU(2) homomorphism and identify restricted representation | integrate_root_SU2 | RootSU2 | L04; L05 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | L07 | Faithfulness implies injective root map; orthonormal identification gives defining SU(2) action | root_hom_injective; specialUnitary_change_basis | RootDoubletFaithfulness | L06 | PROVED | Manuscript | Given the defining action supplied by L06: the root homomorphism is injective, and every unitary basis change preserves the full SU(2) matrix subgroup. Existence and integration remain unproved. |
@@ -340,7 +341,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=94, TODO=4, IN PROGRESS=7, BLOCKED=5 (110 rows).
+Current inventory counts: PROVED=95, TODO=3, IN PROGRESS=7, BLOCKED=5 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -2589,3 +2590,43 @@ Self-review checked the real vector-group source, actual tangent field and
 initial derivative, basis-product differential, open quotient topology,
 discrete/full kernel lattice, circle period one, matching quotient kernels,
 continuous inverse, and dimension-zero case.
+
+
+## Fundamental highest-weight restriction (2026-09-17)
+
+PR #46 merged at `404d1d1` after CI run `35227360294` passed. Its compact
+abelian torus identification is preserved in this milestone.
+
+`FundamentalRootWeight` closes the algebraic restriction obligation L04.
+`fundamentalWeight` is the coordinate functional dual to a simple coroot in
+Mathlib's root-system base. All simple-coroot pairings are proved to be the
+Kronecker delta, including the manuscript's pairing equal to one.
+`IsHighestWeightVector` spells out the standard nonzero weight-space and
+positive-root annihilation conditions. A separate theorem derives annihilation
+from absence of higher root-shifted generalized weight spaces, using Mathlib's
+weight-shift theorem. No existence assertion is included in this definition.
+
+For the standing Cartan, simple-root base, and fundamental highest-weight vector,
+`root_highest_weight_one` constructs a root `sl₂` triple using the nondegenerate
+Killing form. It identifies its diagonal element with the chosen coroot, proves
+the vector has diagonal weight one, and proves the raising operator kills it.
+`fundamental_lowering` then obtains the nonzero first lowering and zero second
+lowering from the existing finite-dimensional `sl₂` theorem.
+
+This is the manuscript's algebraic proof step, with the actual root triple
+constructed rather than supplied as an extra hypothesis. It does not produce
+a highest-weight group representation, a compact root subgroup, or integration
+of the module. Those existence and correspondence obligations remain open in
+L01/L02/L06. No general root-doublet or simple-group theorem is claimed complete.
+The inventory is now 95 PROVED / 3 TODO / 7 IN PROGRESS / 5 BLOCKED = 110;
+there are 135 mathematical modules.
+
+Full validation passed: `lake build` completed 4227 jobs; the source audit
+checked 138 Lean files; the exhaustive axiom audit checked 3323 project
+declarations / 2709 theorem constants. Dependencies use only `propext`,
+`Classical.choice`, and `Quot.sound`. The outstanding target checks compile,
+the symbolic verifier reproduces its checked-in output byte for byte, and the
+manuscript is unchanged from the initial commit. Self-review checked the
+root/coroot index coercions, the dual-basis normalization, the nonzero vector
+condition, every positive-root annihilation condition, construction of the
+actual root triple, and the finite-dimensional hypothesis for lowering.

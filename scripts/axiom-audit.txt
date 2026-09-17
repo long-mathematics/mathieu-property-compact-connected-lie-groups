@@ -1,4 +1,4 @@
-Axiom audit passed: 3301 project declarations, 2694 theorems.
+Axiom audit passed: 3323 project declarations, 2709 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -422,3 +422,13 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.AbelianParameters.torusEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CompactLieTorus.exists_torus_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CompactLieTorus.abelian_iff_torus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.FundamentalRootWeight.fundamentalWeight_coroot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.FundamentalRootWeight.highestWeightVector_of_no_higher_weights' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.FundamentalRootWeight.root_highest_weight_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.FundamentalRootWeight.fundamental_lowering' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -449,3 +449,8 @@ run_cmd do
 #print axioms MathieuProperty.AbelianParameters.torusEquiv
 #print axioms MathieuProperty.CompactLieTorus.exists_torus_equiv
 #print axioms MathieuProperty.CompactLieTorus.abelian_iff_torus
+
+#print axioms MathieuProperty.FundamentalRootWeight.fundamentalWeight_coroot
+#print axioms MathieuProperty.FundamentalRootWeight.highestWeightVector_of_no_higher_weights
+#print axioms MathieuProperty.FundamentalRootWeight.root_highest_weight_one
+#print axioms MathieuProperty.FundamentalRootWeight.fundamental_lowering
