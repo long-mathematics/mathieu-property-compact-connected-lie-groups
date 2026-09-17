@@ -1,4 +1,4 @@
-Axiom audit passed: 3664 project declarations, 2998 theorems.
+Axiom audit passed: 3748 project declarations, 3070 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -502,3 +502,15 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.CartanLift.lift_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CartanLift.inclusion_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CartanLift.mul_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CoveringCharts.isManifold' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CoveringCharts.contMDiff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CoveringCharts.contMDiffAt_of_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CoveringCharts.lieGroup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.adjoint_covering' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.toComponent_covering' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.preimage_lieGroup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.lift_lieGroup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.lift_torus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.liftToComponent_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.maximal_connected_abelian' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.exists_maximal_torus' depends on axioms: [propext, Classical.choice, Quot.sound]

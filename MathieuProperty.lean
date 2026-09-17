@@ -108,6 +108,7 @@ import MathieuProperty.AbelianLaurent
 import MathieuProperty.CartanStabilizer
 import MathieuProperty.CompactCartanTorus
 import MathieuProperty.CartanLift
+import MathieuProperty.CartanLiftMaximal
 
 /-! Formalization of The Mathieu Property for Compact Connected Lie Groups.
 See FORMALIZATION_STATUS.md for the exact scope currently checked.
