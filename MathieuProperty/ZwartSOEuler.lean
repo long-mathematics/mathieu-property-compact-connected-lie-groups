@@ -4,7 +4,8 @@ import MathieuProperty.ZwartSignedCube
 This module deliberately does not define the malformed printed recurrence
 as a conjecture. See FORMALIZATION_STATUS.md for the external indexing issue.
 The cosine substitution, dimensions, half-integer powers, and flat-coordinate
-counterexample for this separately specified family are all proved here.
+counterexample are proved here. ZwartSOSource records the user-approved Euler
+interpretation of the source, explicitly as an indexing correction.
 -/
 
 noncomputable section
@@ -92,8 +93,9 @@ theorem soEulerDensity_rpow (n : ℕ) (c : ℂ) (x : SignedCube (soEulerRadialCo
   intro i hi
   rw [← Complex.ofReal_pow, signed_sqrt_pow]
 
-/-- A separately specified radial conjecture obtained from the well-defined
-Euler angular blocks. It is not identified with the malformed printed SO recurrence. -/
+/-- The radial conjecture obtained from the well-defined Euler angular blocks.
+ZwartSOSource connects it to the approved correction of the source conjecture;
+it is not identified with the malformed printed SO recurrence. -/
 def SOEulerConvexSupportConjecture (n : ℕ) (c : ℂ) : Prop :=
   ConvexSupportConjecture (n+2) (signedRadialAlgebra (soEulerRadialCount n)) volume (soEulerDensity n c)
 

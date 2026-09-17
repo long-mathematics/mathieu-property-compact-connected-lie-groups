@@ -540,3 +540,11 @@ run_cmd do
 #print axioms MathieuProperty.CartanLift.tangentInclusion_range
 #print axioms MathieuProperty.CartanLift.tangentInclusion_injective
 #print axioms MathieuProperty.CompactRootSetup.maximal_torus_root_setup
+
+#print axioms MathieuProperty.Zwart.soEuler_density_recursion
+#print axioms MathieuProperty.Zwart.soEuler_density_source
+#print axioms MathieuProperty.Zwart.soEulerTransformStep_angles
+#print axioms MathieuProperty.Zwart.angleMap_rationalize_circleEvaluation
+#print axioms MathieuProperty.Zwart.soEulerSourceMoment_eq
+#print axioms MathieuProperty.Zwart.so_conjecture_2023_euler_false
+#print axioms MathieuProperty.abelian_reductions

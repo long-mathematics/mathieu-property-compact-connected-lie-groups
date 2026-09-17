@@ -1,4 +1,4 @@
-Axiom audit passed: 3848 project declarations, 3153 theorems.
+Axiom audit passed: 3875 project declarations, 3173 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -528,3 +528,10 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.CartanLift.tangentInclusion_range' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CartanLift.tangentInclusion_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CompactRootSetup.maximal_torus_root_setup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.soEuler_density_recursion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.soEuler_density_source' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.soEulerTransformStep_angles' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.angleMap_rationalize_circleEvaluation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.soEulerSourceMoment_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.so_conjecture_2023_euler_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.abelian_reductions' depends on axioms: [propext, Classical.choice, Quot.sound]
