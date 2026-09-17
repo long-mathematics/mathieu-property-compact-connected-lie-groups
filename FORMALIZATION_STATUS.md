@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/automorphism-local-charts`; milestones through [PR #41](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/41) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/automorphism-lie-group`; milestones through [PR #42](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/42) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 120 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 122 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -125,7 +125,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | G01 | Compact Lie algebra decomposes as center plus simple ideals | CompactAdjoint.compact_lie_decomposition | CompactLieStructure / LieLocalCoordinates / LieMixedDerivatives / InvariantLieDecomposition | Actual adjoint action; HaarRealForm; mathlib invariant forms and semisimple ideals | PROVED | Haar averaging and local mixed-derivative proof | Constructs the positive form, proves infinitesimal invariance, center complement, finite independent simple factors, ambient ideal embeddings, and inherited positive invariant forms. No structural hypothesis is assumed. |
 | G02 | Connected nonabelian group has at least one simple ideal | CompactAdjoint.nonabelian_simple_ideal | ManifoldZeroDerivative / LieHomCalculus / ConnectedLie / NonabelianCompactLie | G01 | PROVED | Connectedness via zero differentials | Zero differential implies constancy; smooth homomorphisms are determined by their differential; abelian Lie algebra forces connected group abelian. Nonabelianity forces a simple factor, lifted to an actual ambient ideal. |
 | G03 | Connected adjoint action preserves each simple ideal | CompactAdjoint.adjoint_preserves_simple_ideal; simpleAdjointRepresentation_continuous | LieIdealOrbit / AdjointIdeals | G01 | PROVED | Manuscript finite-permutation argument | Ad preserves the semisimple complement; its action on the finite atomic-ideal family is constant by connectedness and closed fibers. Each factor is an actual ambient ideal with continuous restricted representation. |
-| G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | inner_aut_structure (planned); simpleAdjointImage_compact; simpleAdjointImage_connected; simpleAdjointImage_center_eq_bot | RepresentationImage / AdjointCentralizer / AdjointImage | G01 | IN PROGRESS | Concrete compact adjoint image | The actual image is proved nontrivial, compact, connected, and centerless, with a continuous surjection from G and an action by Lie automorphisms. A local chart on the full bilinear automorphism group is now proved in AutomorphismChart. The smooth atlas, Lie algebra identification, and inner-automorphism identity-component correspondence remain open. |
+| G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | inner_aut_structure (planned); simpleAdjointImage_compact; simpleAdjointImage_connected; simpleAdjointImage_center_eq_bot | RepresentationImage / AdjointCentralizer / AdjointImage | G01 | IN PROGRESS | Concrete compact adjoint image | The actual image is proved nontrivial, compact, connected, and centerless, with a continuous surjection from G and an action by Lie automorphisms. The full bilinear automorphism group now has a proved analytic manifold and Lie-group structure, with embedding differential equal to inclusion of derivations. Lie-bracket identification and inner-automorphism identity-component correspondence remain open. |
 | G05 | Restricted adjoint differential image equals ad(simple ideal) | CompactAdjoint.restrictedAdjoint_eq_simple; restrictedAdjoint_mfderiv; restricted_adjoint_differential_range | RestrictedAdjointAlgebra / ProjectedAdjoint / RestrictedAdjoint | G01; G03 | PROVED | Manuscript, expressed in the ambient endomorphism space | The canonical projection constructs a smooth map equal to the actual restricted representation. Its manifold differential is the restricted bracket, whose image is exactly ad of the ideal. The inner-automorphism Lie-group target itself remains G04. |
 | G06 | Closed connected subgroup with full Lie algebra equals connected target | LieSurjective.surjective_of_surjective_mfderiv | LieSurjective | G04; G05 | PROVED | Substitute: local openness from surjective differential | A C¹ homomorphism with surjective differential at 1 is onto a connected target. Uses the Banach inverse-function/open-mapping theorem in charts and the open-subgroup argument; applies directly to the manuscript homomorphism once G04–G05 construct its target and differential. No closed-subgroup theorem is assumed. |
 | T01 | Compact connected abelian Lie group iff finite-dimensional torus, including dimension zero | abelian_iff_torus | Torus |  | TODO | Manuscript |  |
@@ -2295,3 +2295,43 @@ proofs to `ContDiff ℝ ω` (or add analytic variants), then apply
 `ContDiffAt.contDiffOn` with target order infinity; a mere `ContDiffAt ℝ ∞`
 statement does not by itself supply one common smooth neighborhood in this API.
 Shrink the identity chart to that neighborhood before translating it.
+
+
+## G04 actual automorphism Lie group — current milestone
+
+PR #42 merged as `176fc92`, with CI passing in 5m29s. The next local draft
+`/tmp/AutomorphismAnalyticNext.lean` has now compiled and is split into
+`AutomorphismManifold` and `AutomorphismLieGroup`.
+
+`logarithm_analyticAt_one` strengthens the local logarithm regularity to real
+analyticity. `exists_analytic_identity_chart` shrinks the actual chart source
+to a domain where this ambient logarithm is analytic at every point.
+`translatedChart` translates by group multiplication; these charts define the
+actual subtype topology's `ChartedSpace`. Their transition maps are the ambient
+logarithm composed with fixed matrix multiplication and exponential. Their
+analyticity proves `IsManifold` at order omega.
+
+The matrix embedding is analytically smooth (`val_contMDiff`), and
+`contMDiffAt_of_val` proves smoothness into the group from continuity and
+smoothness of the actual matrix coefficients. Multiplication is matrix
+composition; inversion uses the existing Lie-group structure on units of the
+complete endomorphism algebra. This proves the actual `LieGroup` instance at
+order omega, hence also infinity. `val_mfderiv_one` identifies the differential
+of the matrix embedding with inclusion of the derivation subspace.
+
+Full validation passed: `lake build` completed 4117 jobs; source audit checked
+125 Lean files; exhaustive axiom audit checked 3013 project declarations /
+2472 theorem constants, using only the permitted standard foundations.
+Outstanding-obligation checks compile, exact verifier output matches, and the
+manuscript and whitespace checks pass. Correspondence review checked the
+original subgroup topology, analytic chart domains, transition maps, matrix
+embedding, actual multiplication/inversion, and embedding differential.
+
+G04 remains IN PROGRESS: the tangent
+Lie bracket still needs identification with the derivation commutator, then
+innerness of derivations and the compact adjoint-image/identity-component
+correspondence. No compact simple Lie quotient or classification is claimed.
+The next useful route is to compute the local logarithm derivative, express
+actual group Ad as projected matrix conjugation, and differentiate at identity
+using the already proved `ConnectedLie.adjoint_mfderiv`. This avoids assuming
+any general Lie-homomorphism differentiation theorem absent from the library.
