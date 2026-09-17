@@ -2,6 +2,7 @@ import MathieuProperty
 import Mathlib.Geometry.Manifold.GroupLieAlgebra
 import Mathlib.Algebra.Lie.Semisimple.Defs
 import Mathlib.AlgebraicTopology.FundamentalGroupoid.SimplyConnected
+import Mathlib.AlgebraicTopology.FundamentalGroupoid.FundamentalGroup
 import Mathlib.LinearAlgebra.UnitaryGroup
 
 /-! Type-check the precise outstanding targets. `#check` does not prove them.
@@ -38,3 +39,22 @@ include the fundamental representation or its invariant two-dimensional space. -
   Continuous φ ∧ Function.Injective φ : Prop)
 
 end RootEmbedding
+
+section SimpleCover
+open scoped Manifold ContDiff
+variable (E G : Type*) [NormedAddCommGroup E] [NormedSpace ℝ E]
+  [FiniteDimensional ℝ E] [Group G] [TopologicalSpace G] [T2Space G]
+  [ChartedSpace E G] [LieGroup 𝓘(ℝ, E) ∞ G]
+  [CompactSpace G] [ConnectedSpace G]
+
+local instance : LieGroup 𝓘(ℝ, E) (minSmoothness ℝ 3) G :=
+  LieGroup.of_le (show minSmoothness ℝ 3 ≤ (∞ : ℕ∞ω) by simp)
+
+variable [LieAlgebra.IsSimple ℝ (GroupLieAlgebra 𝓘(ℝ, E) G)]
+
+/- A necessary fragment of Z05: compactness of a simply connected cover of a
+compact simple group requires finitely many sheets. The source group here is
+not assumed simply connected. This command is only a type check. -/
+#check (Finite (FundamentalGroup G (1 : G)) : Prop)
+
+end SimpleCover

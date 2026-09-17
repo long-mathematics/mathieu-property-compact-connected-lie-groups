@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/fundamental-root-weight`; milestones through [PR #46](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/46) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/complex-root-data`; milestones through [PR #47](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/47) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 135 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 137 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -52,7 +52,8 @@ existence inputs are blocked.
 | L04 weight-one root restriction | Now proved from the standing algebraic Cartan, root-base, and highest-weight-vector data; the root triple is constructed, not assumed. |
 | Root-doublet lemma and general simply-connected-simple theorem | Depend on the highest-weight/root-integration gaps; checked algebraic restriction and transfer proofs do not construct the required group representation. |
 | Simple central forms and uniform nonabelian theorem | Depend on the general simple-group result and Z05; the adjoint quotient needed by the uniform theorem is now proved. |
-| L01 root/weight setup, Z05 simple cover | Substantial independent infrastructure still requiring feasibility assessment; not promised merely because marked TODO. |
+| L01 root/weight setup | Algebraic complexification, Cartan/root-base existence, fundamental pairing, and actual complex root triple are now constructed. Maximal compact torus correspondence remains open. |
+| Z05 simple cover | Requires a Lie-group covering construction and compactness of the simply connected cover; the finite-fundamental-group fragment is type-checked below, not proved. |
 | T01 abelian iff torus | Now proved via actual one-parameter subgroups and a full kernel lattice; independent of DvK. |
 | E13, E14 and remaining external abelian reductions | Exact SO source correspondence is unresolved because of the documented external indexing discrepancy; other specified counterexamples are already checked. |
 
@@ -136,7 +137,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | R06 | Pure orbit moments vanish at every vector | Hopf.orbit_pure | RadialTransfer | R02; R05; cor:sphere-marker-tower | PROVED | Manuscript | Includes zero. |
 | R07 | Marked orbit moment formula at every vector | Hopf.orbit_marked | RadialTransfer | R02; R05; cor:sphere-marker-tower | PROVED | Manuscript | Exact coefficient and radial power, including zero. |
 | R08 | Positive measure off zero implies positive radial integral | Hopf.radial_integral_pos | SphereMeasure | R04 | PROVED | Manuscript | Every positive natural radial power has positive integral for a finite compactly supported measure with positive mass off zero. |
-| L01 | Maximal torus, simple roots and fundamental weight with coroot pairing one | fundamental_weight_pairing | RootSU2 |  | TODO | Manuscript |  |
+| L01 | Maximal torus, simple roots and fundamental weight with coroot pairing one | ComplexRootData.cartan; ComplexRootData.simpleBase; ComplexRootData.fundamentalWeight_pairing; CompactLieRoots.simple_group_root_triple | KillingBaseChange / ComplexRootData | Actual group Lie algebra; Mathlib Cartan/base existence | IN PROGRESS | Algebraic construction via complexification | Constructs splitting Cartan, simple-root base, fundamental weight with pairing one, and root triple for the complexification of the actual simple group Lie algebra. Identification with a maximal compact torus and compatible compact real root form remain unproved. |
 | L02 | Simply connected compact simple group admits irreducible representation of fundamental highest weight | fundamental_representation_exists | RootSU2 | L01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | L03 | Average inner product to obtain invariant Hermitian metric | averagedInnerCore; unitaryModel_intertwines; unitaryModel_continuous; invariantInnerProduct_invariant; invariantInnerProduct_continuous | HaarUnitarization | D-haar | PROVED | Manuscript | Haar average is positive definite and invariant; arbitrary finite-dimensional complex normed representations have a continuous unitary model, continuously linearly equivalent to the original representation. |
 | L04 | Root sl₂ action on highest vector has weight one | FundamentalRootWeight.root_highest_weight_one; FundamentalRootWeight.fundamental_lowering | FundamentalRootWeight | L01; L02 | PROVED | Manuscript | Fundamental weight is the dual simple-coroot coordinate. For the standing Cartan/root base and highest-weight vector, constructs the actual root triple and proves primitive weight one. Group representation existence and root integration remain L02/L06. |
@@ -341,7 +342,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=95, TODO=3, IN PROGRESS=7, BLOCKED=5 (110 rows).
+Current inventory counts: PROVED=95, TODO=2, IN PROGRESS=8, BLOCKED=5 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -2630,3 +2631,76 @@ manuscript is unchanged from the initial commit. Self-review checked the
 root/coroot index coercions, the dual-basis normalization, the nonzero vector
 condition, every positive-root annihilation condition, construction of the
 actual root triple, and the finite-dimensional hypothesis for lowering.
+
+
+## Complex root data from the actual real Lie algebra (2026-09-17)
+
+PR #47 merged at `45a8958` after CI run `35228570066` passed (7m35s).
+Two new modules extend the algebraic part of L01; its maximal-torus portion
+remains open, so it is IN PROGRESS rather than PROVED. Inventory: 95 PROVED /
+2 TODO / 8 IN PROGRESS / 5 BLOCKED = 110, with 137 mathematical modules.
+
+`KillingBaseChange.bilinear_nondegenerate` proves preservation of nondegeneracy
+under a field extension: the Gram matrix in the extended basis is the image
+of the original Gram matrix, its determinant is the image of the original
+nonzero determinant, and the field homomorphism is injective. Mathlib's
+`LieModule.traceForm_baseChange` then identifies this form with the Killing
+form of the extended Lie algebra. The resulting `IsKilling` instance is proved,
+not an additional hypothesis.
+
+`ComplexRootData` takes the actual scalar extension `ℂ ⊗[ℝ] L`. Mathlib's
+regular-element theorem constructs a Cartan subalgebra; algebraic closedness
+of ℂ makes it splitting. Mathlib's crystallographic root-system theorem gives
+a simple-root base. Nontriviality ensures that the Cartan and its coroot basis
+are nonempty, so a simple root can be chosen. Its fundamental weight is the
+dual coroot coordinate, and its pairing with that coroot is proved equal to
+one. The root triple is constructed in the corresponding root spaces with
+diagonal element equal to the coroot.
+
+`CompactLieRoots.simple_group_root_triple` applies the construction to
+`ℂ ⊗[ℝ] GroupLieAlgebra 𝓘(ℝ, E) G` under the manuscript's simple-Lie-algebra
+condition, deriving nontriviality and nondegeneracy rather than adding them.
+This wrapper actually requires no compactness or simple connectedness. Its
+conclusion is an algebraic triple in the complexification. No conclusion is
+made that a chosen Cartan comes from a maximal compact torus, that a compatible
+compact real root form has been selected, or that an SU(2) map exists.
+
+### Remaining geometric correspondence and covering work
+
+The algebraic Cartan/base construction is available and is now connected to
+the actual group Lie algebra. The remaining L01 task is the geometric bridge
+to a maximal compact torus and a compatible real form. Constructing a Cartan
+in the complexification alone does not prove that bridge. The scalar extension
+proof therefore does not complete L01, L02, L06, or the visible-root-doublet lemma.
+
+For Z05, inspected the pinned `Topology/Covering/{Basic,Quotient,Deck}` and
+fundamental groupoid files. These provide covering-map definitions, local
+trivializations, quotient constructions, deck transformations, and fundamental
+groups. No universal-cover Lie-group construction or finite-fundamental-group
+theorem for compact semisimple Lie groups was found. The simplicial universal
+cover of a classifying space elsewhere in Mathlib is a different construction
+and does not supply a simply connected covering Lie group of G.
+
+Two routes were assessed. A path-class construction still needs its covering
+topology, smooth group operations, and compactness of the cover; ordinary
+compactness of the base does not imply compactness of an infinite-sheeted
+cover. A curvature route would need the positive-Ricci calculation and
+Bonnet–Myers compactness theorem. Mathlib has Riemannian metrics and path-length
+infrastructure, but those curvature/compactness results were not found. A
+root-lattice route instead needs the currently unproved compact torus and
+group/root correspondence. None of these observations is encoded as an axiom
+or as a proof of Z05; no claim of impossibility in Lean is intended.
+
+The necessary fragment `Finite (FundamentalGroup G (1 : G))`, under compactness,
+connectedness, and simplicity of the actual Lie algebra (without assuming G
+simply connected), is now a type-checked outstanding target in
+`scripts/CheckObligations.lean`. It does not prove or assume the finiteness claim.
+
+Complex-root-data validation passed: full `lake build` (4254 jobs), source audit
+(140 Lean files), exhaustive axiom audit (3353 project declarations / 2733 theorem
+constants), outstanding-target type checks including the finite-fundamental-group
+fragment, byte-identical symbolic verification, manuscript preservation, and
+whitespace checks. Only `propext`, `Classical.choice`, and `Quot.sound` occur in
+the dependency audit. Self-review checked the field extension, actual tensor
+Lie bracket and Killing form, splitting Cartan construction, nonempty coroot
+basis, normalized fundamental weight, and the actual group Lie-algebra wrapper.
