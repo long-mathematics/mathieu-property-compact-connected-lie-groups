@@ -1,4 +1,4 @@
-Axiom audit passed: 2334 project declarations, 1905 theorems.
+Axiom audit passed: 2353 project declarations, 1922 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -310,3 +310,14 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.Zwart.puncturedEvaluation_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Zwart.puncturedFunctionHom_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Zwart.puncturedFunctionEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactLieForm.nondegenerate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactLieForm.abelian_ideal_le_center' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactLieForm.ideal_orthogonal_isCompl' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactLieForm.center_complement_center_eq_bot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.CompactLieForm.center_complement_semisimple' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactLieForm.centerDecomposition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactLieForm.exists_central_semisimple_complement' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

@@ -355,3 +355,12 @@ run_cmd do
 #print axioms MathieuProperty.Zwart.puncturedEvaluation_injective
 #print axioms MathieuProperty.Zwart.puncturedFunctionHom_injective
 #print axioms MathieuProperty.Zwart.puncturedFunctionEquiv
+
+-- Algebraic decomposition from an explicitly supplied invariant form.
+#print axioms MathieuProperty.CompactLieForm.nondegenerate
+#print axioms MathieuProperty.CompactLieForm.abelian_ideal_le_center
+#print axioms MathieuProperty.CompactLieForm.ideal_orthogonal_isCompl
+#print axioms MathieuProperty.CompactLieForm.center_complement_center_eq_bot
+#print axioms MathieuProperty.CompactLieForm.center_complement_semisimple
+#print axioms MathieuProperty.CompactLieForm.centerDecomposition
+#print axioms MathieuProperty.CompactLieForm.exists_central_semisimple_complement
