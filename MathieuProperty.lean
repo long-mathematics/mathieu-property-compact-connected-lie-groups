@@ -1,3 +1,4 @@
+import MathieuProperty.LieAutomorphism
 import MathieuProperty.AutomorphismLieGroup
 import MathieuProperty.AutomorphismChart
 import MathieuProperty.BilinearDefect

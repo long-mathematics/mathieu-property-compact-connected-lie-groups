@@ -30,17 +30,17 @@ theorem val_contMDiff (B : V →L[ℝ] V →L[ℝ] V) :
 theorem contMDiffAt_of_val (B : V →L[ℝ] V →L[ℝ] V)
     {E H M : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] [TopologicalSpace H]
     {I : ModelWithCorners ℝ E H} [TopologicalSpace M] [ChartedSpace H M]
-    {f : M → group B} {x : M} (hc : ContinuousAt f x)
-    (hf : ContMDiffAt I 𝓘(ℝ,V →L[ℝ] V) ω (fun y => (f y).val.val) x) :
-    ContMDiffAt I 𝓘(ℝ,derivations B) ω f x := by
+    {n : ℕ∞ω} {f : M → group B} {x : M} (hc : ContinuousAt f x)
+    (hf : ContMDiffAt I 𝓘(ℝ,V →L[ℝ] V) n (fun y => (f y).val.val) x) :
+    ContMDiffAt I 𝓘(ℝ,derivations B) n f x := by
   apply contMDiffAt_iff_target.mpr
   refine ⟨hc, ?_⟩
-  have hm : ContMDiffAt I 𝓘(ℝ,V →L[ℝ] V) ω
+  have hm : ContMDiffAt I 𝓘(ℝ,V →L[ℝ] V) n
       (fun y => (f x).val.inv * (f y).val.val) x := contMDiffAt_const.clm_comp hf
-  have hl : ContMDiffAt 𝓘(ℝ,V →L[ℝ] V) 𝓘(ℝ,derivations B) ω (logarithm B)
+  have hl : ContMDiffAt 𝓘(ℝ,V →L[ℝ] V) 𝓘(ℝ,derivations B) n (logarithm B)
       ((f x).val.inv * (f x).val.val) := by
     rw [(f x).val.inv_val, contMDiffAt_iff_contDiffAt]
-    exact logarithm_analyticAt_one B
+    exact (logarithm_analyticAt_one B).of_le le_top
   simpa only [Function.comp_def, extChart_apply, groupLogarithm] using! hl.comp x hm
 
 theorem units_contMDiff (B : V →L[ℝ] V →L[ℝ] V) :
