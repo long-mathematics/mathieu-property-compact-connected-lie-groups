@@ -26,7 +26,7 @@ This repository is the canonical development location for the paper and its Lean
 
 The Lean formalization is in progress; the main classification is **not yet formalized**.
 The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are kernel-checked, along with the representative-algebra and Haar-pullback lemmas. The explicit SU(2) counterexample, the closed-form SU(n)/Sp(n) witnesses, and the transformed Laurent witness’s full integral correspondence are also checked. The representative-function/Laurent algebra equivalence for finite-dimensional tori and its Haar constant-term identity are proved; the higher-rank Duistermaat–van der Kallen step remains open.
-The 2025 Zwart SU(N), Sp(N), and G₂ abelian conjectures are directly refuted, with their source coefficient algebras, dimensions, densities, and radial integral correspondences. The older fractional G₂ conjecture is also refuted with actual punctured-circle integrals.
+The 2025 Zwart SU(N), Sp(N), and G₂ abelian conjectures are directly refuted, with their source coefficient algebras, dimensions, densities, and radial integral correspondences. The older fractional SU(N), Sp(N), and G₂ conjectures are also refuted with actual punctured-circle integrals. The SO(N) source correspondence remains under investigation; see the ledger for an external density-indexing discrepancy.
 See [the obligation ledger](FORMALIZATION_STATUS.md) for exact coverage and outstanding dependencies.
 The toolchain and mathlib revision are pinned. Build and audit the current proofs with:
 

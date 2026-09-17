@@ -201,4 +201,43 @@ theorem fractionalMoment_angles_outer {X : Type*} [TopologicalSpace X]
   apply integral_congr_ae
   filter_upwards [] with x
   rw [integral_mul_const]
+
+theorem angleMap_integral {X : Type*} [TopologicalSpace X] {M : ℕ}
+    (f : RationalLaurent X M) (x : X) :
+    (∫ θ : Cube M, angleMap x f θ) =
+      ∑ a ∈ f.coeff.support, f.coeff a x * ∫ θ : Cube M, rationalMonomial a θ := by
+  classical
+  have he : f = ∑ a ∈ f.coeff.support, AddMonoidAlgebra.single a (f.coeff a) :=
+    (AddMonoidAlgebra.sum_coeff_single f).symm
+  conv_lhs => rw [he]
+  simp only [map_sum, angleMap_single, ContinuousMap.sum_apply,
+    ContinuousMap.smul_apply, smul_eq_mul]
+  rw [integral_finsetSum]
+  · simp only [integral_const_mul]
+  · intro a ha
+    exact (continuous_const.mul (rationalMonomial a).continuous).integrable_of_hasCompactSupport
+      (HasCompactSupport.of_compactSpace _)
+
+theorem continuous_angleIntegral {X : Type*} [TopologicalSpace X] {M : ℕ}
+    (f : RationalLaurent X M) : Continuous (fun x => ∫ θ : Cube M, angleMap x f θ) := by
+  simp only [angleMap_integral]
+  apply continuous_finsetSum
+  intro a ha
+  exact (f.coeff a).continuous.mul continuous_const
+
+theorem angleIntegral_pullback_outer {X Y : Type*} [TopologicalSpace X]
+    [TopologicalSpace Y] [MeasurableSpace Y] [BorelSpace Y] [CompactSpace Y] {M : ℕ}
+    (μ : Measure Y) [IsFiniteMeasure μ] (φ : Y → X) (hφ : Continuous φ)
+    (δ : Y → ℂ) (hδ : Continuous δ) (f : RationalLaurent X M) :
+    (∫ y, (∫ θ : Cube M, angleMap (φ y) f θ) * δ y ∂μ) =
+      ∫ θ : Cube M, ∫ y, angleMap (φ y) f θ * δ y ∂μ := by
+  have hc := ((continuous_angleMap f).comp
+    ((hφ.comp continuous_fst).prodMk continuous_snd)).mul (hδ.comp continuous_fst)
+  have hi := hc.integrable_of_hasCompactSupport (μ := μ.prod volume)
+    (HasCompactSupport.of_compactSpace _)
+  rw [← integral_integral_swap hi]
+  apply integral_congr_ae
+  filter_upwards [] with y
+  rw [integral_mul_const]
+
 end MathieuProperty.Zwart
