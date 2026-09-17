@@ -5,6 +5,8 @@ import MathieuProperty.Haar
 import MathieuProperty.RootDoubletAlgebra
 import MathieuProperty.HopfCoefficient
 import MathieuProperty.MomentConstant
+import MathieuProperty.HopfIntegralKernel
+import MathieuProperty.PhaseAverage
 import MathieuProperty.AbelianAlgebra
 import MathieuProperty.LaurentSupport
 import MathieuProperty.LaurentExamples

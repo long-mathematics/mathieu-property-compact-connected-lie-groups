@@ -38,3 +38,7 @@ run_cmd do
 #print axioms MathieuProperty.representation_coefficient_mem
 #print axioms MathieuProperty.representative_counterexample_pullback
 #print axioms MathieuProperty.HasMathieuProperty.of_surjective
+#print axioms MathieuProperty.hopf_integrated_coefficient
+#print axioms MathieuProperty.phase_integral_constantTerm
+#print axioms MathieuProperty.momentConstant_beta
+#print axioms MathieuProperty.momentConstant_doubleFactorial

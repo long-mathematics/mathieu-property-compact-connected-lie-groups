@@ -2,6 +2,8 @@ import MathieuProperty.HopfCoefficient
 import Mathlib.Analysis.Calculus.Deriv.Polynomial
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
 import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
+import Mathlib.Analysis.SpecialFunctions.Gamma.Beta
+import Mathlib.Data.Nat.Factorial.DoubleFactorial
 
 /-! The real integral defining c_m and its exact factorial value. -/
 
@@ -76,6 +78,52 @@ theorem momentConstant_factorial (m : ℕ) :
       Nat.cast_one, pow_succ]
     field_simp
     ring
+
+/-- The double-factorial form in equation (3.5). -/
+theorem momentConstant_doubleFactorial (m : ℕ) :
+    momentConstant m = 2 ^ m * (m.factorial : ℝ) / ((2 * m + 1).doubleFactorial : ℝ) := by
+  induction m with
+  | zero => norm_num [Nat.doubleFactorial]
+  | succ m ih =>
+    have h := momentConstant_recurrence m
+    rw [ih] at h
+    have hd : (2 * m + 3 : ℝ) ≠ 0 := by positivity
+    have hf : ((2 * m + 1).doubleFactorial : ℝ) ≠ 0 := by positivity
+    apply mul_left_cancel₀ hd
+    rw [h]
+    have he : 2 * (m + 1) + 1 = (2 * m + 1) + 2 := by omega
+    simp only [he, Nat.doubleFactorial_add_two, Nat.factorial_succ, Nat.cast_mul,
+      Nat.cast_add, Nat.cast_one, Nat.cast_ofNat, pow_succ]
+    field_simp
+    ring
+
+/-- A finite-product expression, used to connect the real integral to Euler's beta integral. -/
+theorem momentConstant_product (m : ℕ) :
+    momentConstant m = (m.factorial : ℝ) /
+      (2 * ∏ j ∈ Finset.range (m + 1), ((1 / 2 : ℝ) + j)) := by
+  induction m with
+  | zero => norm_num
+  | succ m ih =>
+    have h := momentConstant_recurrence m
+    rw [ih] at h
+    have hd : (2 * m + 3 : ℝ) ≠ 0 := by positivity
+    have hp : (∏ j ∈ Finset.range (m + 1), ((1 / 2 : ℝ) + j)) ≠ 0 :=
+      ne_of_gt (Finset.prod_pos fun _ _ => by positivity)
+    have hl : ((1 / 2 : ℝ) + (m + 1)) ≠ 0 := by positivity
+    apply mul_left_cancel₀ hd
+    rw [h]
+    conv_rhs => rw [Finset.prod_range_succ, Nat.factorial_succ]
+    push_cast
+    field_simp
+    ring
+
+/-- Euler beta-function form, with the real equality embedded in ℂ because
+mathlib defines `betaIntegral` on complex arguments. -/
+theorem momentConstant_beta (m : ℕ) :
+    (momentConstant m : ℂ) = (1 / 2 : ℂ) * Complex.betaIntegral (1 / 2) (m + 1) := by
+  rw [Complex.betaIntegral_eval_nat_add_one_right (by norm_num), momentConstant_product]
+  push_cast
+  ring
 
 theorem pascal_marker_pos (m s : ℕ) (hm : 1 ≤ m) (hs : 1 ≤ s) (hsm : s ≤ m) :
     0 < momentConstant m * ((m - 1).choose (s - 1) : ℝ) :=
