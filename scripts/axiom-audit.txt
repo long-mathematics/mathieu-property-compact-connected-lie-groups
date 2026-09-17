@@ -1,4 +1,4 @@
-Axiom audit passed: 1928 project declarations, 1614 theorems.
+Axiom audit passed: 2004 project declarations, 1664 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -214,3 +214,18 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.one_variable_constantTerm_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.torus_one_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.circle_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.circleEvaluation_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.circleEvaluation_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.circleEvaluation_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.embed_admissible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.product_weight_moments' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.product_convexSupport_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.mem_radialAlgebra_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.cube_integral_first' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.cube_weight_moments' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.cube_convexSupport_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.sunRadialCount_eq' depends on axioms: [propext, Quot.sound]
+'MathieuProperty.Zwart.sunLaurentCount_eq' depends on axioms: [propext, Quot.sound]
+'MathieuProperty.Zwart.sunDensity_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.sun_conjecture_2025_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.sun_reduction_2025' depends on axioms: [propext, Classical.choice, Quot.sound]

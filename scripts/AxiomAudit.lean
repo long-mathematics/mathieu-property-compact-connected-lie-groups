@@ -248,3 +248,19 @@ run_cmd do
 #print axioms MathieuProperty.one_variable_constantTerm_mathieu
 #print axioms MathieuProperty.torus_one_mathieu
 #print axioms MathieuProperty.circle_mathieu
+
+#print axioms MathieuProperty.Zwart.circleEvaluation_integral
+#print axioms MathieuProperty.Zwart.circleEvaluation_pow
+#print axioms MathieuProperty.Zwart.circleEvaluation_injective
+#print axioms MathieuProperty.Zwart.embed_admissible
+#print axioms MathieuProperty.Zwart.product_weight_moments
+#print axioms MathieuProperty.Zwart.product_convexSupport_false
+#print axioms MathieuProperty.Zwart.mem_radialAlgebra_iff
+#print axioms MathieuProperty.Zwart.cube_integral_first
+#print axioms MathieuProperty.Zwart.cube_weight_moments
+#print axioms MathieuProperty.Zwart.cube_convexSupport_false
+#print axioms MathieuProperty.Zwart.sunRadialCount_eq
+#print axioms MathieuProperty.Zwart.sunLaurentCount_eq
+#print axioms MathieuProperty.Zwart.sunDensity_eq
+#print axioms MathieuProperty.Zwart.sun_conjecture_2025_false
+#print axioms MathieuProperty.Zwart.sun_reduction_2025
