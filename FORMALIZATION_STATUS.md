@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/classical-sphere`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/gaussian-sphere`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 48 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- M0 and M1 complete; the library covers 49 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
 - Milestones through beta moments are merged and CI-checked ([PR #15](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/15)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -111,7 +111,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | L10 | Haar pushforward invariant probability supported in compact ball | doublet_radial_pushforward; haar_pushforward_ball_support | ProjectedHaar | L09; U-haar-map | PROVED | Manuscript | Pushforward of actual normalized Haar; support compact by continuous compact image and contained in the Euclidean unit ball. |
 | L11 | Nonempty open sets have positive Haar; continuity gives nonconcentration | haar_pushforward_nonconcentration | ProjectedHaar | L09; D-haar | PROVED | Manuscript | Continuous preimage of the complement of zero is open and contains the identity; actual Haar positivity applies. |
 | C01 | First column Haar on SU(n) is uniform complex unit sphere | specialUnitaryFirstColumn_map; specialUnitaryFirstColumn_apply | ClassicalOrbit / ClassicalTopology / ClassicalSphereGeometry / NormalizedSphere |  | PROVED | Manuscript | For n≥2, actual compact SU(n) acts continuously and transitively on the Euclidean unit sphere; normalized cone surface measure is invariant. Haar orbit pushforward equals this probability measure. |
-| C02 | Complex Gaussian normalization produces sphere measure | gaussian_sphere | ClassicalGroups |  | TODO | Manuscript |  |
+| C02 | Complex Gaussian normalization produces sphere measure | gaussian_sphere; normalized_independent_complex_gaussian | GaussianSphere | C01 | PROVED | Manuscript, invariance proof | Normalization of independent real/imaginary Gaussian coordinates gives the actual normalized Euclidean sphere measure for n≥2, covering every use in the manuscript. The origin is a proved null set. |
 | C03 | Squared coordinate norms are Dirichlet(1,…,1), first two sum Beta(2,n-2) | sphere_two_coordinates_beta | ClassicalGroups | C02 | TODO | Manuscript |  |
 | C04 | Beta moments equal rising factorial ratios | beta_moment_ratio; beta_moment_integrable; beta_moment_product; beta_moment_nat; beta_two_moment | BetaMoments | C03 | PROVED | Manuscript | Actual mathlib betaMeasure: density shift, normalization, integrability, Gamma recurrence, and rising-factorial ratios for all positive integer parameters. |
 | C05 | Sp(n) defining action transitive on complex 2n sphere with same invariant measure | Sp_sphere_transitive | ClassicalGroups |  | TODO | Manuscript |  |
@@ -302,7 +302,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=73, TODO=22, IN PROGRESS=9, BLOCKED=6 (110 rows).
+Current inventory counts: PROVED=74, TODO=21, IN PROGRESS=9, BLOCKED=6 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -898,7 +898,7 @@ radial beta law) and C05 (symplectic transitivity) remain open.
 
 The earlier continuation checkpoints above record historical states. Current
 inventory: 73 PROVED, 22 TODO, 9 IN PROGRESS, 6 BLOCKED, 110 total. The library
-contains 48 mathematical modules plus its umbrella. No change to the manuscript
+contains 49 mathematical modules plus its umbrella. No change to the manuscript
 or verification mathematics was made.
 
 SU(n) milestone validation: `lake build` passed (3667 jobs). Source audit
@@ -906,3 +906,37 @@ passed for 51 Lean files. Namespace axiom audit passed for 1006 declarations
 and 822 theorem constants, depending only on propext, Classical.choice, and
 Quot.sound. The exact verifier output matches the checked-in output, outstanding
 target statements type-check, and the manuscript is byte-for-byte unchanged.
+
+## Gaussian normalization correspondence
+
+The SU(n) sphere milestone was merged as
+[PR #16](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/16)
+after CI run `35183713349` passed. The current branch is
+`formalization/gaussian-sphere`.
+
+`GaussianSphere.lean` defines a measurable normalized direction with an arbitrary
+fixed sphere value at zero. It proves standard Gaussian measure has no atoms
+in a nontrivial finite-dimensional real inner-product space, using positive
+variance of a nonzero continuous linear functional. Normalization commutes
+with isometries off zero, so Gaussian isometry invariance gives invariant
+sphere pushforward. Transitive SU(n) orbit averaging identifies that pushforward
+with the actual normalized Euclidean sphere measure for n≥2.
+
+The final theorem starts from the product of 2n independent real N(0,1)
+variables, groups them into n complex coordinates, and proves the exact
+normalized sphere pushforward. Its grouping is verified using the product
+orthonormal basis formed from 1 and i. The common Gaussian scale has no effect
+on normalization. This completes C02 for all dimensions used by the manuscript.
+No Dirichlet or beta law has been assumed. C03 remains open: mathlib contains
+beta and gamma densities but does not supply the needed normalized gamma or
+Dirichlet distribution correspondence directly. The next step is to derive
+that correspondence or a faithful invariant-moment substitute, keeping every
+measure normalization explicit.
+
+Current inventory: 74 PROVED, 21 TODO, 9 IN PROGRESS, 6 BLOCKED (110 total).
+
+Gaussian milestone validation: `lake build` passed (3848 jobs). Source audit
+passed for 52 Lean files. Namespace axiom audit passed for 1023 declarations
+and 837 theorem constants, with only propext, Classical.choice, and Quot.sound.
+The verifier output matches exactly, outstanding targets type-check, and the
+manuscript remains unchanged. The library has 49 mathematical modules.
