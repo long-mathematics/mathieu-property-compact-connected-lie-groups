@@ -12,7 +12,7 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/cartan-root-compatibility`; milestones through [PR #53](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/53) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/remaining-obligation-audit`; milestones through [PR #54](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/54) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
 - M0 and M1 complete; the library covers 166 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
@@ -3085,3 +3085,105 @@ hypotheses, chart differentials, the adjoint chain rule, tangent range equality,
 and the combined setup's actual assumptions. The explicit topological-group
 instance is supplied by a Lie group and is not an additional existence premise.
 The ledger row count was recomputed as 96 / 1 / 8 / 5 = 110.
+
+
+## Remaining-obligation exception audit after L01 (2026-09-17)
+
+PR #54 merged at `9c73962` after CI run `35241621902` passed (9m40s).
+The mathematical inventory is unchanged: 96 PROVED / 1 TODO / 8 IN PROGRESS /
+5 BLOCKED = 110. The five BLOCKED ledger rows are not five independent inputs:
+three are DvK and its consequences. Conversely, some IN PROGRESS rows preserve
+substantial partial proofs while still requiring missing existence results.
+
+A fresh dependency audit of all 14 remaining rows gives the following allocation.
+These groups account for every remaining row; rows may also have cross-dependencies.
+
+| Missing input / unresolved correspondence | Remaining rows assigned here | Strongest checked result |
+|---|---|---|
+| General multivariate DvK, explicitly deferred by the user | T04; thm:dvdk; cor:torus; thm:classification | Full one-variable DvK and circle Mathieu property; arbitrary-torus Laurent/representative algebra and Haar constant-term correspondence |
+| Fundamental highest-weight representation and compact root SU(2) integration | L02; L06; lem:root-doublet; thm:simply-connected-simple | Compatible maximal torus/root setup, normalized algebraic root triple, lowering and defining doublet for supplied highest-weight data, and complete witness transfer from supplied unitary doublet data |
+| Compact simply connected covering group | Z05; cor:simple-central-forms; thm:uniform-nonabelian | Finite center, actual adjoint covering, centrality and quotient identification for existing covers, central descent, and actual adjoint simple quotient |
+| Exact interpretation of the printed SO(N) source formula | E13; E14; cor:abelian-reductions | The universal counterexamples, all specified SU/Sp/G2 source counterexamples, and the well-defined SO Euler-density counterexample |
+
+### Precise representation and integration boundary
+
+The L01 construction discharges the earlier Cartan-existence and compatibility
+obstructions. It does not supply a module with the required highest weight.
+The minimal algebraic fragment is now also type-checked in the
+`FundamentalModule` section of `scripts/CheckObligations.lean`: for the compatible
+complex Cartan of a real Killing Lie algebra, construct some finite-dimensional
+complex module and a nonzero fundamental highest-weight vector. This target
+omits irreducibility, unitarity, and integration, so even proving it would not
+by itself complete L02. It is only a `#check`, and is not declared or passed
+as a hypothesis to any proof.
+
+The separate `RootEmbedding` target asks for a continuous injective homomorphism
+`Matrix.specialUnitaryGroup (Fin 2) ℂ →* G` under the actual compact, connected,
+simply connected, simple-Lie-algebra hypotheses. The full L06 obligation also
+requires the root differential and identification of the restricted group action.
+The already proved algebraic lowering theorem cannot construct this group map.
+
+Renewed searches of the pinned Lie algebra, representation, manifold, and
+analysis files found no highest-weight module existence, Verma-module
+construction, Peter–Weyl theorem, or Lie-homomorphism integration theorem usable
+here. The previous specialized sl₂ route has been carried through to its
+actual algebraic conclusion; the alternative unitary-matrix realization still
+requires representation existence or integration. These are substantial missing
+foundations, not failed arithmetic tactics or a claim of impossibility in Lean.
+
+### Covering boundary after the new torus construction
+
+The exact necessary fragment remains `Finite (FundamentalGroup G (1 : G))`,
+type-checked in the `SimpleCover` section without assuming G simply connected.
+Neither the finite center nor the adjoint covering proves this fragment.
+The group itself must first acquire a simply connected covering group, and
+compactness requires control of the number of sheets.
+
+The root-lattice alternative was revisited after L01. Algebraic coroot data
+are now present, but the required identification of coroot periods and the
+fundamental group with a quotient of the torus period lattice is absent. It
+requires the group-level root integration and topology of the corresponding
+homogeneous space; a finite-index statement about abstract lattices alone does
+not prove finiteness of the actual fundamental group. The path-class alternative
+still needs its covering topology and homotopy-invariant group construction.
+The curvature alternative still needs positive Ricci curvature and Bonnet–Myers.
+A degree-one cohomology alternative would need the de Rham comparison and
+finite generation of the fundamental group in this setting. Searches of the
+pinned geometric/topological APIs did not locate those bridges. Merely pulling
+back smooth charts, which is now proved, does not resolve these global issues.
+
+### Source boundary for the remaining abelian reductions
+
+The cached original arXiv source was rechecked at Lemma 3.3, equations (16)–(17),
+and Conjecture 3.5. For N=3 the stated radial domain has one coordinate, while
+the displayed recursive density requires x₂. The well-defined interpretation
+from the preceding Euler measure has N−2 new radial variables at stage N and
+powers (k−1)/2, k=1,...,N−2, starting the recursive argument at x_(N−1).
+That interpretation is already formalized and refuted in `ZwartSOEuler`.
+It has not been silently equated with the printed formula. There is no faithful
+fully typed statement of the printed recurrence at N=3 until its indexing is
+clarified. E13/E14 therefore retain their explicit source-correspondence gap.
+The mathematical manuscript itself has not been altered or found false.
+
+### Continuation boundary
+
+No remaining ledger row is an independent routine consequence of the current
+library. Completing them needs one of the missing representation/integration/
+covering foundations, an approved precise interpretation of the SO source, or
+the user's external DvK proof. Do not repeat the deferred resolution-dependent
+DvK route, count conditional transfer results as the missing existence theorems,
+or relabel the current 96 proofs as completion of the whole manuscript.
+All existing proofs and their exact remaining hypotheses are preserved. This
+is the documented exception boundary for the current available proof routes;
+work can resume when a concrete missing input or corrected source interpretation
+becomes available.
+
+Validation of this exception audit: the new algebraic target type-checks;
+`lake build` passes (4283 jobs), the source audit passes (169 files), and the
+exhaustive axiom audit is byte-identical to the checked-in report (3848
+declarations / 3153 theorem constants). No mathematical declaration was added
+or changed in this audit. Manuscript preservation and whitespace checks pass.
+The user has been asked whether to adopt the explicit, already-proved SO Euler
+version as the intended conjecture for source correspondence. That mathematical
+interpretation remains pending; no approval or ledger completion is inferred
+from silence.
