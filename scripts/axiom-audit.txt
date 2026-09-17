@@ -1,4 +1,4 @@
-Axiom audit passed: 918 project declarations, 744 theorems.
+Axiom audit passed: 945 project declarations, 770 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -78,3 +78,10 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
  Quot.sound]
 'MathieuProperty.center_descent' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.center_quotient_tower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.beta_moment_ratio' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.beta_moment_integrable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.beta_moment_product' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.beta_moment_nat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.beta_two_moment' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.classical_small_values' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.su2_small_values' depends on axioms: [propext, Classical.choice, Quot.sound]

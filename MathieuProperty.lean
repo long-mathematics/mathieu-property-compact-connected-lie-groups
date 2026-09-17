@@ -1,3 +1,5 @@
+import MathieuProperty.BetaMoments
+import MathieuProperty.ClassicalConstants
 import MathieuProperty.QuotientWitness
 import MathieuProperty.CenterDescent
 import MathieuProperty.HaarUnitarization
