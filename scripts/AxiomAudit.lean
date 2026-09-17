@@ -430,3 +430,10 @@ run_cmd do
 #print axioms MathieuProperty.CompactAdjoint.simpleAdjointOnto_continuous
 #print axioms MathieuProperty.CompactAdjoint.simpleAdjointImage_center_eq_bot
 #print axioms MathieuProperty.CompactAdjoint.simpleAdjointImage_nontrivial
+
+#print axioms MathieuProperty.CompactAdjoint.toSimpleAutomorphisms_mfderiv_surjective
+#print axioms MathieuProperty.CompactAdjoint.toSimpleAutomorphisms_range_eq_component
+#print axioms MathieuProperty.OpenLieSubgroup.inclusion_mfderiv
+#print axioms MathieuProperty.OpenLieSubgroup.lieEquiv
+#print axioms MathieuProperty.CompactAdjoint.adjointSimpleGroup_algebraEquiv
+#print axioms MathieuProperty.CompactAdjoint.adjoint_simple_quotient

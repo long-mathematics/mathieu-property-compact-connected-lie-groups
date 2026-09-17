@@ -1,3 +1,6 @@
+import MathieuProperty.AdjointQuotient
+import MathieuProperty.OpenLieSubgroup
+import MathieuProperty.AdjointAutomorphism
 import MathieuProperty.LieAutomorphism
 import MathieuProperty.AutomorphismLieGroup
 import MathieuProperty.AutomorphismChart
