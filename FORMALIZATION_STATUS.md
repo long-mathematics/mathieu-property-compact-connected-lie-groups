@@ -6,16 +6,19 @@ Source of truth: `mathieu_property_compact_connected_lie_groups.tex` at initial 
 The manuscript is unchanged. This ledger records obligations, not assertions of completion.
 `PROVED` means the full stated obligation has been checked by Lean without placeholders.
 Definitions use `PROVED` only after their implementation and stated correspondence are checked.
+For the SO(N) clause of E13/E14 and cor:abelian-reductions, the stated correspondence
+is the explicitly user-approved Euler-consistent correction of Zwart 2023, not
+the malformed printed recurrence; see the correction record below.
 Every Lean name below is intended until linked to an actual checked declaration.
 All modules are under `MathieuProperty/`; names are in namespace `MathieuProperty`.
 Rows for external results are obligations to prove or reuse mathlib, never licenses to assume them.
 
 ## Current state
 
-- Development branch: `formalization/remaining-obligation-audit`; milestones through [PR #54](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/54) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/so-euler-source-correction`; milestones through [PR #55](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/55) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 166 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 168 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -55,7 +58,7 @@ existence inputs are blocked.
 | L01 root/weight setup | Now proved: an actual maximal torus, its smooth injective inclusion with differential image equal to the real Cartan, the scalar-extension splitting Cartan, simple roots, and a fundamental weight with coroot pairing one. Highest-weight representation existence and root integration remain separate gaps. |
 | Z05 simple cover | Finite center, covering onto the center quotient, centrality of covering kernels, and topological quotient identification are proved. Existence and compactness of the simply connected cover remain open; the finite-fundamental-group fragment is only type-checked. |
 | T01 abelian iff torus | Now proved via actual one-parameter subgroups and a full kernel lattice; independent of DvK. |
-| E13, E14 and remaining external abelian reductions | Exact SO source correspondence is unresolved because of the documented external indexing discrepancy; other specified counterexamples are already checked. |
+| E13, E14 and external abelian reductions | Now proved under the approved Euler-consistent SO correction. The malformed printed recurrence remains explicitly distinguished from the corrected density and recursive transform. |
 
 ## Dependency order
 
@@ -96,7 +99,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | cor:torus | Every torus has the Mathieu property | torus_mathieu | Torus | T01–T08; thm:dvdk | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | thm:classification | For every compact connected Lie group: Mathieu property iff abelian iff torus | classification | MainTheorem | thm:uniform-nonabelian; cor:torus; T01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | prop:explicit-abelian-SU2 | Transformed Laurent pair: exact moments, printed expansion, exact spectrum | Abelian.formal_expansion; Abelian.formal_spectrum; Abelian.transform_correspondence | AbelianAlgebra / AbelianLaurent / TransformPair | E01–E09; thm:hopf-coefficient | PROVED | Manuscript; specialized moment comparison and polynomial interpolation for the external correspondence | Algebra, spectrum, weighted moments, formal representative independence, and actual Haar correspondence checked. |
-| cor:abelian-reductions | Failure of both universal abelian conjectures, growth claim and specified Zwart reductions | Abelian.universal_moment_conjecture_false; Abelian.universal_convex_support_conjecture_false; Abelian.universal_growth_conjecture_false | AbelianConjectures | E10–E14; prop:explicit-abelian-SU2; thm:classification | IN PROGRESS | Direct witness | Both universal conjectures, the growth assertion, and all specified SU/Sp/G2 conjectures are refuted. Exact SO source correspondence remains open. |
+| cor:abelian-reductions | Failure of both universal abelian conjectures, growth claim and specified Zwart reductions | abelian_reductions | AbelianReductions | E10–E14; prop:explicit-abelian-SU2 | PROVED | Direct counterexamples replace classification/contraposition | Both universal conjectures, growth, and every specified SU/Sp/G2/SO conjecture are refuted, including rank-one Sp. SO uses the explicitly approved Euler correction; no claim about the malformed printed recurrence. |
 | D-representative | Finite linear combinations of coefficients of finite-dimensional continuous complex representations | representativeFunctions; representative_eq_span_coefficients; representation_coefficient_mem | RepresentativeFunctions |  | PROVED | Coordinate model, with formal basis correspondence | Finite linear span, without topological closure; arbitrary finite-dimensional normed complex representation spaces and joint continuity checked. |
 | D-haar | Normalized Haar integration on representative functions | normalizedHaar; representativeIntegral; representativeIntegral_one | Haar | D-representative | PROVED | Manuscript | Linear restriction to the representative algebra; integrability and normalization proved. |
 | D-property | Mathieu property is Mathieu condition on the kernel of Haar integral | HasMathieuProperty | Haar | D-haar; def:mathieu-subspace | PROVED | Manuscript | Mathieu condition on the kernel of representativeIntegral. |
@@ -186,8 +189,8 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | E10 | Earlier weighted xz witness has zero pure moments and (-1)^(m-1)/(2(m+1)) marker; spectrum {-1,0,1} | Abelian.weighted_xz_witness; Abelian.earlierXZ_specialize; Abelian.earlierXZ_spectrum | EarlierXZ | beta integral; phase coefficient interpretation | PROVED | Direct binomial/beta proof | Exact formal Laurent polynomial f₀(x²,w), pure and marked weighted integrals, nonzero marker for every m≥1, and exact formal spectrum. No external moment theorem is assumed. |
 | E11 | Definitions and admissibility of universal moment and convex-support conjectures | Abelian.UniversalMomentConjecture; Abelian.UniversalConvexSupportConjecture; Abelian.coordinate_weight_admissible; Abelian.mixedIntegral_eq_circle_integral | AbelianConjectures / MixedPhase | E05; E14 (definitions only) | PROVED | Direct witness at N=M=1, δ=x | Arbitrary dimensions, polynomial coefficient ring, actual cube integral and normalized product-circle correspondence; both conjectures refuted. |
 | E12 | Zero pure moment sequence has zero limsup growth, contradicting asserted positive growth | Abelian.weightedCT_growth_zero; Abelian.universal_growth_conjecture_false | AbelianConjectures | E05; E11 | PROVED | Manuscript | Actual real limsup of the complex moment norm raised to 1/m; m=0 handled by eventual equality. |
-| E13 | Each specified Zwart failure, via implication and contraposition or direct refutation | Zwart.sun_conjecture_2023_contour_false; Zwart.sp_conjecture_2024_contour_false; Zwart.g2_conjecture_2024_contour_false | ZwartSU / ZwartSp / ZwartG2 / ZwartOldSU / ZwartOldSp / ZwartOldG2 | E14 | IN PROGRESS | Direct counterexamples | All three 2025 conjectures and the fractional 2023 SU / 2024 Sp / 2024 G2 conjectures are refuted, with source domains and integrals. The 2023 SO density has the external indexing discrepancy recorded below; its source correspondence remains open. |
-| E14 | External Mueger–Tuset Lemma 5.2, Prop 5.3, Conjectures 6.3/6.6, Remark 6.7; Zwart implications: exact definitions and needed results | external_reduction_correspondence | AbelianWitness |  | IN PROGRESS | Source definitions and direct circle-integral proof | Conjectures 6.3/6.6 and growth assertion defined and refuted; Lemma 5.2 and the needed SU(2) polynomial specialization of Prop. 5.3 proved in CircleTransform/TransformIntegral/TransformPair. Direct SU/Sp/G2 counterexamples replace the cited implication proofs; those unused implications are not assumed. Rational-frequency expansion uniqueness is proved in ZwartUniqueness. Exact SO source correspondence remains open. |
+| E13 | Each specified Zwart failure, via implication and contraposition or direct refutation | abelian_reductions; Zwart.so_conjecture_2023_euler_false; Zwart.sun_conjecture_2023_contour_false; Zwart.sp_conjecture_2024_contour_false; Zwart.g2_conjecture_2024_contour_false | AbelianReductions / ZwartSOSource / ZwartSU / ZwartSp / ZwartG2 / ZwartOldSU / ZwartOldSp / ZwartOldG2 | E14 | PROVED | Direct counterexamples | All specified conjectures are refuted with source domains and integrals. The SO clause uses the user-approved Euler-consistent indexing correction recorded below, not literal equality with the printed recurrence. |
+| E14 | External Mueger–Tuset definitions and needed results; Zwart source definitions and correspondences | Abelian.transform_correspondence; Zwart.soEuler_density_recursion; Zwart.soEuler_density_source; Zwart.soEulerTransformStep_angles; Zwart.soEulerSourceMoment_eq; Zwart.so_conjecture_2023_euler_iff | CircleTransform / TransformIntegral / TransformPair / AbelianConjectures / ZwartUniqueness / ZwartSOSource | E09; E11 | PROVED | Direct source counterexamples replace unused implication proofs | Conjectures 6.3/6.6 and growth defined and refuted; Lemma 5.2 and the needed SU(2) specialization of Prop. 5.3 proved. Rational-frequency uniqueness checked. SO density and recursive transform use the approved Euler correction; integer-circle evaluation and exact contour normalization checked. General SO Haar parametrization and external implication proofs are not required or asserted. |
 
 ## Expository exclusions
 
@@ -342,7 +345,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=96, TODO=1, IN PROGRESS=8, BLOCKED=5 (110 rows).
+Current inventory counts: PROVED=99, TODO=1, IN PROGRESS=5, BLOCKED=5 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -1690,6 +1693,9 @@ the intended first coordinate is flat on [-1,1], so use the affine earlier xz
 witness. Original PDF text remains `/tmp/mathieu-zwart2023.txt`.
 
 ### External SO(N) density indexing discrepancy
+
+Historical finding, preserved verbatim below. The user has since explicitly
+approved its Euler-consistent correction; see the final correction record.
 
 Fresh inspection of both arXiv:2304.02648v1 and the published Journal of
 Mathematical Physics 64, 101701 (2023), Lemma 3.3, found the same discrepancy:
@@ -3187,3 +3193,80 @@ The user has been asked whether to adopt the explicit, already-proved SO Euler
 version as the intended conjecture for source correspondence. That mathematical
 interpretation remains pending; no approval or ledger completion is inferred
 from silence.
+
+## Approved SO Euler source correction (2026-09-17)
+
+The user explicitly approved the unique Euler-consistent interpretation of
+Zwart 2023 Lemma 3.3, equations (16)–(17), and Conjecture 3.5. This resolves the
+source-correspondence boundary recorded above. It does not identify the
+malformed printed recurrence with a well-typed formula or alter the manuscript.
+The original discrepancy and prior exception audit remain as historical records.
+
+At stage N the corrected density has exactly N−2 new radial variables:
+
+    J_N(x) = C_N product_{k=1}^{N−2} (1−x_k²)^((k−1)/2)
+                    J_(N−1)(x_(N−1), ...).
+
+The total dimension is (N−1)(N−2)/2. There are N−1 circle variables. Each
+corrected recursive transformed summand is
+
+    c z_1^k product_{j=1}^{N−2} x_j^a_j sqrt(1−x_j²)^epsilon_j
+        h_hat_(N−1)(x_(N−1), ...; z_2, ..., z_(N−1)),
+
+with epsilon_j in {0,1}. Thus the recursive radial and circle blocks both
+match Lemmas 3.1–3.2; the erroneous upper radial index and displaced tail
+arguments in the printed finite-type transform are not retained.
+
+`ZwartSOSource` proves the density block recurrence and its equality to the
+already checked `soEulerDensity`, up to an arbitrary overall normalization c
+(which includes the product of the source constants C_N). Existing
+`cosine_weight_substitution` and `soEulerDensity_rpow` prove the angular
+substitution and half-integer powers. The new finite-sum constructor
+`soEulerTransformStep` fixes the SO dimensions and epsilon range in its type;
+`soEulerTransformStep_angles` proves the exact cosine/sine substitution, with
+both recursive tails carried through unchanged. The parameter n in these
+Lean declarations denotes N−3, so n ranges over every nonabelian SO(N), N≥3.
+
+`signedRadialAlgebra_eq_range` identifies the coefficient algebra with the
+polynomials in x_j and sqrt(1−x_j²). Integer frequencies remain integer:
+`angleMap_rationalize_circleEvaluation` proves pointwise agreement with the
+ordinary Laurent function on circles, not only agreement of integrals.
+`soEulerSourceMoment_eq` retains equation (16)'s global i^(-(N−1)) factor
+and gives exactly (2 pi)^(N−1) times the normalized Haar-circle moment.
+The factor is nonzero, so `so_conjecture_2023_euler_iff` identifies vanishing
+with the already refuted Euler-density conjecture. This discharges corrected
+Conjecture 3.5 by direct counterexample. No general SO Haar parametrization,
+external implication theorem, classification, or new existence hypothesis is
+used or asserted.
+
+`abelian_reductions` collects the two universal failures, the growth failure,
+and all seven specified Zwart families, including both Sp(1) endpoints. It
+closes cor:abelian-reductions, E13, and E14 under the explicitly approved SO
+interpretation. Inventory: **99 PROVED / 1 TODO / 5 IN PROGRESS / 5 BLOCKED = 110**.
+The 11 remaining rows depend on the already documented DvK, highest-weight,
+root-integration, and compact simply connected covering foundations. This
+milestone does not discharge or restart those blocked developments.
+
+### Exact minimal manuscript clarification flagged, not applied
+
+The corollary `cor:abelian-reductions` cites the SO conjecture without printing
+its formula. To make its intended source interpretation explicit, append this
+single sentence to the corollary statement, immediately after “for that group”:
+
+> In the SO(N) case, Zwart's formula is understood with the Euler-consistent
+> indexing of Lemmas 3.1–3.2: N−2 new radial variables with powers (k−1)/2,
+> k=1,...,N−2, and the recursive radial block beginning at x_(N−1), with the
+> corresponding indexing in the transformed finite-type function.
+
+This is the exact proposed clarification; it has **not** been inserted into
+the TeX manuscript. The present formalization records the approved interpretation
+explicitly instead of silently editing the source of truth.
+
+Validation: `lake build` passes (4285 jobs). The source audit passes for all
+171 Lean files (168 mathematical modules); the exhaustive axiom audit checks
+3875 project declarations / 3173 theorem constants and permits only `propext`,
+`Classical.choice`, and `Quot.sound`. The remaining-obligation target checker
+passes. The symbolic verifier reproduces its checked-in output byte for byte.
+The manuscript remains identical to its initial source commit; the original SO
+discrepancy is preserved. The ledger count was independently recomputed as
+99 / 1 / 5 / 5 = 110. No placeholders or project-added axioms are present.
