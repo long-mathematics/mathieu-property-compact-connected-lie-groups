@@ -84,6 +84,9 @@ import MathieuProperty.RepresentativeFunctions
 import MathieuProperty.HopfAlgebra
 import MathieuProperty.Haar
 import MathieuProperty.RootDoubletAlgebra
+import MathieuProperty.CompactCartan
+import MathieuProperty.CentralCovering
+import MathieuProperty.SimpleGroupCenter
 import MathieuProperty.ComplexRootData
 import MathieuProperty.FundamentalRootWeight
 import MathieuProperty.HopfCoefficient

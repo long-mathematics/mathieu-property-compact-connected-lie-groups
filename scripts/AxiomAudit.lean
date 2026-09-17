@@ -461,3 +461,18 @@ run_cmd do
 #print axioms MathieuProperty.ComplexRootData.fundamentalWeight_pairing
 #print axioms MathieuProperty.ComplexRootData.exists_root_triple
 #print axioms MathieuProperty.CompactLieRoots.simple_group_root_triple
+
+#print axioms MathieuProperty.CompactLieForm.nilpotent_abelian
+#print axioms MathieuProperty.CompactLieForm.cartan_abelian
+#print axioms MathieuProperty.CompactAdjoint.realCartan_abelian
+#print axioms MathieuProperty.CompactAdjoint.realCartan_maximal_abelian
+#print axioms MathieuProperty.CompactAdjoint.realCartan_mem_iff
+#print axioms MathieuProperty.DiscreteFibers.fiber_isolated
+#print axioms MathieuProperty.SimpleGroupCenter.adjoint_derivative_injective
+#print axioms MathieuProperty.SimpleGroupCenter.center_discrete
+#print axioms MathieuProperty.SimpleGroupCenter.center_finite
+
+#print axioms MathieuProperty.SimpleGroupCenter.center_quotient_covering
+#print axioms MathieuProperty.CentralCovering.discrete_normal_le_center
+#print axioms MathieuProperty.CentralCovering.covering_kernel_central
+#print axioms MathieuProperty.CentralCovering.quotientEquiv
