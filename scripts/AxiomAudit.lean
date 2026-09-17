@@ -476,3 +476,15 @@ run_cmd do
 #print axioms MathieuProperty.CentralCovering.discrete_normal_le_center
 #print axioms MathieuProperty.CentralCovering.covering_kernel_central
 #print axioms MathieuProperty.CentralCovering.quotientEquiv
+
+#print axioms MathieuProperty.BilinearStabilizer.mem_derivations_iff
+#print axioms MathieuProperty.BilinearStabilizer.defect_strictDeriv
+#print axioms MathieuProperty.BilinearStabilizer.exp_mem_group
+#print axioms MathieuProperty.BilinearStabilizer.exponential_logarithm_eventually
+#print axioms MathieuProperty.BilinearStabilizer.exists_identity_chart
+#print axioms MathieuProperty.BilinearStabilizer.lieGroup
+#print axioms MathieuProperty.BilinearStabilizer.val_mfderiv_one
+#print axioms MathieuProperty.CartanStabilizer.exists_inner
+#print axioms MathieuProperty.CartanStabilizer.tangent_commute
+#print axioms MathieuProperty.CartanStabilizer.identity_component_commute
+#print axioms MathieuProperty.LocalCommutativity.identity_component_commute

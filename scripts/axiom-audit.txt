@@ -1,4 +1,4 @@
-Axiom audit passed: 3389 project declarations, 2765 theorems.
+Axiom audit passed: 3536 project declarations, 2894 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -453,3 +453,18 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.CentralCovering.discrete_normal_le_center' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CentralCovering.covering_kernel_central' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CentralCovering.quotientEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.BilinearStabilizer.mem_derivations_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.BilinearStabilizer.defect_strictDeriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.BilinearStabilizer.exp_mem_group' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.BilinearStabilizer.exponential_logarithm_eventually' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.BilinearStabilizer.exists_identity_chart' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.BilinearStabilizer.lieGroup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.BilinearStabilizer.val_mfderiv_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanStabilizer.exists_inner' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanStabilizer.tangent_commute' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanStabilizer.identity_component_commute' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.LocalCommutativity.identity_component_commute' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
