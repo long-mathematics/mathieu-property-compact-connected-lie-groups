@@ -393,3 +393,12 @@ run_cmd do
 #print axioms MathieuProperty.CompactLieForm.liftCentralIdealEquiv
 #print axioms MathieuProperty.CompactAdjoint.simple_factor_positive_form
 #print axioms MathieuProperty.CompactAdjoint.simpleFactorAmbientEquiv
+
+#print axioms MathieuProperty.ManifoldZeroDerivative.eq_of_mfderiv_zero
+#print axioms MathieuProperty.LieHomCalculus.mfderiv_zero_of_translate_relation
+#print axioms MathieuProperty.LieHomCalculus.hom_eq_of_mfderiv_eq
+#print axioms MathieuProperty.ConnectedLie.adjoint_mfderiv
+#print axioms MathieuProperty.ConnectedLie.adjoint_eq_id_of_abelian
+#print axioms MathieuProperty.ConnectedLie.mul_comm_of_lie_abelian
+#print axioms MathieuProperty.CompactAdjoint.exists_simple_factor
+#print axioms MathieuProperty.CompactAdjoint.nonabelian_simple_ideal

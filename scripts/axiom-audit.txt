@@ -1,4 +1,4 @@
-Axiom audit passed: 2534 project declarations, 2066 theorems.
+Axiom audit passed: 2587 project declarations, 2106 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -350,3 +350,13 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.CompactLieForm.liftCentralIdealEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CompactAdjoint.simple_factor_positive_form' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CompactAdjoint.simpleFactorAmbientEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.ManifoldZeroDerivative.eq_of_mfderiv_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.LieHomCalculus.mfderiv_zero_of_translate_relation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.LieHomCalculus.hom_eq_of_mfderiv_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.ConnectedLie.adjoint_mfderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.ConnectedLie.adjoint_eq_id_of_abelian' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.ConnectedLie.mul_comm_of_lie_abelian' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.exists_simple_factor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.nonabelian_simple_ideal' depends on axioms: [propext, Classical.choice, Quot.sound]
