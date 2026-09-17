@@ -57,7 +57,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | thm:dvdk | Nonzero complex multivariate Laurent f with all positive-power constant terms zero has Newton polytope avoiding zero | duistermaat_van_der_kallen | Torus | T04 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | cor:torus | Every torus has the Mathieu property | torus_mathieu | Torus | T01–T08; thm:dvdk | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | thm:classification | For every compact connected Lie group: Mathieu property iff abelian iff torus | classification | MainTheorem | thm:uniform-nonabelian; cor:torus; T01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
-| prop:explicit-abelian-SU2 | Transformed Laurent pair: exact moments, printed expansion, exact spectrum | Abelian.formal_expansion; Abelian.formal_spectrum | AbelianAlgebra / AbelianLaurent | E01–E09; thm:hopf-coefficient | IN PROGRESS | Manuscript | Algebra, spectrum, and exact weighted moment formulas checked; external transform correspondence pending. |
+| prop:explicit-abelian-SU2 | Transformed Laurent pair: exact moments, printed expansion, exact spectrum | Abelian.formal_expansion; Abelian.formal_spectrum; Abelian.transform_correspondence | AbelianAlgebra / AbelianLaurent / TransformPair | E01–E09; thm:hopf-coefficient | PROVED | Manuscript; specialized moment comparison and polynomial interpolation for the external correspondence | Algebra, spectrum, weighted moments, formal representative independence, and actual Haar correspondence checked. |
 | cor:abelian-reductions | Failure of both universal abelian conjectures, growth claim and specified Zwart reductions | Abelian.universal_moment_conjecture_false; Abelian.universal_convex_support_conjecture_false; Abelian.universal_growth_conjecture_false | AbelianConjectures | E10–E14; prop:explicit-abelian-SU2; thm:classification | IN PROGRESS | Direct witness | Both universal conjectures and the stronger growth assertion are refuted. Specified Zwart reductions remain open. |
 | D-representative | Finite linear combinations of coefficients of finite-dimensional continuous complex representations | representativeFunctions; representative_eq_span_coefficients; representation_coefficient_mem | RepresentativeFunctions |  | PROVED | Coordinate model, with formal basis correspondence | Finite linear span, without topological closure; arbitrary finite-dimensional normed complex representation spaces and joint continuity checked. |
 | D-haar | Normalized Haar integration on representative functions | normalizedHaar; representativeIntegral; representativeIntegral_one | Haar | D-representative | PROVED | Manuscript | Linear restriction to the representative algebra; integrability and normalization proved. |
@@ -144,12 +144,12 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | E06 | On SU(2), conjugate entry identities give polynomial Hopf representatives | Abelian.matrix_entry_representatives; Abelian.matrix_entry_pair | SU2Witness | D-hopf; R01 | PROVED | Manuscript | Exact four-entry polynomial formulas; the pair is also constructed in the actual representative algebra. |
 | E07 | All entry representatives invariant under maximal torus factor | Abelian.torus_invariance; Abelian.entryP_torus_invariance | AbelianAlgebra | E06 | PROVED | Manuscript | U₀ is also the Q entry representative. |
 | E08 | Square-root-free substitution sends A₀,U₀,V₀,T₀ to 1,U,V,T | Abelian.square_root_free; Abelian.square_root_free_pair | AbelianAlgebra | E06 | PROVED | Manuscript | All complex x and nonzero w, including manuscript domain. |
-| E09 | Representative independence and equality to actual Mueger–Tuset group-coordinate transform | Abelian.transform_correspondence | AbelianWitness | E07; E08; E14 | TODO | Manuscript |  |
+| E09 | Representative independence and equality to actual Mueger–Tuset group-coordinate transform | Abelian.entryTransform_representative_independent; Abelian.haar_entryIntegral_eq_transformedIntegral; Abelian.entryTransform_pair; Abelian.transform_correspondence | EntryTransform / TransformIntegral / TransformPair | E07; E08; E14 (SU(2) specialization) | PROVED | Specialized polynomial interpolation and moment comparison | Formal representative independence; both normalized circle factors; exact radial weight 2x; Hopf pair torus cancellation. |
 | E10 | Earlier weighted xz witness has zero pure moments and (-1)^(m-1)/(2(m+1)) marker; spectrum {-1,0,1} | Abelian.weighted_xz_witness; Abelian.earlierXZ_specialize; Abelian.earlierXZ_spectrum | EarlierXZ | beta integral; phase coefficient interpretation | PROVED | Direct binomial/beta proof | Exact formal Laurent polynomial f₀(x²,w), pure and marked weighted integrals, nonzero marker for every m≥1, and exact formal spectrum. No external moment theorem is assumed. |
 | E11 | Definitions and admissibility of universal moment and convex-support conjectures | Abelian.UniversalMomentConjecture; Abelian.UniversalConvexSupportConjecture; Abelian.coordinate_weight_admissible; Abelian.mixedIntegral_eq_circle_integral | AbelianConjectures / MixedPhase | E05; E14 (definitions only) | PROVED | Direct witness at N=M=1, δ=x | Arbitrary dimensions, polynomial coefficient ring, actual cube integral and normalized product-circle correspondence; both conjectures refuted. |
 | E12 | Zero pure moment sequence has zero limsup growth, contradicting asserted positive growth | Abelian.weightedCT_growth_zero; Abelian.universal_growth_conjecture_false | AbelianConjectures | E05; E11 | PROVED | Manuscript | Actual real limsup of the complex moment norm raised to 1/m; m=0 handled by eventual equality. |
 | E13 | Each specified Zwart abelian implication formally stated and proved, then contraposition | zwart_reductions_false | AbelianWitness | E14; thm:classification | TODO | Manuscript |  |
-| E14 | External Mueger–Tuset Lemma 5.2, Prop 5.3, Conjectures 6.3/6.6, Remark 6.7; Zwart implications: exact definitions and needed results | external_reduction_correspondence | AbelianWitness |  | IN PROGRESS | Source definitions and direct circle-integral proof | Conjectures 6.3/6.6 and growth assertion defined and refuted. Lemma 5.2, full Prop. 5.3 correspondence, and Zwart implication theorems remain open. |
+| E14 | External Mueger–Tuset Lemma 5.2, Prop 5.3, Conjectures 6.3/6.6, Remark 6.7; Zwart implications: exact definitions and needed results | external_reduction_correspondence | AbelianWitness |  | IN PROGRESS | Source definitions and direct circle-integral proof | Conjectures 6.3/6.6 and growth assertion defined and refuted; Lemma 5.2 and the needed SU(2) polynomial specialization of Prop. 5.3 proved in CircleTransform/TransformIntegral/TransformPair. General Lie-group and Zwart implication obligations remain open. |
 
 ## Expository exclusions
 
@@ -1233,3 +1233,70 @@ checked-in output exactly; the manuscript remains unchanged. Self-review
 checked finite-measure moment determination, both independent phase balances,
 actual pushforward equality, Fubini integrability, and all three interval
 normalization factors.
+
+## SU(2) polynomial transform correspondence in progress
+
+The full Hopf-coordinate milestone merged in
+[PR #24](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/24)
+at `44b85f8a4fa2169ddb46f5e265d0ae827320c43a`, after CI run `35190607210` passed.
+The current branch is `formalization/su2-polynomial-transform`.
+
+`CircleTransform.lean` checks Müger–Tuset Lemma 5.2 for arbitrary entry
+polynomials and arbitrary radial weights. The circle integral kills monomials
+with unequal first/fourth exponents; equal exponents combine the two square
+roots into 1-x². These are actual normalized circle and interval integrals.
+
+`EntryTransform.lean` proves representative independence as an equality of
+formal Laurent polynomials in ℂ[x][w,w⁻¹]. A Laurent polynomial vanishing on
+the unit circle is zero (clear negative powers and use polynomial root
+finiteness). Scaling the first sphere coordinate by a unit-circle element
+preserves SU(2); Laurent interpolation extends this to nonzero complex
+scalings. Choosing the real square-root radius gives the square-root-free
+substitution on 0<x<1; continuity handles endpoints. A second polynomial
+interpolation in the real radius proves the formal coefficient identities.
+This replaces the cited general complexification-density argument with an
+elementary specialized proof, without additional assumptions.
+
+Both new modules build. E09/E14 remain open pending the actual Haar integral
+correspondence, including the right torus factor and radial normalization
+2x. A scratch proof in `/tmp/mathieu-transform-integral.lean` compares every
+entry monomial: the two phase averages enforce first=fourth and second=third
+exponents, and the remaining weighted integral is a beta moment. Extend by
+polynomial linearity, then specialize to the torus-invariant Hopf pair. The
+full general-group Prop. 5.3 and Zwart reductions retain their separate Lie
+structure dependencies. No manuscript changes; full milestone audits pending.
+
+
+The SU(2) polynomial correspondence is now complete locally.
+`TransformIntegral.lean` compares the actual Haar integral with the
+square-root-free integral for every polynomial in the four matrix entries.
+The two independent circle frequencies enforce first=fourth and second=third
+exponents. The remaining integral is the beta moment, with the exact radial
+weight 2x. Both functionals are additive on entry polynomials, so monomial
+agreement extends to every polynomial. All integrability and continuity
+requirements are proved.
+
+`TransformPair.lean` proves right torus invariance of both entry polynomials,
+identifies their images as the formal Laurent polynomials `formalP` and
+`formalQ`, and proves `transform_correspondence` for all natural m,s:
+the actual representative Haar integral of Q^s P^m equals the weighted
+constant term of formalQ^s formalP^m. `CircleTransform.lean` also identifies
+actual unit-circle Laurent evaluation with the constant term. The phase
+normalizations are probability integrals on [0,1]; the radial factor is 2x.
+
+E09 and `prop:explicit-abelian-SU2` are PROVED. Current inventory: 83 PROVED,
+16 TODO, 5 IN PROGRESS, 6 BLOCKED (110 total), with 66 mathematical modules.
+This proves the needed SU(2) polynomial specialization of the cited external
+transform theorem; it does not assert the general compact Lie-group
+parametrization. E14 retains its general-group/Zwart obligations. DvK and the
+general root/cover/decomposition results remain unresolved. Next: audit and
+merge this milestone, then continue the torus/Lie/external-reduction work.
+
+SU(2) transform validation: `lake build` passed (3956 jobs); source audit
+passed for 69 Lean files; namespace axiom audit passed for 1531 declarations
+and 1279 theorem constants. Dependencies are only propext, Classical.choice,
+and Quot.sound. Outstanding targets type-check, the verifier reproduces its
+checked-in output exactly, and the manuscript remains unchanged. Self-review
+checked the formal (not merely pointwise) representative equality, endpoint
+continuity, both phase balances, Haar/sphere identification, radial beta
+normalization, and the final representative-function wrapper for all m,s.
