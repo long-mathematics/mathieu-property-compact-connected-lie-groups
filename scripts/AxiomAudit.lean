@@ -527,3 +527,16 @@ run_cmd do
 #print axioms MathieuProperty.CartanLift.liftToComponent_surjective
 #print axioms MathieuProperty.CartanLift.maximal_connected_abelian
 #print axioms MathieuProperty.CartanLift.exists_maximal_torus
+
+#print axioms MathieuProperty.ComplexParts.decomposition
+#print axioms MathieuProperty.ComplexParts.subalgebra_eq_baseChange
+#print axioms MathieuProperty.ComplexParts.normalizer_eq
+#print axioms MathieuProperty.ComplexParts.subalgebra_cartan
+#print axioms MathieuProperty.CompatibleRootData.fundamentalWeight_pairing
+#print axioms MathieuProperty.CompactCartanRootData.exists_root_triple
+#print axioms MathieuProperty.SmoothLift.manifold_of_comp
+#print axioms MathieuProperty.CoveringCharts.mfderiv_eq_id
+#print axioms MathieuProperty.CartanLift.inclusion_smooth
+#print axioms MathieuProperty.CartanLift.tangentInclusion_range
+#print axioms MathieuProperty.CartanLift.tangentInclusion_injective
+#print axioms MathieuProperty.CompactRootSetup.maximal_torus_root_setup

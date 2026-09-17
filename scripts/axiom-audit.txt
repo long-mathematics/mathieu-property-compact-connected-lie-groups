@@ -1,4 +1,4 @@
-Axiom audit passed: 3748 project declarations, 3070 theorems.
+Axiom audit passed: 3848 project declarations, 3153 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -514,3 +514,17 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.CartanLift.liftToComponent_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CartanLift.maximal_connected_abelian' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CartanLift.exists_maximal_torus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.ComplexParts.decomposition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.ComplexParts.subalgebra_eq_baseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.ComplexParts.normalizer_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.ComplexParts.subalgebra_cartan' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompatibleRootData.fundamentalWeight_pairing' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.CompactCartanRootData.exists_root_triple' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.SmoothLift.manifold_of_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CoveringCharts.mfderiv_eq_id' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.inclusion_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.tangentInclusion_range' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.tangentInclusion_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactRootSetup.maximal_torus_root_setup' depends on axioms: [propext, Classical.choice, Quot.sound]

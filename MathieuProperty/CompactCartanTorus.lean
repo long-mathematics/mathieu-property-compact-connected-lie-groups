@@ -4,7 +4,7 @@ import MathieuProperty.StabilizerTorus
 /-! A concrete torus in the automorphism group of the actual compact simple
  group Lie algebra. The Cartan is constructed from the group; compactness is
  supplied by its adjoint image. No torus or compactness input is assumed. The
- lift to a maximal torus in the original group is still a separate obligation. -/
+ lift to a maximal torus in the original group is provided in CartanLiftMaximal. -/
 
 noncomputable section
 namespace MathieuProperty.CompactCartanTorus
