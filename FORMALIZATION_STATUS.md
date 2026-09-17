@@ -12,11 +12,11 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/earlier-weighted-xz`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/hopf-coordinate-measure`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 60 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
-- Milestones through all classical marker formulas are merged and CI-checked ([PR #22](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/22)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
+- M0 and M1 complete; the library covers 62 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- Milestones through the earlier weighted xz witness are merged and CI-checked ([PR #23](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/23)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
 ## Dependency order
@@ -76,7 +76,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | H02 | Global defect-one identity, without dividing by u | Hopf.defect_one | HopfAlgebra | H01 | PROVED | Manuscript |  |
 | H03 | Real homogeneity P(rz)=r⁸P(z), Q(rz)=r²Q(z) | Hopf.homogeneity | HopfAlgebra | D-hopf | PROVED | Manuscript |  |
 | H04 | Common unit phase invariance of a,τ,u,v,P,Q | Hopf.phase_balance | HopfAlgebra | D-hopf | PROVED | Manuscript |  |
-| H05 | Hopf-coordinate normalized surface measure, endpoints null | Hopf.hopfCoordinates; Hopf.coordinatePoint_u; Hopf.hopfCoordinates_surjective; Hopf.surfaceMeasure | SphereMeasure / HopfCoordinates / HopfIntegral (planned) | D-hopf | IN PROGRESS | Euclidean cone surface measure and explicit coordinates | Normalized surface probability, null endpoint circles, continuous surjective coordinates, and exact a, τ, u formulas proved. Exact coordinate measure density still open. |
+| H05 | Hopf-coordinate normalized surface measure, endpoints null | Hopf.hopfCoordinateMeasure_eq_surface; Hopf.hopf_coordinates_integral; Hopf.hopfCoordinates_surjective; Hopf.surfaceMeasure_u_zero | HopfCoordinateMeasure / SphereDetermination / SphereMeasure / HopfCoordinates | D-hopf; mixed sphere moments; beta and phase integrals | PROVED | Moment determination and affine change of variables | Unit-cube coordinate pushforward equals actual normalized Euclidean surface measure; exact manuscript density dτ dα dβ/(8π²) proved for continuous test functions, with full continuous-sphere unit-cube formula. Null endpoint circles and surjectivity were proved earlier. |
 | H06 | Normalized phase integral extracts every Laurent constant term at nonzero radius | phase_integral_constantTerm; laurentPhase_eq_smeval | PhaseAverage | D-CT | PROVED | Manuscript | All integer exponents, exact 1/(2π) normalization, agreement with Laurent evaluation at every nonzero radius. |
 | H07 | Sphere polynomial integrability and justified localization away from u=0 | Hopf.sphere_polynomial_integrable; Hopf.p_localization_ae | SphereMeasure | H05 | PROVED | Manuscript | All complex polynomial moments integrable for every finite sphere measure; actual normalized surface measure has u≠0 almost everywhere, with the rational identity proved there. |
 | H08 | Evenness in t and Fubini give CT-step with correct normalization | Hopf.sphere_phase_average; Hopf.sphere_hopf_constantTerm; Hopf.sphere_hopf_real_integral | SpherePhaseAverage / HopfIntegral | H06–H07; H02; H15–H19 | PROVED | Invariant polynomial marginal substitutes for coordinate density | Phase Fubini justified by compact integrability; localization only away from the proved null set; exact normalization and evenness. |
@@ -302,7 +302,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=80, TODO=17, IN PROGRESS=7, BLOCKED=6 (110 rows).
+Current inventory counts: PROVED=81, TODO=17, IN PROGRESS=6, BLOCKED=6 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -1188,3 +1188,48 @@ manuscript is unchanged. Review checked the Bernstein normalization, the
 coefficient-one shift for the fixed w⁻¹ multiplier, the factor 1/2 from
 substitution, nonvanishing, and formal (rather than pointwise-specialized)
 spectrum.
+
+
+## Full Hopf-coordinate surface measure
+
+The earlier weighted xz milestone merged in
+[PR #23](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/23)
+at `bf764ea7e8d55fce9d988c44ced80b8f1c53a38a`, after CI run `35189283703` passed.
+
+`SphereDetermination.lean` proves that all mixed coordinate/star-coordinate
+moments determine a finite Borel measure on the sphere. Conjugating one
+coordinate is a real linear isometry preserving surface measure; together
+with the existing diagonal SU(2) phase argument, this proves zero integral
+for every monomial whose two coordinate exponents are not individually
+balanced. The span of all coordinate monomials is a point-separating star
+algebra. Stone–Weierstrass, continuity of integration in the uniform norm,
+and regular-measure uniqueness extend agreement on moments to equality of
+measures. No moment-determination assumption is introduced.
+
+`HopfCoordinateMeasure.lean` constructs the actual product-probability unit
+cube parametrization (sqrt(u) exp(2πiα), sqrt(1-u) exp(2πiβ)). Its monomial
+integrals factor into two integer-frequency integrals and a beta integral.
+They agree exactly with the proved Euclidean sphere moments, so the
+pushforward measure equals `surfaceMeasure`. The unit-cube integral identity
+holds for every continuous function on the sphere. Affine interval changes
+of variables give the manuscript formula for continuous ambient test
+functions, with τ=2u-1 and the exact density dτ dα dβ/(8π²). Thus this is a
+measure correspondence, not merely verification of a selected integrand.
+The endpoint-null and coordinate-surjectivity facts were already proved.
+
+H05 is PROVED. Current inventory: 81 PROVED, 17 TODO, 6 IN PROGRESS, 6 BLOCKED
+(110 total), with 62 mathematical modules. All Hopf/sphere/radial obligations
+are now checked. The existing Hopf marker proof remains the invariant-moment
+substitution; the new result independently supplies its original coordinate
+measure correspondence. Next: the external square-root-free group-coordinate
+transform correspondence (E09/E14) and the remaining torus/Lie structure
+obligations. DvK and the general root/cover/decomposition results remain open.
+
+Hopf-coordinate validation: `lake build` passed (3942 jobs); source audit
+passed for 65 Lean files; namespace axiom audit passed for 1428 declarations
+and 1190 theorem constants, using only propext, Classical.choice, and
+Quot.sound. Outstanding targets type-check; the verifier reproduces its
+checked-in output exactly; the manuscript remains unchanged. Self-review
+checked finite-measure moment determination, both independent phase balances,
+actual pushforward equality, Fubini integrability, and all three interval
+normalization factors.

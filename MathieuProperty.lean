@@ -1,3 +1,5 @@
+import MathieuProperty.HopfCoordinateMeasure
+import MathieuProperty.SphereDetermination
 import MathieuProperty.EarlierXZ
 import MathieuProperty.ClassicalSp
 import MathieuProperty.CompactSymplectic
