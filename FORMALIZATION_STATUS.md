@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/gaussian-sphere`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/gamma-beta`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 49 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- M0 and M1 complete; the library covers 50 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
 - Milestones through beta moments are merged and CI-checked ([PR #15](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/15)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -112,7 +112,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | L11 | Nonempty open sets have positive Haar; continuity gives nonconcentration | haar_pushforward_nonconcentration | ProjectedHaar | L09; D-haar | PROVED | Manuscript | Continuous preimage of the complement of zero is open and contains the identity; actual Haar positivity applies. |
 | C01 | First column Haar on SU(n) is uniform complex unit sphere | specialUnitaryFirstColumn_map; specialUnitaryFirstColumn_apply | ClassicalOrbit / ClassicalTopology / ClassicalSphereGeometry / NormalizedSphere |  | PROVED | Manuscript | For n≥2, actual compact SU(n) acts continuously and transitively on the Euclidean unit sphere; normalized cone surface measure is invariant. Haar orbit pushforward equals this probability measure. |
 | C02 | Complex Gaussian normalization produces sphere measure | gaussian_sphere; normalized_independent_complex_gaussian | GaussianSphere | C01 | PROVED | Manuscript, invariance proof | Normalization of independent real/imaginary Gaussian coordinates gives the actual normalized Euclidean sphere measure for n≥2, covering every use in the manuscript. The origin is a proved null set. |
-| C03 | Squared coordinate norms are Dirichlet(1,…,1), first two sum Beta(2,n-2) | sphere_two_coordinates_beta | ClassicalGroups | C02 | TODO | Manuscript |  |
+| C03 | Squared coordinate norms are Dirichlet(1,…,1), first two sum Beta(2,n-2) | sphere_two_coordinates_beta (planned); gammaRatioSum_map; gamma_ratio_beta; gamma_sum_gamma | GammaBeta / ClassicalGroups (planned) | C02 | IN PROGRESS | Manuscript | Actual gamma sum and independent beta ratio laws proved by Jacobian substitution for all positive real shape/rate parameters. Gaussian-square and finite-product correspondences to the sphere remain open. |
 | C04 | Beta moments equal rising factorial ratios | beta_moment_ratio; beta_moment_integrable; beta_moment_product; beta_moment_nat; beta_two_moment | BetaMoments | C03 | PROVED | Manuscript | Actual mathlib betaMeasure: density shift, normalization, integrability, Gamma recurrence, and rising-factorial ratios for all positive integer parameters. |
 | C05 | Sp(n) defining action transitive on complex 2n sphere with same invariant measure | Sp_sphere_transitive | ClassicalGroups |  | TODO | Manuscript |  |
 | C06 | Endpoint n=2 for SU and n=1 for Sp: A=1 and ratio=1 | classical_endpoints | ClassicalGroups | C01; C05 | TODO | Manuscript |  |
@@ -302,7 +302,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=74, TODO=21, IN PROGRESS=9, BLOCKED=6 (110 rows).
+Current inventory counts: PROVED=74, TODO=20, IN PROGRESS=10, BLOCKED=6 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -940,3 +940,30 @@ passed for 52 Lean files. Namespace axiom audit passed for 1023 declarations
 and 837 theorem constants, with only propext, Classical.choice, and Quot.sound.
 The verifier output matches exactly, outstanding targets type-check, and the
 manuscript remains unchanged. The library has 49 mathematical modules.
+
+## Gamma/beta distribution infrastructure
+
+Gaussian normalization was merged as
+[PR #17](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/17)
+at `de5c32981c0cda57cd3f482af5e916b59e3a4075`, after CI run `35184138107` passed.
+The current branch is `formalization/gamma-beta`.
+
+`GammaBeta.lean` proves the split map parametrizes the positive quadrant,
+computes its derivative and determinant, and applies mathlib's Lebesgue
+change-of-variables theorem. A real-density factorization proves the exact
+product probability law. The inverse ratio/sum map then proves that independent
+Gamma(a,r) and Gamma(b,r) variables yield independent Beta(a,b) ratio and
+Gamma(a+b,r) sum, for arbitrary positive real parameters. Both marginal laws
+are extracted. Boundary sets and density restrictions are proved explicitly.
+
+This is progress on C03, not yet the sphere beta law. Next: prove squared real
+Gaussians have Gamma(1/2,1/2) law; combine pairs and finite sums, then use the
+checked Gaussian-to-sphere correspondence to obtain the first-two-coordinate
+Beta(2,n−2) law and the Dirichlet normalization model. Current inventory:
+74 PROVED, 20 TODO, 10 IN PROGRESS, 6 BLOCKED (110 total).
+
+Gamma/beta validation: `lake build` passed (3854 jobs). Source audit passed
+for 53 Lean files. Namespace axiom audit passed for 1046 declarations and
+857 theorem constants, with only the three approved foundations. The verifier
+output matches exactly, outstanding statements type-check, and the manuscript
+is unchanged. There are 50 mathematical modules.
