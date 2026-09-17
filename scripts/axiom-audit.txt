@@ -1,4 +1,4 @@
-Axiom audit passed: 449 project declarations, 356 theorems.
+Axiom audit passed: 584 project declarations, 479 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -27,3 +27,9 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.Hopf.su2_orbit_map' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.measurePreserving_transitive_orbit' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Hopf.radial_moment_factorization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.mixedMoment_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.tau_polynomial_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.sphere_hopf_constantTerm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.hopf_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.sphere_marker_tower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Hopf.radial_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
