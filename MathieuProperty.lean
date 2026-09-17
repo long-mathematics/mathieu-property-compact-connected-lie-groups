@@ -1,3 +1,7 @@
+import MathieuProperty.NonabelianCompactLie
+import MathieuProperty.ConnectedLie
+import MathieuProperty.LieHomCalculus
+import MathieuProperty.ManifoldZeroDerivative
 import MathieuProperty.CompactLieStructure
 import MathieuProperty.LieLocalCoordinates
 import MathieuProperty.LieMixedDerivatives

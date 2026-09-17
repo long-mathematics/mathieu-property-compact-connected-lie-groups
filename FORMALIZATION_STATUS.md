@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/adjoint-infinitesimal`; milestones through [PR #36](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/36) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/connected-lie-abelian`; milestones through [PR #37](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/37) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 100 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 104 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -123,7 +123,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | Z04 | All six functions are coefficients of sums/tensor powers on quotient | MatrixRepresentation.descendedBalancedCoefficient_apply; MatrixRepresentation.descended_hopf_functions; center_descent | CenterDescent | Z03; lem:representative-algebra | PROVED | Manuscript | Quotient coefficients of the balanced tensor representation generate all six quantities inside the representative subalgebra. Final wrapper identifies them with orthogonal-projection coordinates. |
 | Z05 | Any compact connected simple central form is central quotient of compact simply connected simple cover | simple_cover | CenterDescent |  | TODO | Manuscript |  |
 | G01 | Compact Lie algebra decomposes as center plus simple ideals | CompactAdjoint.compact_lie_decomposition | CompactLieStructure / LieLocalCoordinates / LieMixedDerivatives / InvariantLieDecomposition | Actual adjoint action; HaarRealForm; mathlib invariant forms and semisimple ideals | PROVED | Haar averaging and local mixed-derivative proof | Constructs the positive form, proves infinitesimal invariance, center complement, finite independent simple factors, ambient ideal embeddings, and inherited positive invariant forms. No structural hypothesis is assumed. |
-| G02 | Connected nonabelian group has at least one simple ideal | nonabelian_simple_ideal | AdjointQuotient | G01 | TODO | Manuscript |  |
+| G02 | Connected nonabelian group has at least one simple ideal | CompactAdjoint.nonabelian_simple_ideal | ManifoldZeroDerivative / LieHomCalculus / ConnectedLie / NonabelianCompactLie | G01 | PROVED | Connectedness via zero differentials | Zero differential implies constancy; smooth homomorphisms are determined by their differential; abelian Lie algebra forces connected group abelian. Nonabelianity forces a simple factor, lifted to an actual ambient ideal. |
 | G03 | Connected adjoint action preserves each simple ideal | adjoint_preserves_simple_ideal | AdjointQuotient | G01 | TODO | Manuscript |  |
 | G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | inner_aut_structure | AdjointQuotient | G01 | TODO | Manuscript |  |
 | G05 | Restricted adjoint differential image equals ad(simple ideal) | restricted_adjoint_differential | AdjointQuotient | G01; G03 | TODO | Manuscript |  |
@@ -2000,3 +2000,58 @@ addition Lie equivalence, finite independent simple factors spanning the
 complement, their ambient ideal embeddings, inherited positive invariant forms,
 and the possibility of zero simple factors. G02's nonabelian/nonzero-factor
 claim and G03–G06's quotient/connectedness assertions are not included or assumed.
+
+## G02: connectedness and zero differentials
+
+PR #37 merged at `65ce93f` after CI `35210769133` passed (5m9s).
+Current branch: `formalization/connected-lie-abelian`. G01 is completed and
+merged. G02 now compiles in full; inventory is 88 PROVED / 10 TODO /
+7 IN PROGRESS / 5 BLOCKED = 110.
+
+Four new mathematical modules implement the connectedness step:
+
+- `ManifoldZeroDerivative`: a chart-local mean-value proof that locally zero
+  differential implies local constancy, including manifold-valued maps.
+  `eq_of_mfderiv_zero` gives constancy on a preconnected real manifold.
+- `LieHomCalculus`: a smooth translation identity propagates zero differential
+  at the identity to all points. `hom_eq_of_mfderiv_eq` proves uniqueness of
+  smooth homomorphisms on a connected real Lie group from their differentials.
+  For f,h use δ(g)=f(g)h(g)⁻¹; differentiate δ(g)h(g)=f(g) at 1 and then use
+  δ(kg)=f(k)δ(g)h(k)⁻¹ to propagate the zero differential.
+- `ConnectedLie`: the local-coordinate infinitesimal-adjoint theorem becomes
+  `adjoint_mfderiv`, the actual manifold differential at 1. If the Lie algebra
+  is abelian, Ad has zero differential and is constant. Comparing conjugation
+  with the identity homomorphism then proves `mul_comm_of_lie_abelian`.
+- `NonabelianCompactLie`: nonabelianity forces the center complement from G01
+  to be nonzero. Since its atomic simple ideals span it, at least one exists.
+  Transporting simplicity through the already-proved ambient ideal embedding
+  gives `CompactAdjoint.nonabelian_simple_ideal` with no group/Lie-algebra
+  correspondence assumed as a hypothesis.
+
+This is a documented elementary differential-calculus substitute for invoking
+Lie exponential/integration theory for G02. The generic connected-group bridge
+requires a complete real chart model, automatically available for the final
+finite-dimensional compact-group theorem. Neither compactness nor finite
+dimension is added to the generic zero-differential or homomorphism results.
+The final wrapper derives the topological-group structure from the Lie-group
+structure. The Borel measurable structure is the existing normalized-Haar model.
+
+Next: G03, showing the connected adjoint action preserves each simple ideal.
+A promising route is the finite independent atomic-factor family from G01:
+Lie automorphisms permute the simple factors, finite-dimensional ideals are
+closed, and connectedness forces the finite orbit to be constant. G04–G06
+still require constructing the adjoint simple quotient as a Lie group, not
+merely an abstract continuous representation. General DvK and root integration
+remain open. No conditional main theorem or manuscript change has been made.
+
+Milestone validation: full `lake build` passed (4093 jobs); the source audit
+passed for 107 Lean files; exhaustive axiom audit passed for 2587 project
+declarations / 2106 theorem constants, with only propext, Classical.choice,
+and Quot.sound. Outstanding-obligation statement checks compile, the exact
+Python verifier matches its checked-in output byte for byte, and manuscript
+preservation and whitespace checks pass. The source correspondence review
+checked the full nonabelian/compact/connected hypotheses, the actual
+GroupLieAlgebra bracket, and that the resulting simple object is an ambient
+Lie ideal rather than just an abstract Lie algebra. No quotient-group claim
+is included in G02. All auxiliary tooling and associated outputs stay under
+`scripts/`; mathematical modules stay in `MathieuProperty/`.
