@@ -50,3 +50,8 @@ run_cmd do
 #print axioms MathieuProperty.Hopf.hopfCoordinates_surjective
 #print axioms MathieuProperty.Hopf.coordinatePoint_u
 #print axioms MathieuProperty.orbit_average_integrable
+
+#print axioms MathieuProperty.Hopf.SU2_transitive_equal_a
+#print axioms MathieuProperty.Hopf.su2_orbit_map
+#print axioms MathieuProperty.measurePreserving_transitive_orbit
+#print axioms MathieuProperty.Hopf.radial_moment_factorization
