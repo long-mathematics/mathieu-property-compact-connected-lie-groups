@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/restricted-adjoint-differential`; milestones through [PR #39](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/39) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/adjoint-image-topology`; milestones through [PR #40](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/40) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 110 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 113 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -125,7 +125,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | G01 | Compact Lie algebra decomposes as center plus simple ideals | CompactAdjoint.compact_lie_decomposition | CompactLieStructure / LieLocalCoordinates / LieMixedDerivatives / InvariantLieDecomposition | Actual adjoint action; HaarRealForm; mathlib invariant forms and semisimple ideals | PROVED | Haar averaging and local mixed-derivative proof | Constructs the positive form, proves infinitesimal invariance, center complement, finite independent simple factors, ambient ideal embeddings, and inherited positive invariant forms. No structural hypothesis is assumed. |
 | G02 | Connected nonabelian group has at least one simple ideal | CompactAdjoint.nonabelian_simple_ideal | ManifoldZeroDerivative / LieHomCalculus / ConnectedLie / NonabelianCompactLie | G01 | PROVED | Connectedness via zero differentials | Zero differential implies constancy; smooth homomorphisms are determined by their differential; abelian Lie algebra forces connected group abelian. Nonabelianity forces a simple factor, lifted to an actual ambient ideal. |
 | G03 | Connected adjoint action preserves each simple ideal | CompactAdjoint.adjoint_preserves_simple_ideal; simpleAdjointRepresentation_continuous | LieIdealOrbit / AdjointIdeals | G01 | PROVED | Manuscript finite-permutation argument | Ad preserves the semisimple complement; its action on the finite atomic-ideal family is constant by connectedness and closed fibers. Each factor is an actual ambient ideal with continuous restricted representation. |
-| G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | inner_aut_structure | AdjointQuotient | G01 | TODO | Manuscript |  |
+| G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | inner_aut_structure (planned); simpleAdjointImage_compact; simpleAdjointImage_connected; simpleAdjointImage_center_eq_bot | RepresentationImage / AdjointCentralizer / AdjointImage | G01 | IN PROGRESS | Concrete compact adjoint image | The actual image is proved nontrivial, compact, connected, and centerless, with a continuous surjection from G and an action by Lie automorphisms. Manifold charts, Lie algebra identification, and inner-automorphism identity-component correspondence remain open. |
 | G05 | Restricted adjoint differential image equals ad(simple ideal) | CompactAdjoint.restrictedAdjoint_eq_simple; restrictedAdjoint_mfderiv; restricted_adjoint_differential_range | RestrictedAdjointAlgebra / ProjectedAdjoint / RestrictedAdjoint | G01; G03 | PROVED | Manuscript, expressed in the ambient endomorphism space | The canonical projection constructs a smooth map equal to the actual restricted representation. Its manifold differential is the restricted bracket, whose image is exactly ad of the ideal. The inner-automorphism Lie-group target itself remains G04. |
 | G06 | Closed connected subgroup with full Lie algebra equals connected target | LieSurjective.surjective_of_surjective_mfderiv | LieSurjective | G04; G05 | PROVED | Substitute: local openness from surjective differential | A C¹ homomorphism with surjective differential at 1 is onto a connected target. Uses the Banach inverse-function/open-mapping theorem in charts and the open-subgroup argument; applies directly to the manuscript homomorphism once G04–G05 construct its target and differential. No closed-subgroup theorem is assumed. |
 | T01 | Compact connected abelian Lie group iff finite-dimensional torus, including dimension zero | abelian_iff_torus | Torus |  | TODO | Manuscript |  |
@@ -2173,3 +2173,69 @@ bridge would need development. Another useful intermediate target is the
 actual compact connected image of the restricted representation inside units
 of continuous endomorphisms, with a proof that its center is trivial; that
 would isolate the remaining manifold/Lie-algebra identification problem.
+
+
+## G04: concrete compact adjoint image
+
+PR #40 merged at `c92c0b6` after CI `35214838310` passed (6m30s).
+Current branch: `formalization/adjoint-image-topology`.
+Inventory: 91 PROVED / 6 TODO / 8 IN PROGRESS / 5 BLOCKED = 110.
+The previous complete build passed 4099 jobs; exhaustive audit was 2751
+project declarations / 2246 theorem constants.
+
+`RepresentationImage` constructs a homomorphism into units of continuous
+endomorphisms from a finite-dimensional representation. It proves continuity,
+constructs the range subgroup and continuous surjection onto it, and proves
+compactness and connectedness from those of the source. This is a concrete
+topological group construction, not a claimed Lie-group structure.
+
+`AdjointImage` applies this to the actual simple-factor representation from
+G03/G05. It constructs `simpleAdjointImage` and `simpleAdjointOnto`, proving
+compactness, connectedness, continuity, and surjectivity. Every image element
+preserves the Lie bracket, via `simpleAdjointImage_map_lie`, and thus gives an
+actual Lie automorphism `simpleImageLieEquiv` of the factor.
+
+`AdjointCentralizer.commutes_mfderiv` differentiates a constant operator's
+commutation with a smooth family. `equiv_eq_refl` shows a Lie automorphism of a
+centerless Lie algebra that commutes with all adjoint operators is identity.
+For a central image element, G05's actual derivative identifies the resulting
+commutation with all ad(x). The simple factor has zero Lie center, so the image
+element is identity. This proves `simpleAdjointImage_center_eq_bot`.
+`simpleAdjointImage_nontrivial` rules out a trivial image: that would make the
+restricted representation constant and its differential zero, contrary to the
+nonabelian simple factor's bracket.
+
+This is a nontrivial compact connected centerless **topological** quotient.
+G04 remains IN PROGRESS: it has no manifold charts or Lie-algebra identification
+yet, and no claim of a compact adjoint simple **Lie** quotient is made.
+The current draft is `/tmp/AdjointImageNext.lean`, now split into the repository
+modules. Full milestone validation passed: `lake build` completed 4102 jobs;
+source audit passed for 116 Lean files; exhaustive axiom audit passed for
+2818 project declarations / 2296 theorem constants, using only propext,
+Classical.choice, and Quot.sound. Outstanding-obligation checks compile;
+the verifier matches byte for byte; manuscript preservation and whitespace
+checks pass. Correspondence review checked the concrete unit-group image,
+actual restricted Ad coefficients, full continuity/surjectivity, Lie-bracket
+preservation, centerlessness, and nontriviality. It explicitly excludes the
+unconstructed Lie-group structure from the proved scope.
+
+Next G04 route to investigate: build local charts on the automorphism group of
+a finite-dimensional real Killing Lie algebra. Mathlib proves every derivation
+is inner (`LieDerivation.IsKilling.exists_eq_ad`). For the analytic bridge,
+prove the exponential of a continuous derivation preserves the bracket. A
+specialized route is to differentiate
+exp(-tD)([exp(tD)x, exp(tD)y]); the derivation rule makes its derivative zero,
+so it equals [x,y]. Prove this first for any continuous bilinear operation B
+and continuous linear D satisfying D(Bxy)=B(Dx)y+Bx(Dy), avoiding unnecessary
+normed-Lie typeclass machinery. The finite-dimensional Lie bracket then has a
+continuous bilinear model via `LinearMap.toContinuousBilinearMap`.
+The existing exponential derivative theorem is
+`NormedSpace.hasDerivAt_exp_smul_const` (and its primed variant).
+
+With exponential automorphisms and inner derivations, use the inverse function
+theorem on a map combining coordinates along ad(L) with the independent
+bracket-preservation equations. This may construct the local automorphism
+chart without a general closed-subgroup theorem. An alternative is a
+constant-rank construction for the compact representation image; the pinned
+library has no ready-made constant-rank image theorem. Neither route has been
+assumed. All manuscript and exact-verifier content remains unchanged.

@@ -1,3 +1,6 @@
+import MathieuProperty.AdjointImage
+import MathieuProperty.AdjointCentralizer
+import MathieuProperty.RepresentationImage
 import MathieuProperty.RestrictedAdjoint
 import MathieuProperty.ProjectedAdjoint
 import MathieuProperty.RestrictedAdjointAlgebra

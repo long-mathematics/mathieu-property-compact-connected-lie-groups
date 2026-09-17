@@ -1,4 +1,4 @@
-Axiom audit passed: 2751 project declarations, 2246 theorems.
+Axiom audit passed: 2818 project declarations, 2296 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -382,5 +382,20 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.CompactAdjoint.restrictedAdjoint_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CompactAdjoint.restrictedAdjoint_mfderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CompactAdjoint.restricted_adjoint_differential_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.RepresentationImage.ontoImage_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.RepresentationImage.image_compact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.RepresentationImage.image_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AdjointCentralizer.commutes_mfderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.AdjointCentralizer.equiv_eq_refl' depends on axioms: [propext, Quot.sound]
+'MathieuProperty.CompactAdjoint.simpleAdjointImage_compact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.simpleAdjointImage_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.simpleAdjointOnto_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.simpleAdjointOnto_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.simpleAdjointImage_center_eq_bot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.CompactAdjoint.simpleAdjointImage_nontrivial' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
