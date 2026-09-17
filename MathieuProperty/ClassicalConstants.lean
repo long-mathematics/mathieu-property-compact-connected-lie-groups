@@ -4,7 +4,7 @@ noncomputable section
 namespace MathieuProperty
 
 /-- The numerical expression in the classical closed forms. Its actual SU(n)
-Haar interpretation is proved in `ClassicalSU.lean`; the Sp(n) case remains open. -/
+and Sp(n) Haar interpretations are proved in `ClassicalSU.lean` and `ClassicalSp.lean`. -/
 def classicalMomentFormula (n m s : ℕ) : ℝ :=
   momentConstant m * ((m - 1).choose (s - 1) : ℝ) *
     ((2 : ℕ).ascFactorial (4 * m + s) : ℝ) / (n.ascFactorial (4 * m + s) : ℝ)

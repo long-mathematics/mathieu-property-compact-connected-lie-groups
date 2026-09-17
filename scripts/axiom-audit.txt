@@ -1,4 +1,4 @@
-Axiom audit passed: 1265 project declarations, 1047 theorems.
+Axiom audit passed: 1319 project declarations, 1094 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -137,3 +137,14 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.compactSymplecticRadialA_one' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.compactSymplecticRadialA_moment' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.compactSymplecticRadialA_integrable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.su2Symplectic_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.su2Symplectic_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.symplecticProjection_equivariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.symplectic_representative_pure' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.symplectic_representative_marked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.symplectic_marker_tower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.symplectic_marked_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.symplectic_marked_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.compactSymplectic_small_values' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.compactSymplectic_not_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.compactSymplectic_closed_forms' depends on axioms: [propext, Classical.choice, Quot.sound]
