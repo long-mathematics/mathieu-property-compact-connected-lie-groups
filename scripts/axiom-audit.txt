@@ -1,4 +1,4 @@
-Axiom audit passed: 3615 project declarations, 2960 theorems.
+Axiom audit passed: 3664 project declarations, 2998 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -484,3 +484,21 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.CartanStabilizer.component_lieGroup' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CartanStabilizer.component_torus_rank' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CompactCartanTorus.component_torus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanStabilizer.exponential_mem_component' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanStabilizer.commute_tangent_of_centralizes_component' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.CartanStabilizer.fixes_cartan_of_centralizes_component' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.CartanStabilizer.maximal_connected_abelian' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanStabilizer.componentImage_mul_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.FullAdjoint.ker_eq_center' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.FullAdjoint.quotientRangeEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.FullAdjoint.ontoImage_covering' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.DiscreteKernel.commute_image' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.image_compact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.lift_compact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.lift_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.inclusion_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CartanLift.mul_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
