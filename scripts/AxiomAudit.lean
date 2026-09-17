@@ -55,3 +55,10 @@ run_cmd do
 #print axioms MathieuProperty.Hopf.su2_orbit_map
 #print axioms MathieuProperty.measurePreserving_transitive_orbit
 #print axioms MathieuProperty.Hopf.radial_moment_factorization
+
+#print axioms MathieuProperty.Hopf.mixedMoment_factorial
+#print axioms MathieuProperty.Hopf.tau_polynomial_integral
+#print axioms MathieuProperty.Hopf.sphere_hopf_constantTerm
+#print axioms MathieuProperty.Hopf.hopf_coefficient
+#print axioms MathieuProperty.Hopf.sphere_marker_tower
+#print axioms MathieuProperty.Hopf.radial_transfer
