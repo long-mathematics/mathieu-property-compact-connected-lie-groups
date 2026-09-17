@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/gaussian-gamma`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/su-classical-markers`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 55 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- M0 and M1 complete; the library covers 56 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
 - Milestones through beta moments are merged and CI-checked ([PR #15](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/15)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -49,7 +49,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | lem:root-doublet | Fundamental highest-weight representation contains a faithful defining SU(2) root doublet | sl2Doublet_cyclic; sl2Doublet_matrix; root_hom_injective | RootDoubletModule / RootDoubletFaithfulness / RootSU2 (planned) | L01–L07 | IN PROGRESS | Manuscript | The cyclic irreducible algebraic doublet, defining matrices, and faithfulness of a supplied defining action are checked. Fundamental representation and root integration are absent. |
 | lem:radial-pushforward | Projected Haar is compactly supported invariant probability, not concentrated at zero | doublet_radial_pushforward | ProjectedHaar | lem:root-doublet; L08–L11 | PROVED | Manuscript | Given the manuscript’s standing unitary doublet data: actual projected Haar probability, compact ball support, SU(2) invariance, and positive mass off zero. Root-doublet existence remains open. |
 | thm:simply-connected-simple | Representative A,P,Q, nonnegative nonzero A, exact tower on all compact simply connected simple groups | doublet_pure; doublet_marked; doublet_marked_positive; unitary_doublet_not_mathieu (transfer only) | DoubletWitness / RootSU2 (planned) | lem:radial-pushforward; thm:radial-transfer; lem:representative-algebra | IN PROGRESS | Manuscript | Complete representative-function transfer proved for explicitly supplied unitary defining-doublet data. Existence of those data for all simply connected simple groups is unproved; no general simple-group theorem claimed. |
-| prop:classical-closed-forms | Defining SU(n), n≥2, and Sp(n), n≥1: rising factorial formulas and printed examples | beta_two_moment; classical_small_values; su2_small_values | BetaMoments / ClassicalConstants / ClassicalGroups (planned) | C01–C07; thm:simply-connected-simple | IN PROGRESS | Manuscript | Beta moments and printed arithmetic checked. SU(n)/Sp(n) sphere pushforwards and radial beta-distribution identifications are not yet proved. |
+| prop:classical-closed-forms | Defining SU(n), n≥2, and Sp(n), n≥1: rising factorial formulas and printed examples | specialUnitary_closed_forms; specialUnitary_small_values; specialUnitaryRadialA_moment | ClassicalSU / SphereBeta / ClassicalGroups (Sp planned) | C01–C07; thm:simply-connected-simple | IN PROGRESS | Manuscript | Entire SU(n) part proved with actual representative functions, Haar moments, endpoint, and examples. Sp(n) part remains open. |
 | lem:center-descent | Six functions descend as representative functions through full center and intermediate quotients | doublet_center_invariant; center_descent | CenterDescent | Z01–Z04; H04 | PROVED | Manuscript | For the standing irreducible unitary representation and projected coordinates: all six functions are invariant under the full center and descend as actual representative functions through every central subgroup. No universal representation-existence claim. |
 | cor:simple-central-forms | Exact marker tower and Mathieu failure for every compact connected simple central form | center_quotient_tower (transfer only) | QuotientWitness / SimpleGroups (planned) | Z05; lem:center-descent; lem:haar-pullback; thm:simply-connected-simple | IN PROGRESS | Manuscript | All moments, nonnegative nonzero A, strict positivity, and Mathieu failure descend through every central quotient of a supplied irreducible defining doublet. Universal source representation and simple-cover existence remain unproved. |
 | prop:adjoint-simple-quotient | Every nonabelian compact connected Lie group surjects continuously onto adjoint compact simple group | adjoint_simple_quotient | AdjointQuotient | G01–G06 | TODO | Manuscript |  |
@@ -116,7 +116,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | C04 | Beta moments equal rising factorial ratios | beta_moment_ratio; beta_moment_integrable; beta_moment_product; beta_moment_nat; beta_two_moment | BetaMoments | C03 | PROVED | Manuscript | Actual mathlib betaMeasure: density shift, normalization, integrability, Gamma recurrence, and rising-factorial ratios for all positive integer parameters. |
 | C05 | Sp(n) defining action transitive on complex 2n sphere with same invariant measure | Sp_sphere_transitive | ClassicalGroups |  | TODO | Manuscript |  |
 | C06 | Endpoint n=2 for SU and n=1 for Sp: A=1 and ratio=1 | firstTwoSphereMass_two; specialUnitaryRadialA_two; specialUnitaryRadialA_moment | SphereBeta / ClassicalGroups (planned) | C01; C05 | IN PROGRESS | Manuscript | SU(2) defining first-column endpoint A=1 and rising-factorial ratio are checked; Sp(1)=SU(2) identification remains open. |
-| C07 | Nine rational examples for m=1,2,3 | classical_small_values; su2_small_values | ClassicalConstants | C04; H12 | IN PROGRESS | Manuscript | All nine displayed rational expressions checked; the first three are actual SU(2) representative Haar moments. Higher-dimensional Haar correspondences remain open. |
+| C07 | Nine rational examples for m=1,2,3 | specialUnitary_small_values; classical_small_values | ClassicalSU / ClassicalConstants | C04; H12 | IN PROGRESS | Manuscript | All nine entries are checked as actual Haar moments for SU(2), SU(3), SU(4). The additional Sp(2) equality attached to the SU(4) row remains open. |
 | Z01 | Schur lemma: center acts by scalar of modulus one | center_scalar; unitary_center_scalar | CenterDescent | L02; L03 | PROVED | Manuscript | mathlib algebraically closed Schur lemma; norm preservation gives scalar modulus one. |
 | Z02 | Balanced coefficients invariant; tensor representation has trivial central action | doublet_center_invariant; MatrixRepresentation.balanced_tensor_trivial | CenterDescent | Z01; H04 | PROVED | Manuscript | All six phase-balanced quantities are invariant; the actual tensor/conjugate matrix representation is identity on every unit scalar action. |
 | Z03 | Tensor conjugate representation factors continuously through central quotient | MatrixRepresentation.descend; MatrixRepresentation.balancedDescend; MatrixRepresentation.descend_coefficient | CenterDescent | Z02 | PROVED | Manuscript | Actual quotient homomorphism; quotient topology proves entry continuity and exact coefficient pullback. |
@@ -1011,3 +1011,49 @@ audit passed for 58 Lean files. Namespace axiom audit passed for 1122 project
 declarations and 926 theorem constants. All dependencies are limited to
 propext, Classical.choice, and Quot.sound. Exact verifier output matches,
 outstanding target statements type-check, and the manuscript remains unchanged.
+
+## Complete SU(n) defining marker formulas
+
+Sphere Dirichlet/beta laws and radial Haar moments were merged as
+[PR #19](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/19)
+after CI run `35186105271` passed. The current branch is
+`formalization/su-classical-markers`.
+
+`ClassicalSU.lean` constructs the continuous injective block embedding
+SU(2)→SU(2+n), proves the first-two-entry projection equivariant, and constructs
+its coordinate functions from the actual defining matrix representation.
+The fixed A, P, Q are genuine representative functions and agree pointwise
+with the manuscript Hopf quantities. The existing radial theorem and actual
+radial Haar moments prove the entire SU(n) closed form. The exact marker tower,
+both index ranges, and failure of the Mathieu property for every n≥2 are
+proved. The manuscript-facing `specialUnitary_closed_forms` wrapper uses n≥2,
+with pointwise identification of A, P, and Q. All nine printed values for
+SU(2), SU(3), and SU(4) are now actual representative Haar moments.
+
+A generic witness lemma was added to `Haar.lean` to expose the already-proved
+Mathieu witness criterion at the representative-algebra level. This avoids
+repeated elaboration of the large concrete matrix-group algebra instances;
+it introduces no hypothesis beyond the explicit pure/marked witness facts.
+
+The classical-closed-forms proposition and C07 remain IN PROGRESS because they
+also assert Sp(n) formulas and the Sp(2) interpretation of the third numerical
+row. No general simple-group/root existence result is inferred from the
+explicit SU(n) embedding. Counts remain 75 PROVED, 19 TODO, 10 IN PROGRESS,
+6 BLOCKED (110 total), with 56 mathematical modules.
+
+Next: the compact symplectic defining action and first-column sphere law.
+A possible specialized construction is to group complex coordinates into
+quaternionic pairs, send each pair to its nonnegative real length using the
+already-built SU(2) matrix, then use an orthogonal real matrix to realize the
+vector of lengths as a first column. Paired SU(2) blocks and the duplicated
+real orthogonal action preserve the standard symplectic form and unitarity.
+This may establish Sp(n) transitivity without a general quaternionic
+inner-product-space theory. The first-simple-root marker embedding must match
+the first two complex defining coordinates (with Sp(1) handled separately).
+
+SU(n) marker validation: `lake build` passed (3924 jobs). Source audit
+passed for 59 Lean files. Namespace axiom audit passed for 1180 declarations
+and 976 theorem constants, using only propext, Classical.choice, and Quot.sound.
+The exact verifier matches, outstanding targets type-check, and the manuscript
+is unchanged. This milestone adds no fully closed ledger row because the
+classical proposition and numerical row also require Sp(n).

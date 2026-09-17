@@ -3,8 +3,8 @@ import MathieuProperty.SU2Witness
 noncomputable section
 namespace MathieuProperty
 
-/-- The numerical expression in the classical closed forms. Its identification
-with Haar moments on higher-dimensional groups remains a separate obligation. -/
+/-- The numerical expression in the classical closed forms. Its actual SU(n)
+Haar interpretation is proved in `ClassicalSU.lean`; the Sp(n) case remains open. -/
 def classicalMomentFormula (n m s : ℕ) : ℝ :=
   momentConstant m * ((m - 1).choose (s - 1) : ℝ) *
     ((2 : ℕ).ascFactorial (4 * m + s) : ℝ) / (n.ascFactorial (4 * m + s) : ℝ)

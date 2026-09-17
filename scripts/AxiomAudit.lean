@@ -149,3 +149,14 @@ run_cmd do
 #print axioms MathieuProperty.specialUnitaryRadialA_map
 #print axioms MathieuProperty.specialUnitaryRadialA_moment
 #print axioms MathieuProperty.specialUnitaryRadialA_integrable
+
+#print axioms MathieuProperty.not_mathieu_of_representative_witness
+#print axioms MathieuProperty.su2Block_injective
+#print axioms MathieuProperty.su2Block_continuous
+#print axioms MathieuProperty.classical_representative_marked
+#print axioms MathieuProperty.classical_marker_tower
+#print axioms MathieuProperty.classical_marked_positive
+#print axioms MathieuProperty.classical_marked_zero
+#print axioms MathieuProperty.specialUnitary_not_mathieu
+#print axioms MathieuProperty.specialUnitary_small_values
+#print axioms MathieuProperty.specialUnitary_closed_forms

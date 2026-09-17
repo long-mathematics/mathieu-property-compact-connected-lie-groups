@@ -1,3 +1,4 @@
+import MathieuProperty.ClassicalSU
 import MathieuProperty.SphereBeta
 import MathieuProperty.GaussianSquare
 import MathieuProperty.GammaBeta
