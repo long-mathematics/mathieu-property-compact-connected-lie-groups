@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/invariant-lie-decomposition`; milestones through [PR #34](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/34) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/compact-adjoint-form`; milestones through [PR #35](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/35) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 95 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 97 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -122,7 +122,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | Z03 | Tensor conjugate representation factors continuously through central quotient | MatrixRepresentation.descend; MatrixRepresentation.balancedDescend; MatrixRepresentation.descend_coefficient | CenterDescent | Z02 | PROVED | Manuscript | Actual quotient homomorphism; quotient topology proves entry continuity and exact coefficient pullback. |
 | Z04 | All six functions are coefficients of sums/tensor powers on quotient | MatrixRepresentation.descendedBalancedCoefficient_apply; MatrixRepresentation.descended_hopf_functions; center_descent | CenterDescent | Z03; lem:representative-algebra | PROVED | Manuscript | Quotient coefficients of the balanced tensor representation generate all six quantities inside the representative subalgebra. Final wrapper identifies them with orthogonal-projection coordinates. |
 | Z05 | Any compact connected simple central form is central quotient of compact simply connected simple cover | simple_cover | CenterDescent |  | TODO | Manuscript |  |
-| G01 | Compact Lie algebra decomposes as center plus simple ideals | CompactLieForm.centerDecomposition; CompactLieForm.center_complement_semisimple (algebraic step) | InvariantLieDecomposition / AdjointQuotient (planned) | invariant positive form on actual GroupLieAlgebra | IN PROGRESS | Invariant-form decomposition | The algebraic decomposition for a supplied symmetric anisotropic invariant form is proved. Construction and bracket invariance of such a form for an actual compact Lie group remain unproved. |
+| G01 | Compact Lie algebra decomposes as center plus simple ideals | CompactLieForm.centerDecomposition; CompactLieForm.center_complement_semisimple (algebraic step) | InvariantLieDecomposition / AdjointQuotient (planned) | invariant positive form on actual GroupLieAlgebra | IN PROGRESS | Invariant-form decomposition | The algebraic decomposition for a supplied symmetric anisotropic invariant form is proved. The actual adjoint representation, its smoothness and Lie automorphisms, and an adjoint-invariant positive form are now proved in CompactAdjoint/HaarRealForm. Infinitesimal bracket invariance of that form remains unproved. |
 | G02 | Connected nonabelian group has at least one simple ideal | nonabelian_simple_ideal | AdjointQuotient | G01 | TODO | Manuscript |  |
 | G03 | Connected adjoint action preserves each simple ideal | adjoint_preserves_simple_ideal | AdjointQuotient | G01 | TODO | Manuscript |  |
 | G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | inner_aut_structure | AdjointQuotient | G01 | TODO | Manuscript |  |
@@ -1869,3 +1869,51 @@ bundled Lie algebra (not just linear) product equivalence. The compact-group
 form construction is still unproved, so the ledger remains 86/110 PROVED.
 Scratch `/tmp/AdjointLie.lean` has begun the actual conjugation differential;
 it is not part of this completed algebraic milestone.
+
+## Actual adjoint action and averaged real form
+
+PR #35 merged at `0afaa36` after CI `35206892844` passed (4m19s).
+Current branch: `formalization/compact-adjoint-form`.
+
+`CompactAdjoint.lean` constructs the actual derivative of conjugation at the
+identity, proves the representation laws, and proves smoothness using
+parameter-dependent manifold differentiation. The fixed source and target
+basepoint makes tangent-coordinate changes trivial. Chain-rule calculations
+identify the action on left-invariant vector fields; naturality of the
+vector-field Lie bracket then proves that each adjoint map is a Lie algebra
+automorphism. These are actual group derivatives, not an abstract supplied
+adjoint representation.
+
+`HaarRealForm.lean` proves real Haar averaging for arbitrary finite-dimensional
+continuous representations, using a Euclidean coordinate model. The resulting
+bilinear form is symmetric, positive definite, and invariant under the group.
+`CompactAdjoint.exists_positive_adjoint_form` applies this construction to an
+actual compact Lie group and derives its topological-group instance from the
+Lie-group structure. No invariant form is assumed.
+
+G01 remains IN PROGRESS. The precise remaining bridge is that the differential
+at the identity of `g ↦ Ad(g)v`, applied to `x`, equals the actual bracket
+`[x,v]`. Differentiating the proved group invariance will then yield
+`B [x,v] w = -B v [x,w]`, allowing application of the completed algebraic
+decomposition. Preservation of brackets by each Ad(g), now proved, does not
+by itself establish this infinitesimal identity. No compact-group decomposition
+or main classification is claimed yet. Inventory remains 86 PROVED / 11 TODO /
+8 IN PROGRESS / 5 BLOCKED, total 110.
+
+Next: prove the infinitesimal identity using manifold coordinates or a local
+left/right-translation calculation. Mathlib's vector-field bracket is
+`DW·V - DV·W`; its naturality and all conjugation derivative laws needed above
+are now available. No exponential map or root-integration theorem has been
+assumed. The manifold and real-form files compile individually; full milestone
+validation is pending below.
+
+Adjoint/form milestone validation: full `lake build` passed (4085 jobs).
+Source audit passed for 100 Lean files. Exhaustive axiom audit passed for
+2437 project declarations / 1993 theorem constants; only propext,
+Classical.choice, and Quot.sound occur. Outstanding target statements compile,
+the relocated Python verifier reproduces its checked-in output exactly, and
+the manuscript is unchanged. Self-review checked the conjugation order,
+chain-rule source/target basepoints, smoothness in fixed tangent coordinates,
+bracket naturality, positivity at the identity, and right-Haar invariance.
+Group invariance is explicitly distinguished from the unproved infinitesimal
+bracket invariance. The classification and G01 are not marked proved.

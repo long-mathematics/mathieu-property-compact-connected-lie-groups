@@ -1,3 +1,5 @@
+import MathieuProperty.CompactAdjoint
+import MathieuProperty.HaarRealForm
 import MathieuProperty.InvariantLieDecomposition
 import MathieuProperty.ZwartUniqueness
 import MathieuProperty.ZwartSOEuler
