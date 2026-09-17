@@ -1,3 +1,8 @@
+import MathieuProperty.AbelianTorus
+import MathieuProperty.LatticeTorus
+import MathieuProperty.AbelianLattice
+import MathieuProperty.AbelianParameters
+import MathieuProperty.LieOneParameter
 import MathieuProperty.AdjointQuotient
 import MathieuProperty.OpenLieSubgroup
 import MathieuProperty.AdjointAutomorphism
