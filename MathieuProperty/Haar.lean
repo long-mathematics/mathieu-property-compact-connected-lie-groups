@@ -62,6 +62,14 @@ def representativeIntegral : representativeFunctions (G := G) →ₗ[ℂ] ℂ :=
 /-- The exact Mathieu property of the compact group, on representative functions. -/
 def HasMathieuProperty : Prop := IsMathieuSubspace (LinearMap.ker (representativeIntegral G))
 
+/-- Fixed representative functions with vanishing pure and nonvanishing marked
+moments refute the group Mathieu property. -/
+theorem not_mathieu_of_representative_witness (f h : representativeFunctions (G := G))
+    (hpure : ∀ m : ℕ, 1 ≤ m → representativeIntegral G (f ^ m) = 0)
+    (hmarked : ∀ m : ℕ, 1 ≤ m → representativeIntegral G (h * f ^ m) ≠ 0) :
+    ¬ HasMathieuProperty G :=
+  not_isMathieuSubspace_of_witness (LinearMap.ker (representativeIntegral G)) f h hpure hmarked
+
 theorem representativeIntegral_one : representativeIntegral G 1 = 1 := by
   change (∫ _ : G, (1 : ℂ) ∂normalizedHaar G) = 1
   simp

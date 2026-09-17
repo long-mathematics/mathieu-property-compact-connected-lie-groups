@@ -1,4 +1,4 @@
-Axiom audit passed: 1122 project declarations, 926 theorems.
+Axiom audit passed: 1180 project declarations, 976 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -113,3 +113,13 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.specialUnitaryRadialA_map' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.specialUnitaryRadialA_moment' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.specialUnitaryRadialA_integrable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.not_mathieu_of_representative_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.su2Block_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.su2Block_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.classical_representative_marked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.classical_marker_tower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.classical_marked_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.classical_marked_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.specialUnitary_not_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.specialUnitary_small_values' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.specialUnitary_closed_forms' depends on axioms: [propext, Classical.choice, Quot.sound]
