@@ -1,4 +1,4 @@
-Axiom audit passed: 2353 project declarations, 1922 theorems.
+Axiom audit passed: 2437 project declarations, 1993 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -321,3 +321,16 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.CompactLieForm.exists_central_semisimple_complement' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'MathieuProperty.CompactAdjoint.adjointLinear_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.adjointLinear_contMDiff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.adjointRepresentation_continuous' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.CompactAdjoint.conjugation_vectorField' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.conjugation_pullback' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.adjointLinear_lie' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.adjointLieEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.HaarRealForm.symmetric' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.HaarRealForm.positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.HaarRealForm.invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.exists_positive_adjoint_form' depends on axioms: [propext, Classical.choice, Quot.sound]

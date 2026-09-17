@@ -364,3 +364,16 @@ run_cmd do
 #print axioms MathieuProperty.CompactLieForm.center_complement_semisimple
 #print axioms MathieuProperty.CompactLieForm.centerDecomposition
 #print axioms MathieuProperty.CompactLieForm.exists_central_semisimple_complement
+
+-- The actual smooth adjoint action and its Haar-averaged real form.
+#print axioms MathieuProperty.CompactAdjoint.adjointLinear_mul
+#print axioms MathieuProperty.CompactAdjoint.adjointLinear_contMDiff
+#print axioms MathieuProperty.CompactAdjoint.adjointRepresentation_continuous
+#print axioms MathieuProperty.CompactAdjoint.conjugation_vectorField
+#print axioms MathieuProperty.CompactAdjoint.conjugation_pullback
+#print axioms MathieuProperty.CompactAdjoint.adjointLinear_lie
+#print axioms MathieuProperty.CompactAdjoint.adjointLieEquiv
+#print axioms MathieuProperty.HaarRealForm.symmetric
+#print axioms MathieuProperty.HaarRealForm.positive
+#print axioms MathieuProperty.HaarRealForm.invariant
+#print axioms MathieuProperty.CompactAdjoint.exists_positive_adjoint_form
