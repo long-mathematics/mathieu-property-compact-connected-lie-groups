@@ -1,3 +1,6 @@
+import MathieuProperty.AutomorphismChart
+import MathieuProperty.BilinearDefect
+import MathieuProperty.BilinearAutomorphism
 import MathieuProperty.AdjointImage
 import MathieuProperty.AdjointCentralizer
 import MathieuProperty.RepresentationImage
