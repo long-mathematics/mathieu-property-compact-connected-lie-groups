@@ -211,3 +211,14 @@ run_cmd do
 #print axioms MathieuProperty.Hopf.hopf_coordinates_integral_unitCube
 #print axioms MathieuProperty.Hopf.hopf_cube_change_of_variables
 #print axioms MathieuProperty.Hopf.hopf_coordinates_integral
+
+#print axioms MathieuProperty.Abelian.circle_polynomial_rescale
+#print axioms MathieuProperty.Abelian.square_root_free_weighted_integral
+#print axioms MathieuProperty.Abelian.integral_laurent_unit
+#print axioms MathieuProperty.Abelian.laurent_eq_zero_of_circle
+#print axioms MathieuProperty.Abelian.entry_polynomial_zero_complex_scale
+#print axioms MathieuProperty.Abelian.entryTransform_representative_independent
+#print axioms MathieuProperty.Abelian.haar_entryIntegral_eq_transformedIntegral
+#print axioms MathieuProperty.Abelian.haar_invariant_entryIntegral_eq_weightedCT
+#print axioms MathieuProperty.Abelian.entryTransform_pair
+#print axioms MathieuProperty.Abelian.transform_correspondence

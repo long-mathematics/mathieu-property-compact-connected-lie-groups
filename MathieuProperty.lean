@@ -1,3 +1,7 @@
+import MathieuProperty.TransformPair
+import MathieuProperty.TransformIntegral
+import MathieuProperty.EntryTransform
+import MathieuProperty.CircleTransform
 import MathieuProperty.HopfCoordinateMeasure
 import MathieuProperty.SphereDetermination
 import MathieuProperty.EarlierXZ
