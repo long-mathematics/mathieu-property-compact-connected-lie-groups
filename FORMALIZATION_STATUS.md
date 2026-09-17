@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/sl2-cyclic-doublet`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/haar-unitarization`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 39 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- M0 and M1 complete; the library covers 40 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
 - Completion is prevented by the documented library exception below, independently of the many remaining ordinary obligations. The checked foundations are preserved through PR #1; remote validation and merge state are available there. No weakening or conditional main theorem is authorized.
 - No false manuscript statement identified. Library exception under attached prompt §16: the rank-two Duistermaat–van der Kallen noncancellation step remains unproved after the searches and proof attempts below. The known general proof would require major new toric/analytic infrastructure, which is not realistically achievable as a routine continuation of this paper formalization. The foundation milestone is incomplete coverage, not a completed formalization.
 
@@ -101,7 +101,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | R08 | Positive measure off zero implies positive radial integral | Hopf.radial_integral_pos | SphereMeasure | R04 | PROVED | Manuscript | Every positive natural radial power has positive integral for a finite compactly supported measure with positive mass off zero. |
 | L01 | Maximal torus, simple roots and fundamental weight with coroot pairing one | fundamental_weight_pairing | RootSU2 |  | TODO | Manuscript |  |
 | L02 | Simply connected compact simple group admits irreducible representation of fundamental highest weight | fundamental_representation_exists | RootSU2 | L01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
-| L03 | Average inner product to obtain invariant Hermitian metric | invariant_inner_product | RootSU2 | D-haar | TODO | Manuscript |  |
+| L03 | Average inner product to obtain invariant Hermitian metric | averagedInnerCore; unitaryModel_intertwines; unitaryModel_continuous; invariantInnerProduct_invariant; invariantInnerProduct_continuous | HaarUnitarization | D-haar | PROVED | Manuscript | Haar average is positive definite and invariant; arbitrary finite-dimensional complex normed representations have a continuous unitary model, continuously linearly equivalent to the original representation. |
 | L04 | Root sl₂ action on highest vector has weight one | root_highest_weight_one | RootSU2 | L01; L02 | TODO | Manuscript |  |
 | L05 | Highest-weight-one cyclic module: Fv≠0, F²v=0 and two-dimensional defining action | highest_weight_one_lowering; sl2Doublet_cyclic; sl2Doublet_finrank; sl2Doublet_irreducible; sl2Doublet_matrix | RootDoubletAlgebra / RootDoubletModule | L04 | PROVED | Manuscript | Actual cyclic Lie submodule, basis, dimension two, irreducibility, and exact defining matrices from a primitive weight-one vector. |
 | L06 | Integrate compact root Lie algebra to SU(2) homomorphism and identify restricted representation | integrate_root_SU2 | RootSU2 | L04; L05 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
@@ -173,7 +173,7 @@ Historical claims in the introduction about the Jacobian conjecture, announcemen
 
 ## Validation and correspondence audit
 
-Current full library build passed (3637 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 now has the full cyclic submodule, irreducibility, and exact defining matrices. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
+Current full library build passed (3638 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 now has the full cyclic submodule, irreducibility, and exact defining matrices. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
 
 ## Resume notes
 
@@ -302,7 +302,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=65, TODO=33, IN PROGRESS=6, BLOCKED=6 (110 rows).
+Current inventory counts: PROVED=66, TODO=32, IN PROGRESS=6, BLOCKED=6 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -729,3 +729,38 @@ The verifier output matches exactly, the remaining targets type-check, and
 the manuscript remains unchanged. Next: Haar averaging for L03, then center
 descent; fundamental representation/root integration and Duistermaat–van der
 Kallen remain major unproved dependencies.
+
+
+## Haar unitarization
+
+The cyclic-doublet milestone was merged as
+[PR #12](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/12)
+at `5e74cda1c982901e30b1b07756de755a30c2af2b`, after CI run `35180222690` passed.
+
+`HaarUnitarization.lean` constructs the Haar average of an initial Hermitian
+form and proves strict positivity using continuity and positivity of Haar on
+nonempty open sets. Right Haar invariance proves invariance of the average.
+A separate carrier carries the induced norm, avoiding a competing norm on
+the original type. In finite dimension its linear identification is a continuous
+linear equivalence. The constructed group homomorphism takes values in actual
+linear isometric equivalences, intertwines the original action, and has
+continuous orbits.
+
+For an arbitrary finite-dimensional complex normed representation, Euclidean
+coordinates provide the initial inner product without assuming its original
+norm is induced by an inner product. The unitary model pulls back to a continuous
+positive-definite invariant Hermitian form on the original vector space. This
+completes L03. The convention is linearity in the second variable; the coordinate
+wrappers elsewhere already account for the manuscript's opposite convention.
+
+Next: use mathlib's algebraically closed Schur lemma for the center action and
+prove the balanced tensor representation factors through the central quotient.
+No assertion of fundamental representation or root-homomorphism existence is
+added by unitarization.
+
+Unitarization validation: `lake build` passed (3638 jobs); source audit passed
+for 43 Lean files. Axiom audit passed: 892 project declarations, 722 theorems.
+Only the three approved foundations occur. There are 332 explicit theorem/lemma
+declarations in 40 mathematical modules. The ledger records 66/110 obligations
+proved (32 TODO, 6 IN PROGRESS, 6 BLOCKED). The verifier output matches exactly,
+the remaining target statements type-check, and the manuscript is unchanged.

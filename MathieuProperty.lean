@@ -1,3 +1,4 @@
+import MathieuProperty.HaarUnitarization
 import MathieuProperty.RootDoubletModule
 import MathieuProperty.RootDoubletFaithfulness
 import MathieuProperty.DoubletWitness
