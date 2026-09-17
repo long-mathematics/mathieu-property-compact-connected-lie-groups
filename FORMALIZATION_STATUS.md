@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/cartan-maximality-lift`; milestones through [PR #51](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/51) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/cartan-covering-charts`; milestones through [PR #52](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/52) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 157 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 160 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -52,7 +52,7 @@ existence inputs are blocked.
 | L04 weight-one root restriction | Now proved from the standing algebraic Cartan, root-base, and highest-weight-vector data; the root triple is constructed, not assumed. |
 | Root-doublet lemma and general simply-connected-simple theorem | Depend on the highest-weight/root-integration gaps; checked algebraic restriction and transfer proofs do not construct the required group representation. |
 | Simple central forms and uniform nonabelian theorem | Depend on the general simple-group result and Z05; the adjoint quotient needed by the uniform theorem is now proved. |
-| L01 root/weight setup | Complex root data and an abelian, maximal abelian, self-centralizing real Cartan are constructed. Its pointwise automorphism stabilizer component is now a compact torus, with dimension equal to the real Cartan, for the actual compact connected simple group. It is maximal among connected abelian subgroups of the automorphism group. The identity component of its preimage in G is compact, connected, and abelian. The lifted Lie structure, surjectivity onto the torus, maximality in G, and complex-root correspondence remain open. |
+| L01 root/weight setup | Complex root data and an abelian, maximal abelian, self-centralizing real Cartan are constructed. Its pointwise automorphism stabilizer component is now a compact torus, with dimension equal to the real Cartan, for the actual compact connected simple group. It is maximal among connected abelian subgroups of the automorphism group. The identity component of its preimage in G now has a Lie-group structure, is a torus of Cartan dimension, maps onto the component, and is maximal among connected abelian subgroups of G. Compatibility with the complex root data remains open. |
 | Z05 simple cover | Finite center, covering onto the center quotient, centrality of covering kernels, and topological quotient identification are proved. Existence and compactness of the simply connected cover remain open; the finite-fundamental-group fragment is only type-checked. |
 | T01 abelian iff torus | Now proved via actual one-parameter subgroups and a full kernel lattice; independent of DvK. |
 | E13, E14 and remaining external abelian reductions | Exact SO source correspondence is unresolved because of the documented external indexing discrepancy; other specified counterexamples are already checked. |
@@ -137,7 +137,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | R06 | Pure orbit moments vanish at every vector | Hopf.orbit_pure | RadialTransfer | R02; R05; cor:sphere-marker-tower | PROVED | Manuscript | Includes zero. |
 | R07 | Marked orbit moment formula at every vector | Hopf.orbit_marked | RadialTransfer | R02; R05; cor:sphere-marker-tower | PROVED | Manuscript | Exact coefficient and radial power, including zero. |
 | R08 | Positive measure off zero implies positive radial integral | Hopf.radial_integral_pos | SphereMeasure | R04 | PROVED | Manuscript | Every positive natural radial power has positive integral for a finite compactly supported measure with positive mass off zero. |
-| L01 | Maximal torus, simple roots and fundamental weight with coroot pairing one | ComplexRootData.cartan; ComplexRootData.simpleBase; ComplexRootData.fundamentalWeight_pairing; CompactLieRoots.simple_group_root_triple; CompactAdjoint.realCartan_abelian; CompactAdjoint.realCartan_mem_iff; CartanStabilizer.identity_component_commute; CompactCartanTorus.component_torus; CartanStabilizer.maximal_connected_abelian; CartanLift.mul_comm | KillingBaseChange / ComplexRootData / CompactCartan / CompactCartanTorus / CartanLift | Actual group Lie algebra; Mathlib Cartan/base existence | IN PROGRESS | Algebraic construction via complexification | Constructs splitting Cartan, simple-root base, fundamental weight with pairing one, and root triple for the complexification of the actual simple group Lie algebra. A real Cartan is also constructed and proved abelian, maximal abelian, and self-centralizing. The pointwise stabilizer component in the automorphism group is now an actual compact torus of Cartan dimension. It is maximal among connected abelian automorphism subgroups. Its preimage identity component in G is compact, connected, and abelian; the lifted Lie structure, torus identification, maximality in G, and compatibility with the complex root data remain unproved. |
+| L01 | Maximal torus, simple roots and fundamental weight with coroot pairing one | ComplexRootData.cartan; ComplexRootData.simpleBase; ComplexRootData.fundamentalWeight_pairing; CompactLieRoots.simple_group_root_triple; CompactAdjoint.realCartan_abelian; CompactAdjoint.realCartan_mem_iff; CartanStabilizer.identity_component_commute; CompactCartanTorus.component_torus; CartanStabilizer.maximal_connected_abelian; CartanLift.lift_torus; CartanLift.exists_maximal_torus | KillingBaseChange / ComplexRootData / CompactCartan / CompactCartanTorus / CartanLiftMaximal | Actual group Lie algebra; Mathlib Cartan/base existence | IN PROGRESS | Algebraic construction via complexification | Constructs splitting Cartan, simple-root base, fundamental weight with pairing one, and root triple for the complexification of the actual simple group Lie algebra. A real Cartan is also constructed and proved abelian, maximal abelian, and self-centralizing. The pointwise stabilizer component in the automorphism group is now an actual compact torus of Cartan dimension. It is maximal among connected abelian automorphism subgroups. Its preimage identity component in G now has a Lie-group structure, is a torus of Cartan dimension, maps onto the component, and is maximal among connected abelian subgroups of G. Compatibility with the complex root data remains unproved. |
 | L02 | Simply connected compact simple group admits irreducible representation of fundamental highest weight | fundamental_representation_exists | RootSU2 | L01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | L03 | Average inner product to obtain invariant Hermitian metric | averagedInnerCore; unitaryModel_intertwines; unitaryModel_continuous; invariantInnerProduct_invariant; invariantInnerProduct_continuous | HaarUnitarization | D-haar | PROVED | Manuscript | Haar average is positive definite and invariant; arbitrary finite-dimensional complex normed representations have a continuous unitary model, continuously linearly equivalent to the original representation. |
 | L04 | Root sl₂ action on highest vector has weight one | FundamentalRootWeight.root_highest_weight_one; FundamentalRootWeight.fundamental_lowering | FundamentalRootWeight | L01; L02 | PROVED | Manuscript | Fundamental weight is the dual simple-coroot coordinate. For the standing Cartan/root base and highest-weight vector, constructs the actual root triple and proves primitive weight one. Group representation existence and root integration remain L02/L06. |
@@ -2953,3 +2953,66 @@ will permit torus identification and maximality in the original group. The
 complex Cartan/root correspondence also remains open. A compact connected
 abelian subgroup alone is not being substituted for the full maximal-torus
 obligation. The deferred DvK, L02/L06, and Z05 gaps remain documented.
+
+
+## Maximal torus in the original group (2026-09-17)
+
+PR #52 merged at `e53846f` after CI run `35237039303` passed (9m38s).
+Three new mathematical modules extend L01. Inventory remains 95 PROVED /
+1 TODO / 9 IN PROGRESS / 5 BLOCKED = 110; there are 160 mathematical modules.
+An actual maximal torus in the original compact connected simple Lie group is
+now constructed. L01 remains in progress because compatibility with the
+complexified Cartan and root data has not yet been established.
+
+`CoveringCharts` pulls charts back along a local homeomorphism to a real
+manifold. The chosen local inverse yields open partial homeomorphisms whose
+forward maps are target charts composed with the original map. On overlaps,
+the inverse identity reduces transitions locally to the target's smooth
+transitions. This proves the manifold structure and smoothness of the original
+map. Continuity together with smoothness after composition gives smoothness
+into the pulled-back atlas. Applied to multiplication and inversion, this
+constructs a Lie-group structure for a topological group admitting a locally
+homeomorphic homomorphism into a Lie group. No pre-existing smooth structure
+on the source is required.
+
+`CartanCovering` first combines the covering onto the adjoint image with the
+open inclusion of that image in the actual automorphism group. Compactness
+makes the resulting local homeomorphism a covering. Restriction to the Cartan
+torus gives a covering from its actual subgroup preimage. The stabilizer
+component is continuously and injectively mapped onto its image; compactness
+and Hausdorffness give the topological group equivalence used to identify the
+covering target with that component. Pulling back its charts gives the
+preimage a Lie-group structure. Its identity component is open by local
+connectedness, so it inherits that Lie structure. The previously proved
+compactness, connectedness, and abelianness then identify this lift with a
+torus, with dimension equal to the real Cartan.
+
+`CartanLiftMaximal` restricts the covering to the open identity component.
+Its homomorphism has open image in the connected Cartan component, hence is
+surjective. A connected abelian subgroup of G containing the lift therefore
+has adjoint image containing the whole Cartan torus. The earlier maximality
+proof in the automorphism group forces this image to equal the Cartan torus.
+The subgroup consequently maps into its preimage, and connectedness places it
+inside the identity component. This proves maximality in G. The final wrapper
+constructs an actual subgroup of G topologically isomorphic to the torus and
+maximal among connected abelian subgroups, deriving the topological-group
+instance from the given Lie-group structure.
+
+The manuscript is unchanged. These steps do not construct a simply connected
+cover, a highest-weight group representation, or a root SU(2) subgroup. General
+DvK remains deferred under the user's direction. The next L01 step is to relate
+the real Cartan to a splitting Cartan in its complexification and to align that
+algebraic data with the constructed maximal torus.
+
+Validation passed: full `lake build` (4277 jobs), source audit (163 Lean files),
+exhaustive dependency audit (3748 project declarations / 3070 theorem constants),
+and compilation of outstanding target statements. The only axioms found are
+`propext`, `Classical.choice`, and `Quot.sound`. The symbolic verifier reproduces
+its checked-in output byte for byte. Manuscript preservation and whitespace
+checks passed. Self-review checked the pulled-back chart domains and overlaps,
+the actual adjoint covering restriction, the compact-to-Hausdorff equivalences,
+openness and surjectivity of the identity-component map, and the final wrapper's
+assumptions and maximality quantifiers. The maximal-torus wrapper assumes only
+the finite-dimensional compact connected Hausdorff real Lie-group setting and
+simplicity of its actual Lie algebra; it does not assume the existence of the
+torus or its smooth structure.

@@ -514,3 +514,16 @@ run_cmd do
 #print axioms MathieuProperty.CartanLift.lift_connected
 #print axioms MathieuProperty.CartanLift.inclusion_injective
 #print axioms MathieuProperty.CartanLift.mul_comm
+
+#print axioms MathieuProperty.CoveringCharts.isManifold
+#print axioms MathieuProperty.CoveringCharts.contMDiff
+#print axioms MathieuProperty.CoveringCharts.contMDiffAt_of_comp
+#print axioms MathieuProperty.CoveringCharts.lieGroup
+#print axioms MathieuProperty.CartanLift.adjoint_covering
+#print axioms MathieuProperty.CartanLift.toComponent_covering
+#print axioms MathieuProperty.CartanLift.preimage_lieGroup
+#print axioms MathieuProperty.CartanLift.lift_lieGroup
+#print axioms MathieuProperty.CartanLift.lift_torus
+#print axioms MathieuProperty.CartanLift.liftToComponent_surjective
+#print axioms MathieuProperty.CartanLift.maximal_connected_abelian
+#print axioms MathieuProperty.CartanLift.exists_maximal_torus
