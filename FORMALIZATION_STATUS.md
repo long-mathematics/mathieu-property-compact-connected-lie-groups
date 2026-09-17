@@ -2173,4 +2173,3 @@ bridge would need development. Another useful intermediate target is the
 actual compact connected image of the restricted representation inside units
 of continuous endomorphisms, with a proof that its center is trivial; that
 would isolate the remaining manifold/Lie-algebra identification problem.
-
