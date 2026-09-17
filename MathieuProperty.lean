@@ -84,6 +84,7 @@ import MathieuProperty.RepresentativeFunctions
 import MathieuProperty.HopfAlgebra
 import MathieuProperty.Haar
 import MathieuProperty.RootDoubletAlgebra
+import MathieuProperty.ComplexRootData
 import MathieuProperty.FundamentalRootWeight
 import MathieuProperty.HopfCoefficient
 import MathieuProperty.MomentConstant

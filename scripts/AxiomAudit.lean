@@ -454,3 +454,10 @@ run_cmd do
 #print axioms MathieuProperty.FundamentalRootWeight.highestWeightVector_of_no_higher_weights
 #print axioms MathieuProperty.FundamentalRootWeight.root_highest_weight_one
 #print axioms MathieuProperty.FundamentalRootWeight.fundamental_lowering
+
+#print axioms MathieuProperty.KillingBaseChange.bilinear_nondegenerate
+#print axioms MathieuProperty.KillingBaseChange.isKilling
+#print axioms MathieuProperty.ComplexRootData.cartan_isCartan
+#print axioms MathieuProperty.ComplexRootData.fundamentalWeight_pairing
+#print axioms MathieuProperty.ComplexRootData.exists_root_triple
+#print axioms MathieuProperty.CompactLieRoots.simple_group_root_triple
