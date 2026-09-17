@@ -76,3 +76,12 @@ run_cmd do
 #print axioms MathieuProperty.Abelian.universal_convex_support_conjecture_false
 #print axioms MathieuProperty.Abelian.weightedCT_growth_zero
 #print axioms MathieuProperty.Abelian.universal_growth_conjecture_false
+
+#print axioms MathieuProperty.projection_commutes
+#print axioms MathieuProperty.doubletProjection_first_inner
+#print axioms MathieuProperty.doubletCoordinates_equivariant
+#print axioms MathieuProperty.doublet_radial_pushforward
+#print axioms MathieuProperty.doubletA_ne_zero
+#print axioms MathieuProperty.doublet_marked
+#print axioms MathieuProperty.doublet_marked_positive
+#print axioms MathieuProperty.unitary_doublet_not_mathieu

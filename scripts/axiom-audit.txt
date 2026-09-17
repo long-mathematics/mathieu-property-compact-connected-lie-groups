@@ -1,4 +1,4 @@
-Axiom audit passed: 683 project declarations, 559 theorems.
+Axiom audit passed: 781 project declarations, 640 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -46,3 +46,11 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
  Quot.sound]
 'MathieuProperty.Abelian.weightedCT_growth_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Abelian.universal_growth_conjecture_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.projection_commutes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.doubletProjection_first_inner' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.doubletCoordinates_equivariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.doublet_radial_pushforward' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.doubletA_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.doublet_marked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.doublet_marked_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.unitary_doublet_not_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]

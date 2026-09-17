@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/abelian-conjecture-counterexamples`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/projected-haar-geometry`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 33 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- M0 and M1 complete; the library covers 37 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
 - Completion is prevented by the documented library exception below, independently of the many remaining ordinary obligations. The checked foundations are preserved through PR #1; remote validation and merge state are available there. No weakening or conditional main theorem is authorized.
 - No false manuscript statement identified. Library exception under attached prompt §16: the rank-two Duistermaat–van der Kallen noncancellation step remains unproved after the searches and proof attempts below. The known general proof would require major new toric/analytic infrastructure, which is not realistically achievable as a routine continuation of this paper formalization. The foundation milestone is incomplete coverage, not a completed formalization.
 
@@ -47,8 +47,8 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | cor:sphere-marker-tower | Pure moments zero; all marked moments, vanishing/strict positivity ranges | Hopf.sphere_marker_tower | HopfIntegral | thm:hopf-coefficient; H13; H14 | PROVED | Manuscript | Complex positivity is stated as equality to a strictly positive real number. |
 | thm:radial-transfer | All finite compactly supported positive SU(2)-invariant measures: pure and marked formulas with radial power and positivity | Hopf.radial_transfer | RadialTransfer | R01–R08; cor:sphere-marker-tower | PROVED | Manuscript | Actual defining SU(2) action, every finite Borel measure with compact support and action invariance, including zero measure and origin mass. |
 | lem:root-doublet | Fundamental highest-weight representation contains a faithful defining SU(2) root doublet | highest_weight_one_lowering | RootDoubletAlgebra / RootSU2 (planned) | L01–L07 | IN PROGRESS | Manuscript | Only its algebraic lowering step is checked. Fundamental representation and root integration are absent. |
-| lem:radial-pushforward | Projected Haar is compactly supported invariant probability, not concentrated at zero | radial_pushforward | SimpleGroups | lem:root-doublet; L08–L11 | TODO | Manuscript |  |
-| thm:simply-connected-simple | Representative A,P,Q, nonnegative nonzero A, exact tower on all compact simply connected simple groups | simply_connected_simple | SimpleGroups | lem:radial-pushforward; thm:radial-transfer; lem:representative-algebra | TODO | Manuscript |  |
+| lem:radial-pushforward | Projected Haar is compactly supported invariant probability, not concentrated at zero | doublet_radial_pushforward | ProjectedHaar | lem:root-doublet; L08–L11 | PROVED | Manuscript | Given the manuscript’s standing unitary doublet data: actual projected Haar probability, compact ball support, SU(2) invariance, and positive mass off zero. Root-doublet existence remains open. |
+| thm:simply-connected-simple | Representative A,P,Q, nonnegative nonzero A, exact tower on all compact simply connected simple groups | doublet_pure; doublet_marked; doublet_marked_positive; unitary_doublet_not_mathieu (transfer only) | DoubletWitness / RootSU2 (planned) | lem:radial-pushforward; thm:radial-transfer; lem:representative-algebra | IN PROGRESS | Manuscript | Complete representative-function transfer proved for explicitly supplied unitary defining-doublet data. Existence of those data for all simply connected simple groups is unproved; no general simple-group theorem claimed. |
 | prop:classical-closed-forms | Defining SU(n), n≥2, and Sp(n), n≥1: rising factorial formulas and printed examples | classical_closed_forms | ClassicalGroups | C01–C07; thm:simply-connected-simple | TODO | Manuscript |  |
 | lem:center-descent | Six functions descend as representative functions through full center and intermediate quotients | center_descent | CenterDescent | Z01–Z04; H04 | TODO | Manuscript |  |
 | cor:simple-central-forms | Exact marker tower and Mathieu failure for every compact connected simple central form | simple_central_forms | CenterDescent | Z05; lem:center-descent; lem:haar-pullback; thm:simply-connected-simple | TODO | Manuscript |  |
@@ -65,7 +65,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | D-hopf | a, τ, u, v, universal P,Q, sphere restrictions p,q | Hopf.a; Hopf.tau; Hopf.u; Hopf.v; Hopf.P; Hopf.Q; Hopf.Sphere; Hopf.p; Hopf.q | HopfAlgebra |  | PROVED | Manuscript |  |
 | D-cm | Integral c_m and factorial/beta/double-factorial alternatives | momentConstant; momentConstant_factorial; momentConstant_beta; momentConstant_doubleFactorial | MomentConstant |  | PROVED | Substitute: integration recurrence and mathlib beta integral | All printed forms and positivity checked; beta equality uses the complex-valued Euler integral at positive real arguments. |
 | D-CT | Coefficient and Laurent constant term conventions; negative coefficients zero | MultiLaurent; constantTerm; newtonPolytope | LaurentSupport |  | PROVED | Manuscript | AddMonoidAlgebra on Fin d → ℤ; coefficients include cancellation. |
-| D-Phi | Orthogonal projection coordinates and group A,P,Q | projectionCoordinates | SimpleGroups | L08 | TODO | Manuscript |  |
+| D-Phi | Orthogonal projection coordinates and group A,P,Q | projectionOrbit; doubletCoordinates; doubletA; doubletP; doubletQ | Projection / ProjectedRepresentatives | L08 | PROVED | Manuscript | Orthogonal projection, isometric coordinates, inner-product coordinate identities, and all six representative Hopf quantities constructed for explicit finite-dimensional unitary data. |
 | D-explicit | U,V,T, transformed P_ab,Q_ab and matrix-entry representatives | Abelian.U; Abelian.V; Abelian.T; Abelian.P; Abelian.Q; Abelian.A₀; Abelian.U₀; Abelian.V₀; Abelian.T₀; Abelian.entryP; Abelian.formalP; Abelian.formalQ | AbelianAlgebra / AbelianLaurent |  | PROVED | Manuscript | The formal algebra is ℂ[x][w,w⁻¹]. |
 | U-tensor | Product of coefficients is a tensor-product coefficient | MatrixRepresentation.coefficient_mul; MatrixRepresentation.tensor_toMatrix | RepresentativeFunctions | D-representative | PROVED | Coordinate tensor model | Kronecker matrices identified with mathlib Representation.tprod in the tensor basis. |
 | U-conjugate | Conjugate coefficient uses conjugate continuous representation | MatrixRepresentation.coefficient_conj; MatrixRepresentation.conjugate_action | RepresentativeFunctions | D-representative | PROVED | Coordinate conjugate model | Entrywise conjugation, including the action and arbitrary covectors/vectors. |
@@ -106,10 +106,10 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | L05 | Highest-weight-one cyclic module: Fv≠0, F²v=0 and two-dimensional defining action | highest_weight_one_lowering | RootDoubletAlgebra | L04 | IN PROGRESS | Manuscript | Both lowering identities proved from a primitive weight-one vector; invariant module equivalence still pending. |
 | L06 | Integrate compact root Lie algebra to SU(2) homomorphism and identify restricted representation | integrate_root_SU2 | RootSU2 | L04; L05 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | L07 | Faithfulness implies injective root map; orthonormal identification gives defining SU(2) action | root_map_injective | RootSU2 | L06 | TODO | Manuscript |  |
-| L08 | Invariant orthogonal complement and equivariant projection | projection_commutes | SimpleGroups | L03; lem:root-doublet | TODO | Manuscript |  |
-| L09 | Phi continuous, equivariant, norm≤1, Phi(1)=e₀ | projection_map_properties | SimpleGroups | L08 | TODO | Manuscript |  |
-| L10 | Haar pushforward invariant probability supported in compact ball | projection_measure_properties | SimpleGroups | L09; U-haar-map | TODO | Manuscript |  |
-| L11 | Nonempty open sets have positive Haar; continuity gives nonconcentration | projection_nonconcentration | SimpleGroups | L09; D-haar | TODO | Manuscript |  |
+| L08 | Invariant orthogonal complement and equivariant projection | invariant_orthogonal_complement; projection_commutes | Projection | L03; lem:root-doublet | PROVED | Manuscript | Standard unitary invariant-subspace lemma; no root existence assertion. |
+| L09 | Phi continuous, equivariant, norm≤1, Phi(1)=e₀ | doubletCoordinates_continuous; doubletCoordinates_a_le; doubletCoordinates_one; doubletCoordinates_equivariant | Projection | L08 | PROVED | Manuscript | Coordinates constructed from an isometric defining doublet; a(Φg)≤1 is the squared Euclidean norm bound. Standing doublet data remain explicit. |
+| L10 | Haar pushforward invariant probability supported in compact ball | doublet_radial_pushforward; haar_pushforward_ball_support | ProjectedHaar | L09; U-haar-map | PROVED | Manuscript | Pushforward of actual normalized Haar; support compact by continuous compact image and contained in the Euclidean unit ball. |
+| L11 | Nonempty open sets have positive Haar; continuity gives nonconcentration | haar_pushforward_nonconcentration | ProjectedHaar | L09; D-haar | PROVED | Manuscript | Continuous preimage of the complement of zero is open and contains the identity; actual Haar positivity applies. |
 | C01 | First column Haar on SU(n) is uniform complex unit sphere | SU_column_uniform | ClassicalGroups |  | TODO | Manuscript |  |
 | C02 | Complex Gaussian normalization produces sphere measure | gaussian_sphere | ClassicalGroups |  | TODO | Manuscript |  |
 | C03 | Squared coordinate norms are Dirichlet(1,…,1), first two sum Beta(2,n-2) | sphere_two_coordinates_beta | ClassicalGroups | C02 | TODO | Manuscript |  |
@@ -173,7 +173,7 @@ Historical claims in the introduction about the Jacobian conjecture, announcemen
 
 ## Validation and correspondence audit
 
-Current full library build passed (3631 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
+Current full library build passed (3635 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
 
 ## Resume notes
 
@@ -659,3 +659,42 @@ theorem/lemma declarations in 33 mathematical modules. The ledger has 57/110
 obligations proved. The verifier output matches exactly, the remaining target
 statements type-check, and the manuscript is unchanged. The final whole-paper
 correspondence audit is still outstanding.
+
+
+## Projected Haar geometry and transfer from a supplied defining doublet
+
+The universal abelian counterexamples were merged as [PR #10](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/10)
+at `2a479e5cbc39a8bd64360caa82cef80f9786cdbf`, after CI run `35178382911` passed.
+
+`Projection.lean` proves the unitary invariant-complement and projection identities,
+then constructs the two coordinates through an isometric identification W≃ℂ².
+The coordinate map is continuous, equivariant, lies in the Euclidean unit ball,
+and takes the identity to (1,0). Inner-product formulas explicitly account for
+Lean’s convention that the second argument is linear.
+
+`ProjectedHaar.lean` proves the radial-pushforward lemma for these constructed
+coordinates, given the manuscript’s standing defining-doublet data. It proves
+probability normalization, compact support, the Euclidean ball bound, actual
+SU(2) invariance, and strictly positive mass outside zero. It also transports
+the radial moment formulas back to the original group by the map-integral theorem.
+
+`ProjectedRepresentatives.lean` constructs both coordinate functions as coefficients
+of the actual finite-dimensional representation. Algebra and conjugation closure
+then construct all six Hopf quantities in the representative algebra. A is a
+nonnegative real-valued function, equals one at the identity, and is nonzero.
+`DoubletWitness.lean` proves the exact pure/marked formulas, vanishing and positive
+ranges, and Mathieu failure for this supplied representation data.
+
+This closes D-Phi and L08–L11, and the radial-pushforward lemma with its standing
+inputs. It does NOT close the simple-group theorem: the universal construction
+of a fundamental representation and its root doublet (L02/L06) remains unproved.
+The hypotheses in `unitary_doublet_not_mathieu` are explicit representation and
+intertwining data, not an asserted existence theorem. No conditional theorem is
+presented as the manuscript’s general simple-group or classification theorem.
+
+Projection/transfer validation: `lake build` passed (3635 jobs); source audit
+passed for 40 Lean files. Whole-namespace audit passed for 781 declarations
+(640 theorem constants), with only the three approved foundations. There are
+309 explicit theorem/lemma declarations in 37 mathematical modules. The ledger
+has 63/110 obligations proved. The verifier output matches exactly, the remaining
+targets type-check, and the manuscript remains unchanged.
