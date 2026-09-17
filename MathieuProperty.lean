@@ -8,6 +8,9 @@ import MathieuProperty.MomentConstant
 import MathieuProperty.HopfIntegralKernel
 import MathieuProperty.PhaseAverage
 import MathieuProperty.SphereMeasure
+import MathieuProperty.SphereSymmetry
+import MathieuProperty.HopfCoordinates
+import MathieuProperty.OrbitAverage
 import MathieuProperty.AbelianAlgebra
 import MathieuProperty.LaurentSupport
 import MathieuProperty.LaurentExamples

@@ -46,3 +46,7 @@ run_cmd do
 #print axioms MathieuProperty.Hopf.p_localization_ae
 #print axioms MathieuProperty.Hopf.radial_integral_pos
 #print axioms MathieuProperty.Hopf.radial_power
+#print axioms MathieuProperty.Hopf.surfaceMeasure_preserving
+#print axioms MathieuProperty.Hopf.hopfCoordinates_surjective
+#print axioms MathieuProperty.Hopf.coordinatePoint_u
+#print axioms MathieuProperty.orbit_average_integrable
