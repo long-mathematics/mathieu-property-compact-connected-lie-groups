@@ -66,3 +66,7 @@ run_cmd do
 #print axioms MathieuProperty.Abelian.matrix_entry_representatives
 #print axioms MathieuProperty.Hopf.su2_representative_marked
 #print axioms MathieuProperty.Hopf.SU2_not_mathieu
+
+#print axioms MathieuProperty.Abelian.formal_moment_coeff
+#print axioms MathieuProperty.Abelian.weighted_quadratic_substitution
+#print axioms MathieuProperty.Abelian.explicit_laurent_witness
