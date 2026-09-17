@@ -42,3 +42,7 @@ run_cmd do
 #print axioms MathieuProperty.phase_integral_constantTerm
 #print axioms MathieuProperty.momentConstant_beta
 #print axioms MathieuProperty.momentConstant_doubleFactorial
+#print axioms MathieuProperty.Hopf.surfaceMeasure_u_zero
+#print axioms MathieuProperty.Hopf.p_localization_ae
+#print axioms MathieuProperty.Hopf.radial_integral_pos
+#print axioms MathieuProperty.Hopf.radial_power

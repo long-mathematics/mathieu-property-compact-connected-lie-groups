@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/hopf-integral-kernel`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/sphere-radial-measure`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 13 mathematical modules plus the import umbrella. The representative-algebra and Haar-pullback lemmas are proved; no principal classification or moment theorem is proved. The main classification, uniform nonabelian tower, sphere integral, radial transfer, root subgroup existence, and torus direction remain outstanding.
+- M0 and M1 complete; the library covers 14 mathematical modules plus the import umbrella. The representative-algebra and Haar-pullback lemmas are proved; no principal classification or moment theorem is proved. The main classification, uniform nonabelian tower, sphere integral, radial transfer, root subgroup existence, and torus direction remain outstanding.
 - Completion is prevented by the documented library exception below, independently of the many remaining ordinary obligations. The checked foundations are preserved through PR #1; remote validation and merge state are available there. No weakening or conditional main theorem is authorized.
 - No false manuscript statement identified. Library exception under attached prompt §16: the rank-two Duistermaat–van der Kallen noncancellation step remains unproved after the searches and proof attempts below. The known general proof would require major new toric/analytic infrastructure, which is not realistically achievable as a routine continuation of this paper formalization. The foundation milestone is incomplete coverage, not a completed formalization.
 
@@ -76,9 +76,9 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | H02 | Global defect-one identity, without dividing by u | Hopf.defect_one | HopfAlgebra | H01 | PROVED | Manuscript |  |
 | H03 | Real homogeneity P(rz)=r⁸P(z), Q(rz)=r²Q(z) | Hopf.homogeneity | HopfAlgebra | D-hopf | PROVED | Manuscript |  |
 | H04 | Common unit phase invariance of a,τ,u,v,P,Q | Hopf.phase_balance | HopfAlgebra | D-hopf | PROVED | Manuscript |  |
-| H05 | Hopf-coordinate normalized surface measure, endpoints null | hopf_coordinates_measure | HopfIntegral | D-hopf | TODO | Manuscript |  |
+| H05 | Hopf-coordinate normalized surface measure, endpoints null | Hopf.sphereHomeomorph; Hopf.surfaceMeasure; Hopf.surfaceMeasure_u_zero | SphereMeasure / HopfIntegral (planned) | D-hopf | IN PROGRESS | Euclidean cone surface measure | Euclidean sphere homeomorphism, normalized surface probability, and null endpoint circles proved. Exact Hopf-coordinate density still open. |
 | H06 | Normalized phase integral extracts every Laurent constant term at nonzero radius | phase_integral_constantTerm; laurentPhase_eq_smeval | PhaseAverage | D-CT | PROVED | Manuscript | All integer exponents, exact 1/(2π) normalization, agreement with Laurent evaluation at every nonzero radius. |
-| H07 | Sphere polynomial integrability and justified localization away from u=0 | hopf_integrable | HopfIntegral | H05 | TODO | Manuscript |  |
+| H07 | Sphere polynomial integrability and justified localization away from u=0 | Hopf.sphere_polynomial_integrable; Hopf.p_localization_ae | SphereMeasure | H05 | PROVED | Manuscript | All complex polynomial moments integrable for every finite sphere measure; actual normalized surface measure has u≠0 almost everywhere, with the rational identity proved there. |
 | H08 | Evenness in t and Fubini give CT-step with correct normalization | hopf_integrated_coefficient | HopfIntegralKernel / HopfIntegral (planned) | H05–H07; H02; H09–H12 | IN PROGRESS | Manuscript | Real coefficient integral and its closed form proved. Sphere/Hopf-coordinate measure, Fubini, and evenness correspondence still pending. |
 | H09 | Polynomial primitive J_m; substitution identity | hopfPrimitive_eval_integral; hopfPrimitive_complex_substitution | HopfCoefficient / HopfIntegralKernel |  | PROVED | Substitute: complex FTC and finite binomial sums | Primitive evaluated at every real endpoint; complex substitution including zero parameter proved. |
 | H10 | J_m(1+X)-J_m(1) divisible by X^(m+1) | primitive_congruence | HopfCoefficient | H09 | PROVED | Manuscript |  |
@@ -89,11 +89,11 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | R01 | Explicit SU(2) matrix proves transitivity on each nonzero sphere | SU2_transitive_sphere | RadialTransfer |  | TODO | Manuscript |  |
 | R02 | Orbit Haar pushforward equals normalized surface measure | orbit_map_surface | RadialTransfer | R01; D-haar | TODO | Manuscript |  |
 | R03 | Invariant-measure orbit averaging for integrable functions, product measurability and integrability | orbit_average | RadialTransfer | D-haar | TODO | Manuscript |  |
-| R04 | Compact support gives integrability of all polynomial moments | integrable_polynomial_compactSupport | RadialTransfer | D-hopf | TODO | Manuscript |  |
-| R05 | Radial reduction r^(8m+2s)=a^(4m+s), including zero vector | radial_power | RadialTransfer | H03 | TODO | Manuscript |  |
+| R04 | Compact support gives integrability of all polynomial moments | Hopf.integrable_polynomial_compactSupport | SphereMeasure | D-hopf | PROVED | Manuscript | Finite Borel measures on ℂ² with compact support; general continuous integrands covered too. |
+| R05 | Radial reduction r^(8m+2s)=a^(4m+s), including zero vector | Hopf.radial_power; Hopf.radial_real_exponent | SphereMeasure | H03 | PROVED | Manuscript | Exact exponent and sphere scaling for all scalars, including zero. |
 | R06 | Pure orbit moments vanish at every vector | orbit_pure | RadialTransfer | R02; R05; cor:sphere-marker-tower | TODO | Manuscript |  |
 | R07 | Marked orbit moment formula at every vector | orbit_marked | RadialTransfer | R02; R05; cor:sphere-marker-tower | TODO | Manuscript |  |
-| R08 | Positive measure off zero implies positive radial integral | radial_integral_pos | RadialTransfer | R04 | TODO | Manuscript |  |
+| R08 | Positive measure off zero implies positive radial integral | Hopf.radial_integral_pos | SphereMeasure | R04 | PROVED | Manuscript | Every positive natural radial power has positive integral for a finite compactly supported measure with positive mass off zero. |
 | L01 | Maximal torus, simple roots and fundamental weight with coroot pairing one | fundamental_weight_pairing | RootSU2 |  | TODO | Manuscript |  |
 | L02 | Simply connected compact simple group admits irreducible representation of fundamental highest weight | fundamental_representation_exists | RootSU2 | L01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | L03 | Average inner product to obtain invariant Hermitian metric | invariant_inner_product | RootSU2 | D-haar | TODO | Manuscript |  |
@@ -168,7 +168,7 @@ Historical claims in the introduction about the Jacobian conjecture, announcemen
 
 ## Validation and correspondence audit
 
-Current full library build passed (3605 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
+Current full library build passed (3610 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
 
 ## Resume notes
 
@@ -266,8 +266,9 @@ would still not complete the paper.
 
 - `Hopf.Space = ℂ × ℂ` uses its product topology. The sphere is explicitly
   `{z // a z = 1}`. The product's default sup norm is NOT the Euclidean radial
-  norm. Future measure/radial proofs must use sqrt(a), or establish the Euclidean
-  coordinate equivalence; do not substitute the default product norm.
+  norm. The checked `Hopf.sphereHomeomorph` now identifies it with the sphere
+  in `WithLp 2 (ℂ × ℂ)`, and `norm_sq_eq_a` proves the norm correspondence.
+  Do not substitute the default product norm in later radial proofs.
 - `haarIntegral` is on continuous functions; `representativeIntegral` is its proved
   linear restriction to the finite-span representative algebra. `HasMathieuProperty`
   uses the kernel of this actual functional, with no surrogate closure assumptions.
@@ -296,7 +297,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=35, TODO=59, IN PROGRESS=5, BLOCKED=6.
+Current inventory counts: PROVED=39, TODO=54, IN PROGRESS=6, BLOCKED=6.
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -380,3 +381,34 @@ remaining measure correspondence, not already-proved Hopf-coordinate formulas.
 Integral-kernel validation: `lake build` passed (3605 jobs); source audit passed for 16 Lean files; transitive axiom audit passed for 281 project declarations (210 theorem constants, including generated declarations). There are 103 explicit theorem/lemma declarations. Only `propext`, `Classical.choice`, and `Quot.sound` occur. Outstanding target statements still type-check.
 
 Additional library dependencies: `TensorProduct.toMatrix_map`, `LinearMap.toMatrixAlgEquiv`, `Module.finBasis`, and `Submodule.span_induction` establish the representative-coordinate correspondence; `Complex.betaIntegral_eval_nat_add_one_right` and `Nat.doubleFactorial_add_two` establish the remaining moment-constant forms; `HasDerivAt.comp_ofReal`, complex FTC, `intervalIntegral.integral_finsetSum`, and `integral_exp_mul_complex` establish the new analytic steps.
+
+## Sphere measure and radial preliminaries (partial M3/M4)
+
+The integral-kernel milestone was merged as
+[PR #3](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/3)
+at `d2ba09f226a1cf7b7d1f99a6e103329c9571f30e` after successful CI.
+
+`SphereMeasure.lean` supplies the canonical Euclidean sphere model and normalized
+surface probability measure, transported through a proved homeomorphism to the
+manuscript's `a(z)=1` sphere. `norm_sq_eq_a` explicitly distinguishes the Euclidean
+norm from the ambient product sup norm. Compactness and all polynomial-moment
+integrability are proved.
+
+The cone defining `Measure.toSphere` above `u=0` lies in the two ambient coordinate
+planes, which have Lebesgue measure zero. This proves `surfaceMeasure_u_zero` and
+the actual almost-everywhere rational formula `p_localization_ae`; no Hopf-coordinate
+density is assumed to establish either fact.
+
+For finite Borel measures on ℂ² with compact support, continuous integrands and
+all polynomial Hopf moments are integrable. The radial scaling law includes zero
+scalars; the exponent is exactly `4m+s` (equivalently `8m+2s` in the radius).
+`radial_integral_pos` proves strict positivity of every positive radial moment
+from positive mass off the origin.
+
+Remaining immediate work: prove the exact Hopf-coordinate measure formula or a
+fully justified alternative computation of these actual surface moments. The
+surface measure has been defined from mathlib's Euclidean cone construction;
+its coordinate density and the SU(2) orbit/Haar correspondence are still open.
+The separate root-group and Laurent noncancellation obstructions remain unchanged.
+
+Sphere/radial validation: `lake build` passed (3610 jobs); source audit passed for 17 Lean files. The whole-namespace axiom audit passed for 354 declarations (275 theorem constants, including generated declarations), with only the three approved foundations. There are 125 explicit theorem/lemma declarations in 14 mathematical modules. Outstanding target statements still type-check.
