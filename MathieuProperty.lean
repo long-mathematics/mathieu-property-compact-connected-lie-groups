@@ -1,3 +1,7 @@
+import MathieuProperty.RestrictedAdjoint
+import MathieuProperty.ProjectedAdjoint
+import MathieuProperty.RestrictedAdjointAlgebra
+import MathieuProperty.LieSurjective
 import MathieuProperty.AdjointIdeals
 import MathieuProperty.LieIdealOrbit
 import MathieuProperty.NonabelianCompactLie

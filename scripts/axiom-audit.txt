@@ -1,4 +1,4 @@
-Axiom audit passed: 2664 project declarations, 2172 theorems.
+Axiom audit passed: 2751 project declarations, 2246 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -368,5 +368,19 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
  Quot.sound]
 'MathieuProperty.CompactAdjoint.simpleAdjointRepresentation' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CompactAdjoint.simpleAdjointRepresentation_continuous' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.LieSurjective.range_mem_nhds_of_surjective_mfderiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.LieSurjective.surjective_of_surjective_mfderiv' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.CompactLieForm.restricted_adjoint_range' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.RestrictedAdjoint.projectedAdjoint_mfderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.restrictedAdjoint_eq_simple' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.restrictedAdjoint_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.restrictedAdjoint_mfderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.restricted_adjoint_differential_range' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
