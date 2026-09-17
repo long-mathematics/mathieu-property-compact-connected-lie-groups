@@ -12,11 +12,11 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/hopf-coordinate-measure`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/zwart-older-classical`; milestones through [PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 62 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
-- Milestones through the earlier weighted xz witness are merged and CI-checked ([PR #23](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/23)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
+- M0 and M1 complete; the library covers 90 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
 ## Dependency order
@@ -148,7 +148,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | E10 | Earlier weighted xz witness has zero pure moments and (-1)^(m-1)/(2(m+1)) marker; spectrum {-1,0,1} | Abelian.weighted_xz_witness; Abelian.earlierXZ_specialize; Abelian.earlierXZ_spectrum | EarlierXZ | beta integral; phase coefficient interpretation | PROVED | Direct binomial/beta proof | Exact formal Laurent polynomial f₀(x²,w), pure and marked weighted integrals, nonzero marker for every m≥1, and exact formal spectrum. No external moment theorem is assumed. |
 | E11 | Definitions and admissibility of universal moment and convex-support conjectures | Abelian.UniversalMomentConjecture; Abelian.UniversalConvexSupportConjecture; Abelian.coordinate_weight_admissible; Abelian.mixedIntegral_eq_circle_integral | AbelianConjectures / MixedPhase | E05; E14 (definitions only) | PROVED | Direct witness at N=M=1, δ=x | Arbitrary dimensions, polynomial coefficient ring, actual cube integral and normalized product-circle correspondence; both conjectures refuted. |
 | E12 | Zero pure moment sequence has zero limsup growth, contradicting asserted positive growth | Abelian.weightedCT_growth_zero; Abelian.universal_growth_conjecture_false | AbelianConjectures | E05; E11 | PROVED | Manuscript | Actual real limsup of the complex moment norm raised to 1/m; m=0 handled by eventual equality. |
-| E13 | Each specified Zwart failure, via implication and contraposition or direct refutation | Zwart.sun_conjecture_2025_false; Zwart.g2_conjecture_2025_nested_false | ZwartSU / ZwartSp / ZwartG2 / ZwartOrdered | E14 | IN PROGRESS | Direct counterexamples | All three 2025 conjectures and the fractional 2024 G2 conjecture are refuted, with exact domains and integrals. The 2023 SU/SO and 2024 Sp variants remain open. |
+| E13 | Each specified Zwart failure, via implication and contraposition or direct refutation | Zwart.sun_conjecture_2023_contour_false; Zwart.sp_conjecture_2024_contour_false; Zwart.g2_conjecture_2024_contour_false | ZwartSU / ZwartSp / ZwartG2 / ZwartOldSU / ZwartOldSp / ZwartOldG2 | E14 | IN PROGRESS | Direct counterexamples | All three 2025 conjectures and the fractional 2023 SU / 2024 Sp / 2024 G2 conjectures are refuted, with source domains and integrals. The 2023 SO density has the external indexing discrepancy recorded below; its source correspondence remains open. |
 | E14 | External Mueger–Tuset Lemma 5.2, Prop 5.3, Conjectures 6.3/6.6, Remark 6.7; Zwart implications: exact definitions and needed results | external_reduction_correspondence | AbelianWitness |  | IN PROGRESS | Source definitions and direct circle-integral proof | Conjectures 6.3/6.6 and growth assertion defined and refuted; Lemma 5.2 and the needed SU(2) polynomial specialization of Prop. 5.3 proved in CircleTransform/TransformIntegral/TransformPair. General Lie-group and Zwart implication obligations remain open. |
 
 ## Expository exclusions
@@ -1650,3 +1650,74 @@ The 2024 Sp density uses two of these old SU blocks and the already formalized
 ordered xi domain. For SO, verify the original PDF's indexing before encoding;
 the intended first coordinate is flat on [-1,1], so use the affine earlier xz
 witness. Original PDF text remains `/tmp/mathieu-zwart2023.txt`.
+
+### External SO(N) density indexing discrepancy
+
+Fresh inspection of both arXiv:2304.02648v1 and the published Journal of
+Mathematical Physics 64, 101701 (2023), Lemma 3.3, found the same discrepancy:
+the stated radial dimension is (N-1)(N-2)/2, but the recursive density uses
+j=1,...,n-1 and starts the recursive argument at x_n. At N=3 the domain has
+one coordinate, while the formula refers to x_2. The published article was
+checked through its full-text reproduction at
+https://www.researchgate.net/publication/374458240_On_the_Mathieu_conjecture_for_SU_N_and_SO_N
+(the publisher endpoint required a captcha). This is an external-source issue;
+no manuscript statement has been changed. The issue was flagged to the user.
+
+The preceding Euler measure, Lemma 3.2, has angular factors sin(phi_j)^(j-1),
+j=1,...,N-1, with phi_1 a circle angle and phi_2,...,phi_(N-1) in [0,pi].
+After x_(j-1)=cos(phi_j), its well-defined radial block has N-2 variables and
+powers (k-1)/2, k=1,...,N-2; the first variable is flat. The recursive argument
+would then start at x_(N-1). A generic flat-coordinate counterexample can be
+proved independently of the remaining weight, but do not silently identify
+that corrected indexing with the printed recurrence or mark its exact source
+correspondence PROVED. Investigate an explicit integral-based interpretation
+and preserve the distinction in E13/E14.
+
+## Older classical fractional conjectures
+
+PR #31 was squash-merged at `6d3d5af` after CI `35201483662` passed (5m19s).
+Current work is on `formalization/zwart-older-classical`.
+
+`ZwartOldSU.lean` encodes the original 2023 SU(N) density by pairs (a,b)
+representing x^a (1-x^2)^b, proves the exact radial dimension and its linear
+leading factor for all N >= 2, and refutes Conjecture 2.10 with its actual
+bounded-denominator algebra and punctured-circle contour integral. The list
+weight casts and concatenation formula prove the correspondence to the
+recursive source products.
+
+`ZwartOldSp.lean` encodes the 2024 density using two original SU blocks and
+N linear xi factors, multiplied by the printed pair factor. In particular,
+the final xi_k in the printed pair factor is kept to power one, exactly as
+in the source; the direct counterexample does not depend on that factor's
+form or on a claimed Haar change of variables. The ordered xi domain and
+both source dimensions are those already proved in `ZwartSp.lean`.
+Theorems prove equality with the complete paired-list density, the exact
+x-then-angle-then-ordered-xi integral order, and its contour normalization.
+Conjecture 2.11 is refuted for N >= 2; the N=1 linear-density case is proved
+separately. No Sp group decomposition or unproved implication is assumed.
+
+The added finite exponential-sum integration and continuity lemmas justify
+Fubini for general rational-frequency expressions, including their powers.
+The integer witness is then transferred using the already proved moment,
+coefficient-admissibility, and Newton-polytope preservation theorems.
+
+Source review: arXiv:2304.02648, Lemma 2.7 / Definition 2.9 / Conjecture 2.10;
+https://arxiv.org/html/2403.02813v1, Definition 2.10 / Conjecture 2.11 and
+the displayed density immediately preceding Definition 2.10. The manuscript
+is unchanged. E13 remains IN PROGRESS solely for the SO(N) formulation;
+E14 still records the distinct external implication/correspondence obligations.
+
+Next: develop a flat-coordinate counterexample on [-1,1] independently of
+the SO source's malformed index range, and keep the exact printed recurrence
+issue explicit. General DvK and the compact Lie root/quotient bridges remain
+open and are not assumed by these direct counterexamples.
+
+Validation: `lake build` passed (4028 jobs); source audit passed for 93 Lean
+files; exhaustive axiom audit passed for 2234 project declarations, including
+1830 theorem constants, with only propext, Classical.choice, and Quot.sound.
+Outstanding target checks passed, exact Python output matched the checked-in
+file, manuscript content matched the initial commit, and whitespace checks
+passed. Inventory remains 86 PROVED, 12 TODO, 7 IN PROGRESS, 5 BLOCKED out of
+110 obligations, with 90 mathematical modules. Self-review checked recursive
+weight indices, casted list correspondence, dimensions, N=1, all positive
+powers, source integration order, and the nonzero contour normalization.

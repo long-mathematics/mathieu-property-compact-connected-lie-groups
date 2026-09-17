@@ -1,3 +1,4 @@
+import MathieuProperty.ZwartOldSp
 import MathieuProperty.ZwartOldG2
 import MathieuProperty.ZwartSp
 import MathieuProperty.ZwartG2

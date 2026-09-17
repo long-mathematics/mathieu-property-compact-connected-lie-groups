@@ -313,3 +313,21 @@ run_cmd do
 #print axioms MathieuProperty.Zwart.fractionalContourMoment_eq
 #print axioms MathieuProperty.Zwart.fractionalContourMoment_eq_zero_iff
 #print axioms MathieuProperty.Zwart.g2_conjecture_2024_contour_false
+
+-- Older classical rational-frequency conjectures.
+#print axioms MathieuProperty.Zwart.angleMap_integral
+#print axioms MathieuProperty.Zwart.continuous_angleIntegral
+#print axioms MathieuProperty.Zwart.angleIntegral_pullback_outer
+#print axioms MathieuProperty.Zwart.oldSunPowers_length
+#print axioms MathieuProperty.Zwart.oldSunDensity_source
+#print axioms MathieuProperty.Zwart.pairedListWeight_append
+#print axioms MathieuProperty.Zwart.sun_conjecture_2023_false
+#print axioms MathieuProperty.Zwart.sun_conjecture_2023_contour_false
+#print axioms MathieuProperty.Zwart.oldSpDensity_blocks
+#print axioms MathieuProperty.Zwart.sp_fractionalMoment_source
+#print axioms MathieuProperty.Zwart.sp_fractionalContourMoment_source
+#print axioms MathieuProperty.Zwart.sp_conjecture_2024_false
+#print axioms MathieuProperty.Zwart.sp_conjecture_2024_source_false
+#print axioms MathieuProperty.Zwart.sp_conjecture_2024_contour_false
+#print axioms MathieuProperty.Zwart.sp_one_conjecture_2024_false
+#print axioms MathieuProperty.Zwart.sp_one_conjecture_2024_contour_false
