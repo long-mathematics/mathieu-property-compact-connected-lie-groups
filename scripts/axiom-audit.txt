@@ -1,4 +1,4 @@
-Axiom audit passed: 3353 project declarations, 2733 theorems.
+Axiom audit passed: 3389 project declarations, 2765 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -438,3 +438,18 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.ComplexRootData.fundamentalWeight_pairing' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.ComplexRootData.exists_root_triple' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.CompactLieRoots.simple_group_root_triple' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactLieForm.nilpotent_abelian' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactLieForm.cartan_abelian' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.realCartan_abelian' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.realCartan_maximal_abelian' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CompactAdjoint.realCartan_mem_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.DiscreteFibers.fiber_isolated' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.SimpleGroupCenter.adjoint_derivative_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.SimpleGroupCenter.center_discrete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.SimpleGroupCenter.center_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.SimpleGroupCenter.center_quotient_covering' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CentralCovering.discrete_normal_le_center' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CentralCovering.covering_kernel_central' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.CentralCovering.quotientEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]

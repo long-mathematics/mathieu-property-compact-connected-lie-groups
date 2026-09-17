@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/complex-root-data`; milestones through [PR #47](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/47) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/compact-cartan-center`; milestones through [PR #48](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/48) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 137 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 141 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -52,8 +52,8 @@ existence inputs are blocked.
 | L04 weight-one root restriction | Now proved from the standing algebraic Cartan, root-base, and highest-weight-vector data; the root triple is constructed, not assumed. |
 | Root-doublet lemma and general simply-connected-simple theorem | Depend on the highest-weight/root-integration gaps; checked algebraic restriction and transfer proofs do not construct the required group representation. |
 | Simple central forms and uniform nonabelian theorem | Depend on the general simple-group result and Z05; the adjoint quotient needed by the uniform theorem is now proved. |
-| L01 root/weight setup | Algebraic complexification, Cartan/root-base existence, fundamental pairing, and actual complex root triple are now constructed. Maximal compact torus correspondence remains open. |
-| Z05 simple cover | Requires a Lie-group covering construction and compactness of the simply connected cover; the finite-fundamental-group fragment is type-checked below, not proved. |
+| L01 root/weight setup | Complex root data and an abelian, maximal abelian, self-centralizing real Cartan are constructed. Their maximal compact torus correspondence remains open. |
+| Z05 simple cover | Finite center, covering onto the center quotient, centrality of covering kernels, and topological quotient identification are proved. Existence and compactness of the simply connected cover remain open; the finite-fundamental-group fragment is only type-checked. |
 | T01 abelian iff torus | Now proved via actual one-parameter subgroups and a full kernel lattice; independent of DvK. |
 | E13, E14 and remaining external abelian reductions | Exact SO source correspondence is unresolved because of the documented external indexing discrepancy; other specified counterexamples are already checked. |
 
@@ -137,7 +137,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | R06 | Pure orbit moments vanish at every vector | Hopf.orbit_pure | RadialTransfer | R02; R05; cor:sphere-marker-tower | PROVED | Manuscript | Includes zero. |
 | R07 | Marked orbit moment formula at every vector | Hopf.orbit_marked | RadialTransfer | R02; R05; cor:sphere-marker-tower | PROVED | Manuscript | Exact coefficient and radial power, including zero. |
 | R08 | Positive measure off zero implies positive radial integral | Hopf.radial_integral_pos | SphereMeasure | R04 | PROVED | Manuscript | Every positive natural radial power has positive integral for a finite compactly supported measure with positive mass off zero. |
-| L01 | Maximal torus, simple roots and fundamental weight with coroot pairing one | ComplexRootData.cartan; ComplexRootData.simpleBase; ComplexRootData.fundamentalWeight_pairing; CompactLieRoots.simple_group_root_triple | KillingBaseChange / ComplexRootData | Actual group Lie algebra; Mathlib Cartan/base existence | IN PROGRESS | Algebraic construction via complexification | Constructs splitting Cartan, simple-root base, fundamental weight with pairing one, and root triple for the complexification of the actual simple group Lie algebra. Identification with a maximal compact torus and compatible compact real root form remain unproved. |
+| L01 | Maximal torus, simple roots and fundamental weight with coroot pairing one | ComplexRootData.cartan; ComplexRootData.simpleBase; ComplexRootData.fundamentalWeight_pairing; CompactLieRoots.simple_group_root_triple; CompactAdjoint.realCartan_abelian; CompactAdjoint.realCartan_mem_iff | KillingBaseChange / ComplexRootData / CompactCartan | Actual group Lie algebra; Mathlib Cartan/base existence | IN PROGRESS | Algebraic construction via complexification | Constructs splitting Cartan, simple-root base, fundamental weight with pairing one, and root triple for the complexification of the actual simple group Lie algebra. A real Cartan is also constructed and proved abelian, maximal abelian, and self-centralizing. Identification with a maximal compact torus and compatibility with the complex root data remain unproved. |
 | L02 | Simply connected compact simple group admits irreducible representation of fundamental highest weight | fundamental_representation_exists | RootSU2 | L01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | L03 | Average inner product to obtain invariant Hermitian metric | averagedInnerCore; unitaryModel_intertwines; unitaryModel_continuous; invariantInnerProduct_invariant; invariantInnerProduct_continuous | HaarUnitarization | D-haar | PROVED | Manuscript | Haar average is positive definite and invariant; arbitrary finite-dimensional complex normed representations have a continuous unitary model, continuously linearly equivalent to the original representation. |
 | L04 | Root sl₂ action on highest vector has weight one | FundamentalRootWeight.root_highest_weight_one; FundamentalRootWeight.fundamental_lowering | FundamentalRootWeight | L01; L02 | PROVED | Manuscript | Fundamental weight is the dual simple-coroot coordinate. For the standing Cartan/root base and highest-weight vector, constructs the actual root triple and proves primitive weight one. Group representation existence and root integration remain L02/L06. |
@@ -159,7 +159,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | Z02 | Balanced coefficients invariant; tensor representation has trivial central action | doublet_center_invariant; MatrixRepresentation.balanced_tensor_trivial | CenterDescent | Z01; H04 | PROVED | Manuscript | All six phase-balanced quantities are invariant; the actual tensor/conjugate matrix representation is identity on every unit scalar action. |
 | Z03 | Tensor conjugate representation factors continuously through central quotient | MatrixRepresentation.descend; MatrixRepresentation.balancedDescend; MatrixRepresentation.descend_coefficient | CenterDescent | Z02 | PROVED | Manuscript | Actual quotient homomorphism; quotient topology proves entry continuity and exact coefficient pullback. |
 | Z04 | All six functions are coefficients of sums/tensor powers on quotient | MatrixRepresentation.descendedBalancedCoefficient_apply; MatrixRepresentation.descended_hopf_functions; center_descent | CenterDescent | Z03; lem:representative-algebra | PROVED | Manuscript | Quotient coefficients of the balanced tensor representation generate all six quantities inside the representative subalgebra. Final wrapper identifies them with orthogonal-projection coordinates. |
-| Z05 | Any compact connected simple central form is central quotient of compact simply connected simple cover | simple_cover | CenterDescent |  | TODO | Manuscript |  |
+| Z05 | Any compact connected simple central form is central quotient of compact simply connected simple cover | SimpleGroupCenter.center_finite; SimpleGroupCenter.center_quotient_covering; CentralCovering.covering_kernel_central; CentralCovering.quotientEquiv | SimpleGroupCenter / CentralCovering / DiscreteFibers | Actual adjoint differential; local derivative estimates; Mathlib covering maps | IN PROGRESS | Standard local and topological arguments | Finite center and the actual covering onto the center quotient are proved for compact simple groups. Any existing connected covering homomorphism has central kernel and, when surjective, identifies its target with the topological quotient. Existence and compactness of the simply connected covering Lie group remain unproved. |
 | G01 | Compact Lie algebra decomposes as center plus simple ideals | CompactAdjoint.compact_lie_decomposition | CompactLieStructure / LieLocalCoordinates / LieMixedDerivatives / InvariantLieDecomposition | Actual adjoint action; HaarRealForm; mathlib invariant forms and semisimple ideals | PROVED | Haar averaging and local mixed-derivative proof | Constructs the positive form, proves infinitesimal invariance, center complement, finite independent simple factors, ambient ideal embeddings, and inherited positive invariant forms. No structural hypothesis is assumed. |
 | G02 | Connected nonabelian group has at least one simple ideal | CompactAdjoint.nonabelian_simple_ideal | ManifoldZeroDerivative / LieHomCalculus / ConnectedLie / NonabelianCompactLie | G01 | PROVED | Connectedness via zero differentials | Zero differential implies constancy; smooth homomorphisms are determined by their differential; abelian Lie algebra forces connected group abelian. Nonabelianity forces a simple factor, lifted to an actual ambient ideal. |
 | G03 | Connected adjoint action preserves each simple ideal | CompactAdjoint.adjoint_preserves_simple_ideal; simpleAdjointRepresentation_continuous | LieIdealOrbit / AdjointIdeals | G01 | PROVED | Manuscript finite-permutation argument | Ad preserves the semisimple complement; its action on the finite atomic-ideal family is constant by connectedness and closed fibers. Each factor is an actual ambient ideal with continuous restricted representation. |
@@ -342,7 +342,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=95, TODO=2, IN PROGRESS=8, BLOCKED=5 (110 rows).
+Current inventory counts: PROVED=95, TODO=1, IN PROGRESS=9, BLOCKED=5 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -2704,3 +2704,73 @@ whitespace checks. Only `propext`, `Classical.choice`, and `Quot.sound` occur in
 the dependency audit. Self-review checked the field extension, actual tensor
 Lie bracket and Killing form, splitting Cartan construction, nonempty coroot
 basis, normalized fundamental weight, and the actual group Lie-algebra wrapper.
+
+
+## Real Cartan subalgebras and central covering steps (2026-09-17)
+
+PR #48 merged at `6f256b5` after CI run `35229892320` passed (7m53s).
+Four new mathematical modules extend L01 and Z05. The inventory is 95 PROVED /
+1 TODO / 9 IN PROGRESS / 5 BLOCKED = 110; there are 141 mathematical modules.
+Neither full L01 nor full Z05 is counted as proved.
+
+`CompactCartan` proves a nilpotent Lie algebra carrying the existing anisotropic,
+symmetric invariant form is abelian. Its semisimple complement to the center
+is solvable because it is nilpotent; hence that complement has zero radical
+and is zero. The whole algebra is therefore central. Restricting the form to
+a Cartan subalgebra proves that the Cartan is abelian. Self-normalization then
+proves maximality among abelian Lie subalgebras and equality with its centralizer.
+The real Cartan is constructed by the regular-element theorem for the actual
+group Lie algebra, and compactness supplies the already proved Haar-averaged
+invariant form. No maximal torus subgroup or integration is postulated.
+
+`DiscreteFibers.fiber_isolated` works in finite-dimensional real manifold charts.
+An injective derivative has closed range and is bounded below. Mathlib's
+punctured-neighborhood derivative estimate isolates the point in its fiber;
+source-chart injectivity transfers this back to the manifold. Only a derivative
+at the point is needed, rather than a general closed-subgroup theorem.
+
+`SimpleGroupCenter` applies this to the actual adjoint map. Simplicity makes the
+Lie-algebra adjoint representation faithful, so the already checked adjoint
+differential is injective. Central elements have trivial conjugation, and hence
+identity adjoint map. Thus the identity is isolated in the center. Translation
+makes the center discrete; its description as the intersection of closed
+commutation equalizers makes it closed. For compact Hausdorff G the center is
+therefore finite. The actual quotient map `G → G ⧸ Subgroup.center G` is proved
+to be a covering map using Mathlib's discrete-subgroup covering theorem.
+
+`CentralCovering` proves a discrete normal subgroup of a connected topological
+group is central: conjugation into that discrete subgroup is continuous and
+therefore constant. Covering fibers are discrete, so every existing covering
+homomorphism with connected source has central kernel. A surjective covering
+homomorphism is open and continuous, which upgrades the algebraic first
+isomorphism theorem to `G ⧸ f.ker ≃ₜ* H`. These results require no assertion
+that a universal covering Lie group exists.
+
+The remaining distinctions are essential. A maximal abelian Lie subalgebra
+is not yet an actual maximal torus subgroup. Finiteness of the center of a
+compact simple group is not finiteness of its fundamental group. A covering
+onto its center quotient is not a construction of a compact simply connected
+cover of the original group. The remaining existence/correspondence obligations
+are retained explicitly. General DvK remains deferred, and the manuscript is
+unchanged.
+
+Cartan/center milestone validation passed: `lake build` completed 4258 jobs;
+source audit checked 144 Lean files; exhaustive axiom audit checked 3389 project
+declarations / 2765 theorem constants, with only `propext`, `Classical.choice`,
+and `Quot.sound`. Outstanding target checks compile. The symbolic verifier
+matches the checked-in output byte for byte, and the manuscript is unchanged.
+Self-review checked the nilpotent/semisimple complement argument, actual group
+Cartan and adjoint structures, isolation of a fiber rather than an unjustified
+local inverse, centrality versus fundamental-group finiteness, and both directions
+of continuity in the quotient equivalence. The final signatures were inspected:
+the real Cartan theorem constructs the Borel measurable structure internally;
+the finite-center theorem has only the actual finite-dimensional Lie-group,
+simple-Lie-algebra, compactness, and Hausdorff hypotheses. No cover-existence
+hypothesis is added to any general manuscript theorem.
+
+Resume from this milestone without restarting earlier work. The remaining L01
+bridge is to integrate the real Cartan to a compact torus and relate its
+complexification to the root data. Z05 now has its standard central-kernel and
+quotient-identification arguments, but still lacks construction and compactness
+of a simply connected covering Lie group. Finite center alone does not close
+that gap. L02/L06 and the deferred multivariate DvK obligations are unchanged.
