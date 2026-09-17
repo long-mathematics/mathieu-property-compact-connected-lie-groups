@@ -1,2 +1,29 @@
-# mathieu-property-compact-connected-lie-groups
-Classification of the Mathieu–Zhao property for compact connected Lie groups, with explicit nonabelian counterexamples and formal verification.
+# The Mathieu Property for Compact Connected Lie Groups
+
+## Abstract
+
+Let $G$ be a compact connected Lie group, let $\mathcal R(G)$ denote its algebra of representative functions, and let $\mathcal I_G(f)=\int_G f(g)\,\mathrm d g$ be normalized Haar integration. We prove that $\ker \mathcal I_G$ is a Mathieu--Zhao subspace of $\mathcal R(G)$ if and only if $G$ is a torus. More strongly, for every nonabelian compact connected Lie group $G$ we construct $A,P,Q\in\mathcal R(G)$, with $A\geq 0$ and $A\not\equiv 0$, such that all pure moments of $P$ vanish and the marked moments satisfy an exact Pascal-row identity
+
+$$
+\mathcal I_G(Q^sP^m)
+=c_m\binom{m-1}{s-1}\mathcal I_G(A^{4m+s})>0
+\qquad (1\leq s\leq m),
+$$
+
+where $c_m=4^m(m!)^2/(2m+1)!$; the same moments vanish for $s>m$.
+
+## Preprint and source
+
+- [arXiv:2609.16178](https://arxiv.org/abs/2609.16178)
+- [Preprint PDF](https://arxiv.org/pdf/2609.16178)
+- [LaTeX source](mathieu_property_compact_connected_lie_groups.tex)
+- [Exact verification script](verify_mathieu_classification.py)
+- [Verification output](verify_mathieu_classification.txt)
+
+## Formalization
+
+This repository is the canonical development location for the paper and its Lean formalization.
+
+## Provenance
+
+The project was migrated from [`octonion/mathematics/mc`](https://github.com/octonion/mathematics/tree/main/mc). The original subtree was introduced in commit [`7573e57a16fe85177d8a4dab9d98a681923af918`](https://github.com/octonion/mathematics/commit/7573e57a16fe85177d8a4dab9d98a681923af918). The repository history there remains the archival record of the former location.
