@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/zwart-older-classical`; milestones through [PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/flat-radial-counterexamples`; milestones through [PR #32](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/32) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 90 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 93 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -1721,3 +1721,55 @@ passed. Inventory remains 86 PROVED, 12 TODO, 7 IN PROGRESS, 5 BLOCKED out of
 110 obligations, with 90 mathematical modules. Self-review checked recursive
 weight indices, casted list correspondence, dimensions, N=1, all positive
 powers, source integration order, and the nonzero contour normalization.
+
+## Flat radial coordinates and the separate SO Euler family
+
+PR #32 was squash-merged at `12b76a8ca602e2613509491e57334de1690090fe`
+after CI `35202982338` passed (4m12s). Current branch:
+`formalization/flat-radial-counterexamples`.
+
+`ZwartFlatInterval.lean` proves the affine earlier xz witness has zero pure
+moments for actual Lebesgue integration on [-1,1]. Its constant coefficient
+is -x after substitution and is nonzero as a function. The product theorem
+works for an arbitrary remaining weight and any nonempty remaining domain.
+`ZwartSignedCube.lean` specializes this to every finite signed cube, defines
+the actual coordinate/square-root polynomial coefficient algebra, proves
+its multivariate-polynomial range description, and refutes convex-support
+conjectures whenever the first density coordinate is flat. Integer and
+bounded-rational frequency versions are both proved.
+
+`ZwartSOEuler.lean` proves the cosine substitution with every continuous
+complex test function and every nonnegative integer sine exponent. It
+encodes the recursive radial blocks obtained from that substitution,
+proves dimension (N-1)(N-2)/2, identifies the square-root powers with the
+half-integer real powers, and proves the leading flat factor for every
+N >= 3. The resulting separately named `SOEulerConvexSupportConjecture`
+is refuted with actual circle integrals. No SO group/Haar parametrization
+is assumed or claimed to have been formalized by this module.
+
+**This does not silently correct the printed source.** The named SO Euler
+family uses the well-defined angular blocks from source Lemma 3.2. The
+malformed recurrence of Lemma 3.3 still has no literal, dimension-correct
+interpretation established here. E13 remains IN PROGRESS for that exact
+source correspondence; its status is not upgraded by this alternate
+family. The manuscript remains unchanged.
+
+Validation: `lake build` passed (4031 jobs); source audit passed for 96 Lean
+files; exhaustive axiom audit passed for 2310 declarations / 1886 theorem
+constants, with only propext, Classical.choice, and Quot.sound. Outstanding
+target checks passed, exact Python output matched, manuscript content was
+unchanged, and whitespace checks passed. Self-review checked interval
+Lebesgue normalization, the affine factor two, true function coefficient
+support, finite products, cosine orientation/endpoints, recursive dimensions,
+and the explicit distinction from the source indexing defect. Inventory:
+86 PROVED, 12 TODO, 7 IN PROGRESS, 5 BLOCKED / 110; 93 mathematical modules.
+
+Next correspondence check: prove that the rational-frequency expansion is
+unique as a function on the angular cube, not just that the specified finite
+expansion has the indicated spectrum. Mathlib has multivariate real-analytic
+unique continuation (`AnalyticOnNhd.eq_of_eventuallyEq`) and Dedekind character
+independence (`linearIndependent_monoidHom`). Extend the finite exponential
+sum to R^M, propagate its zero values from the cube interior, then use
+character independence. Character-frequency injectivity can be proved by
+differentiating a coordinate path at zero. Scratch investigation is in
+`/tmp/ZwartUniqueness.lean`; it is not part of the completed milestone.

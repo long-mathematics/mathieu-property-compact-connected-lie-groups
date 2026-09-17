@@ -1,4 +1,4 @@
-Axiom audit passed: 2234 project declarations, 1830 theorems.
+Axiom audit passed: 2310 project declarations, 1886 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -288,3 +288,17 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.Zwart.sp_conjecture_2024_contour_false' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Zwart.sp_one_conjecture_2024_false' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Zwart.sp_one_conjecture_2024_contour_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.flatXZ_signed_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.signed_product_convexSupport_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.signedRadialAlgebra_eq_range' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.signedCube_convexSupport_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.signedCube_fractionalConvexSupport_false' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'MathieuProperty.Zwart.cosine_weight_substitution' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.soEulerPowers_length' depends on axioms: [propext, Quot.sound]
+'MathieuProperty.Zwart.soEulerRadialCount_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.signed_sqrt_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.soEulerDensity_rpow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.soEuler_convexSupport_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Zwart.soEuler_convexSupport_circles_false' depends on axioms: [propext, Classical.choice, Quot.sound]

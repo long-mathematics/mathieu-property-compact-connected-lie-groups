@@ -331,3 +331,17 @@ run_cmd do
 #print axioms MathieuProperty.Zwart.sp_conjecture_2024_contour_false
 #print axioms MathieuProperty.Zwart.sp_one_conjecture_2024_false
 #print axioms MathieuProperty.Zwart.sp_one_conjecture_2024_contour_false
+
+-- Flat radial coordinates and the separately specified SO Euler family.
+#print axioms MathieuProperty.Zwart.flatXZ_signed_integral
+#print axioms MathieuProperty.Zwart.signed_product_convexSupport_false
+#print axioms MathieuProperty.Zwart.signedRadialAlgebra_eq_range
+#print axioms MathieuProperty.Zwart.signedCube_convexSupport_false
+#print axioms MathieuProperty.Zwart.signedCube_fractionalConvexSupport_false
+#print axioms MathieuProperty.Zwart.cosine_weight_substitution
+#print axioms MathieuProperty.Zwart.soEulerPowers_length
+#print axioms MathieuProperty.Zwart.soEulerRadialCount_eq
+#print axioms MathieuProperty.Zwart.signed_sqrt_pow
+#print axioms MathieuProperty.Zwart.soEulerDensity_rpow
+#print axioms MathieuProperty.Zwart.soEuler_convexSupport_false
+#print axioms MathieuProperty.Zwart.soEuler_convexSupport_circles_false
