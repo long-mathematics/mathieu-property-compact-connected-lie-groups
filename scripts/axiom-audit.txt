@@ -1,4 +1,4 @@
-Axiom audit passed: 612 project declarations, 502 theorems.
+Axiom audit passed: 645 project declarations, 532 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -36,3 +36,6 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.Abelian.matrix_entry_representatives' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Hopf.su2_representative_marked' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.Hopf.SU2_not_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.formal_moment_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.weighted_quadratic_substitution' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.Abelian.explicit_laurent_witness' depends on axioms: [propext, Classical.choice, Quot.sound]

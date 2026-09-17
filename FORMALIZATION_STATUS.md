@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/su2-representative-witness`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/abelian-weighted-moments`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 29 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- M0 and M1 complete; the library covers 31 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
 - Completion is prevented by the documented library exception below, independently of the many remaining ordinary obligations. The checked foundations are preserved through PR #1; remote validation and merge state are available there. No weakening or conditional main theorem is authorized.
 - No false manuscript statement identified. Library exception under attached prompt §16: the rank-two Duistermaat–van der Kallen noncancellation step remains unproved after the searches and proof attempts below. The known general proof would require major new toric/analytic infrastructure, which is not realistically achievable as a routine continuation of this paper formalization. The foundation milestone is incomplete coverage, not a completed formalization.
 
@@ -57,7 +57,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | thm:dvdk | Nonzero complex multivariate Laurent f with all positive-power constant terms zero has Newton polytope avoiding zero | duistermaat_van_der_kallen | Torus | T04 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | cor:torus | Every torus has the Mathieu property | torus_mathieu | Torus | T01–T08; thm:dvdk | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | thm:classification | For every compact connected Lie group: Mathieu property iff abelian iff torus | classification | MainTheorem | thm:uniform-nonabelian; cor:torus; T01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
-| prop:explicit-abelian-SU2 | Transformed Laurent pair: exact moments, printed expansion, exact spectrum | Abelian.formal_expansion; Abelian.formal_spectrum | AbelianAlgebra / AbelianLaurent | E01–E09; thm:hopf-coefficient | IN PROGRESS | Manuscript | Algebra and spectrum checked; exact moment formulas and transform measure correspondence pending. |
+| prop:explicit-abelian-SU2 | Transformed Laurent pair: exact moments, printed expansion, exact spectrum | Abelian.formal_expansion; Abelian.formal_spectrum | AbelianAlgebra / AbelianLaurent | E01–E09; thm:hopf-coefficient | IN PROGRESS | Manuscript | Algebra, spectrum, and exact weighted moment formulas checked; external transform correspondence pending. |
 | cor:abelian-reductions | Failure of both universal abelian conjectures, growth claim and specified Zwart reductions | abelian_reductions | AbelianWitness | E10–E14; prop:explicit-abelian-SU2; thm:classification | TODO | Manuscript |  |
 | D-representative | Finite linear combinations of coefficients of finite-dimensional continuous complex representations | representativeFunctions; representative_eq_span_coefficients; representation_coefficient_mem | RepresentativeFunctions |  | PROVED | Coordinate model, with formal basis correspondence | Finite linear span, without topological closure; arbitrary finite-dimensional normed complex representation spaces and joint continuity checked. |
 | D-haar | Normalized Haar integration on representative functions | normalizedHaar; representativeIntegral; representativeIntegral_one | Haar | D-representative | PROVED | Manuscript | Linear restriction to the representative algebra; integrability and normalization proved. |
@@ -140,7 +140,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | E02 | Defect-one transformed identity | Abelian.defect_one | AbelianAlgebra | E01 | PROVED | Manuscript | Global polynomial identity; no division used. |
 | E03 | Printed Laurent expansion exactly equal to P_ab | Abelian.expansion; Abelian.formal_expansion | AbelianAlgebra / AbelianLaurent | D-explicit | PROVED | Manuscript | Also equality in the actual Laurent polynomial algebra. |
 | E04 | Four nonzero coefficient polynomials give exact formal spectrum {-1,0,1,2} | Abelian.formal_spectrum | AbelianLaurent | E03 | PROVED | Manuscript | All four coefficient polynomials proved nonzero by evaluation; no claim of fixed-x endpoint spectrum. |
-| E05 | t=1-2x² gives normalized weighted CT integral and moment laws | Abelian.change_variables | AbelianWitness | E02; H08 | TODO | Manuscript |  |
+| E05 | t=1-2x² gives normalized weighted CT integral and moment laws | Abelian.weighted_quadratic_substitution; Abelian.weightedCT_pure; Abelian.weightedCT_marked | AbelianConstantTerm / AbelianWitness | E02; H08 | PROVED | Manuscript | Actual formal Laurent coefficients, exact weight and normalization, every positive power and marker; positivity and vanishing ranges also proved. |
 | E06 | On SU(2), conjugate entry identities give polynomial Hopf representatives | Abelian.matrix_entry_representatives; Abelian.matrix_entry_pair | SU2Witness | D-hopf; R01 | PROVED | Manuscript | Exact four-entry polynomial formulas; the pair is also constructed in the actual representative algebra. |
 | E07 | All entry representatives invariant under maximal torus factor | Abelian.torus_invariance; Abelian.entryP_torus_invariance | AbelianAlgebra | E06 | PROVED | Manuscript | U₀ is also the Q entry representative. |
 | E08 | Square-root-free substitution sends A₀,U₀,V₀,T₀ to 1,U,V,T | Abelian.square_root_free; Abelian.square_root_free_pair | AbelianAlgebra | E06 | PROVED | Manuscript | All complex x and nonzero w, including manuscript domain. |
@@ -590,3 +590,35 @@ constants), with only the three approved foundations, including `SU2_not_mathieu
 There are 231 explicit theorem/lemma declarations in 29 mathematical modules.
 The ledger has 54/110 obligations proved. The verifier output matches exactly,
 and the precise outstanding statements still type-check.
+
+
+## Explicit weighted Laurent moments
+
+The SU(2) representative witness was merged as [PR #8](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/8)
+at `c9dda6f2ce9a52a2111c1e8d74b8a5798194ad49` after CI run `35176945277` passed.
+
+`AbelianConstantTerm.lean` specializes the actual coefficient polynomials of
+`formalP` and `formalQ`. Coefficient extraction after the substitution X=cw
+and the defect-one identity prove the constant-term formula at every real
+0<x<1. Nonzero c=2x(1-x²) is proved in that interval; no division is performed
+at either endpoint. Polynomial continuity provides all needed integrability.
+
+`AbelianWitness.lean` defines the exact functional
+`weightedCT f = 2 * ∫ x in 0..1, (f.coeff 0).eval x * x`.
+A checked change of variables t=1-2x², its derivative -4x, and evenness give
+the manuscript's normalization. Equality off the endpoints suffices by their
+Lebesgue nullity. The existing Hopf coefficient theorem proves all pure and
+marked weighted moments. `explicit_laurent_witness` packages the pure formula,
+all positive marker formulas, and the exact formal spectrum. Additional theorems
+state the zero and strictly positive marker ranges.
+
+This completes E05. The proposition remains IN PROGRESS because E09/E14,
+its identification with the external Müger–Tuset group-coordinate transform,
+is not yet proved. No external reduction theorem is assumed.
+
+Weighted-witness validation: `lake build` passed (3627 jobs); source audit passed
+for 34 Lean files. Whole-namespace audit passed for 645 declarations (532 theorem
+constants), with only `propext`, `Classical.choice`, and `Quot.sound`.
+There are 247 explicit theorem/lemma declarations in 31 mathematical modules.
+The ledger has 55/110 obligations proved. The verifier output matches exactly,
+the outstanding statements still type-check, and the manuscript remains unchanged.
