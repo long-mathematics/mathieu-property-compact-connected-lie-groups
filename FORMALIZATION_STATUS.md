@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/connected-lie-abelian`; milestones through [PR #37](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/37) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/adjoint-simple-ideals`; milestones through [PR #38](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/38) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 104 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 106 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -124,7 +124,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | Z05 | Any compact connected simple central form is central quotient of compact simply connected simple cover | simple_cover | CenterDescent |  | TODO | Manuscript |  |
 | G01 | Compact Lie algebra decomposes as center plus simple ideals | CompactAdjoint.compact_lie_decomposition | CompactLieStructure / LieLocalCoordinates / LieMixedDerivatives / InvariantLieDecomposition | Actual adjoint action; HaarRealForm; mathlib invariant forms and semisimple ideals | PROVED | Haar averaging and local mixed-derivative proof | Constructs the positive form, proves infinitesimal invariance, center complement, finite independent simple factors, ambient ideal embeddings, and inherited positive invariant forms. No structural hypothesis is assumed. |
 | G02 | Connected nonabelian group has at least one simple ideal | CompactAdjoint.nonabelian_simple_ideal | ManifoldZeroDerivative / LieHomCalculus / ConnectedLie / NonabelianCompactLie | G01 | PROVED | Connectedness via zero differentials | Zero differential implies constancy; smooth homomorphisms are determined by their differential; abelian Lie algebra forces connected group abelian. Nonabelianity forces a simple factor, lifted to an actual ambient ideal. |
-| G03 | Connected adjoint action preserves each simple ideal | adjoint_preserves_simple_ideal | AdjointQuotient | G01 | TODO | Manuscript |  |
+| G03 | Connected adjoint action preserves each simple ideal | CompactAdjoint.adjoint_preserves_simple_ideal; simpleAdjointRepresentation_continuous | LieIdealOrbit / AdjointIdeals | G01 | PROVED | Manuscript finite-permutation argument | Ad preserves the semisimple complement; its action on the finite atomic-ideal family is constant by connectedness and closed fibers. Each factor is an actual ambient ideal with continuous restricted representation. |
 | G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | inner_aut_structure | AdjointQuotient | G01 | TODO | Manuscript |  |
 | G05 | Restricted adjoint differential image equals ad(simple ideal) | restricted_adjoint_differential | AdjointQuotient | G01; G03 | TODO | Manuscript |  |
 | G06 | Closed connected subgroup with full Lie algebra equals connected target | full_lie_algebra_surjective | AdjointQuotient | G04; G05 | TODO | Manuscript |  |
@@ -2055,3 +2055,49 @@ GroupLieAlgebra bracket, and that the resulting simple object is an ambient
 Lie ideal rather than just an abstract Lie algebra. No quotient-group claim
 is included in G02. All auxiliary tooling and associated outputs stay under
 `scripts/`; mathematical modules stay in `MathieuProperty/`.
+
+
+## G03: connected adjoint action on the simple factors
+
+PR #38 merged at `4f6cad1` after CI `35212577456` passed (5m51s).
+Current branch: `formalization/adjoint-simple-ideals`. G03 compiles in full;
+inventory is 89 PROVED / 9 TODO / 7 IN PROGRESS / 5 BLOCKED = 110.
+
+`LieIdealOrbit.idealOrderIso` transports ideals along an actual Lie equivalence.
+The generic `atom_image_eq` theorem proves that a continuous family of real
+finite-dimensional Lie automorphisms on a preconnected parameter space acts
+constantly on the atomic ideals whenever that ideal family is finite. Each
+fiber is closed: membership in an image atom is characterized by all its
+vectors lying in the target atom, and finite-dimensional subspaces are closed.
+A map to a finite discrete set with closed fibers is continuous and therefore
+constant on a connected space.
+
+`AdjointIdeals` first proves that Ad preserves the center's orthogonal
+complement using its Haar-averaged invariant form. Restriction gives the actual
+Lie automorphisms `semisimpleAdjointEquiv`. The finite-family theorem then gives
+`adjoint_preserves_atom`; lifting the factor to the ambient Lie algebra yields
+`adjoint_preserves_simple_ideal`, exactly the factors used in the manuscript's
+decomposition. `simpleAdjointRepresentation` and its continuity theorem give
+the restricted representation on each such ambient simple ideal.
+
+The next obligations are G04–G06. The remaining quotient target needs an actual
+Lie group structure on the inner automorphism group. A search of the pinned
+manifold library found no closed-subgroup/Lie-subgroup theorem. For G06, a
+possible direct substitute is surjectivity of a smooth homomorphism onto a
+connected Lie group when its differential at 1 is surjective: mathlib's
+`HasStrictFDerivAt.map_nhds_eq_of_surj` supplies the normed-space local openness
+step; charts should transfer it to manifolds, and an open subgroup of a
+connected group is the whole group. This would avoid assuming a closed
+subgroup theorem for the final surjectivity step. G04 itself remains open.
+
+Milestone validation: full `lake build` passed (4095 jobs); source audit passed
+for 109 Lean files; exhaustive axiom audit passed for 2664 project declarations
+and 2172 theorem constants, using only propext, Classical.choice, and Quot.sound.
+The outstanding-obligation checks compile, exact verifier output matches,
+manuscript preservation and whitespace checks pass. An umbrella-import name
+collision between automatically named local instances was fixed by assigning
+explicit names to this module's local instances; no mathematical change was
+needed. Correspondence review checked the actual Ad action, center-complement
+invariance, finite atomic factors, ambient ideal lifting, and continuity of the
+restricted representation. G04–G06 and the quotient proposition remain open.
+The manuscript, verifier mathematics, and existing proofs remain unchanged.

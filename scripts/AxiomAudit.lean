@@ -402,3 +402,10 @@ run_cmd do
 #print axioms MathieuProperty.ConnectedLie.mul_comm_of_lie_abelian
 #print axioms MathieuProperty.CompactAdjoint.exists_simple_factor
 #print axioms MathieuProperty.CompactAdjoint.nonabelian_simple_ideal
+
+#print axioms MathieuProperty.LieIdealOrbit.atom_image_eq
+#print axioms MathieuProperty.CompactAdjoint.adjoint_mem_semisimpleIdeal
+#print axioms MathieuProperty.CompactAdjoint.adjoint_preserves_atom
+#print axioms MathieuProperty.CompactAdjoint.adjoint_preserves_simple_ideal
+#print axioms MathieuProperty.CompactAdjoint.simpleAdjointRepresentation
+#print axioms MathieuProperty.CompactAdjoint.simpleAdjointRepresentation_continuous
