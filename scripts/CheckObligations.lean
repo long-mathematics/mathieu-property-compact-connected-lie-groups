@@ -58,3 +58,23 @@ not assumed simply connected. This command is only a type check. -/
 #check (Finite (FundamentalGroup G (1 : G)) : Prop)
 
 end SimpleCover
+
+section FundamentalModule
+open scoped TensorProduct
+variable (L : Type*) [LieRing L] [LieAlgebra ℝ L]
+  [FiniteDimensional ℝ L] [LieAlgebra.IsKilling ℝ L] [Nontrivial L]
+variable (H : LieSubalgebra ℝ L) [H.IsCartanSubalgebra] [IsLieAbelian H]
+
+/- A necessary algebraic fragment of L02, now using the compatible Cartan:
+construct a finite-dimensional module containing the fundamental highest-weight
+vector. Even this statement omits irreducibility, unitarity, and integration to
+a group representation. It is type-checked only, not proved or assumed. -/
+#check (∃ (n : ℕ) (a : LieRingModule (ℂ ⊗[ℝ] L) (Fin n → ℂ)),
+  letI := a
+  ∃ b : LieModule ℂ (ℂ ⊗[ℝ] L) (Fin n → ℂ),
+  letI := b
+  ∃ v : Fin n → ℂ,
+    FundamentalRootWeight.IsHighestWeightVector
+      (CompatibleRootData.simpleBase H) (CompatibleRootData.fundamentalWeight H) v : Prop)
+
+end FundamentalModule
