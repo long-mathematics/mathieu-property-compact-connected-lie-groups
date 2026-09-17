@@ -12,12 +12,47 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/automorphism-lie-algebra`; milestones through [PR #43](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/43) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/adjoint-open-image`; milestones through [PR #44](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/44) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 126 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 129 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
+
+## Work allocation following user clarification (2026-09-17)
+
+The user has directed that general multivariate Duistermaat–van der Kallen
+remain a documented blocker, pending their external work on a resolution-free
+proof. Do not continue attempting the existing resolution-dependent proof or
+build Hironaka infrastructure for this project. Resume this obligation only
+when a concrete new proof or usable formal infrastructure becomes available.
+This is a limitation of the currently available proof route and library, not a
+claim that Lean cannot express or ultimately prove the theorem.
+
+The checked one-variable theorem and circle Mathieu property remain complete.
+T04 retains IN PROGRESS to record that partial coverage; its arbitrary-rank
+portion is deferred. The general torus theorem and classification remain
+BLOCKED and must not be asserted conditionally as completed results. Continue
+independent attainable obligations, currently the actual adjoint simple
+quotient. Record additional foundational blockers explicitly rather than
+repeatedly pursuing unavailable proof routes.
+
+## Remaining work: dependency-aware assessment
+
+The five BLOCKED rows do not mean that all other rows can be completed
+independently. Counts describe coverage, not an estimate of remaining effort.
+In particular, IN PROGRESS can include completed transfer lemmas whose general
+existence inputs are blocked.
+
+| Remaining obligation | Current allocation / dependency |
+|---|---|
+| G04 and adjoint simple quotient | Now proved: actual open image, inherited Lie algebra, identity component, and continuous quotient map. |
+| General DvK (unproved part of T04), general torus theorem, classification | Deferred pending the external resolution-free DvK route. Classification also depends on the nonabelian direction. |
+| L02 fundamental highest-weight representation; L06 root integration | Foundational gaps already documented; no existence assumptions added. |
+| Root-doublet lemma, L04, general simply-connected-simple theorem | Depend on the highest-weight/root-integration gaps; existing conditional transfer and algebraic doublet proofs do not close these rows. |
+| Simple central forms and uniform nonabelian theorem | Depend on the general simple-group result and Z05; the uniform theorem also needs the active adjoint quotient. |
+| L01 root/weight setup, Z05 simple cover, T01 abelian iff torus | Substantial independent infrastructure still requiring feasibility assessment; not promised merely because marked TODO. |
+| E13, E14 and remaining external abelian reductions | Exact SO source correspondence is unresolved because of the documented external indexing discrepancy; other specified counterexamples are already checked. |
 
 ## Dependency order
 
@@ -52,7 +87,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | prop:classical-closed-forms | Defining SU(n), n≥2, and Sp(n), n≥1: rising factorial formulas and printed examples | specialUnitary_closed_forms; compactSymplectic_closed_forms; specialUnitary_small_values; compactSymplectic_small_values | ClassicalSU / ClassicalSp / SphereBeta / SymplecticOrbit | C01–C07; projected_haar_moments | PROVED | Explicit matrix-root action and radial transfer | Both families are proved for all stated ranks with actual representative functions, pointwise first-column Hopf identities, normalized Haar moments, endpoints, and printed examples. Uses explicit SU(2) blocks, so no general root-existence theorem is assumed. |
 | lem:center-descent | Six functions descend as representative functions through full center and intermediate quotients | doublet_center_invariant; center_descent | CenterDescent | Z01–Z04; H04 | PROVED | Manuscript | For the standing irreducible unitary representation and projected coordinates: all six functions are invariant under the full center and descend as actual representative functions through every central subgroup. No universal representation-existence claim. |
 | cor:simple-central-forms | Exact marker tower and Mathieu failure for every compact connected simple central form | center_quotient_tower (transfer only) | QuotientWitness / SimpleGroups (planned) | Z05; lem:center-descent; lem:haar-pullback; thm:simply-connected-simple | IN PROGRESS | Manuscript | All moments, nonnegative nonzero A, strict positivity, and Mathieu failure descend through every central quotient of a supplied irreducible defining doublet. Universal source representation and simple-cover existence remain unproved. |
-| prop:adjoint-simple-quotient | Every nonabelian compact connected Lie group surjects continuously onto adjoint compact simple group | adjoint_simple_quotient | AdjointQuotient | G01–G06 | TODO | Manuscript |  |
+| prop:adjoint-simple-quotient | Every nonabelian compact connected Lie group surjects continuously onto adjoint compact simple group | CompactAdjoint.adjoint_simple_quotient | AdjointQuotient | G01–G06 | PROVED | Manuscript, with local openness replacing the closed-subgroup step | Actual compact connected centerless Lie-group target, simple group Lie algebra, continuous surjection, and identification with the automorphism identity component of a simple ideal. |
 | thm:uniform-nonabelian | Full manuscript quantifiers, representative triple and radial moment tower, positivity and vanishing | uniform_nonabelian | MainTheorem | prop:adjoint-simple-quotient; cor:simple-central-forms; lem:haar-pullback | TODO | Manuscript |  |
 | thm:dvdk | Nonzero complex multivariate Laurent f with all positive-power constant terms zero has Newton polytope avoiding zero | duistermaat_van_der_kallen | Torus | T04 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | cor:torus | Every torus has the Mathieu property | torus_mathieu | Torus | T01–T08; thm:dvdk | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
@@ -125,7 +160,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | G01 | Compact Lie algebra decomposes as center plus simple ideals | CompactAdjoint.compact_lie_decomposition | CompactLieStructure / LieLocalCoordinates / LieMixedDerivatives / InvariantLieDecomposition | Actual adjoint action; HaarRealForm; mathlib invariant forms and semisimple ideals | PROVED | Haar averaging and local mixed-derivative proof | Constructs the positive form, proves infinitesimal invariance, center complement, finite independent simple factors, ambient ideal embeddings, and inherited positive invariant forms. No structural hypothesis is assumed. |
 | G02 | Connected nonabelian group has at least one simple ideal | CompactAdjoint.nonabelian_simple_ideal | ManifoldZeroDerivative / LieHomCalculus / ConnectedLie / NonabelianCompactLie | G01 | PROVED | Connectedness via zero differentials | Zero differential implies constancy; smooth homomorphisms are determined by their differential; abelian Lie algebra forces connected group abelian. Nonabelianity forces a simple factor, lifted to an actual ambient ideal. |
 | G03 | Connected adjoint action preserves each simple ideal | CompactAdjoint.adjoint_preserves_simple_ideal; simpleAdjointRepresentation_continuous | LieIdealOrbit / AdjointIdeals | G01 | PROVED | Manuscript finite-permutation argument | Ad preserves the semisimple complement; its action on the finite atomic-ideal family is constant by connectedness and closed fibers. Each factor is an actual ambient ideal with continuous restricted representation. |
-| G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | inner_aut_structure (planned); simpleAdjointImage_compact; simpleAdjointImage_connected; simpleAdjointImage_center_eq_bot | RepresentationImage / AdjointCentralizer / AdjointImage | G01 | IN PROGRESS | Concrete compact adjoint image | The actual image is proved nontrivial, compact, connected, and centerless, with a continuous surjection from G and an action by Lie automorphisms. The full automorphism group has a proved analytic Lie-group structure. Its Lie algebra is identified with derivations and, for a Killing algebra, with the original algebra. The compact adjoint image and identity-component correspondence remain open. |
+| G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | CompactAdjoint.toSimpleAutomorphisms_range_eq_component; adjointSimpleGroup_algebraEquiv; adjointSimpleGroup_center_eq_bot | AdjointAutomorphism / OpenLieSubgroup / AdjointQuotient | G01 | PROVED | Concrete open adjoint image | The actual smooth restricted adjoint image is open and equals the automorphism identity component. Its inherited Lie-group structure has Lie algebra equivalent to the simple ideal; compactness, connectedness, and trivial group center are proved. |
 | G05 | Restricted adjoint differential image equals ad(simple ideal) | CompactAdjoint.restrictedAdjoint_eq_simple; restrictedAdjoint_mfderiv; restricted_adjoint_differential_range | RestrictedAdjointAlgebra / ProjectedAdjoint / RestrictedAdjoint | G01; G03 | PROVED | Manuscript, expressed in the ambient endomorphism space | The canonical projection constructs a smooth map equal to the actual restricted representation. Its manifold differential is the restricted bracket, whose image is exactly ad of the ideal. The inner-automorphism Lie-group target itself remains G04. |
 | G06 | Closed connected subgroup with full Lie algebra equals connected target | LieSurjective.surjective_of_surjective_mfderiv | LieSurjective | G04; G05 | PROVED | Substitute: local openness from surjective differential | A C¹ homomorphism with surjective differential at 1 is onto a connected target. Uses the Banach inverse-function/open-mapping theorem in charts and the open-subgroup argument; applies directly to the manuscript homomorphism once G04–G05 construct its target and differential. No closed-subgroup theorem is assumed. |
 | T01 | Compact connected abelian Lie group iff finite-dimensional torus, including dimension zero | abelian_iff_torus | Torus |  | TODO | Manuscript |  |
@@ -304,7 +339,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=86, TODO=12, IN PROGRESS=7, BLOCKED=5 (110 rows).
+Current inventory counts: PROVED=93, TODO=5, IN PROGRESS=7, BLOCKED=5 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -2404,3 +2439,66 @@ subgroup inherits charts from the ambient group (the pinned library has
 manifold instances for `TopologicalSpace.Opens`, but no ready-made
 `OpenSubgroup` Lie-group instance was found). Its Lie algebra must then be
 identified with the already simple ambient algebra. G04 stays IN PROGRESS.
+
+## Automorphism Lie-algebra milestone merged; next image bridge
+
+PR #44 was squash-merged at `2d698a6` after CI run `35221839448` passed.
+The next branch is `formalization/adjoint-open-image`. Standalone Lean drafts
+prove smoothness of the actual restricted adjoint homomorphism into the
+automorphism Lie group and surjectivity of its differential. A second draft
+constructs the inherited Lie-group structure on open subgroups. These drafts
+are not yet integrated into the library or counted as completed G04 coverage.
+The remaining steps are openness and identity-component correspondence, then
+the actual image Lie-algebra identification and manuscript-facing quotient
+theorem. Inventory remains 91 PROVED / 6 TODO / 8 IN PROGRESS / 5 BLOCKED,
+110 obligations total.
+
+## Adjoint simple quotient — current milestone
+
+Three new modules close G04 and `prop:adjoint-simple-quotient`. The coverage
+inventory is now 93 PROVED / 5 TODO / 7 IN PROGRESS / 5 BLOCKED = 110.
+There are 129 mathematical modules plus the import umbrella.
+
+`AdjointAutomorphism` codomain-restricts the actual restricted adjoint action
+to the constructed automorphism Lie group. The matrix embedding differential
+identifies its derivative with the already checked restricted bracket. Every
+derivation of the simple ideal is inner, so this differential is surjective.
+Local openness gives an open image subgroup; connectedness and clopenness
+identify it exactly with the automorphism identity component.
+
+`OpenLieSubgroup` restricts ambient charts to any open subgroup. Multiplication
+and inverse are smooth in these charts. Inclusion has identity differential
+on the common model. The conjugation chain rule therefore identifies adjoint
+operators, and a second derivative identifies the actual group Lie brackets.
+The resulting `lieEquiv` uses the actual Mathlib group Lie algebras.
+
+`AdjointQuotient` gives the concrete image its compact connected Lie-group
+structure, constructs the continuous smooth surjective quotient map, and
+identifies its Lie algebra with the simple factor. Forgetting the redundant
+automorphism membership proof gives a multiplicative equivalence with the
+earlier matrix image; its proved centerlessness transfers to the new target.
+`CompactAdjoint.adjoint_simple_quotient` selects an actual simple factor from
+nonabelianness and proves the manuscript proposition with no existence input
+for the quotient. The target is explicitly the automorphism identity component,
+as required for the adjoint form.
+
+Material proof substitution: local openness from the surjective differential
+replaces the manuscript's closed-connected-subgroup argument. The conclusion
+and hypotheses are preserved. The Borel and topological-group structures in
+the implementation are the existing structures used throughout the Haar
+construction, rather than additional mathematical existence assumptions.
+
+General multivariate DvK remains deferred as directed. The general simple-group
+witness and uniform nonabelian theorem still await the separately documented
+representation/root-integration and covering prerequisites. Closing the adjoint
+quotient does not close those downstream statements.
+
+Validation passed: `lake build` completed 4141 jobs; the source audit checked
+132 Lean files; the exhaustive axiom audit checked 3233 project declarations /
+2639 theorem constants, using only `propext`, `Classical.choice`, and `Quot.sound`.
+The manuscript-facing quotient theorem is included explicitly in the printed
+axiom reports. The outstanding targets type-check, the verifier reproduces the
+checked-in output byte for byte, the manuscript is unchanged from its initial
+commit, and whitespace checks pass. Correspondence review checked the actual
+quotient map, open image topology, inherited group bracket, simple-factor
+identification, identity-component equality, and center transport.
