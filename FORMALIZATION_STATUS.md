@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/compact-adjoint-form`; milestones through [PR #35](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/35) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/adjoint-infinitesimal`; milestones through [PR #36](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/36) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 97 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 100 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -122,7 +122,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | Z03 | Tensor conjugate representation factors continuously through central quotient | MatrixRepresentation.descend; MatrixRepresentation.balancedDescend; MatrixRepresentation.descend_coefficient | CenterDescent | Z02 | PROVED | Manuscript | Actual quotient homomorphism; quotient topology proves entry continuity and exact coefficient pullback. |
 | Z04 | All six functions are coefficients of sums/tensor powers on quotient | MatrixRepresentation.descendedBalancedCoefficient_apply; MatrixRepresentation.descended_hopf_functions; center_descent | CenterDescent | Z03; lem:representative-algebra | PROVED | Manuscript | Quotient coefficients of the balanced tensor representation generate all six quantities inside the representative subalgebra. Final wrapper identifies them with orthogonal-projection coordinates. |
 | Z05 | Any compact connected simple central form is central quotient of compact simply connected simple cover | simple_cover | CenterDescent |  | TODO | Manuscript |  |
-| G01 | Compact Lie algebra decomposes as center plus simple ideals | CompactLieForm.centerDecomposition; CompactLieForm.center_complement_semisimple (algebraic step) | InvariantLieDecomposition / AdjointQuotient (planned) | invariant positive form on actual GroupLieAlgebra | IN PROGRESS | Invariant-form decomposition | The algebraic decomposition for a supplied symmetric anisotropic invariant form is proved. The actual adjoint representation, its smoothness and Lie automorphisms, and an adjoint-invariant positive form are now proved in CompactAdjoint/HaarRealForm. Infinitesimal bracket invariance of that form remains unproved. |
+| G01 | Compact Lie algebra decomposes as center plus simple ideals | CompactAdjoint.compact_lie_decomposition | CompactLieStructure / LieLocalCoordinates / LieMixedDerivatives / InvariantLieDecomposition | Actual adjoint action; HaarRealForm; mathlib invariant forms and semisimple ideals | PROVED | Haar averaging and local mixed-derivative proof | Constructs the positive form, proves infinitesimal invariance, center complement, finite independent simple factors, ambient ideal embeddings, and inherited positive invariant forms. No structural hypothesis is assumed. |
 | G02 | Connected nonabelian group has at least one simple ideal | nonabelian_simple_ideal | AdjointQuotient | G01 | TODO | Manuscript |  |
 | G03 | Connected adjoint action preserves each simple ideal | adjoint_preserves_simple_ideal | AdjointQuotient | G01 | TODO | Manuscript |  |
 | G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | inner_aut_structure | AdjointQuotient | G01 | TODO | Manuscript |  |
@@ -1917,3 +1917,86 @@ chain-rule source/target basepoints, smoothness in fixed tangent coordinates,
 bracket naturality, positivity at the identity, and right-Haar invariance.
 Group invariance is explicitly distinguished from the unproved infinitesimal
 bracket invariance. The classification and G01 are not marked proved.
+
+## Infinitesimal adjoint calculation: current work
+
+PR #36 merged at `69fd052` after CI `35208295174` passed (5m13s).
+Current branch: `formalization/adjoint-infinitesimal`; no restart or reset.
+The merged library has 97 mathematical modules and all recorded audits pass.
+Two further mathematical modules are in development, not a finished milestone:
+`LieMixedDerivatives.lean` and `LieLocalCoordinates.lean`.
+
+The local proof route avoids constructing a Lie-group exponential map. Write
+`c = extChartAt I 1`, `a₀ = c 1`, and
+`μ(a,b) = c(c.symm a * c.symm b)` near `(a₀,a₀)`. Let
+`L_v(a) = Dμ(a,a₀)(0,v)` and `R_v(a) = Dμ(a₀,a)(v,0)`.
+Symmetry of the second derivative proves `D L_v(a₀)x = D R_x(a₀)v`.
+The generic calculus lemma `LieMixed.adjoint_derivative` is proved: differentiating
+`R(a) A(a) v = L(a) v`, with the identity first derivatives at `a₀`, gives
+`D A(a₀)x v = D L_v(a₀)x - D L_x(a₀)v`.
+
+The actual coordinate multiplication is smooth, its left/right identity laws
+hold on the chart target, both first partial derivatives at the identity are
+identities, and the coordinate adjoint map `a ↦ Ad(c.symm a)` is smooth and equals
+the identity at `a₀`. These proofs compile in scratch and have been preserved in
+the two new modules. Remaining work: identify `L_v` with the chart pullback of
+the actual left-invariant vector field; prove `R(a)Ad(c.symm a)=L(a)` using
+`R_g ∘ conjugation_g = L_g`; identify the resulting difference of derivatives
+with `GroupLieAlgebra.bracket_def`. Finally differentiate the already proved
+adjoint invariance of the positive bilinear form. Neither the infinitesimal
+identity nor bracket invariance is claimed proved yet, so G01 remains IN PROGRESS.
+
+Useful library facts found: `mfderiv_extChartAt_self` and
+`mfderivWithin_range_extChartAt_symm` identify the chart derivatives at the
+basepoint with identity maps; `ContDiffAt.isSymmSndFDerivAt` handles mixed
+partial symmetry. For `I = 𝓘(ℝ,E)`, its range is univ, so inverse-chart within
+statements become unrestricted ones. Scratch snapshots: `/tmp/LieMixed.lean`
+and `/tmp/LieLocalChart.lean`; logs `/tmp/mathieu-lie-mixed.log` and
+`/tmp/mathieu-lie-chart.log`. All actual mathematical source files belong in
+`MathieuProperty/`; tooling remains in `scripts/`.
+
+## G01 completed: compact Lie algebra decomposition
+
+The local-coordinate route succeeded. `LieLocalChart.adjointCoordinates_fderiv`
+proves the actual infinitesimal adjoint/Lie-bracket identity. The proof uses the
+chain rule for left/right translations, symmetry of mixed derivatives, and the
+exact chart pullbacks of the actual invariant vector fields. No exponential
+map, integration theorem, or supplied adjoint representation is assumed.
+Differentiating Haar-averaged adjoint invariance then proves
+`CompactAdjoint.invariantForm_lieInvariant`.
+
+`CompactAdjoint.compact_lie_decomposition` now constructs the center complement,
+a bundled Lie algebra product equivalence, and finitely many independent simple
+factors spanning the complement. `liftCentralIdealEquiv` embeds those factors
+as actual ideals of the full Lie algebra; `simple_factor_positive_form` supplies
+the inherited symmetric positive invariant forms. This covers every assertion
+of manuscript equation `eq:compact-lie-algebra-decomposition`, including compact
+type and the zero-factor case. The separate claim that nonabelian connected G
+has at least one factor remains G02 and is not assumed or marked proved.
+
+G01 moves IN PROGRESS → PROVED. Inventory is now 87 PROVED / 11 TODO /
+7 IN PROGRESS / 5 BLOCKED = 110. There are 100 mathematical modules plus the
+umbrella, and 103 project-owned Lean files including the audit helpers.
+The general DvK, highest-weight/root integration, central covers, actual adjoint
+simple quotient, uniform nonabelian theorem, and main classification remain
+open. The mathematical manuscript is unchanged.
+
+The complete factor-embedding and compact-type refinement passed full
+`lake build` (4089 jobs) and the audits recorded below. Next substantive task is G02: prove
+that a connected Lie group with abelian Lie algebra is abelian, then extract a
+simple factor for every nonabelian connected compact group. A fresh search
+found no direct manifold theorem asserting that a map with zero differential
+is locally constant; investigate chart-local mean-value arguments and existing
+connected/locally constant APIs. G03 is preservation of the finite simple-factor
+family under the now-proved continuous adjoint action.
+
+G01 milestone validation completed: full `lake build` passed (4089 jobs), source
+audit passed (103 Lean files), and exhaustive axiom audit passed (2534 project
+declarations / 2066 theorem constants). Only propext, Classical.choice, and
+Quot.sound occur. The outstanding-target checks compile, exact Python verifier
+output matches byte for byte, manuscript preservation and whitespace checks
+pass. Correspondence review checked the center as an actual ideal, the natural
+addition Lie equivalence, finite independent simple factors spanning the
+complement, their ambient ideal embeddings, inherited positive invariant forms,
+and the possibility of zero simple factors. G02's nonabelian/nonzero-factor
+claim and G03–G06's quotient/connectedness assertions are not included or assumed.

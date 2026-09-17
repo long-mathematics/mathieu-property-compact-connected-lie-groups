@@ -1,3 +1,6 @@
+import MathieuProperty.CompactLieStructure
+import MathieuProperty.LieLocalCoordinates
+import MathieuProperty.LieMixedDerivatives
 import MathieuProperty.CompactAdjoint
 import MathieuProperty.HaarRealForm
 import MathieuProperty.InvariantLieDecomposition
