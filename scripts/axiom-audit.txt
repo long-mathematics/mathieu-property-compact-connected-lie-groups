@@ -1,4 +1,4 @@
-Axiom audit passed: 945 project declarations, 770 theorems.
+Axiom audit passed: 1006 project declarations, 822 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -85,3 +85,11 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.beta_two_moment' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.classical_small_values' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.su2_small_values' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.exists_unitary_firstColumn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.exists_specialUnitary_firstColumn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.specialUnitaryRepresentation_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.sphereSurface_preserving' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.normalizedSphere_preserving' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.specialUnitaryCompactSpace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.specialUnitarySphere_transitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.specialUnitaryFirstColumn_map' depends on axioms: [propext, Classical.choice, Quot.sound]

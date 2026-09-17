@@ -115,3 +115,13 @@ run_cmd do
 #print axioms MathieuProperty.beta_two_moment
 #print axioms MathieuProperty.classical_small_values
 #print axioms MathieuProperty.su2_small_values
+
+#print axioms MathieuProperty.exists_unitary_firstColumn
+#print axioms MathieuProperty.exists_specialUnitary_firstColumn
+#print axioms MathieuProperty.specialUnitaryRepresentation_continuous
+
+#print axioms MathieuProperty.sphereSurface_preserving
+#print axioms MathieuProperty.normalizedSphere_preserving
+#print axioms MathieuProperty.specialUnitaryCompactSpace
+#print axioms MathieuProperty.specialUnitarySphere_transitive
+#print axioms MathieuProperty.specialUnitaryFirstColumn_map

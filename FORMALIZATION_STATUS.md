@@ -12,11 +12,11 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/beta-moments`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/classical-sphere`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 44 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
-- Milestones through center descent are merged and CI-checked ([PR #14](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/14)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
+- M0 and M1 complete; the library covers 48 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- Milestones through beta moments are merged and CI-checked ([PR #15](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/15)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
 ## Dependency order
@@ -110,7 +110,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | L09 | Phi continuous, equivariant, norm≤1, Phi(1)=e₀ | doubletCoordinates_continuous; doubletCoordinates_a_le; doubletCoordinates_one; doubletCoordinates_equivariant | Projection | L08 | PROVED | Manuscript | Coordinates constructed from an isometric defining doublet; a(Φg)≤1 is the squared Euclidean norm bound. Standing doublet data remain explicit. |
 | L10 | Haar pushforward invariant probability supported in compact ball | doublet_radial_pushforward; haar_pushforward_ball_support | ProjectedHaar | L09; U-haar-map | PROVED | Manuscript | Pushforward of actual normalized Haar; support compact by continuous compact image and contained in the Euclidean unit ball. |
 | L11 | Nonempty open sets have positive Haar; continuity gives nonconcentration | haar_pushforward_nonconcentration | ProjectedHaar | L09; D-haar | PROVED | Manuscript | Continuous preimage of the complement of zero is open and contains the identity; actual Haar positivity applies. |
-| C01 | First column Haar on SU(n) is uniform complex unit sphere | SU_column_uniform | ClassicalGroups |  | TODO | Manuscript |  |
+| C01 | First column Haar on SU(n) is uniform complex unit sphere | specialUnitaryFirstColumn_map; specialUnitaryFirstColumn_apply | ClassicalOrbit / ClassicalTopology / ClassicalSphereGeometry / NormalizedSphere |  | PROVED | Manuscript | For n≥2, actual compact SU(n) acts continuously and transitively on the Euclidean unit sphere; normalized cone surface measure is invariant. Haar orbit pushforward equals this probability measure. |
 | C02 | Complex Gaussian normalization produces sphere measure | gaussian_sphere | ClassicalGroups |  | TODO | Manuscript |  |
 | C03 | Squared coordinate norms are Dirichlet(1,…,1), first two sum Beta(2,n-2) | sphere_two_coordinates_beta | ClassicalGroups | C02 | TODO | Manuscript |  |
 | C04 | Beta moments equal rising factorial ratios | beta_moment_ratio; beta_moment_integrable; beta_moment_product; beta_moment_nat; beta_two_moment | BetaMoments | C03 | PROVED | Manuscript | Actual mathlib betaMeasure: density shift, normalization, integrability, Gamma recurrence, and rising-factorial ratios for all positive integer parameters. |
@@ -173,7 +173,7 @@ Historical claims in the introduction about the Jacobian conjecture, announcemen
 
 ## Validation and correspondence audit
 
-Current full library build passed (3650 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 now has the full cyclic submodule, irreducibility, and exact defining matrices. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
+Current full library build passed (3663 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 now has the full cyclic submodule, irreducibility, and exact defining matrices. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
 
 ## Resume notes
 
@@ -302,7 +302,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=72, TODO=23, IN PROGRESS=9, BLOCKED=6 (110 rows).
+Current inventory counts: PROVED=73, TODO=22, IN PROGRESS=9, BLOCKED=6 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -842,3 +842,67 @@ Only the three approved foundations occur. The library has 44 mathematical
 modules; the ledger records 72/110 obligations proved (23 TODO, 9 IN PROGRESS,
 6 BLOCKED). The verifier matches exactly, remaining targets type-check, and
 the mathematical manuscript is unchanged.
+
+
+## Current continuation: classical sphere geometry
+
+The beta-moment milestone was merged as
+[PR #15](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/15)
+at `f3d2d9ea6837c2c52d573a0ab097cdbcaa4658e8`, after CI run `35182461284` passed.
+
+The current branch is `formalization/classical-sphere`.
+`ClassicalSphereGeometry.lean` proves existence of a unitary matrix with any
+prescribed unit first column. For n≥2 a diagonal unitary correction in the
+second column makes the determinant one while preserving the first column.
+The actual SU(n) defining homomorphism into Euclidean linear isometric
+equivalences is constructed, with joint continuity proved entrywise. C01 is
+IN PROGRESS; the Haar/surface correspondence is not yet proved.
+
+Next concrete steps: establish compactness and the topological-group instances
+for general SU(n); use the prescribed-column result to obtain a transitive
+action on the unit sphere. Generalize the cone-surface invariance proof from
+`SphereSymmetry.lean` to Euclidean complex n-space, normalize its actual
+`volume.toSphere` measure, and apply `measurePreserving_transitive_orbit`.
+Mathlib `Matrix.entrywise_sup_norm_bound_of_unitary` and `isClosed_unitary`
+should supply compactness via a closed bounded matrix set. The existing
+`Matrix.continuous_uncurry_toEuclideanCLM` caused expensive elaboration here;
+the checked entrywise finite-sum proof avoids that issue.
+
+No root-existence, covering, DvK, higher-dimensional sphere beta-law, or
+Gaussian-normalization obligation is considered closed by this geometry.
+
+Continuation checkpoint: `lake build` passed (3663 jobs); source audit passed
+for 48 Lean files. Axiom audit passed: 964 project declarations, 788 theorems.
+Only the approved foundations occur. The new geometry is uncommitted on the
+current feature branch, ready to be extended into the C01 measure correspondence
+before the next natural milestone. Ledger counts: 72 PROVED, 22 TODO,
+10 IN PROGRESS, 6 BLOCKED (110 obligations).
+
+## SU(n) Haar first-column correspondence
+
+`ClassicalTopology.lean` supplies compactness and the topological-group
+structure for every actual special unitary matrix group. Closedness follows
+from unitarity and determinant one; the unitary entry bound gives boundedness.
+`NormalizedSphere.lean` generalizes the existing cone-surface argument to
+arbitrary finite-dimensional real inner-product spaces. Its normalized measure
+is a probability measure in nonzero dimension and is preserved by every real
+linear isometry.
+
+`ClassicalOrbit.lean` constructs the actual SU(n) sphere action and proves
+continuity and transitivity for n≥2. The existing transitive-orbit averaging
+theorem then identifies normalized Haar under the first-column map with the
+normalized Euclidean sphere measure. The coordinate lemma verifies that the
+map is exactly the matrix first column. This completes C01, with no hypothesis
+assuming an invariant distribution. C02 and C03 (Gaussian normalization and
+radial beta law) and C05 (symplectic transitivity) remain open.
+
+The earlier continuation checkpoints above record historical states. Current
+inventory: 73 PROVED, 22 TODO, 9 IN PROGRESS, 6 BLOCKED, 110 total. The library
+contains 48 mathematical modules plus its umbrella. No change to the manuscript
+or verification mathematics was made.
+
+SU(n) milestone validation: `lake build` passed (3667 jobs). Source audit
+passed for 51 Lean files. Namespace axiom audit passed for 1006 declarations
+and 822 theorem constants, depending only on propext, Classical.choice, and
+Quot.sound. The exact verifier output matches the checked-in output, outstanding
+target statements type-check, and the manuscript is byte-for-byte unchanged.

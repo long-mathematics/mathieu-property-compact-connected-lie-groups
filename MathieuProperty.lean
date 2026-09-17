@@ -1,3 +1,5 @@
+import MathieuProperty.ClassicalOrbit
+import MathieuProperty.ClassicalSphereGeometry
 import MathieuProperty.BetaMoments
 import MathieuProperty.ClassicalConstants
 import MathieuProperty.QuotientWitness
