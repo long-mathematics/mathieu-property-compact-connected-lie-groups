@@ -1,0 +1,40 @@
+import MathieuProperty
+import Mathlib.Geometry.Manifold.GroupLieAlgebra
+import Mathlib.Algebra.Lie.Semisimple.Defs
+import Mathlib.AlgebraicTopology.FundamentalGroupoid.SimplyConnected
+import Mathlib.LinearAlgebra.UnitaryGroup
+
+/-! Type-check the precise outstanding targets. `#check` does not prove them.
+No declaration in this file is supplied as a hypothesis to a project theorem.
+-/
+
+open MathieuProperty
+
+/- The manuscript's multivariate Duistermaat--van der Kallen obligation. -/
+#check (∀ (d : ℕ) (f : MultiLaurent d), f ≠ 0 →
+  (∀ m : ℕ, 1 ≤ m → constantTerm (f ^ m) = 0) →
+  (0 : Fin d → ℝ) ∉ newtonPolytope f : Prop)
+
+/- Even this two-variable special case needs the missing noncancellation proof. -/
+#check (∀ f : MultiLaurent 2, f ≠ 0 →
+  (0 : Fin 2 → ℝ) ∈ newtonPolytope f →
+  ∃ m : ℕ, 1 ≤ m ∧ constantTerm (f ^ m) ≠ 0 : Prop)
+
+section RootEmbedding
+open scoped Manifold ContDiff
+variable (E G : Type*) [NormedAddCommGroup E] [NormedSpace ℝ E]
+  [FiniteDimensional ℝ E] [Group G] [TopologicalSpace G] [T2Space G]
+  [ChartedSpace E G] [LieGroup 𝓘(ℝ, E) ∞ G]
+  [CompactSpace G] [ConnectedSpace G] [SimplyConnectedSpace G]
+
+local instance : LieGroup 𝓘(ℝ, E) (minSmoothness ℝ 3) G :=
+  LieGroup.of_le (show minSmoothness ℝ 3 ≤ (∞ : ℕ∞ω) by simp)
+
+variable [LieAlgebra.IsSimple ℝ (GroupLieAlgebra 𝓘(ℝ, E) G)]
+
+/- A necessary fragment of the visible-root-doublet lemma; it does not yet
+include the fundamental representation or its invariant two-dimensional space. -/
+#check (∃ φ : Matrix.specialUnitaryGroup (Fin 2) ℂ →* G,
+  Continuous φ ∧ Function.Injective φ : Prop)
+
+end RootEmbedding

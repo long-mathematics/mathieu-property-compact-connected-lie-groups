@@ -17,12 +17,25 @@ where $c_m=4^m(m!)^2/(2m+1)!$; the same moments vanish for $s>m$.
 - [arXiv:2609.16178](https://arxiv.org/abs/2609.16178)
 - [Preprint PDF](https://arxiv.org/pdf/2609.16178)
 - [LaTeX source](mathieu_property_compact_connected_lie_groups.tex)
-- [Exact verification script](verify_mathieu_classification.py)
-- [Verification output](verify_mathieu_classification.txt)
+- [Exact verification script](scripts/verify_mathieu_classification.py)
+- [Verification output](scripts/verify_mathieu_classification.txt)
 
 ## Formalization
 
 This repository is the canonical development location for the paper and its Lean formalization.
+
+The Lean formalization is in progress; the main classification is **not yet formalized**.
+See [the obligation ledger](FORMALIZATION_STATUS.md) for exact coverage and outstanding dependencies.
+The toolchain and mathlib revision are pinned. Build and audit the current proofs with:
+
+```sh
+lake build
+python3 scripts/audit_sources.py
+lake env lean scripts/AxiomAudit.lean
+python3 scripts/verify_mathieu_classification.py
+```
+
+Auxiliary tooling and its checked-in outputs live under `scripts/`.
 
 ## Provenance
 

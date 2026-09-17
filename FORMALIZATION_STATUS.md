@@ -1,0 +1,312 @@
+# Formalization status
+
+## Scope and integrity
+
+Source of truth: `mathieu_property_compact_connected_lie_groups.tex` at initial commit `aa283858550cc73fd9e06d34a40d111d2ad8b2d0`.
+The manuscript is unchanged. This ledger records obligations, not assertions of completion.
+`PROVED` means the full stated obligation has been checked by Lean without placeholders.
+Definitions use `PROVED` only after their implementation and stated correspondence are checked.
+Every Lean name below is intended until linked to an actual checked declaration.
+All modules are under `MathieuProperty/`; names are in namespace `MathieuProperty`.
+Rows for external results are obligations to prove or reuse mathlib, never licenses to assume them.
+
+## Current state
+
+- Branch: `formalization/lean-foundations`.
+- Lean: `leanprover/lean4:v4.34.0`.
+- mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
+- M0 complete; coherent foundation milestone covers 10 mathematical modules plus the import umbrella. No principal theorem is proved. The main classification, uniform nonabelian tower, sphere integral, radial transfer, root subgroup existence, and torus direction remain outstanding.
+- Next: finish the foundation milestone PR/build audit. Completion is prevented by the documented library exception below, independently of the many remaining ordinary obligations. No further weakening or conditional main theorem is authorized.
+- No false manuscript statement identified. Library exception under attached prompt §16: the rank-two Duistermaat–van der Kallen noncancellation step remains unproved after the searches and proof attempts below. The known general proof would require major new toric/analytic infrastructure, which is not realistically achievable as a routine continuation of this paper formalization. The foundation milestone is incomplete coverage, not a completed formalization.
+
+## Dependency order
+
+1. M0: pinned project, this ledger, library search.
+2. M1: definitions, representative algebra, Haar pullback.
+3. M2: Hopf relation, phase balance, homogeneity, transformed identities.
+4. M3: primitive coefficient congruence → sphere measure/phase extraction → Hopf identity → Pascal tower.
+5. M4: SU(2) sphere orbits and measure averaging → radial transfer.
+6. M5: fundamental representation → root doublet → projected Haar → simple-group theorem and classical examples.
+7. M6: Schur and tensor descent → all compact simple central forms.
+8. M7: compact Lie algebra structure → adjoint simple quotient → uniform nonabelian theorem.
+9. M8: torus/characters/Laurent correspondence + Duistermaat–van der Kallen → torus Mathieu property.
+10. M9: M7 + M8 + abelian iff torus → classification.
+11. M10: exact transformed witness, admissibility and external abelian reductions.
+12. M11: manuscript correspondence, clean build, axiom audit, CI, final publication.
+
+## Exhaustive working inventory
+
+Ranges in dependencies refer to all numbered rows in that range. If a proof exposes further intermediate assertions they must be added before being counted as covered.
+
+| Manuscript label / obligation | Mathematical statement | Intended Lean declaration | Module | Dependencies | Status | Proof route | Library issue |
+|---|---|---|---|---|---|---|---|
+| def:mathieu-subspace | Positive powers in a subspace imply eventual membership after each fixed multiplier | IsMathieuSubspace | Basic |  | PROVED | Manuscript |  |
+| lem:representative-algebra | Unital star algebra; tensor/conjugate coefficients; continuous pullback | representative_algebra | RepresentativeFunctions | D-representative; U-tensor; U-conjugate | TODO | Manuscript |  |
+| lem:haar-pullback | Surjective continuous homomorphisms preserve normalized Haar integrals and counterexamples | map_normalizedHaar; haar_pullback; counterexample_pullback | Haar / Basic | D-haar; U-haar-map; U-counterexample-pullback | IN PROGRESS | Manuscript | Full compact-group measure and continuous integral identities proved; representative pullback correspondence pending. |
+| thm:hopf-coefficient | Sphere integral H(q)p^m = c_m times coefficient m of H(X)(1+X)^(m-1), m≥1 | hopf_primitive_coefficient | HopfCoefficient / HopfIntegral (planned) | H01–H12 | IN PROGRESS | Manuscript | Coefficient kernel checked, sphere-measure correspondence pending. |
+| cor:sphere-marker-tower | Pure moments zero; all marked moments, vanishing/strict positivity ranges | sphere_marker_tower | HopfIntegral | thm:hopf-coefficient; H13; H14 | TODO | Manuscript |  |
+| thm:radial-transfer | All finite compactly supported positive SU(2)-invariant measures: pure and marked formulas with radial power and positivity | radial_transfer | RadialTransfer | R01–R08; cor:sphere-marker-tower | TODO | Manuscript |  |
+| lem:root-doublet | Fundamental highest-weight representation contains a faithful defining SU(2) root doublet | highest_weight_one_lowering | RootDoubletAlgebra / RootSU2 (planned) | L01–L07 | IN PROGRESS | Manuscript | Only its algebraic lowering step is checked. Fundamental representation and root integration are absent. |
+| lem:radial-pushforward | Projected Haar is compactly supported invariant probability, not concentrated at zero | radial_pushforward | SimpleGroups | lem:root-doublet; L08–L11 | TODO | Manuscript |  |
+| thm:simply-connected-simple | Representative A,P,Q, nonnegative nonzero A, exact tower on all compact simply connected simple groups | simply_connected_simple | SimpleGroups | lem:radial-pushforward; thm:radial-transfer; lem:representative-algebra | TODO | Manuscript |  |
+| prop:classical-closed-forms | Defining SU(n), n≥2, and Sp(n), n≥1: rising factorial formulas and printed examples | classical_closed_forms | ClassicalGroups | C01–C07; thm:simply-connected-simple | TODO | Manuscript |  |
+| lem:center-descent | Six functions descend as representative functions through full center and intermediate quotients | center_descent | CenterDescent | Z01–Z04; H04 | TODO | Manuscript |  |
+| cor:simple-central-forms | Exact marker tower and Mathieu failure for every compact connected simple central form | simple_central_forms | CenterDescent | Z05; lem:center-descent; lem:haar-pullback; thm:simply-connected-simple | TODO | Manuscript |  |
+| prop:adjoint-simple-quotient | Every nonabelian compact connected Lie group surjects continuously onto adjoint compact simple group | adjoint_simple_quotient | AdjointQuotient | G01–G06 | TODO | Manuscript |  |
+| thm:uniform-nonabelian | Full manuscript quantifiers, representative triple and radial moment tower, positivity and vanishing | uniform_nonabelian | MainTheorem | prop:adjoint-simple-quotient; cor:simple-central-forms; lem:haar-pullback | TODO | Manuscript |  |
+| thm:dvdk | Nonzero complex multivariate Laurent f with all positive-power constant terms zero has Newton polytope avoiding zero | duistermaat_van_der_kallen | Torus | T04 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
+| cor:torus | Every torus has the Mathieu property | torus_mathieu | Torus | T01–T08; thm:dvdk | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
+| thm:classification | For every compact connected Lie group: Mathieu property iff abelian iff torus | classification | MainTheorem | thm:uniform-nonabelian; cor:torus; T01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
+| prop:explicit-abelian-SU2 | Transformed Laurent pair: exact moments, printed expansion, exact spectrum | Abelian.formal_expansion; Abelian.formal_spectrum | AbelianAlgebra / AbelianLaurent | E01–E09; thm:hopf-coefficient | IN PROGRESS | Manuscript | Algebra and spectrum checked; exact moment formulas and transform measure correspondence pending. |
+| cor:abelian-reductions | Failure of both universal abelian conjectures, growth claim and specified Zwart reductions | abelian_reductions | AbelianWitness | E10–E14; prop:explicit-abelian-SU2; thm:classification | TODO | Manuscript |  |
+| D-representative | Finite linear combinations of coefficients of finite-dimensional continuous complex representations | representativeFunctions | RepresentativeFunctions |  | TODO | Manuscript |  |
+| D-haar | Normalized Haar integration on representative functions | normalizedHaar; haarIntegral | Haar | D-representative | IN PROGRESS | Manuscript | Defined on continuous functions. Restriction to representative algebra pending. |
+| D-property | Mathieu property is Mathieu condition on the kernel of Haar integral | MathieuProperty | Haar | D-haar; def:mathieu-subspace | TODO | Manuscript |  |
+| D-hopf | a, τ, u, v, universal P,Q, sphere restrictions p,q | Hopf.a; Hopf.tau; Hopf.u; Hopf.v; Hopf.P; Hopf.Q; Hopf.Sphere; Hopf.p; Hopf.q | HopfAlgebra |  | PROVED | Manuscript |  |
+| D-cm | Integral c_m and factorial/beta/double-factorial alternatives | momentConstant | MomentConstant |  | IN PROGRESS | Substitute: polynomial primitive / integration recurrence | Integral definition, recurrence, factorial ratio and positivity checked. |
+| D-CT | Coefficient and Laurent constant term conventions; negative coefficients zero | MultiLaurent; constantTerm; newtonPolytope | LaurentSupport |  | PROVED | Manuscript | AddMonoidAlgebra on Fin d → ℤ; coefficients include cancellation. |
+| D-Phi | Orthogonal projection coordinates and group A,P,Q | projectionCoordinates | SimpleGroups | L08 | TODO | Manuscript |  |
+| D-explicit | U,V,T, transformed P_ab,Q_ab and matrix-entry representatives | Abelian.U; Abelian.V; Abelian.T; Abelian.P; Abelian.Q; Abelian.A₀; Abelian.U₀; Abelian.V₀; Abelian.T₀; Abelian.entryP; Abelian.formalP; Abelian.formalQ | AbelianAlgebra / AbelianLaurent |  | PROVED | Manuscript | The formal algebra is ℂ[x][w,w⁻¹]. |
+| U-tensor | Product of coefficients is a tensor-product coefficient | coefficient_mul | RepresentativeFunctions | D-representative | TODO | Manuscript |  |
+| U-conjugate | Conjugate coefficient uses conjugate continuous representation | coefficient_conj | RepresentativeFunctions | D-representative | TODO | Manuscript |  |
+| U-haar-map | Pushforward Haar: probability, left invariance and uniqueness | map_normalizedHaar | Haar | D-haar | PROVED | Manuscript | Uses normalizedHaar, whose mass-one and Haar instances are proved. |
+| U-counterexample-pullback | Power and multiplier identities preserved under algebra homomorphism with functional compatibility | counterexample_pullback | Basic | def:mathieu-subspace | PROVED | Manuscript |  |
+| U-not-mathieu | A fixed witness with all pure powers inside and all marked powers outside refutes Mathieu | not_isMathieuSubspace_of_witness | Basic | def:mathieu-subspace | PROVED | Manuscript |  |
+| H01 | Hopf relation a²=uv+τ² | Hopf.relation | HopfAlgebra | D-hopf | PROVED | Manuscript |  |
+| H02 | Global defect-one identity, without dividing by u | Hopf.defect_one | HopfAlgebra | H01 | PROVED | Manuscript |  |
+| H03 | Real homogeneity P(rz)=r⁸P(z), Q(rz)=r²Q(z) | Hopf.homogeneity | HopfAlgebra | D-hopf | PROVED | Manuscript |  |
+| H04 | Common unit phase invariance of a,τ,u,v,P,Q | Hopf.phase_balance | HopfAlgebra | D-hopf | PROVED | Manuscript |  |
+| H05 | Hopf-coordinate normalized surface measure, endpoints null | hopf_coordinates_measure | HopfIntegral | D-hopf | TODO | Manuscript |  |
+| H06 | Normalized phase integral extracts every Laurent constant term at nonzero radius | phase_integral_constantTerm | HopfIntegral | D-CT | TODO | Manuscript |  |
+| H07 | Sphere polynomial integrability and justified localization away from u=0 | hopf_integrable | HopfIntegral | H05 | TODO | Manuscript |  |
+| H08 | Evenness in t and Fubini give CT-step with correct normalization | hopf_ct_step | HopfIntegral | H05–H07; H02 | TODO | Manuscript |  |
+| H09 | Polynomial primitive J_m; substitution identity | primitive; derivative_primitive; hopfPrimitive_eval_one | HopfCoefficient / MomentConstant |  | IN PROGRESS | Substitute: polynomial primitive / integration recurrence | Actual primitive and value at 1 proved; parameter substitution correspondence pending. |
+| H10 | J_m(1+X)-J_m(1) divisible by X^(m+1) | primitive_congruence | HopfCoefficient | H09 | PROVED | Manuscript |  |
+| H11 | Multiplication by polynomials cannot change coefficient m of X^(m+1) multiple | coefficient_congruence | HopfCoefficient | H10 | PROVED | Manuscript |  |
+| H12 | Integral c_m equals factorial ratio, beta and double factorial expressions; positive | momentConstant_factorial; momentConstant_pos | MomentConstant | D-cm | IN PROGRESS | Substitute: polynomial primitive / integration recurrence | Integral equals factorial ratio and is strictly positive for every natural m; beta/double-factorial presentations pending. |
+| H13 | Coefficient m of X^s(1+X)^(m-1) is choose(m-1,s-1), including s>m | pascal_coefficient | HopfCoefficient |  | PROVED | Manuscript |  |
+| H14 | Unmarked coefficient zero; binomial positive iff 1≤s≤m | pure_pascal_coefficient; pascal_marker_pos; pascal_marker_zero | HopfCoefficient / MomentConstant | H13 | PROVED | Manuscript | Includes every positive/vanishing index range. |
+| R01 | Explicit SU(2) matrix proves transitivity on each nonzero sphere | SU2_transitive_sphere | RadialTransfer |  | TODO | Manuscript |  |
+| R02 | Orbit Haar pushforward equals normalized surface measure | orbit_map_surface | RadialTransfer | R01; D-haar | TODO | Manuscript |  |
+| R03 | Invariant-measure orbit averaging for integrable functions, product measurability and integrability | orbit_average | RadialTransfer | D-haar | TODO | Manuscript |  |
+| R04 | Compact support gives integrability of all polynomial moments | integrable_polynomial_compactSupport | RadialTransfer | D-hopf | TODO | Manuscript |  |
+| R05 | Radial reduction r^(8m+2s)=a^(4m+s), including zero vector | radial_power | RadialTransfer | H03 | TODO | Manuscript |  |
+| R06 | Pure orbit moments vanish at every vector | orbit_pure | RadialTransfer | R02; R05; cor:sphere-marker-tower | TODO | Manuscript |  |
+| R07 | Marked orbit moment formula at every vector | orbit_marked | RadialTransfer | R02; R05; cor:sphere-marker-tower | TODO | Manuscript |  |
+| R08 | Positive measure off zero implies positive radial integral | radial_integral_pos | RadialTransfer | R04 | TODO | Manuscript |  |
+| L01 | Maximal torus, simple roots and fundamental weight with coroot pairing one | fundamental_weight_pairing | RootSU2 |  | TODO | Manuscript |  |
+| L02 | Simply connected compact simple group admits irreducible representation of fundamental highest weight | fundamental_representation_exists | RootSU2 | L01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
+| L03 | Average inner product to obtain invariant Hermitian metric | invariant_inner_product | RootSU2 | D-haar | TODO | Manuscript |  |
+| L04 | Root sl₂ action on highest vector has weight one | root_highest_weight_one | RootSU2 | L01; L02 | TODO | Manuscript |  |
+| L05 | Highest-weight-one cyclic module: Fv≠0, F²v=0 and two-dimensional defining action | highest_weight_one_lowering | RootDoubletAlgebra | L04 | IN PROGRESS | Manuscript | Both lowering identities proved from a primitive weight-one vector; invariant module equivalence still pending. |
+| L06 | Integrate compact root Lie algebra to SU(2) homomorphism and identify restricted representation | integrate_root_SU2 | RootSU2 | L04; L05 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
+| L07 | Faithfulness implies injective root map; orthonormal identification gives defining SU(2) action | root_map_injective | RootSU2 | L06 | TODO | Manuscript |  |
+| L08 | Invariant orthogonal complement and equivariant projection | projection_commutes | SimpleGroups | L03; lem:root-doublet | TODO | Manuscript |  |
+| L09 | Phi continuous, equivariant, norm≤1, Phi(1)=e₀ | projection_map_properties | SimpleGroups | L08 | TODO | Manuscript |  |
+| L10 | Haar pushforward invariant probability supported in compact ball | projection_measure_properties | SimpleGroups | L09; U-haar-map | TODO | Manuscript |  |
+| L11 | Nonempty open sets have positive Haar; continuity gives nonconcentration | projection_nonconcentration | SimpleGroups | L09; D-haar | TODO | Manuscript |  |
+| C01 | First column Haar on SU(n) is uniform complex unit sphere | SU_column_uniform | ClassicalGroups |  | TODO | Manuscript |  |
+| C02 | Complex Gaussian normalization produces sphere measure | gaussian_sphere | ClassicalGroups |  | TODO | Manuscript |  |
+| C03 | Squared coordinate norms are Dirichlet(1,…,1), first two sum Beta(2,n-2) | sphere_two_coordinates_beta | ClassicalGroups | C02 | TODO | Manuscript |  |
+| C04 | Beta moments equal rising factorial ratios | beta_moment | ClassicalGroups | C03 | TODO | Manuscript |  |
+| C05 | Sp(n) defining action transitive on complex 2n sphere with same invariant measure | Sp_sphere_transitive | ClassicalGroups |  | TODO | Manuscript |  |
+| C06 | Endpoint n=2 for SU and n=1 for Sp: A=1 and ratio=1 | classical_endpoints | ClassicalGroups | C01; C05 | TODO | Manuscript |  |
+| C07 | Nine rational examples for m=1,2,3 | classical_small_values | ClassicalGroups | C04; H12 | TODO | Manuscript |  |
+| Z01 | Schur lemma: center acts by scalar of modulus one | center_scalar | CenterDescent | L02; L03 | TODO | Manuscript |  |
+| Z02 | Balanced coefficients invariant; tensor representation has trivial central action | balanced_center_trivial | CenterDescent | Z01; H04 | TODO | Manuscript |  |
+| Z03 | Tensor conjugate representation factors continuously through central quotient | tensor_factors_quotient | CenterDescent | Z02 | TODO | Manuscript |  |
+| Z04 | All six functions are coefficients of sums/tensor powers on quotient | descended_representative | CenterDescent | Z03; lem:representative-algebra | TODO | Manuscript |  |
+| Z05 | Any compact connected simple central form is central quotient of compact simply connected simple cover | simple_cover | CenterDescent |  | TODO | Manuscript |  |
+| G01 | Compact Lie algebra decomposes as center plus simple ideals | compact_lie_decomposition | AdjointQuotient |  | TODO | Manuscript |  |
+| G02 | Connected nonabelian group has at least one simple ideal | nonabelian_simple_ideal | AdjointQuotient | G01 | TODO | Manuscript |  |
+| G03 | Connected adjoint action preserves each simple ideal | adjoint_preserves_simple_ideal | AdjointQuotient | G01 | TODO | Manuscript |  |
+| G04 | Inner automorphism group is compact connected adjoint simple; automorphism identity component | inner_aut_structure | AdjointQuotient | G01 | TODO | Manuscript |  |
+| G05 | Restricted adjoint differential image equals ad(simple ideal) | restricted_adjoint_differential | AdjointQuotient | G01; G03 | TODO | Manuscript |  |
+| G06 | Closed connected subgroup with full Lie algebra equals connected target | full_lie_algebra_surjective | AdjointQuotient | G04; G05 | TODO | Manuscript |  |
+| T01 | Compact connected abelian Lie group iff finite-dimensional torus, including dimension zero | abelian_iff_torus | Torus |  | TODO | Manuscript |  |
+| T02 | Character lattice of torus is Z^d and representatives are finite character sums | torus_representative_laurent | Torus | T01; D-representative | TODO | Manuscript |  |
+| T03 | Normalized Haar integral corresponds to Laurent coefficient at zero | torus_integral_constantTerm | Torus | T02; D-haar | TODO | Manuscript |  |
+| T04 | Duistermaat–van der Kallen external result must be proved, not postulated | dvdk_external_proof | Torus |  | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
+| T05 | Strict linear separation from convex hull of finite support | support_strict_separation | LaurentSupport | thm:dvdk | PROVED | Manuscript | Mathlib geometric Hahn–Banach and compactness of finite convex hull. |
+| T06 | Support of hf^m has separating-functional value≥C+mδ | support_mul_lower_bound; support_pow_lower_bound | LaurentSupport | T05 | PROVED | Manuscript | Support containment, not an incorrect equality of supports. |
+| T07 | Archimedean bound yields eventual absence of zero exponent | eventual_constantTerm_zero_of_lower_bound; eventual_constantTerm_zero_of_newton | LaurentSupport | T06 | PROVED | Manuscript | Zero polynomials allowed; all natural m above N. |
+| T08 | Zero f/h cases and equivalence with Mathieu subspace on torus | torus_zero_cases | Torus | T02; T03; T07 | TODO | Manuscript |  |
+| E01 | U V + T² = 1 | Abelian.relation | AbelianAlgebra | D-explicit | PROVED | Manuscript | General commutative ring proof with w*wi=1; applies to unit-circle w. |
+| E02 | Defect-one transformed identity | Abelian.defect_one | AbelianAlgebra | E01 | PROVED | Manuscript | Global polynomial identity; no division used. |
+| E03 | Printed Laurent expansion exactly equal to P_ab | Abelian.expansion; Abelian.formal_expansion | AbelianAlgebra / AbelianLaurent | D-explicit | PROVED | Manuscript | Also equality in the actual Laurent polynomial algebra. |
+| E04 | Four nonzero coefficient polynomials give exact formal spectrum {-1,0,1,2} | Abelian.formal_spectrum | AbelianLaurent | E03 | PROVED | Manuscript | All four coefficient polynomials proved nonzero by evaluation; no claim of fixed-x endpoint spectrum. |
+| E05 | t=1-2x² gives normalized weighted CT integral and moment laws | Abelian.change_variables | AbelianWitness | E02; H08 | TODO | Manuscript |  |
+| E06 | On SU(2), conjugate entry identities give polynomial Hopf representatives | Abelian.matrix_entry_representatives | AbelianWitness | D-hopf | TODO | Manuscript |  |
+| E07 | All entry representatives invariant under maximal torus factor | Abelian.torus_invariance; Abelian.entryP_torus_invariance | AbelianAlgebra | E06 | PROVED | Manuscript | U₀ is also the Q entry representative. |
+| E08 | Square-root-free substitution sends A₀,U₀,V₀,T₀ to 1,U,V,T | Abelian.square_root_free; Abelian.square_root_free_pair | AbelianAlgebra | E06 | PROVED | Manuscript | All complex x and nonzero w, including manuscript domain. |
+| E09 | Representative independence and equality to actual Mueger–Tuset group-coordinate transform | Abelian.transform_correspondence | AbelianWitness | E07; E08; E14 | TODO | Manuscript |  |
+| E10 | Earlier weighted xz witness has zero pure moments and (-1)^(m-1)/(2(m+1)) marker; spectrum {-1,0,1} | weighted_xz_witness | AbelianWitness |  | TODO | Manuscript |  |
+| E11 | Definitions and admissibility of universal moment and convex-support conjectures | universal_abelian_conjectures | AbelianWitness | E14 | TODO | Manuscript |  |
+| E12 | Zero pure moment sequence has zero limsup growth, contradicting asserted positive growth | growth_counterexample | AbelianWitness | E11; prop:explicit-abelian-SU2 | TODO | Manuscript |  |
+| E13 | Each specified Zwart abelian implication formally stated and proved, then contraposition | zwart_reductions_false | AbelianWitness | E14; thm:classification | TODO | Manuscript |  |
+| E14 | External Mueger–Tuset Lemma 5.2, Prop 5.3, Conjectures 6.3/6.6, Remark 6.7; Zwart implications: exact definitions and needed results | external_reduction_correspondence | AbelianWitness |  | TODO | Manuscript |  |
+
+## Expository exclusions
+
+Historical claims in the introduction about the Jacobian conjecture, announcements, and prior projects are not used by the direct classification proof and are excluded. The indirect first paragraph of the abelian-reductions section is likewise excluded; the direct witnesses and named failure corollary remain in scope. Remarks “Defect-one coefficient law”, “Strength of the failure”, “No classification by Lie type”, and “Scope” restate conclusions or delimit scope. The mixed-case remark's admissibility/unused-variable observation is included in E09/E11. No named theorem, lemma, proposition, corollary, or definition is excluded.
+
+## Library search and external-result log
+
+- Initial whole-mathlib search for `duistermaat`, `van.der.kallen`, and mathematical `Mathieu` found no matching theorem. Laurent polynomials and additive monoid algebras exist.
+- Algebraic `Mathlib/Algebra/Lie/Sl2.lean`, weights, root systems, and `Geometry/Manifold/GroupLieAlgebra.lean` exist. No highest-weight existence theorem or root-subgroup integration theorem was located in the initial search. This is an investigation item, not yet an exception.
+- Continuous representations and Haar uniqueness/pushforward infrastructure exist. Exact declarations reused will be recorded below.
+
+## Imported results actually used
+
+- `Measure.haarMeasure`, `Measure.haarMeasure_self`, `MonoidHom.measurePreserving`, `integral_map_of_stronglyMeasurable`: normalized Haar construction and pullback, no extra countability hypotheses.
+- `IsSl2Triple.HasPrimitiveVectorWith.pow_toEnd_f_ne_zero_of_eq_nat` and `.pow_toEnd_f_eq_zero_of_eq_nat`: lowering identities in an existing finite-dimensional module. These do not supply L02/L06.
+- `Polynomial.derivative_monomial`, `derivative_comp`, `coeff_derivative`, `X_pow_dvd_iff`: primitive congruence.
+- `Polynomial.coeff_one_add_X_pow`, `coeff_X_pow_mul'`, `Nat.choose_symm`, `Nat.choose_pos`: Pascal coefficients and ranges.
+- `Polynomial.hasDerivAt`, `intervalIntegral.integral_eq_sub_of_hasDerivAt`, continuity implies interval integrability: the moment recurrence and primitive/integral correspondence.
+- `AddMonoidAlgebra.support_coeff_mul_subset`, `Set.Finite.isCompact_convexHull`, `geometric_hahn_banach_point_closed`, `exists_nat_gt`: separating-functional proof, retaining cancellation in support containment.
+- `LaurentPolynomial.T_add`, `T_pow`, `single_eq_C_mul_T`: exact transformed Laurent expansion and spectrum.
+
+## Validation and correspondence audit
+
+Current full library build passed (3533 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 currently has the polynomial primitive and derivative proved, but its integral/substitution correspondence is pending; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` has its measure and integral parts proved, but representative-function witness transport is pending. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
+
+## Resume notes
+
+Read the current Lean files and the current state above. Never infer that an intended theorem name exists merely because it occurs in the ledger. Do not remove outstanding obligations or replace them with conditional surrogates.
+
+
+## Detailed obstruction investigation (2026-09-17 UTC)
+
+### Torus noncancellation, independent of the group-theory layer
+
+The minimal current target is already the two-variable case:
+
+```lean
+∀ f : MultiLaurent 2, f ≠ 0 →
+  (0 : Fin 2 → ℝ) ∈ newtonPolytope f →
+  ∃ m : ℕ, 1 ≤ m ∧ constantTerm (f ^ m) ≠ 0
+```
+
+`MultiLaurent`, `constantTerm`, and `newtonPolytope` are actual definitions in
+`MathieuProperty/LaurentSupport.lean`. `scripts/CheckObligations.lean` checks the
+syntax/types of this target and the full manuscript target; it supplies NO proof.
+The full target is manuscript `thm:dvdk`; `cor:torus` and `thm:classification`
+depend on it. No version of that implication is used as a hypothesis in the current
+library. The strongest currently proved downstream statement is
+`eventual_constantTerm_zero_of_newton`: once zero is outside the actual Newton
+convex hull, every fixed multiplier has eventually zero constant term.
+
+Attempts and their exact limits:
+
+1. Whole-source searches of pinned mathlib for Duistermaat, van der Kallen, Mathieu,
+   Newton polytope and constant-term formulations found no such theorem. Inspected
+   Laurent polynomials, additive monoid algebras, support products, convex hulls,
+   and separation. These APIs suffice to prove the separation-to-eventual-vanishing
+   half, now implemented.
+2. Direct coefficient/support proof: proved monomial-power coefficients and support
+   bounds. Positive integer combinations of exponents only show that zero CAN
+   occur; they do not show that its complex coefficient survives cancellation.
+   `MathieuProperty.cancellationExample_square` checks CT(f²)=0 for
+   f=x+x⁻¹+i(y+y⁻¹), ruling out the naive positive-count argument. No implication
+   from a vanishing single moment to support separation is claimed.
+3. Alternative univariate encoding: integer specialization x_i↦t^{a_i} changes the
+   constant term by merging distinct exponent vectors. A map ℤ²→ℤ has a nontrivial
+   kernel, so injectivity on the original finite support cannot ensure injectivity
+   on supports of all unbounded powers. Thus applying a one-variable theorem to a
+   specialization does not provide the needed conclusion.
+4. Alternative finite group algebra/trace argument: reduction modulo a large lattice
+   preserves only a bounded range of powers; sufficiently high powers wrap around
+   and contribute new constant terms. Nilpotence results in finite group algebras
+   consequently do not prove the Laurent statement for all positive powers.
+5. Read the original proof in Duistermaat–van der Kallen (1998), Theorems 4–5.
+   Its arbitrary-rank route uses toroidal compactification, resolution of
+   singularities, and analytic continuation/asymptotics of period integrals.
+   Searched the pinned library for those infrastructures (including Hironaka,
+   toric varieties, Gauss–Manin, Nilsson and residue formulations), with no usable
+   implementations found. This is not a missing coefficient simplification lemma.
+6. Investigated the alternative algebraic/Puiseux proof in van den Essen–Schoone
+   (2025); its stated scope is dimension one and does not remove the rank-two
+   obstruction. No Newton–Puiseux theorem was found in pinned mathlib either.
+7. Checked the relevant older local gamma-torus Lean project. Its `ProofInputs`
+   structure assumes the exposed-face step where this theorem enters; it is not
+   an unconditional theorem that can be reused under the present soundness rules.
+
+Primary sources consulted:
+- [Duistermaat–van der Kallen original paper](https://wilberdk.home.xs4all.nl/publications/powers.pdf).
+- [van den Essen–Schoone, dimension-one generalization](https://doi.org/10.1016/j.jpaa.2024.107847).
+- [Zhao–Willems, finite group-algebra analogue](https://arxiv.org/abs/1009.5794).
+
+### Compact-group root existence, independent of the torus layer
+
+The algebraic finite-dimensional highest-weight-one lowering step was implemented
+using `Mathlib/Algebra/Lie/Sl2.lean`. This is a direct specialized proof of the
+specific lowering assertions, not an assumption of the doublet lemma.
+It requires an existing sl₂ triple and primitive weight-one vector. Those data
+are not constructed from an arbitrary compact simply connected simple group.
+
+The original route needs existence of the fundamental group representation and
+integration of a root Lie algebra. Searched all weights/root-system/Serre/sl₂
+files and the manifold/group files. `GroupLieAlgebra` has uses only in its own
+file and the alternative invariant-derivation construction; no compact Lie
+algebra decomposition, differential homomorphism integration, compact
+highest-weight representation existence, or root subgroup theorem was located.
+
+Alternative route considered: realize G faithfully as a unitary matrix group and
+construct the subgroup there. The matrix and algebraic representation APIs exist,
+but this route still requires faithful finite-dimensional continuous compact-group
+representations and a group/Lie-algebra bridge. No Peter–Weyl implementation was
+located. Changing the matrix model does not produce these existence theorems.
+A minimal necessary fragment, a continuous injective SU(2) homomorphism under the
+standard compact, connected, simply connected, simple Lie-algebra hypotheses, is
+recorded as an unproved type-checked target in `scripts/CheckObligations.lean`.
+It is strictly less than the full `lem:root-doublet`, so proving just that fragment
+would still not complete the paper.
+
+### Model and correspondence cautions for continuation
+
+- `Hopf.Space = ℂ × ℂ` uses its product topology. The sphere is explicitly
+  `{z // a z = 1}`. The product's default sup norm is NOT the Euclidean radial
+  norm. Future measure/radial proofs must use sqrt(a), or establish the Euclidean
+  coordinate equivalence; do not substitute the default product norm.
+- The current `haarIntegral` is on continuous functions. The representative
+  algebra and its restriction of this integral are not yet implemented.
+- Formal spectrum is over the polynomial coefficient ring; it is not the spectrum
+  after fixing x at an endpoint where some coefficients vanish.
+- The root target uses the actual manifold Lie algebra and conventional structural
+  hypotheses, not a custom class containing the desired root embedding.
+- A successful build and axiom audit certify the current proofs only. They say
+  nothing about missing ledger obligations or the unproved main theorems.
+
+## Milestone validation commands
+
+```sh
+lake build
+python3 scripts/audit_sources.py
+lake env lean scripts/AxiomAudit.lean
+lake env lean scripts/CheckObligations.lean
+python3 scripts/verify_mathieu_classification.py > /tmp/mathieu-verification.txt
+diff -u scripts/verify_mathieu_classification.txt /tmp/mathieu-verification.txt
+```
+
+The checked-in `scripts/axiom-audit.txt` records the current dependency audit.
+The main classification and uniform marker-tower theorems have no axiom reports
+because no declarations proving them exist yet. Foundational axiom whitelist:
+`propext`, `Classical.choice`, `Quot.sound`. All auxiliary tools and outputs stay
+under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
+
+
+Current inventory counts: PROVED=24, TODO=66, IN PROGRESS=9, BLOCKED=6.
+
+## Foundation milestone audit (not the final whole-paper audit)
+
+- Rebuilt all project modules after removing build products and restoring only the pinned dependency cache: `lake build` passed (3533 jobs).
+- 10 mathematical modules and one umbrella; 55 explicit theorem/lemma declarations.
+- 105 ledger rows: 24 PROVED, 66 TODO, 9 IN PROGRESS, 6 BLOCKED.
+- All 18 named results plus the named definition have ledger entries. Named results remain incomplete; the named definition is implemented.
+- `scripts/CheckObligations.lean` type-checks both torus targets and the root-embedding target, without claiming to prove them.
+- Source audit passes and checks that every mathematical module is reachable from the build umbrella.
+- Whole-namespace transitive axiom audit passes; see `scripts/axiom-audit.txt`.
+- Verifier and its checked-in output are byte-identical to the original files; fresh output matches exactly.
+- Manuscript diff is empty.
+- Proof substitutions: formal coefficient divisibility replaces the prose polynomial congruence calculation; an elementary derivative/integration recurrence proves c_m's factorial formula without relying on the beta function. Neither substitutes for the sphere-measure theorem.
+- No classification theorem, uniform marker-tower theorem, or conditional surrogate thereof was added. The final adversarial whole-paper audit cannot pass while outstanding obligations remain.
