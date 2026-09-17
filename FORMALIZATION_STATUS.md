@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/lean-foundations`; foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/representative-functions`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 complete; coherent foundation milestone covers 10 mathematical modules plus the import umbrella. No principal theorem is proved. The main classification, uniform nonabelian tower, sphere integral, radial transfer, root subgroup existence, and torus direction remain outstanding.
+- M0 and M1 complete; the library covers 11 mathematical modules plus the import umbrella. The representative-algebra and Haar-pullback lemmas are proved; no principal classification or moment theorem is proved. The main classification, uniform nonabelian tower, sphere integral, radial transfer, root subgroup existence, and torus direction remain outstanding.
 - Completion is prevented by the documented library exception below, independently of the many remaining ordinary obligations. The checked foundations are preserved through PR #1; remote validation and merge state are available there. No weakening or conditional main theorem is authorized.
 - No false manuscript statement identified. Library exception under attached prompt §16: the rank-two Duistermaat–van der Kallen noncancellation step remains unproved after the searches and proof attempts below. The known general proof would require major new toric/analytic infrastructure, which is not realistically achievable as a routine continuation of this paper formalization. The foundation milestone is incomplete coverage, not a completed formalization.
 
@@ -41,8 +41,8 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | Manuscript label / obligation | Mathematical statement | Intended Lean declaration | Module | Dependencies | Status | Proof route | Library issue |
 |---|---|---|---|---|---|---|---|
 | def:mathieu-subspace | Positive powers in a subspace imply eventual membership after each fixed multiplier | IsMathieuSubspace | Basic |  | PROVED | Manuscript |  |
-| lem:representative-algebra | Unital star algebra; tensor/conjugate coefficients; continuous pullback | representative_algebra | RepresentativeFunctions | D-representative; U-tensor; U-conjugate | TODO | Manuscript |  |
-| lem:haar-pullback | Surjective continuous homomorphisms preserve normalized Haar integrals and counterexamples | map_normalizedHaar; haar_pullback; counterexample_pullback | Haar / Basic | D-haar; U-haar-map; U-counterexample-pullback | IN PROGRESS | Manuscript | Full compact-group measure and continuous integral identities proved; representative pullback correspondence pending. |
+| lem:representative-algebra | Unital star algebra; tensor/conjugate coefficients; continuous pullback | representative_algebra; MatrixRepresentation.coefficient_mul; MatrixRepresentation.coefficient_conj; representative_comp | RepresentativeFunctions | D-representative; U-tensor; U-conjugate | PROVED | Coordinate model, with formal basis/tensor correspondence | Exact finite span equals the constructed star algebra; arbitrary finite-dimensional representation coefficients included. |
+| lem:haar-pullback | Surjective continuous homomorphisms preserve normalized Haar integrals and counterexamples | map_normalizedHaar; haar_pullback; representative_counterexample_pullback; HasMathieuProperty.of_surjective | Haar / Basic | D-haar; U-haar-map; U-counterexample-pullback | PROVED | Manuscript | Normalized Haar identity and pullback on the actual representative algebra; no residual closure assumptions. |
 | thm:hopf-coefficient | Sphere integral H(q)p^m = c_m times coefficient m of H(X)(1+X)^(m-1), m≥1 | hopf_primitive_coefficient | HopfCoefficient / HopfIntegral (planned) | H01–H12 | IN PROGRESS | Manuscript | Coefficient kernel checked, sphere-measure correspondence pending. |
 | cor:sphere-marker-tower | Pure moments zero; all marked moments, vanishing/strict positivity ranges | sphere_marker_tower | HopfIntegral | thm:hopf-coefficient; H13; H14 | TODO | Manuscript |  |
 | thm:radial-transfer | All finite compactly supported positive SU(2)-invariant measures: pure and marked formulas with radial power and positivity | radial_transfer | RadialTransfer | R01–R08; cor:sphere-marker-tower | TODO | Manuscript |  |
@@ -59,16 +59,16 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | thm:classification | For every compact connected Lie group: Mathieu property iff abelian iff torus | classification | MainTheorem | thm:uniform-nonabelian; cor:torus; T01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | prop:explicit-abelian-SU2 | Transformed Laurent pair: exact moments, printed expansion, exact spectrum | Abelian.formal_expansion; Abelian.formal_spectrum | AbelianAlgebra / AbelianLaurent | E01–E09; thm:hopf-coefficient | IN PROGRESS | Manuscript | Algebra and spectrum checked; exact moment formulas and transform measure correspondence pending. |
 | cor:abelian-reductions | Failure of both universal abelian conjectures, growth claim and specified Zwart reductions | abelian_reductions | AbelianWitness | E10–E14; prop:explicit-abelian-SU2; thm:classification | TODO | Manuscript |  |
-| D-representative | Finite linear combinations of coefficients of finite-dimensional continuous complex representations | representativeFunctions | RepresentativeFunctions |  | TODO | Manuscript |  |
-| D-haar | Normalized Haar integration on representative functions | normalizedHaar; haarIntegral | Haar | D-representative | IN PROGRESS | Manuscript | Defined on continuous functions. Restriction to representative algebra pending. |
-| D-property | Mathieu property is Mathieu condition on the kernel of Haar integral | MathieuProperty | Haar | D-haar; def:mathieu-subspace | TODO | Manuscript |  |
+| D-representative | Finite linear combinations of coefficients of finite-dimensional continuous complex representations | representativeFunctions; representative_eq_span_coefficients; representation_coefficient_mem | RepresentativeFunctions |  | PROVED | Coordinate model, with formal basis correspondence | Finite linear span, without topological closure; arbitrary finite-dimensional normed complex representation spaces and joint continuity checked. |
+| D-haar | Normalized Haar integration on representative functions | normalizedHaar; representativeIntegral; representativeIntegral_one | Haar | D-representative | PROVED | Manuscript | Linear restriction to the representative algebra; integrability and normalization proved. |
+| D-property | Mathieu property is Mathieu condition on the kernel of Haar integral | HasMathieuProperty | Haar | D-haar; def:mathieu-subspace | PROVED | Manuscript | Mathieu condition on the kernel of representativeIntegral. |
 | D-hopf | a, τ, u, v, universal P,Q, sphere restrictions p,q | Hopf.a; Hopf.tau; Hopf.u; Hopf.v; Hopf.P; Hopf.Q; Hopf.Sphere; Hopf.p; Hopf.q | HopfAlgebra |  | PROVED | Manuscript |  |
 | D-cm | Integral c_m and factorial/beta/double-factorial alternatives | momentConstant | MomentConstant |  | IN PROGRESS | Substitute: polynomial primitive / integration recurrence | Integral definition, recurrence, factorial ratio and positivity checked. |
 | D-CT | Coefficient and Laurent constant term conventions; negative coefficients zero | MultiLaurent; constantTerm; newtonPolytope | LaurentSupport |  | PROVED | Manuscript | AddMonoidAlgebra on Fin d → ℤ; coefficients include cancellation. |
 | D-Phi | Orthogonal projection coordinates and group A,P,Q | projectionCoordinates | SimpleGroups | L08 | TODO | Manuscript |  |
 | D-explicit | U,V,T, transformed P_ab,Q_ab and matrix-entry representatives | Abelian.U; Abelian.V; Abelian.T; Abelian.P; Abelian.Q; Abelian.A₀; Abelian.U₀; Abelian.V₀; Abelian.T₀; Abelian.entryP; Abelian.formalP; Abelian.formalQ | AbelianAlgebra / AbelianLaurent |  | PROVED | Manuscript | The formal algebra is ℂ[x][w,w⁻¹]. |
-| U-tensor | Product of coefficients is a tensor-product coefficient | coefficient_mul | RepresentativeFunctions | D-representative | TODO | Manuscript |  |
-| U-conjugate | Conjugate coefficient uses conjugate continuous representation | coefficient_conj | RepresentativeFunctions | D-representative | TODO | Manuscript |  |
+| U-tensor | Product of coefficients is a tensor-product coefficient | MatrixRepresentation.coefficient_mul; MatrixRepresentation.tensor_toMatrix | RepresentativeFunctions | D-representative | PROVED | Coordinate tensor model | Kronecker matrices identified with mathlib Representation.tprod in the tensor basis. |
+| U-conjugate | Conjugate coefficient uses conjugate continuous representation | MatrixRepresentation.coefficient_conj; MatrixRepresentation.conjugate_action | RepresentativeFunctions | D-representative | PROVED | Coordinate conjugate model | Entrywise conjugation, including the action and arbitrary covectors/vectors. |
 | U-haar-map | Pushforward Haar: probability, left invariance and uniqueness | map_normalizedHaar | Haar | D-haar | PROVED | Manuscript | Uses normalizedHaar, whose mass-one and Haar instances are proved. |
 | U-counterexample-pullback | Power and multiplier identities preserved under algebra homomorphism with functional compatibility | counterexample_pullback | Basic | def:mathieu-subspace | PROVED | Manuscript |  |
 | U-not-mathieu | A fixed witness with all pure powers inside and all marked powers outside refutes Mathieu | not_isMathieuSubspace_of_witness | Basic | def:mathieu-subspace | PROVED | Manuscript |  |
@@ -168,7 +168,7 @@ Historical claims in the introduction about the Jacobian conjecture, announcemen
 
 ## Validation and correspondence audit
 
-Current full library build passed (3533 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 currently has the polynomial primitive and derivative proved, but its integral/substitution correspondence is pending; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` has its measure and integral parts proved, but representative-function witness transport is pending. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
+Current full library build passed (3539 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 currently has the polynomial primitive and derivative proved, but its integral/substitution correspondence is pending; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
 
 ## Resume notes
 
@@ -268,8 +268,9 @@ would still not complete the paper.
   `{z // a z = 1}`. The product's default sup norm is NOT the Euclidean radial
   norm. Future measure/radial proofs must use sqrt(a), or establish the Euclidean
   coordinate equivalence; do not substitute the default product norm.
-- The current `haarIntegral` is on continuous functions. The representative
-  algebra and its restriction of this integral are not yet implemented.
+- `haarIntegral` is on continuous functions; `representativeIntegral` is its proved
+  linear restriction to the finite-span representative algebra. `HasMathieuProperty`
+  uses the kernel of this actual functional, with no surrogate closure assumptions.
 - Formal spectrum is over the polynomial coefficient ring; it is not the spectrum
   after fixing x at an endpoint where some coefficients vanish.
 - The root target uses the actual manifold Lie algebra and conventional structural
@@ -295,7 +296,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=24, TODO=66, IN PROGRESS=9, BLOCKED=6.
+Current inventory counts: PROVED=31, TODO=61, IN PROGRESS=7, BLOCKED=6.
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -319,3 +320,31 @@ contains the foundation milestone and the verifier relocation. It is explicitly
 labelled partial coverage; its build result must not be read as full-paper certification.
 The PR description records the source, transitive-axiom, correspondence and
 symbolic-verifier self-review. Merge only after the PR checks succeed.
+
+## Representative-function milestone (M1)
+
+`RepresentativeFunctions.lean` implements continuous complex matrix representations,
+finite coefficient spans, and the unital star algebra. This is a coordinate model
+of the manuscript definition, with explicit correspondence proofs:
+
+- `representation_coefficient_mem` maps coefficients from arbitrary finite-dimensional
+  normed complex representation spaces (in any universe) into this algebra using a basis.
+- `representative_eq_span_coefficients` and `representative_algebra` identify the
+  constructed algebra exactly with finite linear combinations of ordinary coefficients.
+- `continuous_action` proves joint continuity. This matters because mathlib's
+  `ContRepresentation` alone asserts continuity of individual linear operators,
+  without requiring continuity in the group variable.
+- `tensor_toMatrix` identifies Kronecker matrices with `Representation.tprod` in
+  the tensor basis. `coefficient_mul` proves the full arbitrary-vector/covector formula.
+- `conjugate_action` and `coefficient_conj` prove the conjugate representation assertions.
+- `representativePullback` is an actual algebra homomorphism on these algebras.
+
+`Haar.lean` now proves integrability, defines the normalized linear functional on
+representative functions and `HasMathieuProperty`, and proves the full quotient
+pullback and failure statements. No compact-group classification, root-subgroup,
+or Laurent noncancellation theorem is assumed in these declarations.
+
+The manuscript is unchanged. The remaining library obstructions are unchanged,
+but they do not prevent completing these independent obligations.
+
+M1 validation: `lake build` passed (3539 jobs); source audit passed for 14 Lean files; transitive axiom audit passed for 246 project declarations (177 theorem constants, including generated declarations). The whitelist remains `propext`, `Classical.choice`, `Quot.sound`. Outstanding statement checks pass.

@@ -1,6 +1,9 @@
 import Mathlib.MeasureTheory.Measure.Haar.Unique
 import Mathlib.MeasureTheory.Integral.Bochner.ContinuousLinearMap
 import Mathlib.Topology.ContinuousMap.Compact
+import Mathlib.MeasureTheory.Function.LocallyIntegrable
+import MathieuProperty.Basic
+import MathieuProperty.RepresentativeFunctions
 
 /-! Normalized Haar measure and the integral identity in Lemma 2.3.
 The representative-function correspondence is developed separately.
@@ -29,6 +32,26 @@ instance : IsProbabilityMeasure (normalizedHaar G) where
 /-- Normalized Haar integration on continuous complex-valued functions. -/
 def haarIntegral (f : C(G, ℂ)) : ℂ := ∫ g, f g ∂normalizedHaar G
 
+theorem haar_integrable (f : C(G, ℂ)) : Integrable f (normalizedHaar G) :=
+  f.continuous.integrable_of_hasCompactSupport (HasCompactSupport.of_compactSpace _)
+
+/-- Haar integration as a linear functional; compactness supplies integrability. -/
+def haarIntegralLinear : C(G, ℂ) →ₗ[ℂ] ℂ where
+  toFun := haarIntegral G
+  map_add' f h := integral_add (haar_integrable G f) (haar_integrable G h)
+  map_smul' c f := integral_smul c f
+
+/-- Normalized Haar integration restricted to the actual representative algebra. -/
+def representativeIntegral : representativeFunctions (G := G) →ₗ[ℂ] ℂ :=
+  (haarIntegralLinear G).comp (representativeFunctions (G := G)).val.toLinearMap
+
+/-- The exact Mathieu property of the compact group, on representative functions. -/
+def HasMathieuProperty : Prop := IsMathieuSubspace (LinearMap.ker (representativeIntegral G))
+
+theorem representativeIntegral_one : representativeIntegral G 1 = 1 := by
+  change (∫ _ : G, (1 : ℂ) ∂normalizedHaar G) = 1
+  simp
+
 variable {G} {H : Type*} [Group H] [TopologicalSpace H] [IsTopologicalGroup H]
   [CompactSpace H] [MeasurableSpace H] [BorelSpace H]
 
@@ -43,5 +66,40 @@ theorem haar_pullback (π : G →* H) (hπ : Continuous π) (hs : Function.Surje
   rw [← map_normalizedHaar π hπ hs]
   exact (integral_map_of_stronglyMeasurable hπ.measurable
     f.continuous.stronglyMeasurable).symm
+
+/-- Manuscript-facing pullback identity on representative functions. -/
+theorem representativeIntegral_pullback (π : G →* H) (hπ : Continuous π)
+    (hs : Function.Surjective π) (f : representativeFunctions (G := H)) :
+    representativeIntegral G (representativePullback π hπ f) = representativeIntegral H f :=
+  haar_pullback π hπ hs f.val
+
+/-- The Mathieu property passes to a continuous surjective group quotient. -/
+theorem HasMathieuProperty.of_surjective (hG : HasMathieuProperty G)
+    (π : G →* H) (hπ : Continuous π) (hs : Function.Surjective π) : HasMathieuProperty H := by
+  have hker : LinearMap.ker (representativeIntegral H) =
+      (LinearMap.ker (representativeIntegral G)).comap (representativePullback π hπ).toLinearMap := by
+    ext f
+    simp only [LinearMap.mem_ker, Submodule.mem_comap, AlgHom.toLinearMap_apply,
+      representativeIntegral_pullback π hπ hs]
+  unfold HasMathieuProperty
+  rw [hker]
+  exact IsMathieuSubspace.comap (A := representativeFunctions (G := H))
+    (B := representativeFunctions (G := G)) hG (representativePullback π hπ)
+
+/-- A quotient which fails the Mathieu property forces the source to fail it too. -/
+theorem not_mathieuProperty_of_quotient (π : G →* H) (hπ : Continuous π)
+    (hs : Function.Surjective π) (hH : ¬ HasMathieuProperty H) : ¬ HasMathieuProperty G :=
+  fun hG => hH (hG.of_surjective π hπ hs)
+
+/-- The fixed witnesses themselves pull back, with no representative-function
+closure or integration hypotheses left to discharge. -/
+theorem representative_counterexample_pullback (π : G →* H) (hπ : Continuous π)
+    (hs : Function.Surjective π) (f h : representativeFunctions (G := H))
+    (hpure : ∀ m : ℕ, 1 ≤ m → representativeIntegral H (f ^ m) = 0)
+    (hmarked : ∀ m : ℕ, 1 ≤ m → representativeIntegral H (h * f ^ m) ≠ 0) :
+    ¬ HasMathieuProperty G :=
+  counterexample_pullback (A := representativeFunctions (G := H))
+    (B := representativeFunctions (G := G)) (representativePullback π hπ) (representativeIntegral H)
+    (representativeIntegral G) (representativeIntegral_pullback π hπ hs) f h hpure hmarked
 
 end MathieuProperty

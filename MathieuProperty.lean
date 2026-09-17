@@ -1,4 +1,5 @@
 import MathieuProperty.Basic
+import MathieuProperty.RepresentativeFunctions
 import MathieuProperty.HopfAlgebra
 import MathieuProperty.Haar
 import MathieuProperty.RootDoubletAlgebra
