@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/haar-unitarization`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/center-descent`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 40 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
+- M0 and M1 complete; the library covers 42 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 remains open; the sphere theorem uses a documented invariant-moment proof instead.
 - Completion is prevented by the documented library exception below, independently of the many remaining ordinary obligations. The checked foundations are preserved through PR #1; remote validation and merge state are available there. No weakening or conditional main theorem is authorized.
 - No false manuscript statement identified. Library exception under attached prompt §16: the rank-two Duistermaat–van der Kallen noncancellation step remains unproved after the searches and proof attempts below. The known general proof would require major new toric/analytic infrastructure, which is not realistically achievable as a routine continuation of this paper formalization. The foundation milestone is incomplete coverage, not a completed formalization.
 
@@ -50,8 +50,8 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | lem:radial-pushforward | Projected Haar is compactly supported invariant probability, not concentrated at zero | doublet_radial_pushforward | ProjectedHaar | lem:root-doublet; L08–L11 | PROVED | Manuscript | Given the manuscript’s standing unitary doublet data: actual projected Haar probability, compact ball support, SU(2) invariance, and positive mass off zero. Root-doublet existence remains open. |
 | thm:simply-connected-simple | Representative A,P,Q, nonnegative nonzero A, exact tower on all compact simply connected simple groups | doublet_pure; doublet_marked; doublet_marked_positive; unitary_doublet_not_mathieu (transfer only) | DoubletWitness / RootSU2 (planned) | lem:radial-pushforward; thm:radial-transfer; lem:representative-algebra | IN PROGRESS | Manuscript | Complete representative-function transfer proved for explicitly supplied unitary defining-doublet data. Existence of those data for all simply connected simple groups is unproved; no general simple-group theorem claimed. |
 | prop:classical-closed-forms | Defining SU(n), n≥2, and Sp(n), n≥1: rising factorial formulas and printed examples | classical_closed_forms | ClassicalGroups | C01–C07; thm:simply-connected-simple | TODO | Manuscript |  |
-| lem:center-descent | Six functions descend as representative functions through full center and intermediate quotients | center_descent | CenterDescent | Z01–Z04; H04 | TODO | Manuscript |  |
-| cor:simple-central-forms | Exact marker tower and Mathieu failure for every compact connected simple central form | simple_central_forms | CenterDescent | Z05; lem:center-descent; lem:haar-pullback; thm:simply-connected-simple | TODO | Manuscript |  |
+| lem:center-descent | Six functions descend as representative functions through full center and intermediate quotients | doublet_center_invariant; center_descent | CenterDescent | Z01–Z04; H04 | PROVED | Manuscript | For the standing irreducible unitary representation and projected coordinates: all six functions are invariant under the full center and descend as actual representative functions through every central subgroup. No universal representation-existence claim. |
+| cor:simple-central-forms | Exact marker tower and Mathieu failure for every compact connected simple central form | center_quotient_tower (transfer only) | QuotientWitness / SimpleGroups (planned) | Z05; lem:center-descent; lem:haar-pullback; thm:simply-connected-simple | IN PROGRESS | Manuscript | All moments, nonnegative nonzero A, strict positivity, and Mathieu failure descend through every central quotient of a supplied irreducible defining doublet. Universal source representation and simple-cover existence remain unproved. |
 | prop:adjoint-simple-quotient | Every nonabelian compact connected Lie group surjects continuously onto adjoint compact simple group | adjoint_simple_quotient | AdjointQuotient | G01–G06 | TODO | Manuscript |  |
 | thm:uniform-nonabelian | Full manuscript quantifiers, representative triple and radial moment tower, positivity and vanishing | uniform_nonabelian | MainTheorem | prop:adjoint-simple-quotient; cor:simple-central-forms; lem:haar-pullback | TODO | Manuscript |  |
 | thm:dvdk | Nonzero complex multivariate Laurent f with all positive-power constant terms zero has Newton polytope avoiding zero | duistermaat_van_der_kallen | Torus | T04 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
@@ -117,10 +117,10 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | C05 | Sp(n) defining action transitive on complex 2n sphere with same invariant measure | Sp_sphere_transitive | ClassicalGroups |  | TODO | Manuscript |  |
 | C06 | Endpoint n=2 for SU and n=1 for Sp: A=1 and ratio=1 | classical_endpoints | ClassicalGroups | C01; C05 | TODO | Manuscript |  |
 | C07 | Nine rational examples for m=1,2,3 | classical_small_values | ClassicalGroups | C04; H12 | TODO | Manuscript |  |
-| Z01 | Schur lemma: center acts by scalar of modulus one | center_scalar | CenterDescent | L02; L03 | TODO | Manuscript |  |
-| Z02 | Balanced coefficients invariant; tensor representation has trivial central action | balanced_center_trivial | CenterDescent | Z01; H04 | TODO | Manuscript |  |
-| Z03 | Tensor conjugate representation factors continuously through central quotient | tensor_factors_quotient | CenterDescent | Z02 | TODO | Manuscript |  |
-| Z04 | All six functions are coefficients of sums/tensor powers on quotient | descended_representative | CenterDescent | Z03; lem:representative-algebra | TODO | Manuscript |  |
+| Z01 | Schur lemma: center acts by scalar of modulus one | center_scalar; unitary_center_scalar | CenterDescent | L02; L03 | PROVED | Manuscript | mathlib algebraically closed Schur lemma; norm preservation gives scalar modulus one. |
+| Z02 | Balanced coefficients invariant; tensor representation has trivial central action | doublet_center_invariant; MatrixRepresentation.balanced_tensor_trivial | CenterDescent | Z01; H04 | PROVED | Manuscript | All six phase-balanced quantities are invariant; the actual tensor/conjugate matrix representation is identity on every unit scalar action. |
+| Z03 | Tensor conjugate representation factors continuously through central quotient | MatrixRepresentation.descend; MatrixRepresentation.balancedDescend; MatrixRepresentation.descend_coefficient | CenterDescent | Z02 | PROVED | Manuscript | Actual quotient homomorphism; quotient topology proves entry continuity and exact coefficient pullback. |
+| Z04 | All six functions are coefficients of sums/tensor powers on quotient | MatrixRepresentation.descendedBalancedCoefficient_apply; MatrixRepresentation.descended_hopf_functions; center_descent | CenterDescent | Z03; lem:representative-algebra | PROVED | Manuscript | Quotient coefficients of the balanced tensor representation generate all six quantities inside the representative subalgebra. Final wrapper identifies them with orthogonal-projection coordinates. |
 | Z05 | Any compact connected simple central form is central quotient of compact simply connected simple cover | simple_cover | CenterDescent |  | TODO | Manuscript |  |
 | G01 | Compact Lie algebra decomposes as center plus simple ideals | compact_lie_decomposition | AdjointQuotient |  | TODO | Manuscript |  |
 | G02 | Connected nonabelian group has at least one simple ideal | nonabelian_simple_ideal | AdjointQuotient | G01 | TODO | Manuscript |  |
@@ -173,7 +173,7 @@ Historical claims in the introduction about the Jacobian conjecture, announcemen
 
 ## Validation and correspondence audit
 
-Current full library build passed (3638 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 now has the full cyclic submodule, irreducibility, and exact defining matrices. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
+Current full library build passed (3647 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 now has the full cyclic submodule, irreducibility, and exact defining matrices. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
 
 ## Resume notes
 
@@ -302,7 +302,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=66, TODO=32, IN PROGRESS=6, BLOCKED=6 (110 rows).
+Current inventory counts: PROVED=71, TODO=26, IN PROGRESS=7, BLOCKED=6 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -764,3 +764,47 @@ Only the three approved foundations occur. There are 332 explicit theorem/lemma
 declarations in 40 mathematical modules. The ledger records 66/110 obligations
 proved (32 TODO, 6 IN PROGRESS, 6 BLOCKED). The verifier output matches exactly,
 the remaining target statements type-check, and the manuscript is unchanged.
+
+
+## Center descent
+
+Haar unitarization was merged as
+[PR #13](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/13)
+at `c95475244ce6240dad0649d7f656d68ae928f2e4`, after CI run `35181312147` passed.
+
+`CenterDescent.lean` applies mathlib's algebraically closed Schur lemma to the
+central intertwining endomorphism. In a nontrivial irreducible unitary
+representation the scalar has modulus one, by comparing the norm of a nonzero
+vector. The projection coordinates transform by this same scalar, and the
+proved phase-balance identities give invariance of all six Hopf functions.
+
+The tensor product with the conjugate matrix representation is identity on
+every unit scalar action. `MatrixRepresentation.descend` constructs a quotient
+group homomorphism and proves continuity from the quotient topology. The
+descended balanced coefficients pull back exactly to zᵢ conjugate(zⱼ). Their
+algebraic combinations construct A, τ, u, v, P, Q in the actual representative
+algebra on the quotient. The final `center_descent` wrapper chooses a basis of
+the supplied unitary space, identifies its coefficients with the projected
+coordinates, and proves all six pullback identities for every central subgroup.
+Normality follows from centrality, with no additional assumption.
+
+This completes Z01–Z04 and Lemma `lem:center-descent` with its manuscript
+standing representation data. The simply connected representation-existence
+step and the covering theorem for general compact simple central forms remain
+unproved; Corollary `cor:simple-central-forms` is not claimed as a general
+existence theorem.
+
+`QuotientWitness.lean` transports the exact marker tower through the actual
+quotient homomorphism. It constructs nonnegative nonzero A, proves every pure
+and marked moment formula with normalized quotient Haar, proves both index
+ranges, and derives failure of the Mathieu property. This makes the central-form
+corollary IN PROGRESS: transfer is complete, but the universal representation
+and covering inputs are still unproved. Next: group structure and classical
+distribution obligations, while preserving the separate foundational gaps.
+
+Center-descent validation: `lake build` passed (3647 jobs); source audit passed
+for 45 Lean files. Axiom audit passed: 918 project declarations, 744 theorems.
+Only propext, Classical.choice, and Quot.sound occur in dependencies. There are
+42 mathematical modules. The ledger records 71/110 obligations proved
+(26 TODO, 7 IN PROGRESS, 6 BLOCKED). The verifier output matches exactly,
+remaining target statements type-check, and the manuscript remains unchanged.
