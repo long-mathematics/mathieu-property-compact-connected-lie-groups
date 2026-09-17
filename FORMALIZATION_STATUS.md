@@ -12,10 +12,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/hopf-coordinate-measure`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
+- Development branch: `formalization/su2-sphere-action`; prior foundation milestone [PR #1](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/1). Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 17 mathematical modules plus the import umbrella. The representative-algebra and Haar-pullback lemmas are proved; no principal classification or moment theorem is proved. The main classification, uniform nonabelian tower, sphere integral, radial transfer, root subgroup existence, and torus direction remain outstanding.
+- M0 and M1 complete; the library covers 20 mathematical modules plus the import umbrella. The representative-algebra and Haar-pullback lemmas are proved; no principal classification or moment theorem is proved. The main classification, uniform nonabelian tower, sphere integral, radial transfer, root subgroup existence, and torus direction remain outstanding.
 - Completion is prevented by the documented library exception below, independently of the many remaining ordinary obligations. The checked foundations are preserved through PR #1; remote validation and merge state are available there. No weakening or conditional main theorem is authorized.
 - No false manuscript statement identified. Library exception under attached prompt §16: the rank-two Duistermaat–van der Kallen noncancellation step remains unproved after the searches and proof attempts below. The known general proof would require major new toric/analytic infrastructure, which is not realistically achievable as a routine continuation of this paper formalization. The foundation milestone is incomplete coverage, not a completed formalization.
 
@@ -86,8 +86,8 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | H12 | Integral c_m equals factorial ratio, beta and double factorial expressions; positive | momentConstant_factorial; momentConstant_beta; momentConstant_doubleFactorial; momentConstant_pos | MomentConstant | D-cm | PROVED | Substitute: integration recurrence and mathlib beta integral | Integral, factorial, double-factorial, and beta forms all proved. |
 | H13 | Coefficient m of X^s(1+X)^(m-1) is choose(m-1,s-1), including s>m | pascal_coefficient | HopfCoefficient |  | PROVED | Manuscript |  |
 | H14 | Unmarked coefficient zero; binomial positive iff 1≤s≤m | pure_pascal_coefficient; pascal_marker_pos; pascal_marker_zero | HopfCoefficient / MomentConstant | H13 | PROVED | Manuscript | Includes every positive/vanishing index range. |
-| R01 | Explicit SU(2) matrix proves transitivity on each nonzero sphere | SU2_transitive_sphere | RadialTransfer |  | TODO | Manuscript |  |
-| R02 | Orbit Haar pushforward equals normalized surface measure | Hopf.surfaceMeasure_preserving | SphereSymmetry / RadialTransfer (planned) | R01; D-haar | IN PROGRESS | Invariant surface measure | All real orthogonal symmetries preserve the actual normalized surface measure. SU(2) action, orbit transitivity and Haar pushforward identification remain to be connected. |
+| R01 | Explicit SU(2) matrix proves transitivity on each nonzero sphere | Hopf.SU2_transitive_sphere; Hopf.SU2_transitive_equal_a | SU2Action / SU2Orbit |  | PROVED | Manuscript | Actual determinant-one unitary matrices; continuous defining action, sphere homeomorphism, and transitivity on every level of a. |
+| R02 | Orbit Haar pushforward equals normalized surface measure | Hopf.su2_orbit_map; Hopf.su2_orbit_integral | SphereSymmetry / SU2Action / SU2Orbit / OrbitMeasure | R01; D-haar | PROVED | Invariant surface measure and Tonelli | Actual SU(2) action preserves Euclidean surface measure; transitivity and right Haar invariance identify every unit-sphere orbit pushforward. |
 | R03 | Invariant-measure orbit averaging for integrable functions, product measurability and integrability | measurePreserving_smul_prod; orbit_average_integrable; integrable_orbit_function | OrbitAverage | D-haar | PROVED | Manuscript | Every integrable complex function under a continuous compact-group action with invariant finite Borel measure; product integrability is derived from invariance. Includes the continuous compact-support case. |
 | R04 | Compact support gives integrability of all polynomial moments | Hopf.integrable_polynomial_compactSupport | SphereMeasure | D-hopf | PROVED | Manuscript | Finite Borel measures on ℂ² with compact support; general continuous integrands covered too. |
 | R05 | Radial reduction r^(8m+2s)=a^(4m+s), including zero vector | Hopf.radial_power; Hopf.radial_real_exponent | SphereMeasure | H03 | PROVED | Manuscript | Exact exponent and sphere scaling for all scalars, including zero. |
@@ -168,7 +168,7 @@ Historical claims in the introduction about the Jacobian conjecture, announcemen
 
 ## Validation and correspondence audit
 
-Current full library build passed (3613 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
+Current full library build passed (3616 jobs). The verifier moved unchanged to `scripts/verify_mathieu_classification.py`; its output exactly matches `scripts/verify_mathieu_classification.txt` (diff exit 0). H09 now has the complete primitive and integral/substitution correspondence proved; L05 has both lowering identities but full submodule equivalence is pending. Lemma `lem:haar-pullback` is now fully proved, including actual representative-function witness transport. Final classification and uniform theorem axiom audits are not available because those theorems have not been proved.
 
 ## Resume notes
 
@@ -297,7 +297,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=40, TODO=52, IN PROGRESS=7, BLOCKED=6.
+Current inventory counts: PROVED=42, TODO=51, IN PROGRESS=6, BLOCKED=6.
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -452,3 +452,50 @@ Continuation priorities:
 No central theorem is added under assumptions of these remaining correspondences.
 
 Coordinate/symmetry validation: `lake build` passed (3613 jobs), the source audit passed for 20 Lean files, and the namespace axiom audit passed for 388 declarations (305 theorem constants including generated declarations). There are 142 explicit theorem/lemma declarations in 17 mathematical modules. Only `propext`, `Classical.choice`, and `Quot.sound` occur; outstanding target statements still type-check.
+
+
+## Defining SU(2) action and radial reduction
+
+The coordinate/averaging milestone was merged as
+[PR #5](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/5)
+at `077903cac290bf764dde5dc03919e9788a01513b` after successful CI.
+
+`SU2Action.lean` uses mathlib's actual `Matrix.specialUnitaryGroup (Fin 2) ℂ`.
+The explicit first-column matrix defines a homeomorphism with the unit sphere;
+its inverse is derived from the unitary and determinant-one equations, using the
+adjugate identity. This proves compactness. The defining continuous linear action
+on ℂ² preserves `a`, gives a real Euclidean linear isometry, and preserves the
+previously constructed surface measure. Explicit matrices prove transitivity.
+`SU2Orbit.lean` extends transitivity to every level of `a`, including zero.
+
+`Haar.lean` now proves right invariance of normalized Haar measure on any compact
+group using Haar uniqueness and total mass one. `OrbitMeasure.lean` proves that a
+transitive continuous action of a compact group sends normalized Haar to its
+invariant probability measure. Its proof uses Tonelli and the proved right
+invariance; transitivity and invariance are discharged explicitly for SU(2).
+Consequently `su2_orbit_map` identifies Haar orbit measure with the actual
+normalized Euclidean surface measure, not a newly stipulated measure.
+
+`su2_orbit_moment` proves for every z and all natural m,s that the orbit moment is
+`a(z)^(4m+s)` times the corresponding sphere moment. The proof includes zero.
+`radial_moment_factorization` integrates this identity for any finite compactly
+supported SU(2)-invariant Borel measure. It uses the already proved orbit averaging
+and integrability results. No sphere coefficient identity is assumed in these
+statements. R01 and R02 are now fully proved; the named radial-transfer theorem
+still depends on the unproved sphere coefficient formula.
+
+Next work: establish the sphere polynomial moments, then combine them with the
+proved coefficient kernel and radial factorization. The coordinate Jacobian route
+remains available. A possible alternative is to derive mixed coordinate moments
+from unitary invariance by polynomial coefficient comparison, then prove the
+surface integration formula on polynomial functions. This alternative has not
+been proved yet and does not close H05 (the exact coordinate-density statement).
+The independent root-group and Laurent noncancellation obstructions are unchanged.
+
+SU(2)/orbit validation: `lake build` passed (3616 jobs); source audit passed for
+23 Lean files; whole-namespace axiom audit passed for 449 declarations (356 theorem
+constants, including generated declarations), using only the three approved
+foundations. There are 165 explicit theorem/lemma declarations in 20 mathematical
+modules. All 105 ledger obligations remain inventoried: 42 proved, 51 TODO,
+6 in progress, 6 blocked. The symbolic verifier reproduces its checked-in output
+exactly; precise outstanding-obligation statements still type-check.

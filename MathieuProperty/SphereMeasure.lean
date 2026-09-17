@@ -18,6 +18,8 @@ abbrev EuclideanPair := WithLp 2 Space
 instance : TopologicalSpace Sphere := inferInstanceAs (TopologicalSpace {z : Space // a z = 1})
 instance : MeasurableSpace Sphere := inferInstanceAs (MeasurableSpace {z : Space // a z = 1})
 instance : BorelSpace Sphere := inferInstanceAs (BorelSpace {z : Space // a z = 1})
+instance : SecondCountableTopology Sphere :=
+  inferInstanceAs (SecondCountableTopology {z : Space // a z = 1})
 instance : T2Space Sphere := inferInstanceAs (T2Space {z : Space // a z = 1})
 
 theorem norm_sq_eq_a (z : EuclideanPair) : ‖z‖ ^ 2 = a (WithLp.ofLp z) := by

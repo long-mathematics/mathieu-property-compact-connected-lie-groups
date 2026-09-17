@@ -29,6 +29,20 @@ instance : (normalizedHaar G).IsHaarMeasure := by
 instance : IsProbabilityMeasure (normalizedHaar G) where
   measure_univ := Measure.haarMeasure_self
 
+/-- Normalized Haar measure on a compact group is also right invariant. -/
+instance : (normalizedHaar G).IsMulRightInvariant where
+  map_mul_right_eq_self g := by
+    let ν := (normalizedHaar G).map (fun x => x * g)
+    have hν : IsProbabilityMeasure ν :=
+      Measure.isProbabilityMeasure_map_iff (continuous_id.mul continuous_const).measurable.aemeasurable
+        |>.mpr inferInstance
+    have h := Measure.isMulInvariant_eq_smul_of_compactSpace ν (normalizedHaar G)
+    have hc : Measure.haarScalarFactor ν (normalizedHaar G) = 1 := by
+      apply ENNReal.coe_injective
+      have hu := congrArg (fun μ : Measure G => μ Set.univ) h
+      simpa using hu.symm
+    simpa [hc] using h
+
 /-- Normalized Haar integration on continuous complex-valued functions. -/
 def haarIntegral (f : C(G, ℂ)) : ℂ := ∫ g, f g ∂normalizedHaar G
 
