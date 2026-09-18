@@ -20,29 +20,45 @@ where $c_m=4^m(m!)^2/(2m+1)!$; the same moments vanish for $s>m$.
 - [Exact verification script](scripts/verify_mathieu_classification.py)
 - [Verification output](scripts/verify_mathieu_classification.txt)
 
-## Formalization
+## Lean formalization
 
 This repository is the canonical development location for the paper and its Lean formalization.
 
-- **Current status.** The Lean formalization is in progress. The **main classification is formalized relative to one explicit multivariate DvK hypothesis**; its unconditional proof remains open.
+### Current status
 
-- **Core analytic and representative-function results.** The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are kernel-checked, along with the representative-algebra and Haar-pullback lemmas. The explicit SU(2) counterexample, the closed-form SU(n)/Sp(n) witnesses, and the transformed Laurent witness’s full integral correspondence are also checked. The representative-function/Laurent algebra equivalence for finite-dimensional tori and its Haar constant-term identity are proved; the higher-rank Duistermaat–van der Kallen step remains open.
+The **main classification theorem is fully formalized conditional on one explicit mathematical input**, the multivariate Duistermaat--van der Kallen theorem for complex Laurent polynomials. The checked dependency chain is
 
-- **Abelian reductions.** The 2025 Zwart SU(N), Sp(N), and G₂ abelian conjectures are directly refuted, with their source coefficient algebras, dimensions, densities, and radial integral correspondences. The older fractional SU(N), Sp(N), and G₂ conjectures are also refuted with actual punctured-circle integrals. The SO(N) conjecture is refuted under the explicitly approved Euler-consistent correction of Zwart 2023: N−2 new radial variables, powers (k−1)/2, and recursion beginning at x_(N−1). The transformed finite-type function uses the same corrected split. This is a correction of the source, not literal equality with its malformed printed recurrence; the original discrepancy is preserved in the ledger. The combined abelian-reductions corollary is checked with this interpretation.
+$$
+\texttt{MultivariateDvK}
+\;\Longrightarrow\;
+\text{Mathieu property for compact tori}
+\;\Longrightarrow\;
+\text{full compact-connected classification}.
+$$
 
-- **Compact Lie infrastructure.** The compact Lie-algebra decomposition and the adjoint simple quotient proposition are also proved: every nonabelian compact connected Lie group surjects onto an actual compact connected centerless Lie group with simple Lie algebra. The identification of compact connected abelian Lie groups with finite-dimensional tori is now also proved, including dimension zero. The algebraic restriction of a fundamental highest-weight vector to a root sl₂ triple is also proved, with the root triple constructed from the Cartan data. Complexification, an algebraic Cartan subalgebra, and a simple-root base are now constructed from the actual simple group Lie algebra; an abelian, self-centralizing real Cartan is also constructed, and its pointwise automorphism stabilizer component is now proved to be a compact torus of the same dimension as the Cartan. This torus is maximal among connected abelian automorphism subgroups. Its preimage identity component now inherits a Lie-group structure through the adjoint covering, is a torus of Cartan dimension, and is maximal among connected abelian subgroups of the original group. The torus inclusion is smooth with differential image equal to that real Cartan; its complexification is the splitting Cartan used for the simple-root base and normalized fundamental weight. This completes the maximal-torus/root-data setup. Compact simple groups are proved to have finite center, and surjective covering homomorphisms with connected source are identified with central topological quotients. The general highest-weight representation, root integration, and covering steps remain outstanding. General multivariate DvK is deferred pending the externally developed resolution-free proof; no Hironaka formalization is being attempted.
+The interface [`MultivariateDvK`](MathieuProperty/DvKStatement.lean) states the Laurent-polynomial theorem used by the manuscript. The theorems [`torus_mathieu_of_dvk` and `classification_of_dvk`](MathieuProperty/ConditionalClassification.lean) establish the two implications above with that hypothesis as the sole unproved mathematical input to the main classification.
 
-- **Nonabelian half of the classification.** The adjoint alternative now proves the **full uniform nonabelian marker tower** and the implication **Mathieu property ⇒ abelian**. At rank at least two it constructs the root-string doublet, compact-real generators, and invariant coordinate pushforward directly from the actual group. At rank one it proves the concrete identification of the center quotient with SU(2)/{±1}, then pulls back the central quotient witness. The rank split applies directly to the constructed adjoint simple quotient of any nonabelian compact connected Lie group.
+The unconditional multivariate DvK theorem, and therefore the unconditional torus theorem and full classification, remain open in this repository. The entire manuscript is not claimed to be fully formalized: several manuscript-specific constructions remain outside the main classification dependency path. Exact coverage is recorded in the [formalization ledger](FORMALIZATION_STATUS.md).
 
-- **Proof substitution and remaining dependency.** This removes L02 (fundamental highest-weight existence), L06 (general root-subgroup integration), and Z05 (compact simply connected covering) from the main classification dependency path. Those original manuscript ingredients remain unformalized, and the alternative does not identify its witnesses with the source’s specified fundamental-representation functions. All four adjoint bridge targets, including rank-one AR03, and the expanded uniform tower conclusion are checked in [scripts/CheckAdjointRoute.lean](scripts/CheckAdjointRoute.lean). The unconditional general torus direction, dependent on deferred multivariate DvK, remains the missing half of the classification.
+### Checked coverage
 
-- **Conditional main theorem.** `MultivariateDvK` states the exact complex Laurent-polynomial theorem. `torus_mathieu_of_dvk` and `classification_of_dvk` prove the complete torus and main-classification implications with that explicit parameter, without adding an axiom. Thus general multivariate DvK is the only remaining unproved input to the **main classification**. Its resolution-free proof is ongoing in a separate project. The unconditional torus theorem and classification remain blocked, and the entire manuscript is not claimed complete conditional on DvK. See [the conditional interface](MathieuProperty/DvKStatement.lean), [the classification endpoint](MathieuProperty/ConditionalClassification.lean), and [the independent endpoint check](scripts/CheckConditionalClassification.lean).
+The formalization currently includes, among other results:
 
-- **One-variable DvK.** The one-variable Duistermaat–van der Kallen theorem and the actual circle Mathieu property are now proved in `MathieuProperty/OneVariableTorus.lean`. The valuation and partial-fraction proof is adapted from the MIT-licensed [MurrellGroup/GMC-2-lean](https://github.com/MurrellGroup/GMC-2-lean/tree/1782de7ff6c97eb1d98e63e7ff34df18b9cd322e), rebuilt and axiom-audited on this project's pinned toolchain. Higher-rank DvK and the unconditional full torus corollary remain open.
+- the representative-function algebra, normalized Haar integration, and Haar pullback;
+- the Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem;
+- the explicit SU(2) counterexample and the closed-form SU(n) and Sp(n) witness families;
+- the compact Lie-algebra decomposition, adjoint simple quotient, and the full uniform nonabelian marker tower;
+- the implication that the Mathieu property forces a compact connected Lie group to be abelian;
+- the identification of compact connected abelian Lie groups with finite-dimensional tori;
+- the representative-function/Laurent-polynomial correspondence for tori and the Haar constant-term identity;
+- the one-variable Duistermaat--van der Kallen theorem and the circle Mathieu property;
+- the paper's abelian-reduction counterexamples, with the SO(N) case using the documented Euler-consistent correction described in the ledger.
 
-See [the obligation ledger](FORMALIZATION_STATUS.md) for exact coverage and outstanding dependencies.
+The nonabelian half of the classification is unconditional. Some original manuscript constructions involving general highest-weight representations, root integration, and related covering data remain unformalized, but they are not required by the checked main-classification route.
 
-The toolchain and mathlib revision are pinned. Build and audit the current proofs with:
+### Verification
+
+The Lean toolchain and mathlib revision are pinned. Build and audit the current development with:
 
 ```sh
 lake build
@@ -53,7 +69,7 @@ lake env lean scripts/CheckConditionalClassification.lean
 python3 scripts/verify_mathieu_classification.py
 ```
 
-Auxiliary tooling and its checked-in outputs live under `scripts/`.
+Auxiliary verification and audit tooling, together with checked-in outputs where applicable, lives under `scripts/`.
 
 ## Provenance
 
