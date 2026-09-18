@@ -78,16 +78,13 @@ theorem rootSpace_eq_bot_of_not_root (χ : Module.Dual ℂ H) (hχ : χ ≠ 0)
   apply hn
   exact ⟨⟨w, by simpa using hw⟩, by ext x; rfl⟩
 
-/-- A vector in the beta root space is a primitive weight-one vector for the
-reversed alpha triple. Its lowering operator is the original alpha raising
-operator, so the doublet is beta, beta+alpha in the actual adjoint module. -/
-theorem adjoint_primitive (b : (rootSystem H).Base) {α β : b.support}
-    (hne : α ≠ β) (hpair : (rootSystem H).pairingIn ℤ β α = -1) :
-    ∃ (h e f v : L) (t : IsSl2Triple h e f),
-      h = (coroot α.val.val : L) ∧ e ∈ rootSpace H α.val.val ∧
-      f ∈ rootSpace H (-α.val.val) ∧ v ∈ rootSpace H β.val.val ∧
-      t.symm.HasPrimitiveVectorWith v (1 : ℂ) := by
-  obtain ⟨h,e,f,t,he,hf⟩ := exists_isSl2Triple_of_weight_isNonZero (H.isNonZero_coe_root α.val)
+/-- Any supplied alpha root triple has a weight-one primitive vector in the
+beta root space. This also applies to the compact-real normalized triple. -/
+theorem primitive_for_root_triple (b : (rootSystem H).Base) {α β : b.support}
+    (hne : α ≠ β) (hpair : (rootSystem H).pairingIn ℤ β α = -1)
+    {h e f : L} (t : IsSl2Triple h e f)
+    (he : e ∈ rootSpace H α.val.val) (hf : f ∈ rootSpace H (-α.val.val)) :
+    ∃ v : L, v ∈ rootSpace H β.val.val ∧ t.symm.HasPrimitiveVectorWith v (1 : ℂ) := by
   have hh := t.h_eq_coroot (H.isNonZero_coe_root α.val) he hf
   obtain ⟨v,hv,hv0⟩ := β.val.val.exists_ne_zero
   have hp : β.val.val (coroot α.val.val) = (-1 : ℂ) := by
@@ -100,7 +97,7 @@ theorem adjoint_primitive (b : (rootSystem H).Base) {α β : b.support}
       have heq : (rootSystem H).root β.val = (rootSystem H).root α.val := sub_eq_zero.mp h
       exact hne (Subtype.ext ((rootSystem H).root.injective heq).symm)
     · exact b.sub_notMem_range_root β.property α.property
-  refine ⟨h,e,f,v,t,hh,he,hf,hv,hv0,?_,?_⟩
+  refine ⟨v,hv,hv0,?_,?_⟩
   · rw [neg_lie, hh]
     change -(⁅coroot α.val.val, v⁆ : L) = (1 : ℂ) • v
     rw [lie_eq_smul_of_mem_rootSpace hv, hp]
@@ -114,6 +111,18 @@ theorem adjoint_primitive (b : (rootSystem H).Base) {α β : b.support}
     change ⁅f, v⁆ ∈ rootSpace H ((β.val.val : Module.Dual ℂ H) - (α.val.val : Module.Dual ℂ H)) at hm
     rw [hsub] at hm
     exact hm
+/-- A vector in the beta root space is a primitive weight-one vector for the
+reversed alpha triple, in the actual adjoint module. -/
+theorem adjoint_primitive (b : (rootSystem H).Base) {α β : b.support}
+    (hne : α ≠ β) (hpair : (rootSystem H).pairingIn ℤ β α = -1) :
+    ∃ (h e f v : L) (t : IsSl2Triple h e f),
+      h = (coroot α.val.val : L) ∧ e ∈ rootSpace H α.val.val ∧
+      f ∈ rootSpace H (-α.val.val) ∧ v ∈ rootSpace H β.val.val ∧
+      t.symm.HasPrimitiveVectorWith v (1 : ℂ) := by
+  obtain ⟨h,e,f,t,he,hf⟩ := exists_isSl2Triple_of_weight_isNonZero (H.isNonZero_coe_root α.val)
+  obtain ⟨v,hv,hp⟩ := primitive_for_root_triple b hne hpair t he hf
+  exact ⟨h,e,f,v,t,t.h_eq_coroot (H.isNonZero_coe_root α.val) he hf,he,hf,hv,hp⟩
+
 /-- The cyclic doublet is exactly the sum of the two one-dimensional root spaces. -/
 theorem adjoint_doublet_space (b : (rootSystem H).Base) {α β : b.support}
     (hne : α ≠ β) {h e f v : L} (t : IsSl2Triple h e f)

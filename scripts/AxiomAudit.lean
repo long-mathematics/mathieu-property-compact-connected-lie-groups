@@ -561,3 +561,11 @@ run_cmd do
 #print axioms MathieuProperty.Hopf.su2_mem_center_iff
 #print axioms MathieuProperty.Hopf.su2_central_quotient_tower
 #print axioms MathieuProperty.Hopf.not_mathieu_of_center_quotient_equiv
+
+#print axioms MathieuProperty.CompactCartanRootData.complexification_isSimple
+#print axioms MathieuProperty.CompactCartanRootData.exists_compact_root_triple
+#print axioms MathieuProperty.CompactDoubletProjection.real_coordinate_actions
+#print axioms MathieuProperty.AdjointRankTwo.exists_certificate
+#print axioms MathieuProperty.AdjointRankTwo.marker_tower
+#print axioms MathieuProperty.AdjointRankTwo.not_mathieu
+#print axioms MathieuProperty.CompactAdjoint.not_mathieu_of_adjoint_rank_two

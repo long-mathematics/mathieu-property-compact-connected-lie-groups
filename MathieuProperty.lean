@@ -120,6 +120,11 @@ import MathieuProperty.AdjointOneParameter
 import MathieuProperty.RealRepresentative
 import MathieuProperty.AdjointCoordinates
 import MathieuProperty.SU2CentralQuotient
+import MathieuProperty.CompactRootReality
+import MathieuProperty.CompactComplexSimple
+import MathieuProperty.CompactRootNormalization
+import MathieuProperty.CompactDoubletProjection
+import MathieuProperty.AdjointRankTwo
 
 /-! Formalization of The Mathieu Property for Compact Connected Lie Groups.
 See FORMALIZATION_STATUS.md for the exact scope currently checked.
