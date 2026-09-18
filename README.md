@@ -24,7 +24,7 @@ where $c_m=4^m(m!)^2/(2m+1)!$; the same moments vanish for $s>m$.
 
 This repository is the canonical development location for the paper and its Lean formalization.
 
-- **Current status.** The Lean formalization is in progress; the main classification is **not yet formalized**.
+- **Current status.** The Lean formalization is in progress. The **main classification is formalized relative to one explicit multivariate DvK hypothesis**; its unconditional proof remains open.
 
 - **Core analytic and representative-function results.** The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are kernel-checked, along with the representative-algebra and Haar-pullback lemmas. The explicit SU(2) counterexample, the closed-form SU(n)/Sp(n) witnesses, and the transformed Laurent witness’s full integral correspondence are also checked. The representative-function/Laurent algebra equivalence for finite-dimensional tori and its Haar constant-term identity are proved; the higher-rank Duistermaat–van der Kallen step remains open.
 
@@ -34,9 +34,11 @@ This repository is the canonical development location for the paper and its Lean
 
 - **Nonabelian half of the classification.** The adjoint alternative now proves the **full uniform nonabelian marker tower** and the implication **Mathieu property ⇒ abelian**. At rank at least two it constructs the root-string doublet, compact-real generators, and invariant coordinate pushforward directly from the actual group. At rank one it proves the concrete identification of the center quotient with SU(2)/{±1}, then pulls back the central quotient witness. The rank split applies directly to the constructed adjoint simple quotient of any nonabelian compact connected Lie group.
 
-- **Proof substitution and remaining dependency.** This removes L02 (fundamental highest-weight existence), L06 (general root-subgroup integration), and Z05 (compact simply connected covering) from the main classification dependency path. Those original manuscript ingredients remain unformalized, and the alternative does not identify its witnesses with the source’s specified fundamental-representation functions. All four adjoint bridge targets, including rank-one AR03, and the expanded uniform tower conclusion are checked in [scripts/CheckAdjointRoute.lean](scripts/CheckAdjointRoute.lean). The general torus direction, dependent on deferred multivariate DvK, remains the missing half of the classification.
+- **Proof substitution and remaining dependency.** This removes L02 (fundamental highest-weight existence), L06 (general root-subgroup integration), and Z05 (compact simply connected covering) from the main classification dependency path. Those original manuscript ingredients remain unformalized, and the alternative does not identify its witnesses with the source’s specified fundamental-representation functions. All four adjoint bridge targets, including rank-one AR03, and the expanded uniform tower conclusion are checked in [scripts/CheckAdjointRoute.lean](scripts/CheckAdjointRoute.lean). The unconditional general torus direction, dependent on deferred multivariate DvK, remains the missing half of the classification.
 
-- **One-variable DvK.** The one-variable Duistermaat–van der Kallen theorem and the actual circle Mathieu property are now proved in `MathieuProperty/OneVariableTorus.lean`. The valuation and partial-fraction proof is adapted from the MIT-licensed [MurrellGroup/GMC-2-lean](https://github.com/MurrellGroup/GMC-2-lean/tree/1782de7ff6c97eb1d98e63e7ff34df18b9cd322e), rebuilt and axiom-audited on this project's pinned toolchain. Higher-rank DvK and the full torus corollary remain open.
+- **Conditional main theorem.** `MultivariateDvK` states the exact complex Laurent-polynomial theorem. `torus_mathieu_of_dvk` and `classification_of_dvk` prove the complete torus and main-classification implications with that explicit parameter, without adding an axiom. Thus general multivariate DvK is the only remaining unproved input to the **main classification**. Its resolution-free proof is ongoing in a separate project. The unconditional torus theorem and classification remain blocked, and the entire manuscript is not claimed complete conditional on DvK. See [the conditional interface](MathieuProperty/DvKStatement.lean), [the classification endpoint](MathieuProperty/ConditionalClassification.lean), and [the independent endpoint check](scripts/CheckConditionalClassification.lean).
+
+- **One-variable DvK.** The one-variable Duistermaat–van der Kallen theorem and the actual circle Mathieu property are now proved in `MathieuProperty/OneVariableTorus.lean`. The valuation and partial-fraction proof is adapted from the MIT-licensed [MurrellGroup/GMC-2-lean](https://github.com/MurrellGroup/GMC-2-lean/tree/1782de7ff6c97eb1d98e63e7ff34df18b9cd322e), rebuilt and axiom-audited on this project's pinned toolchain. Higher-rank DvK and the unconditional full torus corollary remain open.
 
 See [the obligation ledger](FORMALIZATION_STATUS.md) for exact coverage and outstanding dependencies.
 
@@ -47,6 +49,7 @@ lake build
 python3 scripts/audit_sources.py
 lake env lean scripts/AxiomAudit.lean
 lake env lean scripts/CheckAdjointRoute.lean
+lake env lean scripts/CheckConditionalClassification.lean
 python3 scripts/verify_mathieu_classification.py
 ```
 

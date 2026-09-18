@@ -6,12 +6,15 @@ import Mathlib.AlgebraicTopology.FundamentalGroupoid.FundamentalGroup
 import Mathlib.LinearAlgebra.UnitaryGroup
 
 /-! Type-check the precise outstanding targets. `#check` does not prove them.
-No declaration in this file is supplied as a hypothesis to a project theorem.
+The exact DvK proposition is now also the explicit input to the separately
+proved conditional endpoint. No proof of that proposition is supplied here.
 -/
 
 open MathieuProperty
 
-/- The manuscript's multivariate Duistermaat--van der Kallen obligation. -/
+/- The manuscript's unproved multivariate Duistermaat--van der Kallen obligation.
+The conditional endpoint does not discharge this target. -/
+#check MultivariateDvK
 #check (∀ (d : ℕ) (f : MultiLaurent d), f ≠ 0 →
   (∀ m : ℕ, 1 ≤ m → constantTerm (f ^ m) = 0) →
   (0 : Fin d → ℝ) ∉ newtonPolytope f : Prop)
