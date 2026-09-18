@@ -1,4 +1,4 @@
-Axiom audit passed: 4316 project declarations, 3542 theorems.
+Axiom audit passed: 4323 project declarations, 3548 theorems.
 All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.hopf_primitive_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.momentConstant_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -576,3 +576,10 @@ All dependencies lie in {propext, Classical.choice, Quot.sound}.
 'MathieuProperty.uniform_nonabelian' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.nonabelian_not_mathieu' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MathieuProperty.HasMathieuProperty.mul_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.MultivariateDvK' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.constantTerm_mathieu_of_dvk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.torus_mathieu_of_dvk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.mathieu_of_torus_equiv_of_dvk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.mathieu_iff_abelian_of_dvk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.mathieu_iff_torus_of_dvk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MathieuProperty.classification_of_dvk' depends on axioms: [propext, Classical.choice, Quot.sound]

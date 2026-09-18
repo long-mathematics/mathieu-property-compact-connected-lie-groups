@@ -46,6 +46,7 @@ jobs:
         run: |
           lake env lean scripts/CheckObligations.lean
           lake env lean scripts/CheckAdjointRoute.lean
+          lake env lean scripts/CheckConditionalClassification.lean
       - name: Verify exact symbolic output
         run: |
           python3 -m pip install sympy==1.12

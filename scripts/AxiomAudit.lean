@@ -582,3 +582,11 @@ run_cmd do
 #print axioms MathieuProperty.uniform_nonabelian
 #print axioms MathieuProperty.nonabelian_not_mathieu
 #print axioms MathieuProperty.HasMathieuProperty.mul_comm
+
+#print axioms MathieuProperty.MultivariateDvK
+#print axioms MathieuProperty.constantTerm_mathieu_of_dvk
+#print axioms MathieuProperty.torus_mathieu_of_dvk
+#print axioms MathieuProperty.mathieu_of_torus_equiv_of_dvk
+#print axioms MathieuProperty.mathieu_iff_abelian_of_dvk
+#print axioms MathieuProperty.mathieu_iff_torus_of_dvk
+#print axioms MathieuProperty.classification_of_dvk

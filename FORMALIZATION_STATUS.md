@@ -11,16 +11,17 @@ is the explicitly user-approved Euler-consistent correction of Zwart 2023, not
 the malformed printed recurrence; see the correction record below.
 Every Lean name below is intended until linked to an actual checked declaration.
 All modules are under `MathieuProperty/`; names are in namespace `MathieuProperty`.
-Rows for external results are obligations to prove or reuse mathlib, never licenses to assume them.
+Rows for external results are obligations to prove or reuse mathlib, never licenses to add axioms.
+Explicitly conditional endpoints are recorded separately and do not discharge those obligations.
 
 ## Current state
 
-- Development branch: `formalization/rank-one-adjoint-form`; milestones through [PR #58](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/58) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/dvk-conditional-classification`; mathematical milestones through [PR #59](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/59) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 188 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The uniform nonabelian tower and the implication from the Mathieu property to commutativity are proved. The main classification, original root subgroup existence, and general torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
-- Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
-- No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
+- M0 and M1 complete; the library covers 191 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The uniform nonabelian tower and the implication from the Mathieu property to commutativity are proved. The unconditional main classification, original root subgroup existence, and unconditional general torus direction remain outstanding. The torus and full main classification are now proved relative to the single explicit `MultivariateDvK` parameter. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The unconditional general classification remains unproved. The user has now explicitly authorized a conditional main-theorem endpoint taking exactly DvK as a parameter; this does not close the unconditional or full-manuscript obligations.
+- No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is added as an axiom, and the audited manuscript is unchanged.
 
 ## Work allocation following user clarification (2026-09-17)
 
@@ -35,10 +36,102 @@ claim that Lean cannot express or ultimately prove the theorem.
 The checked one-variable theorem and circle Mathieu property remain complete.
 T04 retains IN PROGRESS to record that partial coverage; its arbitrary-rank
 portion is deferred. The general torus theorem and classification remain
-BLOCKED and must not be asserted conditionally as completed results. Continue
-independent attainable obligations. The adjoint simple quotient and the
+BLOCKED. The separately authorized conditional implications below are PROVED,
+without asserting DvK or either unconditional conclusion. Do not resume the
+deferred DvK route or unrelated research gaps in this pass. The adjoint simple quotient and the
 compact abelian torus identification are now proved. Record additional foundational blockers explicitly rather than
 repeatedly pursuing unavailable proof routes.
+
+## Conditional main classification endpoint (2026-09-18)
+
+This pass is explicitly authorized to finish the **main classification relative
+to one DvK input**, and then stop. It does not resume general DvK, Hironaka,
+L02/L06, or covering research. The source manuscript and its theorem statements
+are unchanged.
+
+| Result | Status | Evidence / dependency |
+|---|---|---|
+| General multivariate DvK | **BLOCKED** | External resolution-free formalization ongoing; `MultivariateDvK` is a proposition, not a theorem asserting it. |
+| Unconditional torus Mathieu theorem | **BLOCKED** | Requires a proof of `MultivariateDvK`. |
+| Unconditional full main classification | **BLOCKED** | Requires the same proof of `MultivariateDvK`; every other step is proved. |
+| Torus Mathieu conditional on DvK | **PROVED** | `torus_mathieu_of_dvk : MultivariateDvK → ∀ d, HasMathieuProperty (Torus d)`. |
+| Full main classification conditional on DvK | **PROVED** | `classification_of_dvk`; exactly one explicit mathematical input beyond the standing compact connected Lie-group hypotheses. |
+
+The original manuscript inventory remains **101 PROVED / 0 TODO / 4 IN PROGRESS /
+5 BLOCKED = 110**. The two conditional endpoints above are additional results;
+they do not change the statuses of `thm:dvdk`, `cor:torus`, or
+`thm:classification`. T04 retains IN PROGRESS solely to preserve its proved
+one-variable portion; its general multivariate portion is BLOCKED.
+L02, L06, Z05, the original root-doublet lemma, and the specified
+fundamental-representation functions remain recorded in their existing rows.
+**The entire manuscript is not claimed formalized conditional on DvK.**
+
+`DvKStatement.lean` defines the exact previous T04 / `thm:dvdk` target:
+
+```lean
+def MultivariateDvK : Prop :=
+  ∀ (d : ℕ) (f : MultiLaurent d), f ≠ 0 →
+    (∀ m : ℕ, 1 ≤ m → constantTerm (f ^ m) = 0) →
+    (0 : Fin d → ℝ) ∉ newtonPolytope f
+```
+
+Here `MultiLaurent d` is `AddMonoidAlgebra ℂ (Fin d → ℤ)`, `constantTerm f`
+is `f.coeff 0`, and `newtonPolytope f` is the real convex hull of the actual
+finite exponent support. There is no positivity restriction on coefficients,
+no restriction to a special support, and no change to the nonzero premise or
+positive-power range. Dimension zero is included. The interface module imports
+only the existing Laurent support infrastructure, with no Lie-group dependency.
+
+The checked dependency chain is:
+
+1. `constantTerm_mathieu_of_dvk`: handle `f = 0` with `zero_laurent_eventual`;
+   otherwise obtain Newton separation from the explicit input and apply
+   `eventual_constantTerm_zero_of_newton`. All multipliers, including zero,
+   and all sufficiently large powers are covered.
+2. `torus_mathieu_of_dvk`: use the proved algebra equivalence and normalized
+   Haar/constant-term correspondence in `torus_mathieu_iff_constantTerm`.
+3. `mathieu_of_torus_equiv_of_dvk`: transport through an actual topological
+   group equivalence using proved Haar pullback.
+4. `mathieu_iff_abelian_of_dvk`: the abelian direction uses the constructed
+   torus equivalence; the reverse direction uses the unconditional
+   `HasMathieuProperty.mul_comm` from the uniform nonabelian theorem.
+5. `mathieu_iff_torus_of_dvk` and `classification_of_dvk`: combine these with
+   the unconditional `CompactLieTorus.abelian_iff_torus`.
+
+The final theorem has the explicit parameter `(hDvK : MultivariateDvK)` and
+conclusion `(HasMathieuProperty G ↔ abelian G) ∧ (abelian G ↔ isTorus G)`,
+where the actual code expands abelianity to pairwise commutativity and being a
+torus to `∃ d, Nonempty (G ≃ₜ* Torus d)`. Its remaining binders are the standard
+finite-dimensional real Lie-group, compactness, connectedness, Hausdorff,
+and Borel structures. No simple-group, root, highest-weight, integration,
+or covering hypotheses appear.
+
+`scripts/CheckConditionalClassification.lean` proves that the interface is
+definitionally the original raw target, supplies that raw formula to the torus
+implication, and checks the complete classification with the Mathieu predicate
+expanded to the kernel of actual representative Haar integration. These are
+proofs of implications, not proofs of DvK. The checker runs in CI. The axiom
+audit includes all new declarations and prints the dependencies of each endpoint;
+its foundational-axiom whitelist does not erase or discharge the explicit DvK
+parameter in their types.
+
+A future external theorem stated in this Laurent representation can be passed
+directly, regardless of its namespace. A theorem using a different representation
+needs an adapter proving `MultivariateDvK` (transporting constant term and Newton
+support as necessary). No change to the torus or classification proofs is needed.
+No external theorem is declared or postulated in this repository.
+
+Validation for this conditional milestone: full `lake build` passed
+(**4316 jobs**); the source audit passed for **196 Lean files**, including
+**191 mathematical modules**. The exhaustive axiom audit passed for
+**4323 project declarations / 3548 theorem constants**, using only
+`propext`, `Classical.choice`, and `Quot.sound`. The new interface/endpoint
+checker and both existing obligation/adjoint checkers passed. The symbolic
+verifier reproduced its checked-in output byte for byte. The manuscript still
+matches initial commit `aa283858550cc73fd9e06d34a40d111d2ad8b2d0`.
+The milestone adds one proposition definition and six theorem declarations;
+none asserts the proposition itself. `scripts/axiom-audit.txt` records the
+updated audit output. No existing proof or source statement was changed.
 
 ## Remaining work: dependency-aware assessment
 
@@ -50,7 +143,7 @@ existence inputs are blocked.
 | Remaining obligation | Current allocation / dependency |
 |---|---|
 | G04 and adjoint simple quotient | Now proved: actual open image, inherited Lie algebra, identity component, and continuous quotient map. |
-| General DvK (unproved part of T04), general torus theorem, classification | Deferred pending the external resolution-free DvK route. The nonabelian direction is now proved at every rank; the general torus direction is the remaining main-classification dependency. |
+| General DvK (unproved part of T04), unconditional torus theorem and classification | General DvK is BLOCKED, with the external resolution-free project ongoing. The complete DvK → torus Mathieu → classification chain is PROVED with the single explicit `MultivariateDvK` input; the unconditional endpoints remain BLOCKED. |
 | L02 fundamental highest-weight representation; L06 root integration | Foundational gaps already documented; no existence assumptions added. |
 | L04 weight-one root restriction | Now proved from the standing algebraic Cartan, root-base, and highest-weight-vector data; the root triple is constructed, not assumed. |
 | Root-doublet lemma and specified fundamental-representation functions in the simply-connected-simple theorem | Original construction still depends on L02/L06. The alternative proves existence of a full tower on every simple group, including rank one, but does not identify its functions with the source’s specified fundamental-representation functions. |
@@ -95,9 +188,9 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | cor:simple-central-forms | Exact marker tower and Mathieu failure for every compact connected simple central form | compact_simple_marker_tower; compact_simple_not_mathieu | SimpleGroupMarkerTower | AdjointRankTwo; RankOneAdjoint; SU2CentralQuotient; Haar | PROVED | Direct adjoint proof substitution, split by rank | Full statement at every rank; no L02/L06/Z05 or simply connected covering hypothesis. |
 | prop:adjoint-simple-quotient | Every nonabelian compact connected Lie group surjects continuously onto adjoint compact simple group | CompactAdjoint.adjoint_simple_quotient | AdjointQuotient | G01–G06 | PROVED | Manuscript, with local openness replacing the closed-subgroup step | Actual compact connected centerless Lie-group target, simple group Lie algebra, continuous surjection, and identification with the automorphism identity component of a simple ideal. |
 | thm:uniform-nonabelian | Full manuscript quantifiers, representative triple and radial moment tower, positivity and vanishing | uniform_nonabelian; nonabelian_not_mathieu; HasMathieuProperty.mul_comm | UniformNonabelian / MarkerTower | prop:adjoint-simple-quotient; cor:simple-central-forms; lem:haar-pullback | PROVED | Construct actual adjoint simple quotient, then pull back its all-rank tower | HasMarkerTower expands to all manuscript quantifiers; expanded conclusion is checked independently in scripts/CheckAdjointRoute.lean. |
-| thm:dvdk | Nonzero complex multivariate Laurent f with all positive-power constant terms zero has Newton polytope avoiding zero | duistermaat_van_der_kallen | Torus | T04 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
-| cor:torus | Every torus has the Mathieu property | torus_mathieu | Torus | T01–T08; thm:dvdk | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
-| thm:classification | For every compact connected Lie group: Mathieu property iff abelian iff torus | classification | MainTheorem | thm:uniform-nonabelian; cor:torus; T01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
+| thm:dvdk | Nonzero complex multivariate Laurent f with all positive-power constant terms zero has Newton polytope avoiding zero | MultivariateDvK (proposition only; no proof) | DvKStatement | T04 | BLOCKED | External resolution-free project ongoing | Exact specification unchanged. Used only as an explicit parameter in the separately proved conditional endpoints, never as an axiom. |
+| cor:torus | Every torus has the Mathieu property, unconditionally | Unconditional theorem not declared; conditional theorem: torus_mathieu_of_dvk | ConditionalTorus | T01–T08; thm:dvdk | BLOCKED | Manuscript separation argument | The implication from explicit MultivariateDvK is proved. General DvK remains unproved, so the unconditional corollary is still blocked. |
+| thm:classification | For every compact connected Lie group: Mathieu property iff abelian iff torus, unconditionally | Unconditional theorem not declared; conditional theorem: classification_of_dvk | ConditionalClassification | thm:uniform-nonabelian; cor:torus; T01 | BLOCKED | Proved adjoint negative direction and conditional torus positive direction | The full main equivalence is proved relative to exactly MultivariateDvK; the unconditional theorem remains blocked on that input alone. This makes no claim to conditional completion of the entire manuscript. |
 | prop:explicit-abelian-SU2 | Transformed Laurent pair: exact moments, printed expansion, exact spectrum | Abelian.formal_expansion; Abelian.formal_spectrum; Abelian.transform_correspondence | AbelianAlgebra / AbelianLaurent / TransformPair | E01–E09; thm:hopf-coefficient | PROVED | Manuscript; specialized moment comparison and polynomial interpolation for the external correspondence | Algebra, spectrum, weighted moments, formal representative independence, and actual Haar correspondence checked. |
 | cor:abelian-reductions | Failure of both universal abelian conjectures, growth claim and specified Zwart reductions | abelian_reductions | AbelianReductions | E10–E14; prop:explicit-abelian-SU2 | PROVED | Direct counterexamples replace classification/contraposition | Both universal conjectures, growth, and every specified SU/Sp/G2/SO conjecture are refuted, including rank-one Sp. SO uses the explicitly approved Euler correction; no claim about the malformed printed recurrence. |
 | D-representative | Finite linear combinations of coefficients of finite-dimensional continuous complex representations | representativeFunctions; representative_eq_span_coefficients; representation_coefficient_mem | RepresentativeFunctions |  | PROVED | Coordinate model, with formal basis correspondence | Finite linear span, without topological closure; arbitrary finite-dimensional normed complex representation spaces and joint continuity checked. |
@@ -172,7 +265,7 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | T01 | Compact connected abelian Lie group iff finite-dimensional torus, including dimension zero | CompactLieTorus.exists_torus_equiv; CompactLieTorus.abelian_iff_torus | LieOneParameter / AbelianParameters / AbelianLattice / LatticeTorus / AbelianTorus |  | PROVED | One-parameter subgroups and lattice quotient | Actual continuous group isomorphism with `Torus (finrank ℝ E)` from the abelian hypothesis; converse by commutativity transport. Includes zero-dimensional model, with no assumed exponential or group-cover existence theorem. |
 | T02 | Character lattice of torus is Z^d and representatives are finite character sums | representative_eq_characterSpan; torusCharacterEquiv; torus_representative_laurent | AbelianCharacters / TorusCharacters / TorusLaurent | D-representative; Haar unitarization | PROVED | Joint eigenspaces and Stone–Weierstrass/Haar orthogonality | Exact algebra equivalence for the d-fold unit circle, including d=0. General compact abelian representatives are finite character sums. T01 remains the separate Lie-group classification. |
 | T03 | Normalized Haar integral corresponds to Laurent coefficient at zero | torusCoefficientIntegral_laurent; torus_integral_constantTerm | HaarCharacters / TorusLaurent | T02; D-haar | PROVED | Character orthogonality | All coefficients are recovered by integration against inverse characters; the representative Haar functional is exactly the constant term. |
-| T04 | Duistermaat–van der Kallen external result must be proved, not postulated | duistermaat_van_der_kallen_one_variable; multivariate target open | OneVariableTorus; OneVariableDvK/* |  | IN PROGRESS | One-variable valuation/partial-fraction substitute | Full one-variable theorem and actual circle Mathieu property proved without additional axioms. Arbitrary rank, already rank two, remains open. See source adaptation and obstruction investigation. |
+| T04 | Duistermaat–van der Kallen external result must be proved, not postulated | duistermaat_van_der_kallen_one_variable; multivariate target open | OneVariableTorus; OneVariableDvK/* |  | IN PROGRESS | One-variable valuation/partial-fraction substitute | Full one-variable theorem and actual circle Mathieu property proved without additional axioms. General multivariate DvK, already rank two, remains BLOCKED; the separate resolution-free project is ongoing. `MultivariateDvK` gives its exact interface without a proof. See source adaptation and obstruction investigation. |
 | T05 | Strict linear separation from convex hull of finite support | support_strict_separation | LaurentSupport | thm:dvdk | PROVED | Manuscript | Mathlib geometric Hahn–Banach and compactness of finite convex hull. |
 | T06 | Support of hf^m has separating-functional value≥C+mδ | support_mul_lower_bound; support_pow_lower_bound | LaurentSupport | T05 | PROVED | Manuscript | Support containment, not an incorrect equality of supports. |
 | T07 | Archimedean bound yields eventual absence of zero exponent | eventual_constantTerm_zero_of_lower_bound; eventual_constantTerm_zero_of_newton | LaurentSupport | T06 | PROVED | Manuscript | Zero polynomials allowed; all natural m above N. |
