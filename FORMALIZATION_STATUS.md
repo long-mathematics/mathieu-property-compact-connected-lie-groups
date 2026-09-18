@@ -15,10 +15,10 @@ Rows for external results are obligations to prove or reuse mathlib, never licen
 
 ## Current state
 
-- Development branch: `formalization/compact-root-reality`; milestones through [PR #57](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/57) are merged. Use `git status` for the live checkout after merging.
+- Development branch: `formalization/rank-one-adjoint-form`; milestones through [PR #58](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/58) are merged. Use `git status` for the live checkout after merging.
 - Lean: `leanprover/lean4:v4.34.0`.
 - mathlib: `5ed2965256430c3649e86755f9576b54eca72435` (v4.34.0).
-- M0 and M1 complete; the library covers 180 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The main classification, uniform nonabelian tower, root subgroup existence, and torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
+- M0 and M1 complete; the library covers 188 mathematical modules plus the import umbrella. The Hopf coefficient theorem, sphere marker tower, and universal radial-transfer theorem are proved, as are the representative-algebra and Haar-pullback lemmas. The uniform nonabelian tower and the implication from the Mathieu property to commutativity are proved. The main classification, original root subgroup existence, and general torus direction remain outstanding. The exact Hopf coordinate-density obligation H05 is now proved as well; the original sphere theorem retains its documented invariant-moment proof.
 - Milestones through the fractional 2024 G2 counterexample are merged and CI-checked ([PR #31](https://github.com/long-mathematics/mathieu-property-compact-connected-lie-groups/pull/31)). The general classification remains unproved; ordinary obligations continue alongside investigation of the foundational gaps. No weakening or conditional main theorem is authorized.
 - No manuscript mathematical error has been identified. The detailed investigation below records missing Duistermaat–van der Kallen and representation/root-integration infrastructure. These remain formalization gaps; no cited result is assumed, and the audited manuscript is unchanged.
 
@@ -50,11 +50,11 @@ existence inputs are blocked.
 | Remaining obligation | Current allocation / dependency |
 |---|---|
 | G04 and adjoint simple quotient | Now proved: actual open image, inherited Lie algebra, identity component, and continuous quotient map. |
-| General DvK (unproved part of T04), general torus theorem, classification | Deferred pending the external resolution-free DvK route. Classification also depends on the nonabelian direction. |
+| General DvK (unproved part of T04), general torus theorem, classification | Deferred pending the external resolution-free DvK route. The nonabelian direction is now proved at every rank; the general torus direction is the remaining main-classification dependency. |
 | L02 fundamental highest-weight representation; L06 root integration | Foundational gaps already documented; no existence assumptions added. |
 | L04 weight-one root restriction | Now proved from the standing algebraic Cartan, root-base, and highest-weight-vector data; the root triple is constructed, not assumed. |
-| Root-doublet lemma and general simply-connected-simple theorem | The original representation lemma still depends on L02/L06. The alternative proves the full simple-group tower at rank at least two, without those ingredients. Rank one remains AR03. |
-| Simple central forms and uniform nonabelian theorem | Rank at least two now has an unconditional adjoint marker tower, bypassing L02/L06/Z05. Rank one still requires AR03, the adjoint-form identification with SU(2)/{±1}. The adjoint quotient is proved; the full rank split and uniform theorem remain open. |
+| Root-doublet lemma and specified fundamental-representation functions in the simply-connected-simple theorem | Original construction still depends on L02/L06. The alternative proves existence of a full tower on every simple group, including rank one, but does not identify its functions with the source’s specified fundamental-representation functions. |
+| Simple central forms and uniform nonabelian theorem | PROVED at all ranks, via the adjoint root-string tower at rank ≥2, the proved AR03 identification and central quotient witness at rank one, and Haar pullback from the actual adjoint simple quotient. L02/L06/Z05 are absent from this dependency path. |
 | L01 root/weight setup | Now proved: an actual maximal torus, its smooth injective inclusion with differential image equal to the real Cartan, the scalar-extension splitting Cartan, simple roots, and a fundamental weight with coroot pairing one. Highest-weight representation existence and root integration remain separate gaps. |
 | Z05 simple cover | Finite center, covering onto the center quotient, centrality of covering kernels, and topological quotient identification are proved. Existence and compactness of the simply connected cover remain open; the finite-fundamental-group fragment is only type-checked. |
 | T01 abelian iff torus | Now proved via actual one-parameter subgroups and a full kernel lattice; independent of DvK. |
@@ -89,12 +89,12 @@ Ranges in dependencies refer to all numbered rows in that range. If a proof expo
 | thm:radial-transfer | All finite compactly supported positive SU(2)-invariant measures: pure and marked formulas with radial power and positivity | Hopf.radial_transfer | RadialTransfer | R01–R08; cor:sphere-marker-tower | PROVED | Manuscript | Actual defining SU(2) action, every finite Borel measure with compact support and action invariance, including zero measure and origin mass. |
 | lem:root-doublet | Fundamental highest-weight representation contains a faithful defining SU(2) root doublet | sl2Doublet_cyclic; sl2Doublet_matrix; root_hom_injective | RootDoubletModule / RootDoubletFaithfulness / RootSU2 (planned) | L01–L07 | IN PROGRESS | Manuscript | The cyclic irreducible algebraic doublet, defining matrices, and faithfulness of a supplied defining action are checked. Fundamental representation and root integration are absent. |
 | lem:radial-pushforward | Projected Haar is compactly supported invariant probability, not concentrated at zero | doublet_radial_pushforward | ProjectedHaar | lem:root-doublet; L08–L11 | PROVED | Manuscript | Given the manuscript’s standing unitary doublet data: actual projected Haar probability, compact ball support, SU(2) invariance, and positive mass off zero. Root-doublet existence remains open. |
-| thm:simply-connected-simple | Representative A,P,Q, nonnegative nonzero A, exact tower on all compact simply connected simple groups | AdjointRankTwo.marker_tower; doublet_pure; doublet_marked | AdjointRankTwo / DoubletWitness | Adjoint root string; compact-real normalization; thm:radial-transfer | IN PROGRESS | Adjoint proof substitution at rank ≥2 | Full tower now proved for every compact real simple group of Cartan rank ≥2, without simple connectedness or L02/L06/Z05. Rank one remains AR03. The old supplied-doublet transfer remains available. |
+| thm:simply-connected-simple | The specified fundamental-representation functions in eq:group-pair satisfy the exact tower | compact_simple_marker_tower; doublet_pure; doublet_marked | SimpleGroupMarkerTower / DoubletWitness | Original specified functions: L02/L06; alternate existence: adjoint proof | IN PROGRESS | All-rank alternate existence proved; original supplied-doublet identities proved | The existential tower is unconditional for every compact connected simple group. The manuscript names particular functions from a fundamental representation; their general construction is still absent. Do not identify the alternate witnesses with those specified functions. |
 | prop:classical-closed-forms | Defining SU(n), n≥2, and Sp(n), n≥1: rising factorial formulas and printed examples | specialUnitary_closed_forms; compactSymplectic_closed_forms; specialUnitary_small_values; compactSymplectic_small_values | ClassicalSU / ClassicalSp / SphereBeta / SymplecticOrbit | C01–C07; projected_haar_moments | PROVED | Explicit matrix-root action and radial transfer | Both families are proved for all stated ranks with actual representative functions, pointwise first-column Hopf identities, normalized Haar moments, endpoints, and printed examples. Uses explicit SU(2) blocks, so no general root-existence theorem is assumed. |
 | lem:center-descent | Six functions descend as representative functions through full center and intermediate quotients | doublet_center_invariant; center_descent | CenterDescent | Z01–Z04; H04 | PROVED | Manuscript | For the standing irreducible unitary representation and projected coordinates: all six functions are invariant under the full center and descend as actual representative functions through every central subgroup. No universal representation-existence claim. |
-| cor:simple-central-forms | Exact marker tower and Mathieu failure for every compact connected simple central form | AdjointRankTwo.marker_tower; center_quotient_tower | AdjointRankTwo / QuotientWitness | Adjoint root string at rank ≥2; AR03 at rank one | IN PROGRESS | Direct adjoint proof substitution at rank ≥2 | Full tower on every simple group of rank ≥2 is proved directly, bypassing center descent and Z05 for that branch. Rank one remains AR03; the general statement is not yet proved. |
+| cor:simple-central-forms | Exact marker tower and Mathieu failure for every compact connected simple central form | compact_simple_marker_tower; compact_simple_not_mathieu | SimpleGroupMarkerTower | AdjointRankTwo; RankOneAdjoint; SU2CentralQuotient; Haar | PROVED | Direct adjoint proof substitution, split by rank | Full statement at every rank; no L02/L06/Z05 or simply connected covering hypothesis. |
 | prop:adjoint-simple-quotient | Every nonabelian compact connected Lie group surjects continuously onto adjoint compact simple group | CompactAdjoint.adjoint_simple_quotient | AdjointQuotient | G01–G06 | PROVED | Manuscript, with local openness replacing the closed-subgroup step | Actual compact connected centerless Lie-group target, simple group Lie algebra, continuous surjection, and identification with the automorphism identity component of a simple ideal. |
-| thm:uniform-nonabelian | Full manuscript quantifiers, representative triple and radial moment tower, positivity and vanishing | uniform_nonabelian | MainTheorem | prop:adjoint-simple-quotient; cor:simple-central-forms; lem:haar-pullback | TODO | Manuscript |  |
+| thm:uniform-nonabelian | Full manuscript quantifiers, representative triple and radial moment tower, positivity and vanishing | uniform_nonabelian; nonabelian_not_mathieu; HasMathieuProperty.mul_comm | UniformNonabelian / MarkerTower | prop:adjoint-simple-quotient; cor:simple-central-forms; lem:haar-pullback | PROVED | Construct actual adjoint simple quotient, then pull back its all-rank tower | HasMarkerTower expands to all manuscript quantifiers; expanded conclusion is checked independently in scripts/CheckAdjointRoute.lean. |
 | thm:dvdk | Nonzero complex multivariate Laurent f with all positive-power constant terms zero has Newton polytope avoiding zero | duistermaat_van_der_kallen | Torus | T04 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | cor:torus | Every torus has the Mathieu property | torus_mathieu | Torus | T01–T08; thm:dvdk | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
 | thm:classification | For every compact connected Lie group: Mathieu property iff abelian iff torus | classification | MainTheorem | thm:uniform-nonabelian; cor:torus; T01 | BLOCKED | Manuscript | Missing foundational infrastructure; see detailed obstruction investigation below. No proof or assumption added. |
@@ -345,7 +345,7 @@ because no declarations proving them exist yet. Foundational axiom whitelist:
 under `scripts/`; normal mathematical modules stay under `MathieuProperty/`.
 
 
-Current inventory counts: PROVED=99, TODO=1, IN PROGRESS=5, BLOCKED=5 (110 rows).
+Current inventory counts: PROVED=101, TODO=0, IN PROGRESS=4, BLOCKED=5 (110 rows).
 
 ## Foundation milestone audit (not the final whole-paper audit)
 
@@ -3526,3 +3526,93 @@ constants account for the larger theorem-constant increase). Complete index:
 - `AdjointRankTwo`: `exists_certificate`, `not_mathieu`, `marker_tower`, `not_mathieu_of_adjoint_rank_two`.
 
 - `AdjointRootString`: `primitive_for_root_triple`; the existing `adjoint_primitive` statement is preserved.
+
+## Rank-one adjoint form and full uniform nonabelian theorem
+
+PR #58 is merged at `ec8e68d76a293660076c62fcbb8494328163e98f`, with CI passing.
+This continuation on `formalization/rank-one-adjoint-form` closes AR03 and
+proves the full uniform nonabelian marker tower. There is no remaining
+rank-one obligation on the main classification dependency path.
+
+`RankOneRootAlgebra` proves that all roots are ±α at Cartan rank one, that
+the root sl₂ spans the complex algebra, and that the actual compact real
+algebra has a basis X,Y,Z satisfying [X,Y]=2Z, [Y,Z]=2X, [Z,X]=2Y.
+`SU2AdjointAlgebra` identifies it with the real Lie algebra of traceless
+skew-Hermitian 2×2 complex matrices. Its Killing form is explicitly −8 times
+the coordinate dot product.
+
+`SU2AdjointAction` constructs SU(2) conjugation on that concrete algebra.
+Every Lie automorphism is such a conjugation: the Hopf coordinates align
+its image of Z, and a diagonal phase aligns its image of X; these two
+vectors determine the automorphism. The homomorphism is continuous and
+surjective with kernel exactly the center {±1}. The first isomorphism theorem
+and compact-to-Hausdorff continuity give a topological group equivalence
+from SU(2)/{±1} to the full automorphism group. Euler parameters prove that
+this group is connected. No general root integration or simply connected
+covering theorem is used.
+
+`LieAutomorphismEquiv` transports automorphism groups along finite-dimensional
+real Lie algebra equivalences. `RankOneAdjoint.exists_center_quotient_equiv`
+then proves the exact AR03 target for the original group G, using the existing
+actual adjoint range=identity-component and kernel=center theorems:
+
+```lean
+Module.finrank ℝ (CompactCartanRootData.realCartan (E := E) (G := G)) = 1 →
+  Nonempty ((G ⧸ Subgroup.center G) ≃ₜ* Hopf.SU2Adjoint)
+```
+
+The standing hypotheses are just a finite-dimensional compact connected
+real Lie group with simple real Lie algebra. The rank-one witness is the
+already proved central quotient SU(2) tower, pulled back to G.
+`compact_simple_marker_tower` combines this with the rank-at-least-two tower.
+`uniform_nonabelian` constructs the existing adjoint compact simple quotient
+and pulls back every tower identity using normalized Haar measure.
+`nonabelian_not_mathieu` and `HasMathieuProperty.mul_comm` follow.
+
+Consequently **L02, L06, and Z05 are unnecessary for the nonabelian half
+and are removed from the main classification dependency path at every rank**.
+They remain documented, unformalized manuscript ingredients. The general
+multivariate DvK step, torus Mathieu theorem, and full classification remain
+deferred/unproved. Nothing about the manuscript or the printed SO indexing
+has been silently changed.
+
+Manuscript correspondence is deliberately stricter than existential coverage:
+`cor:simple-central-forms` and `thm:uniform-nonabelian` are now PROVED.
+`thm:simply-connected-simple` remains IN PROGRESS because its text specifies
+the functions from `eq:group-pair`, constructed using a fundamental
+representation. We have proved the full existential conclusion at every rank
+and retained the original supplied-doublet identities, but have not identified
+our alternate witnesses with those specified functions. Likewise the original
+root-doublet lemma and Z05 remain IN PROGRESS. Inventory:
+**101 PROVED / 0 TODO / 4 IN PROGRESS / 5 BLOCKED = 110**.
+
+Milestone validation: full `lake build` passed (**4313 jobs**); source audit
+passed for **192 Lean files**, including **188 mathematical modules**.
+The exhaustive dependency audit passed for **4316 project declarations /
+3542 theorem constants**, using only `propext`, `Classical.choice`, and
+`Quot.sound`. In particular the exact rank-one equivalence, all-rank simple
+tower, and uniform nonabelian theorem use only these foundational axioms.
+All four adjoint bridge targets and the expanded uniform conclusion check
+with proofs; the separate outstanding-obligation checker also passes.
+The verifier reproduces `scripts/verify_mathieu_classification.txt` byte for
+byte from its new location; the script and output are unchanged. The TeX
+source matches initial commit `aa283858550cc73fd9e06d34a40d111d2ad8b2d0`.
+
+This milestone adds 53 explicit theorem declarations (the larger audited
+constant increase includes generated proof helpers). Complete index:
+
+- `RankOneRootAlgebra`: `root_eq_or_neg_of_rank_one`, `root_sl2_eq_top_of_rank_one`, `triple_linearIndependent`, `root_triple_span_of_rank_one`, `finrank_eq_three_of_rank_one`, `real_finrank_eq_three`, `compact_triple_relations`, `compact_triple_span`, `exists_compact_basis`.
+
+- `SU2AdjointAlgebra`: `matrixCoordinates_mem`, `coordinates_val`, `read_coordinates`, `coordinates_read`, `coordinates_lie`, `basis_apply`, `basis_cyclic`, `basis_repr_coordinates`, `killing_coordinates`, `equiv_norm_sq`, `exists_matrix_equiv`.
+
+- `SU2AdjointAction`: `conjugate_mem`, `conjugate_val`, `conjugate_one`, `conjugate_mul`, `conjugate_lie`, `conjugate_basis_two`, `conjugate_basis_two_surjective`, `conjugate_phase_basis_two`, `conjugate_phase_basis_zero`, `equiv_fix_two_read_zero`, `equiv_ext_zero_two`, `equiv_fix_two_is_phase`, `conjugateEquiv_surjective`, `automorphismHom_apply`, `automorphismHom_surjective`, `automorphismHom_continuous`, `automorphismHom_ker`, `su2_connected`, `automorphism_connected`.
+
+- `LieAutomorphismEquiv`: `congrHom_apply`, `congrHom_symm_apply`, `congrHom_continuous`.
+
+- `RankOneAdjoint`: `exists_center_quotient_equiv`, `not_mathieu`.
+
+- `MarkerTower`: `HasMarkerTower.not_mathieu`, `HasMarkerTower.pullback`.
+
+- `SimpleGroupMarkerTower`: `Hopf.su2_adjoint_marker_tower`, `AdjointRankOne.marker_tower`, `compact_simple_marker_tower`, `compact_simple_not_mathieu`.
+
+- `UniformNonabelian`: `uniform_nonabelian`, `nonabelian_not_mathieu`, `HasMathieuProperty.mul_comm`.

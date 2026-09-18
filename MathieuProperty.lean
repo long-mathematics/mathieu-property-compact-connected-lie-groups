@@ -125,6 +125,14 @@ import MathieuProperty.CompactComplexSimple
 import MathieuProperty.CompactRootNormalization
 import MathieuProperty.CompactDoubletProjection
 import MathieuProperty.AdjointRankTwo
+import MathieuProperty.RankOneRootAlgebra
+import MathieuProperty.SU2AdjointAlgebra
+import MathieuProperty.SU2AdjointAction
+import MathieuProperty.LieAutomorphismEquiv
+import MathieuProperty.RankOneAdjoint
+import MathieuProperty.MarkerTower
+import MathieuProperty.SimpleGroupMarkerTower
+import MathieuProperty.UniformNonabelian
 
 /-! Formalization of The Mathieu Property for Compact Connected Lie Groups.
 See FORMALIZATION_STATUS.md for the exact scope currently checked.

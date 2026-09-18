@@ -1,7 +1,7 @@
 import MathieuProperty
 
-/-! Checked existence results and the remaining target for the adjoint alternative.
-The AR01/AR02/AR02a examples are proofs; AR03 remains only a type-checked target. -/
+/-! Checked existence results for the adjoint alternative.
+All four bridge targets AR01/AR02/AR02a/AR03 are now checked by proofs. -/
 open MathieuProperty
 open scoped Manifold ContDiff TensorProduct
 noncomputable section
@@ -40,8 +40,33 @@ example : ∀ α : (CompactCartanRootData.simpleBase (E := E) (G := G)).support,
       (1 : ℂ) ⊗ₜ[ℝ] Z = Complex.I • h :=
   CompactCartanRootData.exists_compact_root_triple
 
-/- AR03: exact remaining rank-one identification. The SU(2)/{±1} witness,
-center calculation, and pullback implication are already proved. This target
-asks only for the adjoint form, with no simply connected covering source. -/
-#check (Module.finrank ℝ (CompactCartanRootData.realCartan (E := E) (G := G)) = 1 →
-  Nonempty ((G ⧸ Subgroup.center G) ≃ₜ* Hopf.SU2Adjoint) : Prop)
+/- AR03: proved rank-one adjoint-form identification, without a simply
+connected covering source. -/
+example : Module.finrank ℝ (CompactCartanRootData.realCartan (E := E) (G := G)) = 1 →
+  Nonempty ((G ⧸ Subgroup.center G) ≃ₜ* Hopf.SU2Adjoint) :=
+  AdjointRankOne.exists_center_quotient_equiv
+
+end
+noncomputable section
+
+variable (E G : Type*) [NormedAddCommGroup E] [NormedSpace ℝ E]
+  [FiniteDimensional ℝ E] [Group G] [TopologicalSpace G] [T2Space G]
+  [ChartedSpace E G] [LieGroup 𝓘(ℝ,E) ∞ G] [CompactSpace G] [ConnectedSpace G]
+  [IsTopologicalGroup G] [MeasurableSpace G] [BorelSpace G]
+
+include E in
+/-- Expanded manuscript conclusion, with no simple-group or root data assumed. -/
+example (hn : ¬ ∀ g h : G, g*h = h*g) :
+    ∃ A P Q : representativeFunctions (G := G),
+      (∀ g, ∃ r : ℝ, 0 ≤ r ∧ A.val g = (r : ℂ)) ∧ A ≠ 0 ∧
+      (∀ m : ℕ, 1 ≤ m → representativeIntegral G (P^m) = 0) ∧
+      (∀ m s : ℕ, 1 ≤ m → 1 ≤ s →
+        representativeIntegral G (Q^s*P^m) =
+          (momentConstant m : ℂ)*((m-1).choose (s-1) : ℂ)*
+            representativeIntegral G (A^(4*m+s))) ∧
+      (∀ m s : ℕ, 1 ≤ m → m < s → representativeIntegral G (Q^s*P^m) = 0) ∧
+      (∀ m s : ℕ, 1 ≤ m → 1 ≤ s → s ≤ m → ∃ r : ℝ, 0 < r ∧
+        representativeIntegral G (Q^s*P^m) = (r : ℂ)) :=
+  uniform_nonabelian (E := E) hn
+
+end
