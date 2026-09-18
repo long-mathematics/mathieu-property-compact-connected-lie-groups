@@ -569,3 +569,16 @@ run_cmd do
 #print axioms MathieuProperty.AdjointRankTwo.marker_tower
 #print axioms MathieuProperty.AdjointRankTwo.not_mathieu
 #print axioms MathieuProperty.CompactAdjoint.not_mathieu_of_adjoint_rank_two
+
+#print axioms MathieuProperty.AdjointRankOne.exists_compact_basis
+#print axioms MathieuProperty.AdjointRankOne.exists_matrix_equiv
+#print axioms MathieuProperty.SU2AdjointAlgebra.conjugateEquiv_surjective
+#print axioms MathieuProperty.SU2AdjointAlgebra.automorphismHom_ker
+#print axioms MathieuProperty.SU2AdjointAlgebra.quotientEquiv
+#print axioms MathieuProperty.AdjointRankOne.exists_center_quotient_equiv
+#print axioms MathieuProperty.AdjointRankOne.marker_tower
+#print axioms MathieuProperty.HasMarkerTower.pullback
+#print axioms MathieuProperty.compact_simple_marker_tower
+#print axioms MathieuProperty.uniform_nonabelian
+#print axioms MathieuProperty.nonabelian_not_mathieu
+#print axioms MathieuProperty.HasMathieuProperty.mul_comm
